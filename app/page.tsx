@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Slider from "./components/Slider";
+
+import { Mic , Volume } from "lucide-react";
 export default function Home() {
 
     const siteInfo = {
@@ -25,7 +29,36 @@ export default function Home() {
     <div className="">
       <main className="mt-[50px]">
 
-         <Slider siteInfo={siteInfo}  autoPlay={true} interval={4000} />
+         <Slider siteInfo={siteInfo}  autoPlay={true} interval={4000}  />
+                {/* Marquee Section */}
+              <div className="flex items-center gap-2 px-4 py-2 bg-gray-800 relative overflow-hidden mt-2">
+                {/* Mic Icon */}
+                <Volume  className="w-6 h-6 text-orange-400 flex-shrink-0" />
+
+                {/* Marquee text */}
+                <div className="flex-1 overflow-hidden">
+                  <div className="whitespace-nowrap animate-marquee text-white text-sm">
+                    এই একটি উদাহরণ বাংলার ম্যারিক টেক্সট যা বাম থেকে ডান দিকে চলবে। এটি স্বয়ংক্রিয়ভাবে স্ক্রল হবে।
+                  </div>
+                </div>
+              </div>
+
+              <style jsx>{`
+                @keyframes marquee {
+                  0% {
+                    transform: translateX(0%); /* start fully visible */
+                  }
+                  100% {
+                    transform: translateX(-100%); /* scroll completely left */
+                  }
+                }
+                .animate-marquee {
+                  display: inline-block;
+                  animation: marquee 15s linear infinite;
+                }
+              `}</style>
+
+
       </main>
     </div>
   );

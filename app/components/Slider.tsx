@@ -86,13 +86,13 @@ export default function Slider({
     <div
       // Force this component to layout in LTR so translateX logic is stable
       dir="ltr"
-      className="mt-4  h-[200px] sm:h-[220px] md:h-[240px] w-full overflow-hidden rounded-lg "
+      className="mt-4  h-[200px]  w-full overflow-hidden "
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
       {/* track */}
       <div
-        className="flex h-full transition-transform duration-500 ease-out"
+        className="flex h-full w-full transition-transform duration-500 ease-out"
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {pages.map((page, pageIdx) => (
@@ -110,7 +110,7 @@ export default function Slider({
                   src={item?.imageUrl}
                   alt={item?.alt || "Qatarat banner"}
                   fill
-                  className="object-contain rounded-2xl"
+                  className=" object-contain"
                   sizes="(max-width: 768px) 100vw, 50vw"
                   priority={pageIdx === 0 && itemIdx === 0}
                 />
