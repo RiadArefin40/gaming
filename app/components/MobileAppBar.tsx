@@ -31,17 +31,17 @@ export default function MobileAppBar() {
 
         <div className="flex items-center gap-3 z-50">
           {/* Login / Signup */}
-          <button className="px-3 w-[75px] py-[6px] text-sm bg-blue-500 text-white rounded hover:bg-blue-600">
+          <button className="px-3 w-[75px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-blue-600">
             Login
           </button>
-          <button className="px-3 w-[75px] py-[6px] text-sm bg-green-500 text-white rounded hover:bg-green-600">
+          <button className="px-3 w-[75px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-green-600">
             Sign Up
           </button>
 
           {/* Language Sheet */}
           <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <SheetTrigger asChild>
-              <button className="w-8 p-2 h-8 flex items-center justify-center bg-orange-400 rounded-xl">
+              <button className="w-8 p-2 h-8 flex items-center justify-center bg-cyan-400 rounded-xl">
                 <span className="text-md">
                   {languages.find((l) => l.code === selectedLang)?.flag}
                 </span>
@@ -71,14 +71,15 @@ export default function MobileAppBar() {
                 {languages.map((lang) => (
                   <button
                     key={lang.code}
-                    className={`px-4 py-2 w-[120px] rounded ${
+                    className={`px-4 py-2 w-[120px] font-medium rounded ${
                       selectedLang === lang.code
                         ? "bg-orange-500 text-white"
                         : "bg-gray-700 text-orange-500"
                     }`}
                     onClick={() => setSelectedLang(lang.code)}
                   >
-                     {lang.name}
+                    <span className="font-medium">    {lang.name}</span>
+                  
                   </button>
                 ))}
               </div>
