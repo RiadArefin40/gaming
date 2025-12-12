@@ -41,7 +41,7 @@ export default function MobileAppBar() {
           {/* Language Sheet */}
           <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <SheetTrigger asChild>
-              <button className="w-8 p-2 h-8 flex items-center justify-center border border-orange-400 rounded-xl">
+              <button className="w-8 p-2 h-8 flex items-center justify-center border-2 border-orange-400 rounded-xl">
                 <span className="text-md">
                   {languages.find((l) => l.code === selectedLang)?.flag}
                 </span>
