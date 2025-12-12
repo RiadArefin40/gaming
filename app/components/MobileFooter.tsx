@@ -36,7 +36,7 @@ export default function MobileFooter() {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 md:hidden z-50">
+    <div className="fixed bottom-0 left-0 right-0 md:hidden z-150">
 
 
       <div className="flex items-center justify-between px-6 py-4  border-t text-gray-300  bg-gray-900">
