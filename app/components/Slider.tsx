@@ -86,17 +86,17 @@ export default function Slider({
     <div
       // Force this component to layout in LTR so translateX logic is stable
       dir="ltr"
-      className="mt-4  h-[200px]  w-full overflow-hidden "
+      className="mt-4  h-[200px]  overflow-hidden "
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
       {/* track */}
       <div
-        className="flex h-full w-full transition-transform duration-500 ease-out"
+        className="flex h-full transition-transform duration-500 ease-out"
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {pages.map((page, pageIdx) => (
-          <div key={pageIdx} className="w-full h-full flex-shrink-0 flex">
+          <div key={pageIdx} className="h-full flex-shrink-0 flex">
             {page.map((item: any, itemIdx: number) => (
               <button
                 key={itemIdx}
