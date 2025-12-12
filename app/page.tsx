@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Slider from "./components/Slider";
+import CategorySlider from "./components/CategorySlide";
 
 import { Mic , Volume } from "lucide-react";
 export default function Home() {
@@ -40,11 +41,7 @@ export default function Home() {
                   </span>
                 </div>
        
-                {/* <div className="flex-1 overflow-hidden">
-                  <div className="whitespace-nowrap animate-marquee text-white text-sm">
-                    এই একটি উদাহরণ বাংলার ম্যারিক টেক্সট যা বাম থেকে ডান দিকে চলবে। এটি স্বয়ংক্রিয়ভাবে স্ক্রল হবে।
-                  </div>
-                </div> */}
+          
               </div>
 
               <style jsx>{`
@@ -61,6 +58,10 @@ export default function Home() {
                   animation: marquee 15s linear infinite;
                 }
               `}</style>
+
+
+
+              <CategorySlider/>
 
 
       </main>
