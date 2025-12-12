@@ -15,8 +15,9 @@ import {
 const categories = [
   { name: "Exclusive", icon: <Star /> },
   { name: "Sports", icon: <Trophy /> },
+    { name: "Casino", icon: <Coins /> },
   { name: "Slot", icon: <Dice6 /> },
-  { name: "Casino", icon: <Coins /> },
+
   { name: "Fishing", icon: <Fish /> },
   { name: "Arcade", icon: <Joystick /> },
   { name: "Lottery", icon: <Ticket /> },
@@ -50,7 +51,7 @@ export default function CategorySlider() {
     <div className="relative max-w-screen px-2 py-6 bg-gray-600 mt-4 overflow-hidden">
       <div
         {...handlers}
-        className="flex gap-3 transition-transform duration-300"
+        className="flex gap-2 transition-transform duration-300"
         style={{
           transform: `translateX(-${sliderPos * 7.5}rem)`,
         }}
@@ -62,10 +63,10 @@ export default function CategorySlider() {
               key={item.name}
               onClick={() => handleClick(idx)}
               className={`
-                flex-shrink-0 w-28 h-20 rounded-xl flex flex-col
+                flex-shrink-0 w-24 p-2 h-16 rounded-xl flex flex-col
                 items-center justify-center cursor-pointer select-none
                 transition-all duration-300 shadow-md
-                ${isActive ? "bg-orange-400 animate-pulse text-white scale-105" : "bg-gray-900 text-gray-300 hover:bg-gray-700"}
+                ${isActive ? "bg-orange-400 text-white scale-105" : "bg-gray-900 text-gray-300 hover:bg-gray-700"}
               `}
             >
               {/* <div
@@ -77,7 +78,7 @@ export default function CategorySlider() {
   className={`
     w-7 h-7 mb-1 flex items-center justify-center
     rounded-full transition-all duration-300
-    ${isActive ? "animate-pulse w-10 h-10 border-4 border-white text-gray-100" : "w-7 h-7 border-none text-gray-300"}
+    ${isActive ? "animate-pulse w-10 h-10 border-2 border-white text-gray-100" : "w-7 h-7 border-none text-gray-300"}
   `}
 >
   {item.icon}
