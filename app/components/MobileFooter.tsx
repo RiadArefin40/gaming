@@ -39,7 +39,7 @@ export default function MobileFooter() {
     <div className="fixed bottom-0 left-0 right-0 md:hidden z-200">
 
 
-      <div className="flex items-center justify-between px-6 py-4  border-t text-gray-300  bg-gray-900">
+      <div className="flex items-center justify-between px-6 py-4  border-t text-gray-300 w-full  bg-gray-900">
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
           <SheetTrigger>
             <div className="flex flex-col items-center gap-1">

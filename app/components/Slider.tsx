@@ -86,7 +86,7 @@ export default function Slider({
     <div
       // Force this component to layout in LTR so translateX logic is stable
       dir="ltr"
-      className="mt-4  h-[200px]  overflow-hidden "
+      className="mt-4 relative h-[200px] sm:h-[220px] md:h-[240px] w-full overflow-hidden rounded-lg "
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -96,7 +96,7 @@ export default function Slider({
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {pages.map((page, pageIdx) => (
-          <div key={pageIdx} className="h-full flex-shrink-0 flex">
+          <div key={pageIdx} className="w-full h-full flex-shrink-0 flex">
             {page.map((item: any, itemIdx: number) => (
               <button
                 key={itemIdx}
@@ -110,7 +110,7 @@ export default function Slider({
                   src={item?.imageUrl}
                   alt={item?.alt || "Qatarat banner"}
                   fill
-                  className=" object-contain"
+                  className="object-contain rounded-2xl"
                   sizes="(max-width: 768px) 100vw, 50vw"
                   priority={pageIdx === 0 && itemIdx === 0}
                 />
@@ -139,7 +139,7 @@ export default function Slider({
       </button>
 
       {/* dots */}
-      <div className="absolute bottom0 left-1/2 -translate-x-1/2 flex gap-2">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2 !mt-2">
         {pages.map((_, idx) => (
           <button
             key={idx}

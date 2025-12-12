@@ -31,10 +31,10 @@ export default function MobileAppBar() {
 
         <div className="flex items-center gap-3 z-50">
           {/* Login / Signup */}
-          <button className="px-3 py-[6px] text-sm bg-blue-500 text-white rounded hover:bg-blue-600">
+          <button className="px-3 w-[75px] py-[6px] text-sm bg-blue-500 text-white rounded hover:bg-blue-600">
             Login
           </button>
-          <button className="px-3 py-[6px] text-sm bg-green-500 text-white rounded hover:bg-green-600">
+          <button className="px-3 w-[75px] py-[6px] text-sm bg-green-500 text-white rounded hover:bg-green-600">
             Sign Up
           </button>
 

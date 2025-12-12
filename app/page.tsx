@@ -31,16 +31,20 @@ export default function Home() {
 
          <Slider siteInfo={siteInfo}  autoPlay={true} interval={4000}  />
                 {/* Marquee Section */}
-              <div className="flex items-center gap-2 px-4 py-2 bg-gray-800 relative overflow-hidden mt-2">
-                {/* Mic Icon */}
-                <Volume  className="w-6 h-6 text-orange-400 flex-shrink-0" />
-
-                {/* Marquee text */}
-                <div className="flex-1 overflow-hidden">
+              <div className="flex items-center gap-2  py-2 bg-gray-800 relative overflow-hidden mt-2">
+         
+                <Volume  className="w-8 h-8 text-orange-400 bg-gray-800 z-10 pl-2" />
+                <div className="flex-1 absolute overflow-hidden">
+                  <span className="animate-marquee text-white text-sm inline-block whitespace-nowrap">
+                  এই একটি উদাহরণ বাংলার ম্যারিক টেক্সট যা বাম থেকে ডান দিকে চলবে। এটি স্বয়ংক্রিয়ভাবে স্ক্রল হবে।
+                  </span>
+                </div>
+       
+                {/* <div className="flex-1 overflow-hidden">
                   <div className="whitespace-nowrap animate-marquee text-white text-sm">
                     এই একটি উদাহরণ বাংলার ম্যারিক টেক্সট যা বাম থেকে ডান দিকে চলবে। এটি স্বয়ংক্রিয়ভাবে স্ক্রল হবে।
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <style jsx>{`
