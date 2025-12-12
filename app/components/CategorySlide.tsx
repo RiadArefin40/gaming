@@ -78,13 +78,13 @@ export default function CategorySlider() {
   className={`
     w-7 h-7 mb-1 flex items-center justify-center
     rounded-full transition-all duration-300
-    ${isActive ? "animate-pulse w-10 h-10 border-2 border-white text-gray-100" : "w-7 h-7 border-none text-gray-300"}
+    ${isActive ? " w-10 h-10 border-2 border-white text-[20px] font-medium text-gray-100" : "w-7 h-7 border-none  text-gray-300"}
   `}
 >
   {item.icon}
 </div>
 
-              <span className="text-sm font-medium">{item.name}</span>
+              <span className=" font-medium">{item.name}</span>
             </div>
           );
         })}
