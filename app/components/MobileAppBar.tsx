@@ -8,6 +8,7 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { getAuthUser } from "@/lib/auth";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 export default function MobileAppBar() {
   const [selectedLang, setSelectedLang] = useState("EN");
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -17,6 +18,7 @@ export default function MobileAppBar() {
     { code: "BN", name: "বাংলা", flag: "🇧🇩" },
   ];
   const router = useRouter();
+  const pathname = usePathname();
   return (
     <>
       {/* Blur overlay */}
@@ -49,21 +51,24 @@ export default function MobileAppBar() {
         </div>
          )}
           
-          {!user &&(
-                  <button  onClick={() => router.push("/login")} className="px-3 w-[75px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-blue-600">
-            Login
-          </button>
- 
+   {!user && pathname !== "/login" && (
+  <button
+    onClick={() => router.push("/login")}
+    className="px-3 w-[75px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
+  >
+    Login
+  </button>
+)}
 
-          )}
+{!user && pathname !== "/login" && (
+  <button
+    onClick={() => router.push("/login")}
+    className="px-3 w-[75px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-green-600"
+  >
+    Sign Up
+  </button>
+)}
 
-                {!user &&(
-                                 <button onClick={() => router.push("/login")}  className="px-3 w-[75px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-green-600">
-            Sign Up
-          </button>
- 
-
-          )}
 
 
     
