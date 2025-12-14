@@ -1,16 +1,17 @@
 "use client";
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Plus, RotateCw, X } from "lucide-react";
+import { Plus, RotateCw, X, Wallet } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { getAuthUser } from "@/lib/auth";
 
 export default function MobileAppBar() {
   const [selectedLang, setSelectedLang] = useState("EN");
   const [sheetOpen, setSheetOpen] = useState(false);
-
+  const user = getAuthUser();
   const languages = [
     { code: "EN", name: "English", flag: "🇺🇸" },
     { code: "BN", name: "বাংলা", flag: "🇧🇩" },
@@ -26,17 +27,47 @@ export default function MobileAppBar() {
       <div className="flex w-full items-center justify-between px-4 py-4 shadow-md absolute top-0 left-0 right-0 z-50 bg-gray-900">
         <div className="flex items-center gap-3">
           <SidebarTrigger className="hidden md:block" />
-          <h1 className="text-xl text-orange-400 font-semibold">YourLogo</h1>
+         <div className="w-[110px] h-10 -mt-12 -ml-8 "><img className="" src="/logo.png" alt="" /></div>
         </div>
 
         <div className="flex items-center gap-3 z-50">
-          {/* Login / Signup */}
-          <button className="px-3 w-[75px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-blue-600">
+
+         {user &&(
+                <div className="flex items-center">
+        
+
+          <button className="flex  items-center gap-1 px-3 w-[60px] h-9  bg-gray-400">
+            <Wallet size={16} />
+            <span className="text-xs">৳ 0</span>
+          </button>
+  <button className="w-9 h-9 flex items-center justify-center bg-gray-400 ">
+            <RotateCw size={16} />
+          </button>
+          <button className="w-9 h-9 flex items-center justify-center bg-orange-400">
+            <Plus size={16} />
+          </button>
+        </div>
+         )}
+          
+          {!user &&(
+                  <button className="px-3 w-[75px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-blue-600">
             Login
           </button>
-          <button className="px-3 w-[75px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-green-600">
+ 
+
+          )}
+
+                {!user &&(
+                                 <button className="px-3 w-[75px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-green-600">
             Sign Up
           </button>
+ 
+
+          )}
+
+
+    
+    
 
           {/* Language Sheet */}
           <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>

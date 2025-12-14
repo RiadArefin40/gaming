@@ -3,10 +3,12 @@
 import Image from "next/image";
 import Slider from "./components/Slider";
 import CategorySlider from "./components/CategorySlide";
+import { getAuthUser } from "@/lib/auth";
 
 import { Mic , Volume } from "lucide-react";
 export default function Home() {
-
+ const user = getAuthUser();
+ console.log("user", user)
     const siteInfo = {
     slider_items: [
       {
