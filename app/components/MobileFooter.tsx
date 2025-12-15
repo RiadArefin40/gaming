@@ -112,7 +112,7 @@ export default function MobileFooter() {
              {user && (
                 <button
       onClick={handleLogout}
-    className="px-3 mt-6 w-[175px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
+    className="px-3 mb-[220px] mt-6 w-[175px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
   >
     Log Out
   </button>
