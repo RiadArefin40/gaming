@@ -5,6 +5,9 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { useState } from "react";
+import { getAuthUser } from "@/lib/auth";
+
+
 
 interface MenuItem {
   name: string;
@@ -16,7 +19,7 @@ interface MenuItem {
 export default function MobileFooter() {
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
   const [sheetOpen, setSheetOpen] = useState(false); // Controlled sheet state
-
+  const user = getAuthUser();
   const toggleSection = (section: string) => {
     setOpenSections((prev) => ({
       ...prev,
@@ -106,13 +109,15 @@ export default function MobileFooter() {
                   )}
                 </li>
               ))}
-
+             {user && (
                 <button
       onClick={handleLogout}
     className="px-3 mt-6 w-[175px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
   >
     Log Out
   </button>
+             )}
+
             </ul>
 
             <style jsx global>{`
