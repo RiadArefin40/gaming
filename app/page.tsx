@@ -100,7 +100,7 @@ export default function Home() {
                <MatchSlider  />
                <EventSlider/>
                  <ProviderCategory/>
-                 <FeaturedSlider siteInfo={siteInfo}  autoPlay={true} interval={4000} />\
+                 <FeaturedSlider siteInfo={siteInfo}  autoPlay={true} interval={4000} />
 
                  <div className="bg-grey-900">
                           <ul className="p-4 space-y-2 text-lg text-gray-800 ">
@@ -114,7 +114,7 @@ export default function Home() {
                     onClick={() => item.children && toggleSection(item.name)}
                     className="flex items-center justify-between w-full py-2 px-3 rounded text-slate-400 hover:bg-gray-100 hover:text-gray-500"
                   >
-                    <div className="flex items-center gap-2 ">
+                    <div className="flex font-medium items-center gap-2 ">
        
                       <span>{item.name}</span>
                     </div>
@@ -124,7 +124,7 @@ export default function Home() {
                     <ul className="pl-8 mt-1 space-y-1">
                       {item.children.map((child, cidx) => (
                         <li key={cidx}>
-                          <a href="#" className="block py-1 text-gray-700 hover:text-purple-700">
+                          <a href="#" className="block py-1 text-gray-300 hover:text-purple-700">
                             {child}
                           </a>
                         </li>
