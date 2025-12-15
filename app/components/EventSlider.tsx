@@ -10,6 +10,8 @@ import {
   Joystick,
   Ticket,
 } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
 
 const categories = [
   { name: "Exclusive", icon: <Star /> },
@@ -92,6 +94,10 @@ const gameImages: Record<string, { id: number; src: string }[]> = {
   fishing: [],
   arcade: [],
   lottery: [],
+  event:[
+    {id:1, src:"https://img.j189eb.com/upload/announcement/image_281195.jpg&quot"},
+       {id:2, src:"https://img.j189eb.com/upload/announcement/image_281195.jpg&quot"},
+  ]
 };
 
 // reuse casino images for other categories
@@ -100,7 +106,7 @@ gameImages.fishing = gameImages.casino;
 gameImages.arcade = gameImages.casino;
 gameImages.lottery = gameImages.casino;
 
-export default function CategorySlider() {
+export default function EventSlider() {
   const [selected, setSelected] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -117,8 +123,53 @@ export default function CategorySlider() {
     });
   };
 
+  const scrollByCard = (direction: "left" | "right") => {
+  const container = containerRef.current;
+  if (!container) return;
+
+  const card = container.querySelector(
+    "[data-card]"
+  ) as HTMLElement;
+
+  if (!card) return;
+
+  const cardWidth = card.offsetWidth + 12; // 12 = gap-3
+
+  container.scrollBy({
+    left: direction === "left" ? -cardWidth : cardWidth,
+    behavior: "smooth",
+  });
+};
+
+
   return (
-    <div className="my-4  z-50">
+    <div className="my-4 px-4 z-50">
+     <div className="mb-4 flex items-center justify-between">
+  <p className="text-xl border-l-4 border-orange-400 pl-4">
+    Event
+  </p>
+
+  <div className="flex gap-2">
+    <button
+      onClick={() => scrollByCard("left")}
+      className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700
+                 flex items-center justify-center text-slate-300
+                 hover:bg-slate-700 transition"
+    >
+      <ChevronLeft size={18} />
+    </button>
+
+    <button
+      onClick={() => scrollByCard("right")}
+      className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700
+                 flex items-center justify-center text-slate-300
+                 hover:bg-slate-700 transition"
+    >
+      <ChevronRight size={18} />
+    </button>
+  </div>
+</div>
+
       <div
         ref={containerRef}
         className="
@@ -129,102 +180,52 @@ export default function CategorySlider() {
   touch-pan-x
   overscroll-x-contain
   max-w-screen
-  px-4
+  
   no-scrollbar
         "
       >
-        {categories.map((item, idx) => {
+        {gameImages.event.map((item, idx) => {
           const isActive = idx === selected;
 
           return (
             <div
-              key={item.name}
+              data-card
+              key={item.id}
               onClick={() => handleSelect(idx)}
               className={`
     snap-center
-    flex-shrink-0 w-28  pt-2 p-1
-    rounded-2xl
+    flex-shrink-0 basis-[98%]   
+max-w-[98%]  pt-2 p-1
+   
     flex flex-col items-center justify-center
     cursor-pointer select-none
     transition-all duration-300 ease-out
     border
-    ${
-      isActive
-        ? `
-         
-          text-white 
-          border-orange-300
-          hight-[88px]
-          bg-gradient-to-br from-orange-400 to-orange-500
-        `
-        : `
-          bg-gradient-to-br from-slate-800 to-slate-900
+           bg-gradient-to-br from-slate-800 to-slate-900
           text-slate-300
-          h-[80px]
+   
           border-slate-700
-         
-
-    
-        `
-    }
+   
   `}
             >
               <div
-                className={`
-    flex items-center justify-center mb-1
-    rounded-full transition-all duration-300
-    ${
-      isActive
-        ? `
-          w-9 h-9
-          bg-white/15
-         scale-115
-          text-white
-          hover:translate-y-[-2px]
-           bg-slate-200
-     
-        `
-        : `
-          w-8 h-8
-          bg-black/30
-          text-slate-300
-          shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]
-        `
-    }
-  `}
+
               >
-                {item.icon}
+                
+                <div className=" flex items-center"> 
+                      <img className="" src={item.src} alt="" />
+                    
+                </div>
+    
               </div>
 
-              <span className="text-sm font-medium">{item.name}</span>
+            
             </div>
           );
         })}
       </div>
 
-      <div className="grid grid-cols-3 gap-3 my-4 px-4">
-        {gameImages.exclusive.map((game) => (
-          <div
-            key={game.id}
-            className="flex items-center justify-center rounded-xl"
-          >
-            <img
-              src={game.src}
-              alt="exclusive-game"
-              className="w-full h-auto object-contain"
-            />
-          </div>
-        ))}
-      </div>
 
-      <div className="flex justify-center ">
-        <button
-          // onClick={() => router.push("/login")}
-          className="px-3 w-[172px] h-[55px] py-[6px] text-lg font-medium bg-orange-400 text-white font-medium rounded hover:bg-blue-600 "
-        >
-          More
-        </button>
-      </div>
     </div>
   );
 }

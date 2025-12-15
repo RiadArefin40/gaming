@@ -8,6 +8,7 @@ import CategorySelectionSlider from "./components/CategorySelectionSlider"
 import ProviderCategory from "./components/ProviderCategory";
 import { Mic , Volume } from "lucide-react";
 import MatchSlider from "./components/MatchSlider";
+import EventSlider from "./components/EventSlider";
 export default function Home() {
  const user = getAuthUser();
  console.log("user", user)
@@ -65,6 +66,7 @@ export default function Home() {
 
                <ProviderCategory/>
                <MatchSlider  />
+               <EventSlider/>
                  <ProviderCategory/>
               {/* <CategorySelectionSlider siteInfo={siteInfo}  autoPlay={false} interval={4000}/> */}
 
