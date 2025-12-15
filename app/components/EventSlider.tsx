@@ -161,7 +161,7 @@ export default function EventSlider() {
     Event
   </p>
 
-  <div className="flex gap-2">
+  {/* <div className="flex gap-2">
     <button
       onClick={() => scrollByCard("left")}
       className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700
@@ -179,7 +179,7 @@ export default function EventSlider() {
     >
       <ChevronRight size={18} />
     </button>
-  </div>
+  </div> */}
 </div>
 
     <Slider siteInfo={siteInfo}  autoPlay={true} interval={4000} />
