@@ -1,4 +1,3 @@
-// app/.../components/Slider.tsx
 "use client";
 
 import Image from "next/image";
@@ -10,7 +9,6 @@ interface SliderProps {
   siteInfo: any;
   autoPlay?: boolean;
   interval?: number;
-
 }
 
 export default function Slider({
@@ -20,8 +18,6 @@ export default function Slider({
 }: SliderProps) {
   const router = useRouter();
 
-
-  // Always work from the original array
   const sliderItems: any[] = Array.isArray(siteInfo?.slider_items)
     ? [
         ...siteInfo.slider_items,
@@ -32,7 +28,6 @@ export default function Slider({
 
   const pages = useMemo(() => {
     if (!sliderItems.length) return [];
-
     const res: any[][] = [];
     const len = sliderItems.length;
     for (let i = 0; i < len; i += 2) {
@@ -40,7 +35,6 @@ export default function Slider({
       const second = sliderItems[i + 1] ?? sliderItems[(i + 1) % len];
       res.push([first, second]);
     }
-
     return res;
   }, [sliderItems]);
 
@@ -57,6 +51,7 @@ export default function Slider({
   const next = () => goTo(current + 1);
   const prev = () => goTo(current - 1);
 
+  // Auto-play effect
   useEffect(() => {
     if (!autoPlay || isHovering || total <= 1) return;
 
@@ -71,8 +66,31 @@ export default function Slider({
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current, autoPlay, isHovering, total, interval]);
+
+  // Touch swipe state
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current !== null && touchEndX.current !== null) {
+      const deltaX = touchStartX.current - touchEndX.current;
+      if (Math.abs(deltaX) > 50) {
+        if (deltaX > 0) next(); // swipe left
+        else prev(); // swipe right
+      }
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
 
   if (!total) {
     return (
@@ -84,11 +102,13 @@ export default function Slider({
 
   return (
     <div
-      // Force this component to layout in LTR so translateX logic is stable
       dir="ltr"
-      className="mt-4 relative h-[200px] sm:h-[220px] md:h-[240px] w-full overflow-hidden rounded-lg "
+      className="mt-4 relative h-[200px] sm:h-[220px] md:h-[240px] w-full overflow-hidden rounded-lg"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       {/* track */}
       <div
@@ -101,7 +121,6 @@ export default function Slider({
               <button
                 key={itemIdx}
                 type="button"
-                // onClick={() => router.push(`/${lang}/subscription`)}
                 className={`relative h-full flex-1 focus:outline-none ${
                   itemIdx === 1 ? "hidden md:block" : ""
                 }`}
@@ -118,22 +137,22 @@ export default function Slider({
         ))}
       </div>
 
-      {/* arrows (optional: flip sides/icons for RTL lang) */}
+      {/* arrows */}
       <button
         type="button"
         onClick={prev}
-        className={`hidden md:flex absolute top-1/2 -translate-y-1/2 h-10 w-10 items-center  justify-center rounded-full text-gray-800 shadow-md focus:outline-none `}
+        className="hidden md:flex absolute top-1/2 -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full text-gray-800 shadow-md focus:outline-none"
         aria-label="Previous slide"
       >
-     <ChevronLeft size={24} />
+        <ChevronLeft size={24} />
       </button>
       <button
         type="button"
         onClick={next}
-        className={`hidden md:flex absolute top-1/2 -translate-y-1/2 h-10 w-10 items-center  justify-center rounded-full text-gray-800 shadow-md focus:outline-none `}
+        className="hidden md:flex absolute top-1/2 -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full text-gray-800 shadow-md focus:outline-none"
         aria-label="Next slide"
       >
-  <ChevronRight size={24} />
+        <ChevronRight size={24} />
       </button>
 
       {/* dots */}
@@ -153,5 +172,3 @@ export default function Slider({
     </div>
   );
 }
-
-

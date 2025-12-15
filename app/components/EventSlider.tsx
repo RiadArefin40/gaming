@@ -11,8 +11,20 @@ import {
   Ticket,
 } from "lucide-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Slider from "./Slider";
+
+    const siteInfo = {
+    slider_items: [
+ 
+
+  { id: 1, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_235581.jpg",  alt: "Slide 1", },
+  { id: 2, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_272517.jpg",alt: "Slide 1" },
+  { id: 3, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265553.jpg" ,alt: "Slide 1"},
+  { id: 4, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265553.jpg" , alt: "Slide 1"},
 
 
+    ],
+  };
 const categories = [
   { name: "Exclusive", icon: <Star /> },
   { name: "Sports", icon: <Trophy /> },
@@ -170,60 +182,7 @@ export default function EventSlider() {
   </div>
 </div>
 
-      <div
-        ref={containerRef}
-        className="
-        flex gap-3
-  overflow-x-auto 
-  scroll-smooth
-  snap-x snap-mandatory
-  touch-pan-x
-  overscroll-x-contain
-  max-w-screen
-  
-  no-scrollbar
-        "
-      >
-        {gameImages.event.map((item, idx) => {
-          const isActive = idx === selected;
-
-          return (
-            <div
-              data-card
-              key={item.id}
-              onClick={() => handleSelect(idx)}
-              className={`
-    snap-center
-    flex-shrink-0 basis-[98%]   
-max-w-[98%]  pt-2 p-1
-   
-    flex flex-col items-center justify-center
-    cursor-pointer select-none
-    transition-all duration-300 ease-out
-    border
-           bg-gradient-to-br from-slate-800 to-slate-900
-          text-slate-300
-   
-          border-slate-700
-   
-  `}
-            >
-              <div
-
-              >
-                
-                <div className=" flex items-center"> 
-                      <img className="" src={item.src} alt="" />
-                    
-                </div>
-    
-              </div>
-
-            
-            </div>
-          );
-        })}
-      </div>
+    <Slider siteInfo={siteInfo}  autoPlay={true} interval={4000} />
 
 
     </div>
