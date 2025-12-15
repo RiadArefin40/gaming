@@ -7,6 +7,7 @@ import { getAuthUser } from "@/lib/auth";
 import CategorySelectionSlider from "./components/CategorySelectionSlider"
 import ProviderCategory from "./components/ProviderCategory";
 import { Mic , Volume } from "lucide-react";
+import MatchSlider from "./components/MatchSlider";
 export default function Home() {
  const user = getAuthUser();
  console.log("user", user)
@@ -26,7 +27,7 @@ export default function Home() {
 
   return (
     <div className="">
-      <main className="mt-[50px]">
+      <main className="mt-[50px] min-h-screen mb-[800px">
 
          <Slider siteInfo={siteInfo}  autoPlay={true} interval={4000}  />
                 {/* Marquee Section */}
@@ -57,15 +58,20 @@ export default function Home() {
                 }
               `}</style>
 
-
+   
 
               <CategorySlider/> 
+
+
+               <ProviderCategory/>
+               <MatchSlider  />
+                 <ProviderCategory/>
               {/* <CategorySelectionSlider siteInfo={siteInfo}  autoPlay={false} interval={4000}/> */}
 
-              {/* <ProviderCategory siteInfo={siteInfo}  autoPlay={false} interval={4000}/> */}
+          
 
               
-
+           <div className="h-[250x]"></div>
       </main>
     </div>
   );

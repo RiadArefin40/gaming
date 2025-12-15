@@ -1,11 +1,6 @@
-// app/.../components/Slider.tsx
 "use client";
 
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState, useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-
+import { useRef, useState } from "react";
 import {
   Star,
   Trophy,
@@ -15,24 +10,17 @@ import {
   Joystick,
   Ticket,
 } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
 
 const categories = [
- {
-      id: 1,
-      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-casino.png?v=1765526091482&source=drccdnsrc",
-    },
-    {
-      id: 2,
-      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-evo.png?v=1765526091482&source=drccdnsrc",
-    },
-    {
-      id: 3,
-      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png?v=1765526091482&source=drccdnsrc",
-    },
-    {
-      id: 4,
-      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png?v=1765526091482&source=drccdnsrc",
-    },
+  { name: "Exclusive", icon: <Star /> },
+  { name: "Sports", icon: <Trophy /> },
+  { name: "Casino", icon: <Coins /> },
+  { name: "Slot", icon: <Dice6 /> },
+  { name: "Fishing", icon: <Fish /> },
+  { name: "Arcade", icon: <Joystick /> },
+  { name: "Lottery", icon: <Ticket /> },
 ];
 
 const gameImages: Record<string, { id: number; src: string }[]> = {
@@ -114,136 +102,125 @@ gameImages.fishing = gameImages.casino;
 gameImages.arcade = gameImages.casino;
 gameImages.lottery = gameImages.casino;
 
-interface SliderProps {
-  siteInfo: any;
-  autoPlay?: boolean;
-  interval?: number;
-}
-
-export default function ProviderCategory({
-  siteInfo,
-  autoPlay = true,
-  interval = 3000,
-}: SliderProps) {
-  const router = useRouter();
-
-  // Always work from the original array
-  const sliderItems: any[] = Array.isArray(siteInfo?.slider_items)
-    ? [
-        ...siteInfo.slider_items,
-        ...siteInfo.slider_items,
-        ...siteInfo.slider_items,
-      ]
-    : [];
-  const [sliderPos, setSliderPos] = useState(0);
-
+export default function CategorySlider() {
   const [selected, setSelected] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleClick = (idx: number) => {
-    if (idx === selected) return; // already selected
+  const handleSelect = (idx: number) => {
+    setSelected(idx);
 
-    setSelected(idx); // select immediately
+    const container = containerRef.current;
+    const item = container?.children[idx] as HTMLElement;
 
-    if (idx > selected) {
-      setSliderPos((prev) => Math.min(prev + 1, categories.length - 1));
-    } else if (idx < selected) {
-      setSliderPos((prev) => Math.max(prev - 1, 0));
-    }
+    item?.scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest",
+    });
   };
 
-  const pages = useMemo(() => {
-    if (!sliderItems.length) return [];
+  const scrollByCard = (direction: "left" | "right") => {
+  const container = containerRef.current;
+  if (!container) return;
 
-    const res: any[][] = [];
-    const len = sliderItems.length;
-    for (let i = 0; i < len; i += 2) {
-      const first = sliderItems[i];
-      const second = sliderItems[i + 1] ?? sliderItems[(i + 1) % len];
-      res.push([first, second]);
-    }
+  const card = container.querySelector(
+    "[data-card]"
+  ) as HTMLElement;
 
-    return res;
-  }, [sliderItems]);
+  if (!card) return;
 
-  const total = pages.length;
-  const [current, setCurrent] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const cardWidth = card.offsetWidth + 12; // 12 = gap-3
 
-  const goTo = (index: number) => {
-    if (!total) return;
-    setCurrent((index + total) % total);
-  };
+  container.scrollBy({
+    left: direction === "left" ? -cardWidth : cardWidth,
+    behavior: "smooth",
+  });
+};
 
-  const next = () => goTo(current + 1);
-  const prev = () => goTo(current - 1);
-
-  useEffect(() => {
-    if (!autoPlay || isHovering || total <= 1) return;
-
-    const prefersReducedMotion =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (prefersReducedMotion) return;
-
-    timerRef.current = setTimeout(next, interval);
-
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [current, autoPlay, isHovering, total, interval]);
-
-  if (!total) {
-    return (
-      <div className="mt-4">
-        <div className="h-[200px] sm:h-[220px] md:h-[240px] w-full rounded-lg bg-gray-100 animate-pulse" />
-      </div>
-    );
-  }
 
   return (
-    <>
+    <div className="my-4 px-4 z-50">
+     <div className="mb-4 flex items-center justify-between">
+  <p className="text-xl border-l-4 border-orange-400 pl-4">
+    Provider
+  </p>
+
+  <div className="flex gap-2">
+    <button
+      onClick={() => scrollByCard("left")}
+      className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700
+                 flex items-center justify-center text-slate-300
+                 hover:bg-slate-700 transition"
+    >
+      <ChevronLeft size={18} />
+    </button>
+
+    <button
+      onClick={() => scrollByCard("right")}
+      className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700
+                 flex items-center justify-center text-slate-300
+                 hover:bg-slate-700 transition"
+    >
+      <ChevronRight size={18} />
+    </button>
+  </div>
+</div>
+
       <div
-        // Force this component to layout in LTR so translateX logic is stable
-        dir="ltr"
-        className="mt-4 relative  max-w-screen overflow-hidden rounded-lg px-4"
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
+        ref={containerRef}
+        className="
+        flex gap-3
+  overflow-x-auto 
+  scroll-smooth
+  snap-x snap-mandatory
+  touch-pan-x
+  overscroll-x-contain
+  max-w-screen
+  
+  no-scrollbar
+        "
       >
-        {/* track */}
-        <div
-          className="flex gap-2  h-full transition-transform duration-500 ease-out"
-          style={{ transform: `translateX(-${current * 100}%)` }}
-        >
-          {categories.map((item, idx) => {
-            const isActive = idx === selected;
-            return (
+        {gameImages.casino.map((item, idx) => {
+          const isActive = idx === selected;
+
+          return (
+            <div
+              data-card
+              key={item.id}
+              onClick={() => handleSelect(idx)}
+              className={`
+    snap-center
+    flex-shrink-0 basis-[48%]   
+max-w-[48%]  pt-2 p-1
+   
+    flex flex-col items-center justify-center
+    cursor-pointer select-none
+    transition-all duration-300 ease-out
+    border
+           bg-gradient-to-br from-slate-800 to-slate-900
+          text-slate-300
+   
+          border-slate-700
+   
+  `}
+            >
               <div
-                key={item.id}
-                // onClick={() => handleClick(idx)}
-                className={
-                "flex-shrink-0"}
+
               >
-                <div
-                  
-                >
-                <img src={item.src} alt="" />  {}
+                <div className=" flex items-center"> 
+                      <img className="w-12" src={item.src} alt="" />
+                      <span className="text-sm font-medium">Provider-{item.id}</span>
                 </div>
-
-                <span className="-mt-1 font-medium">{item.id}</span>
+    
               </div>
-            );
-          })}
-        </div>
-      </div>
-      <div>
 
-        
+            
+            </div>
+          );
+        })}
       </div>
 
 
-    </>
+    </div>
   );
 }
