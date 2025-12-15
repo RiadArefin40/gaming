@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import img from "next/image";
 import Slider from "./components/Slider";
 import CategorySlider from "./components/CategorySlide";
 import { getAuthUser } from "@/lib/auth";
@@ -209,12 +209,19 @@ export default function Home() {
 
 {/* Social Icons */}
 <div className="border-t border-gray-800 pt-4 flex justify-center gap-4">
-<Image src="/icons/facebook.png" alt="Facebook" width={28} height={28} />
-<Image src="/icons/instagram.png" alt="Instagram" width={28} height={28} />
-<Image src="/icons/x.png" alt="X" width={28} height={28} />
-<Image src="/icons/pinterest.png" alt="Pinterest" width={28} height={28} />
-<Image src="/icons/youtube.png" alt="YouTube" width={28} height={28} />
-<Image src="/icons/telegram.png" alt="Telegram" width={28} height={28} />
+<img src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-facebook.svg?v=1765526091482&source=drccdnsrc" alt="Facebook" width={28} height={28} />
+<img src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-instagram.svg?v=1765526091482&source=drccdnsrc" alt="Instagram" width={28} height={28} />
+<img src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-twitter.svg?v=1765526091482&source=drccdnsrc" alt="X" width={28} height={28} />
+<img src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-pinterest.svg?v=1765526091482&source=drccdnsrc" alt="Pinterest" width={28} height={28} />
+<img src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-youtube.svg?v=1765526091482&source=drccdnsrc" alt="YouTube" width={28} height={28} />
+<img src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-telegram-channel.svg?v=1765526091482&source=drccdnsrc" alt="Telegram" width={28} height={28} />
+
+</div>
+
+
+
+<div>
+  <div _ngcontent-serverapp-c1503041133="" className="footer-description__title">JeetBuzz বাংলাদেশ - আপনার চূড়ান্ত গন্তব্য অনলাইন গেমিং এবং বেটিংয়ের জন্য</div>
 </div>
 </section>
                  </div>
