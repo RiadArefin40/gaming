@@ -103,7 +103,9 @@ gameImages.lottery = gameImages.casino;
 export default function CategorySlider() {
   const [selected, setSelected] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-
+const selectedCategory = categories[selected].name.toLowerCase();
+const imagesToShow = selectedCategory === "exclusive" ? gameImages.exclusive : gameImages.casino;
+const isExclusive = selectedCategory === "exclusive";
   const handleSelect = (idx: number) => {
     setSelected(idx);
 
@@ -201,21 +203,46 @@ export default function CategorySlider() {
           );
         })}
       </div>
-
-      <div className="grid grid-cols-3 gap-3 my-4 px-4">
-        {gameImages.exclusive.map((game) => (
-          <div
-            key={game.id}
-            className="flex items-center justify-center rounded-xl"
-          >
-            <img
-              src={game.src}
-              alt="exclusive-game"
-              className="w-full h-auto object-contain"
-            />
-          </div>
-        ))}
+{isExclusive ? (
+  // Exclusive games grid
+  <div className="grid grid-cols-3 gap-3 my-4 px-4">
+    {gameImages.exclusive.map((game) => (
+      <div
+        key={game.id}
+        className="flex items-center justify-center rounded-xl"
+      >
+        <img
+          src={game.src}
+          alt="exclusive-game"
+          className="w-full h-auto object-contain"
+        />
       </div>
+    ))}
+  </div>
+) : (
+  // Casino/provider cards
+  <div className="flex flex-wrap gap-2 p-4">
+    {gameImages.casino.map((item, idx) => (
+      <div
+        data-card
+        key={item.id}
+        className={`
+          snap-center flex-shrink-0 basis-[48%] max-w-[48%] pt-2 p-1
+          flex flex-col items-center justify-center cursor-pointer select-none
+          transition-all duration-300 ease-out border
+          bg-gradient-to-br from-slate-800 to-slate-900 text-slate-300
+          border-slate-700
+        `}
+      >
+        <div className="flex items-center gap-2">
+          <img className="w-12" src={item.src} alt="" />
+          <span className="text-sm font-medium">Provider-{item.id}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+)}
+
 
       <div className="flex justify-center ">
         <button
