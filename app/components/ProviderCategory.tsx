@@ -17,14 +17,22 @@ import {
 } from "lucide-react";
 
 const categories = [
-  { name: "Exclusive", icon: <Star /> },
-  { name: "Sports", icon: <Trophy /> },
-  { name: "Casino", icon: <Coins /> },
-  { name: "Slot", icon: <Dice6 /> },
-
-  { name: "Fishing", icon: <Fish /> },
-  { name: "Arcade", icon: <Joystick /> },
-  { name: "Lottery", icon: <Ticket /> },
+ {
+      id: 1,
+      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-casino.png?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 2,
+      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-evo.png?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 3,
+      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 4,
+      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png?v=1765526091482&source=drccdnsrc",
+    },
 ];
 
 const gameImages: Record<string, { id: number; src: string }[]> = {
@@ -112,7 +120,7 @@ interface SliderProps {
   interval?: number;
 }
 
-export default function CategorySelectionSlider({
+export default function ProviderCategory({
   siteInfo,
   autoPlay = true,
   interval = 3000,
@@ -213,34 +221,18 @@ export default function CategorySelectionSlider({
             const isActive = idx === selected;
             return (
               <div
-                key={item.name}
-                onClick={() => handleClick(idx)}
-                className={`
-                flex-shrink-0 w-24 border border-orange-400  p-1 pt-2 h-16 rounded-xl flex flex-col
-                items-center justify-center cursor-pointer select-none
-                transition-all duration-300 shadow-md
-                ${
-                  isActive
-                    ? "bg-orange-400 text-white scale-105"
-                    : "bg-gray-900 text-gray-300 hover:bg-gray-700"
-                }
-              `}
+                key={item.id}
+                // onClick={() => handleClick(idx)}
+                className={
+                "flex-shrink-0"}
               >
                 <div
-                  className={`
-    w-7 h-7 mb-1 flex items-center justify-center
-    rounded-full transition-all duration-300
-    ${
-      isActive
-        ? " w-10 h-10 border-2 border-white text-[20px] font-medium text-gray-100"
-        : "w-7 h-7 border-none  text-gray-300"
-    }
-  `}
+                  
                 >
-                  {item.icon}
+                <img src={item.src} alt="" />  {}
                 </div>
 
-                <span className="-mt-1 font-medium">{item.name}</span>
+                <span className="-mt-1 font-medium">{item.id}</span>
               </div>
             );
           })}
@@ -248,29 +240,6 @@ export default function CategorySelectionSlider({
       </div>
       <div>
 
-        <div className="grid grid-cols-3 gap-3 my-4 px-4">
-            {gameImages.exclusive.map((game) => (
-            <div
-                key={game.id}
-                className="flex items-center justify-center rounded-xl"
-            >
-                <img
-                src={game.src}
-                alt="exclusive-game"
-                className="w-full h-auto object-contain"
-                />
-            </div>
-            ))}
-        </div>
-
-        <div className="flex justify-center ">
-             <button
-                // onClick={() => router.push("/login")}
-                className="px-3 w-[172px] h-[55px] py-[6px] text-lg font-medium bg-orange-400 text-white font-medium rounded hover:bg-blue-600 "
-            >
-                More
-            </button>
-        </div>
         
       </div>
 

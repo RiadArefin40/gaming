@@ -5,6 +5,7 @@ import Slider from "./components/Slider";
 import CategorySlider from "./components/CategorySlide";
 import { getAuthUser } from "@/lib/auth";
 import CategorySelectionSlider from "./components/CategorySelectionSlider"
+import ProviderCategory from "./components/ProviderCategory";
 import { Mic , Volume } from "lucide-react";
 export default function Home() {
  const user = getAuthUser();
@@ -65,6 +66,9 @@ export default function Home() {
 {/* 
               <CategorySlider/> */}
               <CategorySelectionSlider siteInfo={siteInfo}  autoPlay={false} interval={4000}/>
+
+              <ProviderCategory siteInfo={siteInfo}  autoPlay={false} interval={4000}/>
+
               
 
       </main>
