@@ -23,7 +23,16 @@ export default function MobileFooter() {
       [section]: !prev[section],
     }));
   };
+  const handleLogout = () => {
+    // remove user data
+    localStorage.removeItem("auth_user");
 
+    // optional: remove token
+    // localStorage.removeItem("token");
+
+    // redirect after logout
+    window.location.href = "/login";
+  };
   const menuItems: MenuItem[] = [
     { name: "পছন্দের", icon: <span>⭐</span>, link: "#" },
     { name: "এক্সক্লুসিভ", icon: <Crown className="w-5 h-5" />, children: ["Option 1", "Option 2"] },
@@ -39,7 +48,7 @@ export default function MobileFooter() {
     <div className="fixed bottom-0 left-0 right-0 md:hidden z-200">
 
 
-      <div className="flex items-center justify-between px-6 py-4  border-t text-gray-300 w-full  bg-gray-900">
+      <div className="flex items-center justify-between px-6 py-4  border-t text-gray-400 w-full  bg-gray-900">
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
           <SheetTrigger>
             <div className="flex flex-col items-center gap-1">
@@ -48,7 +57,7 @@ export default function MobileFooter() {
             </div>
           </SheetTrigger>
 
-          <SheetContent side="left" className="w-full h-[85%] !top-[57px] !bottom-[57px] p-0 overflow-y-auto">
+          <SheetContent side="left" className="w-full h-[85%] !top-[57px] !bottom-[57px] p-0 bg-slate-600 overflow-y-auto">
             <VisuallyHidden>
               <DialogTitle>Mobile Menu</DialogTitle>
             </VisuallyHidden>
@@ -70,7 +79,7 @@ export default function MobileFooter() {
   
 
             {/* Menu Items */}
-            <ul className="p-4 space-y-2 text-lg text-gray-800">
+            <ul className="p-4 space-y-2 text-lg text-gray-300">
               <img src="/banner/Screenshot 2025-12-12 161900.png" alt="Logo" className="" />
               {menuItems.map((item, idx) => (
                 <li key={idx}>
@@ -97,6 +106,13 @@ export default function MobileFooter() {
                   )}
                 </li>
               ))}
+
+                <button
+      onClick={handleLogout}
+    className="px-3 mt-6 w-[175px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
+  >
+    Log Out
+  </button>
             </ul>
 
             <style jsx global>{`

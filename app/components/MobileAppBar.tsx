@@ -26,7 +26,7 @@ export default function MobileAppBar() {
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 transition-opacity"></div>
       )}
 
-      <div className="flex w-full items-center justify-between px-4 py-4 shadow-md absolute top-0 left-0 right-0 z-50 bg-gray-900">
+      <div className="flex fixed top-0 w-full items-center justify-between px-4 py-4 shadow-md absolute top-0 left-0 right-0 z-50 bg-gray-900">
         <div className="flex items-center gap-3">
           <SidebarTrigger className="hidden md:block" />
          <div className="w-[120px] -ml-2 "><img className="" src="/m-logo.png" alt="" /></div>
