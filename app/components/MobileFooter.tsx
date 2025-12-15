@@ -60,7 +60,7 @@ export default function MobileFooter() {
             </div>
           </SheetTrigger>
 
-          <SheetContent side="left" className="w-full h-[85%] !top-[57px] !bottom-[57px] p-0 bg-slate-600 overflow-y-auto">
+          <SheetContent side="left" className="w-full h-[85%] !top-[57px] !bottom-[57px] p-0 bg-slate-800 overflow-y-auto">
             <VisuallyHidden>
               <DialogTitle>Mobile Menu</DialogTitle>
             </VisuallyHidden>
