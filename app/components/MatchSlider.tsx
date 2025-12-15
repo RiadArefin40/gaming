@@ -203,7 +203,7 @@ export default function CategorySlider() {
    
   `}
             >
-       <div className="w-full max-w-sm rounded-lg overflow-hidden bg-[#1c1f22] shadow-lg">
+       <div className="w-full max-w-sm rounded-lg overflow-hidden bg-slate-700 shadow-lg">
   {/* Header */}
   <div className="flex items-center justify-between bg-orange-400 px-3 py-2">
     <span className="text-sm font-semibold text-white">
