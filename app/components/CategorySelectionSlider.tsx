@@ -128,7 +128,7 @@ export default function CategorySelectionSlider({
     >
       {/* track */}
       <div
-        className="flex h-full transition-transform duration-500 ease-out"
+        className="flex gap-2  h-full transition-transform duration-500 ease-out"
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
      {categories.map((item, idx) => {
@@ -138,7 +138,7 @@ export default function CategorySelectionSlider({
               key={item.name}
               onClick={() => handleClick(idx)}
               className={`
-                flex-shrink-0 w-24 p-1 pt-2 h-16 rounded-xl flex flex-col
+                flex-shrink-0 w-24 border border-orange-400  p-1 pt-2 h-16 rounded-xl flex flex-col
                 items-center justify-center cursor-pointer select-none
                 transition-all duration-300 shadow-md
                 ${isActive ? "bg-orange-400 text-white scale-105" : "bg-gray-900 text-gray-300 hover:bg-gray-700"}
