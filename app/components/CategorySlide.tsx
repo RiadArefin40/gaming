@@ -120,17 +120,19 @@ export default function CategorySlider() {
   };
 
   return (
-    <div className="my-4">
+    <div className="my-4  z-50">
       <div
         ref={containerRef}
         className="
-          flex gap-3 overflow-x-auto
-          scroll-smooth
-          snap-x snap-mandatory
-          touch-pan-x
-          no-scrollbar
-          max-w-screen
-          px-4
+        flex gap-3
+  overflow-x-auto 
+  scroll-smooth
+  snap-x snap-mandatory
+  touch-pan-x
+  overscroll-x-contain
+  max-w-screen
+  px-4
+  no-scrollbar
         "
       >
         {categories.map((item, idx) => {
@@ -142,7 +144,7 @@ export default function CategorySlider() {
               onClick={() => handleSelect(idx)}
            className={`
     snap-center
-    flex-shrink-0 w-28 h-[80px] pt-2 p-1
+    flex-shrink-0 w-28  pt-2 p-1
     rounded-2xl
     flex flex-col items-center justify-center
     cursor-pointer select-none
@@ -151,18 +153,19 @@ export default function CategorySlider() {
     ${
       isActive
         ? `
-          bg-gradient-to-br from-orange-400 to-orange-500
-          text-white scale-110
+         
+          text-white 
           border-orange-300
-          shadow-[0_12px_30px_rgba(249,115,22,0.55)]
+          hight-[88px]
         `
         : `
           bg-gradient-to-br from-slate-800 to-slate-900
           text-slate-300
+          h-[80px]
           border-slate-700
-          shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_6px_16px_rgba(0,0,0,0.45)]
-          hover:translate-y-[-2px]
-          hover:shadow-[0_10px_24px_rgba(0,0,0,0.6)]
+         
+
+    
         `
     }
   `}
@@ -176,9 +179,11 @@ export default function CategorySlider() {
         ? `
           w-9 h-9
           bg-white/15
-          border border-white/40
+         scale-115
           text-white
-          shadow-[inset_0_1px_2px_rgba(255,255,255,0.4)]
+          hover:translate-y-[-2px]
+           bg-gradient-to-br from-orange-400 to-orange-500
+     
         `
         : `
           w-8 h-8
