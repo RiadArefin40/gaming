@@ -106,13 +106,11 @@ export default function Slider({
                   itemIdx === 1 ? "hidden md:block" : ""
                 }`}
               >
-                <Image
+                <img
                   src={item?.imageUrl}
                   alt={item?.alt || "Qatarat banner"}
-                  fill
                   className="object-contain rounded-2xl"
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  priority={pageIdx === 0 && itemIdx === 0}
                 />
               </button>
             ))}

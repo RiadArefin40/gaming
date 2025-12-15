@@ -29,7 +29,7 @@ export default function MobileAppBar() {
       <div className="flex w-full items-center justify-between px-4 py-4 shadow-md absolute top-0 left-0 right-0 z-50 bg-gray-900">
         <div className="flex items-center gap-3">
           <SidebarTrigger className="hidden md:block" />
-         <div className="w-[110px] h-10 -mt-12 -ml-8 "><img className="" src="/logo.png" alt="" /></div>
+         <div className="w-[180px] "><img className="" src="/m-logo.png" alt="" /></div>
         </div>
 
         <div className="flex items-center gap-3 z-50">
@@ -38,16 +38,20 @@ export default function MobileAppBar() {
                 <div className="flex items-center">
         
 
-          <button className="flex  items-center gap-1 px-3 w-[60px] h-9  bg-gray-400">
-            <Wallet size={16} />
-            <span className="text-xs">৳ 0</span>
+          <button className="flex  items-center gap-1 px-3  h-9  bg-gray-500">
+            <Wallet color="orange" size={20} />
+            <div className="flex items-center gap-4 ">
+<span className="text-2xl font-bold -mt-[6px]">৳</span>
+            <span className="text-xl"> 0.00</span>
+            </div>
+            
           </button>
-  <button className="w-9 h-9 flex items-center justify-center bg-gray-400 ">
+  {/* <button className="w-9 h-9 flex items-center justify-center bg-gray-400 ">
             <RotateCw size={16} />
-          </button>
-          <button className="w-9 h-9 flex items-center justify-center bg-orange-400">
+          </button> */}
+          {/* <button className="w-9 h-9 flex items-center justify-center bg-orange-400">
             <Plus size={16} />
-          </button>
+          </button> */}
         </div>
          )}
           

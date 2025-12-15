@@ -12,19 +12,14 @@ export default function Home() {
  console.log("user", user)
     const siteInfo = {
     slider_items: [
-      {
-        imageUrl: "/banner/banner-1.png",
-        alt: "Slide 1",
-      },
-      {
-        imageUrl: "/banner/banner-2.png",
-        alt: "Slide 2",
-      },
-      {
-        imageUrl: "/banner/banner-3.png",
-        alt: "Slide 3",
-      },
-      // add more slides as needed
+ 
+
+  { id: 1, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_235581.jpg",  alt: "Slide 1", },
+  { id: 2, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_272517.jpg",alt: "Slide 1" },
+  { id: 3, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265553.jpg" ,alt: "Slide 1"},
+  { id: 4, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265553.jpg" , alt: "Slide 1"},
+
+
     ],
   };
 
@@ -63,9 +58,9 @@ export default function Home() {
               `}</style>
 
 
-{/* 
-              <CategorySlider/> */}
-              <CategorySelectionSlider siteInfo={siteInfo}  autoPlay={false} interval={4000}/>
+
+              <CategorySlider/> 
+              {/* <CategorySelectionSlider siteInfo={siteInfo}  autoPlay={false} interval={4000}/> */}
 
               <ProviderCategory siteInfo={siteInfo}  autoPlay={false} interval={4000}/>
 
