@@ -45,11 +45,11 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
 
-      <SidebarContent>
+      <SidebarContent className="bg-slate-700">
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="pt-6">
+            <SidebarMenu className="pt-6 text-slate-100">
               {items.map((item) => (
                 <SidebarMenuItem key={item.title} >
                   <SidebarMenuButton asChild>
