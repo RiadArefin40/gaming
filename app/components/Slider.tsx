@@ -137,7 +137,7 @@ export default function Slider({
       </button>
 
       {/* dots */}
-      {/* <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2 !mt-2">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2 !mt-2">
         {pages.map((_, idx) => (
           <button
             key={idx}
@@ -149,7 +149,7 @@ export default function Slider({
             aria-label={`Go to slide ${idx + 1}`}
           />
         ))}
-      </div> */}
+      </div>
     </div>
   );
 }

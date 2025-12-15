@@ -257,7 +257,7 @@ export default function CategorySlider() {
       </div>
 
            {/* dots */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2 !mt-2">
+      {/* <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2 !mt-2">
         {gameImages.casino.map((_, idx) => (
           <button
             key={idx}
@@ -269,7 +269,7 @@ export default function CategorySlider() {
             aria-label={`Go to slide ${idx + 1}`}
           />
         ))}
-      </div>
+      </div> */}
 
 
     </div>
