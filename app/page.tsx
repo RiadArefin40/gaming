@@ -62,8 +62,8 @@ export default function Home() {
               `}</style>
 
 
-
-              <CategorySlider/>
+{/* 
+              <CategorySlider/> */}
               <CategorySelectionSlider siteInfo={siteInfo}  autoPlay={false} interval={4000}/>
               
 
