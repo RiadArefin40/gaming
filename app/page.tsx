@@ -138,9 +138,9 @@ export default function Home() {
 {/* Sponsorship */}
 <div className="border-t border-gray-800 pt-4">
 <h3 className="text-amber-400 font-semibold mb-3">স্পন্সরশিপ</h3>
-<div className="flex items-center gap-6">
+<div className="flex items-center justify-between gap-6">
 <div className="flex items-center gap-2">
-<Image src="/images/delhi-bulls.png" alt="Delhi Bulls" width={36} height={36} />
+<img className="h-[34px w-[34px]" src="https://img.j189eb.com/jb/h5/assets/v3/images/sponsor/delhi-bulls.png?v=1765526091482&source=drccdnsrc" alt="Delhi Bulls"  />
 <div>
 <p className="text-sm font-medium">Delhi Bulls</p>
 <p className="text-xs text-gray-400">টাইটেল স্পন্সর</p>
@@ -148,7 +148,7 @@ export default function Home() {
 </div>
 </div>
 <div className="flex items-center gap-2">
-<Image src="/images/montreal-tigers.png" alt="Montreal Tigers" width={36} height={36} />
+<img className="h-[34px w-[34px]" src="https://img.j189eb.com/jb/h5/assets/v3/images/sponsor/montreal-tigers.png?v=1765526091482&source=drccdnsrc" alt="Montreal Tigers" />
 <div>
 <p className="text-sm font-medium">Montreal Tigers</p>
 <p className="text-xs text-gray-400">টাইটেল স্পন্সর</p>
@@ -161,15 +161,18 @@ export default function Home() {
 
 {/* Brand Ambassadors */}
 <div className="border-t border-gray-800 pt-4">
+  
 <h3 className="text-amber-400 font-semibold mb-3">ব্র্যান্ড অ্যাম্বাসেডরস</h3>
-<div className="flex gap-10">
+<div className="flex justify-between gap-10">
 <div>
 <p className="text-sm font-medium">Andre Dwayne Russell</p>
 <p className="text-xs text-gray-500">২০২৪ - ২০২৬</p>
+<img className="h-[24px w-[94px]" src="https://img.j189eb.com/jb/h5/assets/v3/images/ambassador/andre-russell.png?v=1765526091482&source=drccdnsrc" alt="" />
 </div>
 <div>
 <p className="text-sm font-medium">Glenn McGrath</p>
 <p className="text-xs text-gray-500">২০২৩ - ২০২৪</p>
+<img className="h-[24px w-[94px]" src="https://img.j189eb.com/jb/h5/assets/v3/images/ambassador/glenn-mcgrat.png?v=1765526091482&source=drccdnsrc" alt="" />
 </div>
 </div>
 </div>
@@ -178,7 +181,7 @@ export default function Home() {
 {/* Official Partner */}
 <div className="border-t border-gray-800 pt-4">
 <h3 className="text-amber-400 font-semibold mb-3">অফিসিয়াল ব্র্যান্ড পার্টনার</h3>
-<Image src="/images/cazvip.png" alt="Cazvip" width={120} height={32} />
+<img src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/official-brand-partner-type/cazvip.png?v=1765526091482&source=drccdnsrc" alt="Cazvip" width={120} height={32} />
 </div>
 
 
@@ -186,9 +189,9 @@ export default function Home() {
 <div className="border-t border-gray-800 pt-4">
 <h3 className="text-amber-400 font-semibold mb-3">গেইমিংস লাইসেন্স</h3>
 <div className="flex gap-6 items-center">
-<Image src="/images/gaming-curacao.png" alt="Gaming Curacao" width={48} height={48} />
-<Image src="/images/anjouan-egaming.png" alt="Anjouan eGaming" width={48} height={48} />
-<Image src="/images/costa-rica.png" alt="Costa Rica" width={48} height={48} />
+<img src="https://img.j189eb.com/jb/h5/assets/images/footer/gaming_license.png?v=1765526091482&source=drccdnsrc" alt="Gaming Curacao" width={88} height={58} />
+<img src="https://img.j189eb.com/jb/h5/assets/images/footer/anjouan_license.png?v=1765526091482&source=drccdnsrc" alt="Anjouan eGaming" width={88} height={58} />
+<img src="https://img.j189eb.com/jb/h5/assets/images/footer/montenegro_license.png?v=1765526091482&source=drccdnsrc" alt="Costa Rica" width={88} height={58} />
 </div>
 </div>
 
@@ -197,9 +200,9 @@ export default function Home() {
 <div className="border-t border-gray-800 pt-4">
 <h3 className="text-amber-400 font-semibold mb-3">দায়িত্বশীল গেমিং</h3>
 <div className="flex gap-6 items-center">
-<Image src="/images/gamecare.png" alt="GameCare" width={40} height={40} />
-<Image src="/images/18plus.png" alt="18+" width={40} height={40} />
-<Image src="/images/hand-stop.png" alt="Responsible" width={40} height={40} />
+<img src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/trivial-type/gamcare.svg?v=1765526091482&source=drccdnsrc" alt="GameCare" width={40} height={40} />
+<img src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/trivial-type/age-limit.svg?v=1765526091482&source=drccdnsrc" alt="18+" width={40} height={40} />
+<img src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/trivial-type/regulations.svg?v=1765526091482&source=drccdnsrc" alt="Responsible" width={40} height={40} />
 </div>
 </div>
 
