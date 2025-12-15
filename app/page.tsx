@@ -62,7 +62,7 @@ export default function Home() {
               <CategorySlider/> 
               {/* <CategorySelectionSlider siteInfo={siteInfo}  autoPlay={false} interval={4000}/> */}
 
-              <ProviderCategory siteInfo={siteInfo}  autoPlay={false} interval={4000}/>
+              {/* <ProviderCategory siteInfo={siteInfo}  autoPlay={false} interval={4000}/> */}
 
               
 
