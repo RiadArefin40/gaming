@@ -112,9 +112,9 @@ export default function Home() {
                 <li key={idx}>
                   <button
                     onClick={() => item.children && toggleSection(item.name)}
-                    className="flex items-center justify-between w-full py-2 px-3 rounded text-slate-200 hover:bg-gray-100 hover:text-gray-500"
+                    className="flex items-center justify-between w-full py-2 px-3 rounded text-slate-400 hover:bg-gray-100 hover:text-gray-500"
                   >
-                    <div className="flex items-center gap-2 text-slate-200">
+                    <div className="flex items-center gap-2 ">
        
                       <span>{item.name}</span>
                     </div>
