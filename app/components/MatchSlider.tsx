@@ -162,7 +162,7 @@ export default function CategorySlider() {
 
 
   return (
-    <div className="my-4 px-4 z-50 max-w-screen">
+    <div className="my-4 px-4 z-50 max-w-screen my-8">
 
 
       <div
