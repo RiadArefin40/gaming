@@ -24,7 +24,7 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+    <div className="min-h-screen bg-slate-700 text-white relative overflow-hidden mt-[80px]">
       {/* Header */}
       <header className="h-14 px-4 flex items-center justify-between border-b border-white/10">
         <div className="flex items-center gap-2">

@@ -4,15 +4,30 @@ import {
   Menu,
   Gamepad2,
   Dice6,
-  Wallet,
-  User,
-  Crown,
   Activity,
   Rocket,
   X,
   MessageCircle,
-  Star
+  Star,
 } from "lucide-react";
+import {
+  Card,
+  CardContent,
+} from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import {
+  Bell,
+  User,
+  ShieldCheck,
+  Lock,
+  FileText,
+  Wallet,
+  TrendingUp,
+  Crown,
+  EyeOff,
+  RefreshCcw,
+  ChevronRight,
+} from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { DialogTitle } from "@radix-ui/react-dialog";
@@ -28,13 +43,13 @@ interface MenuItem {
   children?: string[] | React.ReactNode;
 }
 
-
-
 export default function MobileFooter() {
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
-  const [sheetOpen, setSheetOpen] = useState(false); // Controlled sheet state
+  const [sheetOpen, setSheetOpen] = useState(false); 
+   const [psheetOpen, psetSheetOpen] = useState(false); 
+  // Controlled sheet state
   const user = getAuthUser();
-    const pathname = usePathname();
+  const pathname = usePathname();
   const router = useRouter();
   const toggleSection = (section: string) => {
     setOpenSections((prev) => ({
@@ -57,57 +72,44 @@ export default function MobileFooter() {
     {
       name: "Exclusive",
       icon: <Crown className="w-5 h-5 mr-1" />,
-      children: (
-        <ExclusiveGrid items={gameImages.exclusive} />
-      ),
+      children: <ExclusiveGrid items={gameImages.exclusive} />,
     },
 
     {
       name: "Sports",
       icon: <Activity className="w-5 h-5 mr-[6px]" />,
-      children: (
-      <GameGrid items={gameImages.sports}/>
-      ),
+      children: <GameGrid items={gameImages.sports} />,
     },
     {
       name: "Casino",
       icon: <Gamepad2 className="w-5 h-5 mr-[6px]" />,
-      children: (
-      <GameGrid items={gameImages.casino}/>
-      ),
+      children: <GameGrid items={gameImages.casino} />,
     },
     {
       name: "Slot",
       icon: <Dice6 className="w-5 h-5 mr-[8px]" />,
-      children: (
-      <GameGrid items={gameImages.slot}/>
-      ),
+      children: <GameGrid items={gameImages.slot} />,
     },
     {
       name: "Crash",
       icon: <Rocket className="w-5 h-5 mr-[6px]" />,
-      children: (
-      <GameGrid items={gameImages.crash}/>
-      ),
+      children: <GameGrid items={gameImages.crash} />,
     },
 
     {
       name: "Fishing",
       icon: <span>🎣</span>,
-      children: (
-      <GameGrid items={gameImages.fishing}/>
-      ),
+      children: <GameGrid items={gameImages.fishing} />,
     },
   ];
 
-    const goToCasino = () => {
-      setSheetOpen(false)
+  const goToCasino = () => {
+    setSheetOpen(false);
     router.push("/casino");
   };
-      const goToSlots = () => {
+  const goToSlots = () => {
     router.push("/slots");
   };
-
 
   const goToPromotions = () => router.push("/promotions");
 
@@ -120,18 +122,17 @@ export default function MobileFooter() {
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
           <SheetTrigger>
             <div className="flex flex-col items-center gap-1">
-             
-                                  <div
-        className={`flex flex-col items-center gap-1 px-2 py-1 relative ${
-          sheetOpen ? "text-orange-400" : "text-gray-400"
-        }`}
-      >
- <Menu className="w-6 h-6 " />
-              <span className="text-[12px]">Menu</span>
-        {sheetOpen && (
-          <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
-        )}
-      </div>
+              <div
+                className={`flex flex-col items-center gap-1 px-2 py-1 relative ${
+                  sheetOpen ? "text-orange-400" : "text-gray-400"
+                }`}
+              >
+                <Menu className="w-6 h-6 " />
+                <span className="text-[12px]">Menu</span>
+                {sheetOpen && (
+                  <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
+                )}
+              </div>
             </div>
           </SheetTrigger>
 
@@ -155,7 +156,6 @@ export default function MobileFooter() {
               >
                 <X className="w-8 h-8 text-gray-700 hover:text-red-600" />
               </button>
-
             </div>
 
             {/* Menu Items */}
@@ -191,13 +191,9 @@ export default function MobileFooter() {
                           ))}
                         </ul>
                       ) : (
-                        <div onClick={() => setSheetOpen(false)} >
-                        
-                                      {item.children}
-                       
-                           
+                        <div onClick={() => setSheetOpen(false)}>
+                          {item.children}
                         </div>
-                     
                       )}
                     </>
                   )}
@@ -225,33 +221,33 @@ export default function MobileFooter() {
           </SheetContent>
         </Sheet>
 
-          {/* Casino */}
-      <button
-        onClick={goToCasino}
-        className={`flex flex-col items-center gap-1 px-2 py-1 relative ${
-          isActive("/casino") ? "text-orange-400" : "text-gray-400"
-        }`}
-      >
-        <Star className="w-6 h-6" />
-        <span className="text-[12px]">Casino</span>
-        {isActive("/casino") && (
-          <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
-        )}
-      </button>
+        {/* Casino */}
+        <button
+          onClick={goToCasino}
+          className={`flex flex-col items-center gap-1 px-2 py-1 relative ${
+            isActive("/casino") ? "text-orange-400" : "text-gray-400"
+          }`}
+        >
+          <Star className="w-6 h-6" />
+          <span className="text-[12px]">Casino</span>
+          {isActive("/casino") && (
+            <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
+          )}
+        </button>
 
-      {/* Slots */}
-      <button
-        onClick={goToSlots}
-        className={`flex flex-col items-center gap-1 px-4 py-1 relative ${
-          isActive("/slots") ? "text-orange-400  " : "text-gray-400 "
-        }`}
-      >
-        <Dice6 className="w-6 h-6" />
-        <span className="text-[12px]">Slots</span>
-        {isActive("/slots") && (
-          <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
-        )}
-      </button>
+        {/* Slots */}
+        <button
+          onClick={goToSlots}
+          className={`flex flex-col items-center gap-1 px-4 py-1 relative ${
+            isActive("/slots") ? "text-orange-400  " : "text-gray-400 "
+          }`}
+        >
+          <Dice6 className="w-6 h-6" />
+          <span className="text-[12px]">Slots</span>
+          {isActive("/slots") && (
+            <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
+          )}
+        </button>
 
         <button className="flex flex-col text-gray-400  items-center gap-1">
           <Wallet className="w-6 h-6 " />
@@ -259,15 +255,173 @@ export default function MobileFooter() {
         </button>
 
         {user && (
-          <button className="relative flex flex-col items-center gap-1">
-            <span className="absolute -top-1.5 -right-2 bg-red-600 text-white text-[8px] font-bold px-1 py-[1px] rounded-full">
-              4
-            </span>
-            <User className="w-6 h-6 text-orange-400" />
-            <span className="text-[12px]">Profile</span>
-          </button>
+          <Sheet open={psheetOpen} onOpenChange={psetSheetOpen}>
+            <SheetTrigger>
+              <div className="relative flex flex-col items-center gap-1">
+                <span className="absolute -top-1.5 -right-2 bg-red-600 text-white text-[8px] font-bold px-1 py-[1px] rounded-full">
+                  4
+                </span>
+                <div
+                  className={`flex flex-col items-center gap-1 px-2 py-1 relative ${
+                    psheetOpen ? "text-orange-400" : "text-gray-400"
+                  }`}
+                >
+                  <User className="w-6 h-6 " />
+                  <span className="text-[12px]">Profile</span>
+                  {psheetOpen && (
+                    <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
+                  )}
+                </div>
+              </div>
+            </SheetTrigger>
+
+               <SheetContent
+            side="bottom"
+            className="w-full h-[91%] !top-[0px] !bottom-[57px] p-0 bg-slate-800 overflow-y-auto"
+          >
+            <VisuallyHidden>
+              <DialogTitle>Mobile Menu</DialogTitle>
+            </VisuallyHidden>
+
+            {/* Custom Close Button */}
+            <div className="p-4 flex justify-between">
+              <div>
+
+              </div>
+              <button
+                className="bg-gray-300 px-4 py-1 rounded-lg flex items-center justify-center z-100"
+                onClick={() => psetSheetOpen(false)} // This actually closes the sheet
+              >
+                <X className="w-8 h-8 text-gray-700 hover:text-red-600" />
+              </button>
+            </div>
+
+               <div className="min-h-screen -mt-12 bg-slate-800 text-white flex justify-center">
+      <div className="w-full max-w-md px-4 py-6 space-y-6">
+
+        {/* Header */}
+        <div className="flex items-center space-x-4">
+          <div className="h-12 w-12 rounded-full bg-orange-500 flex items-center justify-center text-lg font-bold">
+            I
+          </div>
+          <div>
+            <p className="font-semibold">likhon4040</p>
+            <p className="text-xs ">
+              Sign up date : 2025-12-12
+            </p>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex gap-3">
+          <Button
+            variant="secondary"
+            className="flex-1 bg-slate-500 text-slate-200 hover:bg-zinc-700"
+          >
+            Withdrawal
+          </Button>
+          <Button className="flex-1 bg-orange-500 hover:bg-orange-600">
+            Deposit
+          </Button>
+        </div>
+
+        {/* Wallet Card */}
+        <Card className="bg-gradient-to-r from-slate-500 to-slate-900 text-slate-100 font-medium border-none">
+          <CardContent className="p-4 space-y-4">
+
+            <div className="flex items-center justify-between">
+              <p className="text-sm ">Main wallet</p>
+              <div className="flex gap-2">
+                <EyeOff className="h-4 w-4 " />
+                <RefreshCcw className="h-4 w-4 " />
+              </div>
+            </div>
+
+            <div className="text-xl font-bold flex items-center gap-2">
+              <Wallet className="h-5 w-5 text-green-500" />
+              0
+            </div>
+
+            <div className="flex items-center justify-between pt-2 border-t border-zinc-700">
+              <div>
+                <p className="text-sm ">VIP Points</p>
+                <p className="flex items-center gap-2 font-medium">
+                  <Crown className="h-4 w-4 text-yellow-500" />
+                  0
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 text-sm bg-zinc-700 px-3 py-1 rounded-full">
+                Normal
+                <ChevronRight className="h-4 w-4" />
+              </div>
+            </div>
+
+          </CardContent>
+        </Card>
+
+        {/* Menu */}
+        <div className="space-y-1">
+          <MenuItem icon={Bell} label="Notifications" badge="8" />
+          <MenuItem icon={User} label="Personal info" />
+          <MenuItem icon={Lock} label="Login & Security" />
+          <MenuItem icon={ShieldCheck} label="Verification" />
+          <MenuItem icon={FileText} label="Transaction records" />
+          <MenuItem icon={TrendingUp} label="Betting records" />
+          <MenuItem icon={Wallet} label="Turnover" />
+          <MenuItem icon={Crown} label="My VIP" />
+        </div>
+
+      </div>
+    </div>
+
+
+
+   
+
+            <style jsx global>{`
+              [data-slot="sheet-overlay"] {
+                top: 3.5rem !important;
+                height: calc(100vh - 9.5rem) !important;
+
+                backdrop-filter: none !important;
+                bottom: 3.5rem !important;
+              }
+            `}</style>
+          </SheetContent>
+          </Sheet>
         )}
       </div>
     </div>
   );
+}
+
+
+
+function MenuItem({
+  icon: Icon,
+  label,
+  badge,
+}: {
+  icon: any
+  label: string
+  badge?: string
+}) {
+  return (
+    <button className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-zinc-800 transition">
+      <div className="flex items-center gap-3">
+        <Icon className="h-5 w-5 " />
+        <span className="text-sm">{label}</span>
+      </div>
+
+      <div className="flex items-center gap-2">
+        {badge && (
+          <span className="text-xs bg-red-500 px-2 py-0.5 rounded-full">
+            {badge}
+          </span>
+        )}
+        <ChevronRight className="h-4 w-4 " />
+      </div>
+    </button>
+  )
 }
