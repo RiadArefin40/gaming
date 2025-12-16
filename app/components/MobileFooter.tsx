@@ -13,8 +13,87 @@ interface MenuItem {
   name: string;
   icon: React.ReactNode;
   link?: string;
-  children?: string[];
+  children?: string[] | React.ReactNode;
 }
+
+const gameImages: Record<string, { id: number; src: string }[]> = {
+  exclusive: [
+    {
+      id: 1,
+      src: "https://img.j189eb.com/jb/h5/assets/images/exclusivegames/default/menu/exclusive-super-tiger.png?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 2,
+      src: "https://img.j189eb.com/jb/h5/assets/images/exclusivegames/default/menu/exclusive-sexy-baccarat.png?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 3,
+      src: "https://img.j189eb.com/jb/h5/assets/images/exclusivegames/default/menu/exclusive-7-up-7-down.png?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 4,
+      src: "https://img.j189eb.com/jb/h5/assets/images/exclusivegames/default/menu/exclusive-7-up-7-down.png?v=1765526091482&source=drccdnsrc",
+    },
+  ],
+
+  sports: [
+    {
+      id: 1,
+      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-exchange.svg?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 2,
+      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-sportbook.svg?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 3,
+      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-horsebook.svg?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 4,
+      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-sbtech.svg?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 5,
+      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-cmd.svg?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 6,
+      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-cmd.svg?v=1765526091482&source=drccdnsrc",
+    },
+  ],
+
+  casino: [
+    {
+      id: 1,
+      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-casino.png?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 2,
+      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-evo.png?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 3,
+      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 4,
+      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png?v=1765526091482&source=drccdnsrc",
+    },
+  ],
+
+  // 👇 same common images reused
+  slot: [],
+  fishing: [],
+  arcade: [],
+  lottery: [],
+};
+
+// reuse casino images for other categories
+gameImages.slot = gameImages.casino;
+gameImages.fishing = gameImages.casino;
+gameImages.arcade = gameImages.casino;
+gameImages.lottery = gameImages.casino;
 
 export default function MobileFooter() {
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
@@ -37,14 +116,158 @@ export default function MobileFooter() {
     window.location.href = "/login";
   };
   const menuItems: MenuItem[] = [
-    { name: "পছন্দের", icon: <span>⭐</span>, link: "#" },
-    { name: "এক্সক্লুসিভ", icon: <Crown className="w-5 h-5" />, children: ["Option 1", "Option 2"] },
-    { name: "স্পোর্ট", icon: <Activity className="w-5 h-5" />, children: ["Football", "Cricket"] },
-    { name: "ক্যাসিনো", icon: <Gamepad2 className="w-5 h-5" />, children: ["Live Casino", "Table Games"] },
-    { name: "স্লট", icon: <Dice6 className="w-5 h-5" />, children: ["Slot 1", "Slot 2"] },
-    { name: "ক্র্যাশ", icon: <Rocket className="w-5 h-5" />, children: ["Crash 1", "Crash 2"] },
-    { name: "টেবিল", icon: <span>🪑</span>, children: ["Table 1", "Table 2"] },
-    { name: "ফিশিং", icon: <span>🎣</span>, children: ["Fish 1", "Fish 2"] },
+    { name: "Favourite", icon: <span>⭐</span>, link: "#" },
+{
+  name: "Exclusive",
+  icon: <Crown className="w-5 h-5 mr-1" />,
+  children: (
+    <>
+    <div className="grid grid-cols-3 gap-3 my-4 px-4">
+      {gameImages.exclusive.map((game) => (
+        <div
+          key={game.id}
+          className="flex items-center justify-center rounded-xl"
+        >
+          <img
+            src={game.src}
+            alt="exclusive-game"
+            className="w-full h-auto object-contain"
+          />
+        </div>
+      ))}
+    </div>
+         <div className="flex justify-center ">
+        <button
+          // onClick={() => router.push("/login")}
+          className="px-3 w-[172px] h-[55px] py-[6px] text-lg font-medium bg-orange-400 text-white font-medium rounded hover:bg-blue-600 "
+        >
+          More
+        </button>
+      </div>
+      </>
+  ),
+},
+
+    { name: "Sports", icon: <Activity className="w-5 h-5 mr-[6px]" />, children: (  <div className="flex flex-wrap gap-2 p-4">
+    {gameImages.casino.map((item, idx) => (
+      <div
+        data-card
+        key={item.id}
+        className={`
+          snap-center flex-shrink-0 basis-[48%] max-w-[48%] pt-2 p-1
+          flex flex-col items-center justify-center cursor-pointer select-none
+          transition-all duration-300 ease-out border
+          bg-gradient-to-br from-slate-800 to-slate-900 text-slate-300
+          border-slate-700
+        `}
+      >
+        <div className="flex items-center gap-2">
+          <img className="w-12" src={item.src} alt="" />
+          <span className="text-sm font-medium">Provider-{item.id}</span>
+        </div>
+      </div>
+    ))}
+  </div>) },
+    { name: "Casino", icon: <Gamepad2 className="w-5 h-5 mr-[6px]" />, children: (  <div className="flex flex-wrap gap-2 p-4">
+    {gameImages.casino.map((item, idx) => (
+      <div
+        data-card
+        key={item.id}
+        className={`
+          snap-center flex-shrink-0 basis-[48%] max-w-[48%] pt-2 p-1
+          flex flex-col items-center justify-center cursor-pointer select-none
+          transition-all duration-300 ease-out border
+          bg-gradient-to-br from-slate-800 to-slate-900 text-slate-300
+          border-slate-700
+        `}
+      >
+        <div className="flex items-center gap-2">
+          <img className="w-12" src={item.src} alt="" />
+          <span className="text-sm font-medium">Provider-{item.id}</span>
+        </div>
+      </div>
+    ))}
+  </div>)  },
+    { name: "Slot", icon: <Dice6 className="w-5 h-5 mr-[8px]" />, children: (  <div className="flex flex-wrap gap-2 p-4">
+    {gameImages.casino.map((item, idx) => (
+      <div
+        data-card
+        key={item.id}
+        className={`
+          snap-center flex-shrink-0 basis-[48%] max-w-[48%] pt-2 p-1
+          flex flex-col items-center justify-center cursor-pointer select-none
+          transition-all duration-300 ease-out border
+          bg-gradient-to-br from-slate-800 to-slate-900 text-slate-300
+          border-slate-700
+        `}
+      >
+        <div className="flex items-center gap-2">
+          <img className="w-12" src={item.src} alt="" />
+          <span className="text-sm font-medium">Provider-{item.id}</span>
+        </div>
+      </div>
+    ))}
+  </div>) },
+    { name: "Crash", icon: <Rocket className="w-5 h-5 mr-[6px]" />,  children: (  <div className="flex flex-wrap gap-2 p-4">
+    {gameImages.casino.map((item, idx) => (
+      <div
+        data-card
+        key={item.id}
+        className={`
+          snap-center flex-shrink-0 basis-[48%] max-w-[48%] pt-2 p-1
+          flex flex-col items-center justify-center cursor-pointer select-none
+          transition-all duration-300 ease-out border
+          bg-gradient-to-br from-slate-800 to-slate-900 text-slate-300
+          border-slate-700
+        `}
+      >
+        <div className="flex items-center gap-2">
+          <img className="w-12" src={item.src} alt="" />
+          <span className="text-sm font-medium">Provider-{item.id}</span>
+        </div>
+      </div>
+    ))}
+  </div>)  },
+    { name: "Table", icon: <span>🪑</span>,  children: (  <div className="flex flex-wrap gap-2 p-4">
+    {gameImages.casino.map((item, idx) => (
+      <div
+        data-card
+        key={item.id}
+        className={`
+          snap-center flex-shrink-0 basis-[48%] max-w-[48%] pt-2 p-1
+          flex flex-col items-center justify-center cursor-pointer select-none
+          transition-all duration-300 ease-out border
+          bg-gradient-to-br from-slate-800 to-slate-900 text-slate-300
+          border-slate-700
+        `}
+      >
+        <div className="flex items-center gap-2">
+          <img className="w-12" src={item.src} alt="" />
+          <span className="text-sm font-medium">Provider-{item.id}</span>
+        </div>
+      </div>
+    ))}
+  </div>)  },
+    { name: "Fishing", icon: <span>🎣</span>, children: (  <div className="flex flex-wrap gap-2 p-4">
+    {gameImages.casino.map((item, idx) => (
+      <div
+        data-card
+        key={item.id}
+        className={`
+          snap-center flex-shrink-0 basis-[48%] max-w-[48%] pt-2 p-1
+          flex flex-col items-center justify-center cursor-pointer select-none
+          transition-all duration-300 ease-out border
+          bg-gradient-to-br from-slate-800 to-slate-900 text-slate-300
+          border-slate-700
+        `}
+      >
+        <div className="flex items-center gap-2">
+          <img className="w-12" src={item.src} alt="" />
+          <span className="text-sm font-medium">Provider-{item.id}</span>
+        </div>
+      </div>
+    ))}
+  </div>) },
   ];
 
   return (
@@ -83,7 +306,7 @@ export default function MobileFooter() {
 
             {/* Menu Items */}
             <ul className="p-4 space-y-2 text-lg text-gray-300">
-              <img src="/banner/Screenshot 2025-12-12 161900.png" alt="Logo" className="" />
+              <img src="/b-1.jpg" alt="Logo" className="-mt-4 mb-2" />
               {menuItems.map((item, idx) => (
                 <li key={idx}>
                   <button
@@ -97,15 +320,21 @@ export default function MobileFooter() {
                     {item.children && <span>{openSections[item.name] ? "▲" : "▼"}</span>}
                   </button>
                   {item.children && openSections[item.name] && (
-                    <ul className="pl-8 mt-1 space-y-1">
-                      {item.children.map((child, cidx) => (
-                        <li key={cidx}>
-                          <a href="#" className="block py-1 text-gray-700 hover:text-purple-700">
-                            {child}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
+                    <>
+                      {Array.isArray(item.children) ? (
+                        <ul className="pl-8 mt-1 space-y-1">
+                          {item.children.map((child, cidx) => (
+                            <li key={cidx}>
+                              <a href="#" className="block py-1 text-gray-700 hover:text-purple-700">
+                                {child}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        item.children
+                      )}
+                    </>
                   )}
                 </li>
               ))}
