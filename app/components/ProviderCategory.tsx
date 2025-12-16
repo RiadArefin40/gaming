@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import {
   Star,
@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-
+import { gameImages } from "@/utils/gameData";
 const categories = [
   { name: "Exclusive", icon: <Star /> },
   { name: "Sports", icon: <Trophy /> },
@@ -23,90 +23,19 @@ const categories = [
   { name: "Lottery", icon: <Ticket /> },
 ];
 
-const gameImages: Record<string, { id: number; src: string }[]> = {
-  exclusive: [
-    {
-      id: 1,
-      src: "https://img.j189eb.com/jb/h5/assets/images/exclusivegames/default/menu/exclusive-super-tiger.png?v=1765526091482&source=drccdnsrc",
-    },
-    {
-      id: 2,
-      src: "https://img.j189eb.com/jb/h5/assets/images/exclusivegames/default/menu/exclusive-sexy-baccarat.png?v=1765526091482&source=drccdnsrc",
-    },
-    {
-      id: 3,
-      src: "https://img.j189eb.com/jb/h5/assets/images/exclusivegames/default/menu/exclusive-7-up-7-down.png?v=1765526091482&source=drccdnsrc",
-    },
-    {
-      id: 4,
-      src: "https://img.j189eb.com/jb/h5/assets/images/exclusivegames/default/menu/exclusive-7-up-7-down.png?v=1765526091482&source=drccdnsrc",
-    },
-  ],
 
-  sports: [
-    {
-      id: 1,
-      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-exchange.svg?v=1765526091482&source=drccdnsrc",
-    },
-    {
-      id: 2,
-      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-sportbook.svg?v=1765526091482&source=drccdnsrc",
-    },
-    {
-      id: 3,
-      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-horsebook.svg?v=1765526091482&source=drccdnsrc",
-    },
-    {
-      id: 4,
-      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-sbtech.svg?v=1765526091482&source=drccdnsrc",
-    },
-    {
-      id: 5,
-      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-cmd.svg?v=1765526091482&source=drccdnsrc",
-    },
-    {
-      id: 6,
-      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-cmd.svg?v=1765526091482&source=drccdnsrc",
-    },
-  ],
-
-  casino: [
-    {
-      id: 1,
-      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-casino.png?v=1765526091482&source=drccdnsrc",
-    },
-    {
-      id: 2,
-      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-evo.png?v=1765526091482&source=drccdnsrc",
-    },
-    {
-      id: 3,
-      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png?v=1765526091482&source=drccdnsrc",
-    },
-    {
-      id: 4,
-      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png?v=1765526091482&source=drccdnsrc",
-    },
-  ],
-
-  // 👇 same common images reused
-  slot: [],
-  fishing: [],
-  arcade: [],
-  lottery: [],
-};
-
-// reuse casino images for other categories
-gameImages.slot = gameImages.casino;
-gameImages.fishing = gameImages.casino;
-gameImages.arcade = gameImages.casino;
-gameImages.lottery = gameImages.casino;
 
 export default function CategorySlider() {
   const [selected, setSelected] = useState(0);
+   const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const handleSelect = (idx: number) => {
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-") // replace non-alphanumeric with hyphen
+    .replace(/^-+|-+$/g, "");    // remove leading/trailing hyphens
+}
+  const handleSelect = (idx: number, title:any) => {
     setSelected(idx);
 
     const container = containerRef.current;
@@ -117,6 +46,9 @@ export default function CategorySlider() {
       inline: "center",
       block: "nearest",
     });
+
+    const slug = slugify(title);
+    router.push(`/games/${slug}`);
   };
 
   const scrollByCard = (direction: "left" | "right") => {
@@ -139,7 +71,7 @@ export default function CategorySlider() {
 
 
   return (
-    <div className="my-4 px-4 z-50">
+    <div className="my-4 px-4 z-50 max-w-screen">
      <div className="mb-4 flex items-center justify-between">
   <p className="text-xl border-l-4 border-orange-400 pl-4">
     Provider
@@ -187,7 +119,7 @@ export default function CategorySlider() {
             <div
               data-card
               key={item.id}
-              onClick={() => handleSelect(idx)}
+              onClick={() => handleSelect(idx,item.title)}
               className={`
     snap-center
     flex-shrink-0 basis-[48%]   
@@ -209,7 +141,7 @@ max-w-[48%]  pt-2 p-1
               >
                 <div className=" flex items-center"> 
                       <img className="w-12" src={item.src} alt="" />
-                      <span className="text-sm font-medium">Provider-{item.id}</span>
+                      <span className="text-sm font-medium">{item.title}</span>
                 </div>
     
               </div>

@@ -1,0 +1,424 @@
+export const gameImages: Record<string, { id: number; src: string, title: string }[]> = {
+  exclusive: [
+    {
+      id: 1,
+      title: '',
+      src: "https://img.j189eb.com/jb/h5/assets/images/exclusivegames/default/menu/exclusive-super-tiger.png?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 2,
+        title: '',
+      src: "https://img.j189eb.com/jb/h5/assets/images/exclusivegames/default/menu/exclusive-sexy-baccarat.png?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 3,
+        title: '',
+      src: "https://img.j189eb.com/jb/h5/assets/images/exclusivegames/default/menu/exclusive-7-up-7-down.png?v=1765526091482&source=drccdnsrc",
+    },
+    {
+      id: 4,
+        title: '',
+      src: "https://img.j189eb.com/jb/h5/assets/images/exclusivegames/default/menu/exclusive-7-up-7-down.png?v=1765526091482&source=drccdnsrc",
+    },
+  ],
+
+   sports: [
+    {
+    id: 1,
+    title: "এক্সচেঞ্জ",
+
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-exchange.svg",
+  },
+  {
+    id: 2,
+    title: "I-Sports",
+
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-sportbook.svg",
+  },
+  {
+    id: 3,
+    title: "ঘোড়া বই",
+
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-horsebook.svg",
+  },
+  {
+    id: 4,
+    title: "BTi",
+
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-sbtech.svg",
+  },
+  {
+    id: 5,
+    title: "CMD Sports",
+
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-cmd.svg",
+  },
+  {
+    id: 6,
+    title: "E-Sports",
+
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-awcme1sport.svg",
+  },
+  {
+    id: 7,
+    title: "Pinnacle",
+
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-awcmpinnacle.svg",
+  },
+  {
+    id: 8,
+    title: "RWB",
+
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-rwb.svg",
+  },
+  {
+    id: 9,
+    title: "INSPORTS",
+
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-nst.svg",
+  },
+
+   
+  ],
+
+  casino: [
+   {
+    id: 1,
+    title: "All",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-casino.png",
+  },
+  {
+    id: 2,
+    title: "Evolution",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-evo.png",
+  },
+  {
+    id: 3,
+    title: "Pragmatic Play",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png",
+  },
+  {
+    id: 4,
+    title: "Sexy",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmsexy.png",
+  },
+  {
+    id: 5,
+    title: "Playtech",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpt.png",
+  },
+  {
+    id: 6,
+    title: "HotRoad",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmhotroad.png",
+  },
+  {
+    id: 7,
+    title: "Dream Gaming",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmdg.png",
+  },
+  {
+    id: 8,
+    title: "Microgaming",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-mg.png",
+  },
+  {
+    id: 9,
+    title: "Big Gaming",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-bg.png",
+  },
+  {
+    id: 10,
+    title: "Winfinity",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-winfinity.png",
+  },
+  {
+    id: 11,
+    title: "Viacasino",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmvia.png",
+  },
+  ],
+
+  // 👇 same common images reused
+  slot: [
+      { id: 1, title: "All", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-slot.png" },
+  { id: 2, title: "JILI", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmjili.png" },
+  { id: 3, title: "PG Soft", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-pg.png" },
+  { id: 4, title: "Pragmatic Play", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png" },
+  { id: 5, title: "JDB", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-jdb.png" },
+  { id: 6, title: "Fa Chai", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmfc.png" },
+  { id: 7, title: "Yellow Bat", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmyesbingo.png" },
+  { id: 8, title: "Lucky365", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-lucky365.png" },
+  { id: 9, title: "Spadegaming", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmsg.png" },
+  { id: 10, title: "FastSpin", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmfastspin.png" },
+  { id: 11, title: "Microgaming", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-mg.png" },
+  { id: 12, title: "NextSpin", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-nextspin.png" },
+  { id: 13, title: "Playtech", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpt.png" },
+  { id: 14, title: "FiveG", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-fiveg.png" },
+  { id: 15, title: "Red Tiger", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmrt.png" },
+  { id: 16, title: "Dragoonsoft", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-dragoonsoft.png" },
+  { id: 17, title: "Rich88", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-rich88.png" },
+  { id: 18, title: "WorldMatch", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-worldmatch.png" },
+  { id: 19, title: "Iloveu", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmiloveu.png" },
+  { id: 20, title: "Netent", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-netent.png" },
+  { id: 21, title: "Play'n Go", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-playngo.png" },
+  { id: 22, title: "CQ9", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-cq9.png" },
+  { id: 23, title: "Joker", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-joker.png" },
+  { id: 24, title: "Play8", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmp8.png" },
+  { id: 25, title: "KingMidas", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmkm.png" },
+  { id: 26, title: "BigTime Gaming", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-btg.png" },
+  { id: 27, title: "Creative Gaming", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-cg.png" },
+  { id: 28, title: "LadyLuck", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmladyluck.png" },
+  { id: 29, title: "COMBO", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-combo.png" },
+  { id: 30, title: "NLC", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-nlc.png" },
+  { id: 31, title: "Hacksaw", src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-hacksaw.png" },
+  ],
+  crash:[
+     {
+    id: 1,
+    title: "All",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-crash.png",
+  },
+  {
+    id: 2,
+    title: "Spribe",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-jdbaspribe.png",
+  },
+  {
+    id: 3,
+    title: "SMARTSOFT",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-smartsoft.png",
+  },
+  {
+    id: 4,
+    title: "JILI",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmjili.png",
+  },
+  {
+    id: 5,
+    title: "Pragmatic Play",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png",
+  },
+  {
+    id: 6,
+    title: "JDB",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-jdb.png",
+  },
+  {
+    id: 7,
+    title: "Fa Chai",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmfc.png",
+  },
+  {
+    id: 8,
+    title: "KingMidas",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmkm.png",
+  },
+  {
+    id: 9,
+    title: "Rich88",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-rich88.png",
+  },
+  {
+    id: 10,
+    title: "CQ9",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-cq9.png",
+  },
+  {
+    id: 11,
+    title: "Hacksaw",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-hacksaw.png",
+  },
+  {
+    id: 12,
+    title: "You Lian",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmyl.png",
+  },
+  {
+    id: 13,
+    title: "Creative Gaming",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-cg.png",
+  },
+  ],
+  fishing: [
+    {
+    id: 1,
+    title: "All",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-fish.png",
+  },
+  {
+    id: 2,
+    title: "JILI",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmjili.png",
+  },
+  {
+    id: 3,
+    title: "Play8",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmp8.png",
+  },
+  {
+    id: 4,
+    title: "JDB",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-jdb.png",
+  },
+  {
+    id: 5,
+    title: "Yellow Bat",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmyesbingo.png",
+  },
+  {
+    id: 6,
+    title: "Fa Chai",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmfc.png",
+  },
+  {
+    id: 7,
+    title: "CQ9",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-cq9.png",
+  },
+  {
+    id: 8,
+    title: "Big Gaming",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-bg.png",
+  },
+  {
+    id: 9,
+    title: "FastSpin",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmfastspin.png",
+  },
+  {
+    id: 10,
+    title: "You Lian",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmyl.png",
+  },
+  {
+    id: 11,
+    title: "Joker",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-joker.png",
+  },
+  {
+    id: 12,
+    title: "Lucky365",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-lucky365.png",
+  },
+  ],
+  arcade: [
+     {
+    id: 1,
+    title: "All",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-arcade.png",
+  },
+  {
+    id: 2,
+    title: "Fa Chai",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmfc.png",
+  },
+  {
+    id: 3,
+    title: "Pragmatic Play",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png",
+  },
+  {
+    id: 4,
+    title: "SMARTSOFT",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-smartsoft.png",
+  },
+  {
+    id: 5,
+    title: "JDB",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-jdb.png",
+  },
+  {
+    id: 6,
+    title: "Rich88",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-rich88.png",
+  },
+  {
+    id: 7,
+    title: "CQ9",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-cq9.png",
+  },
+  {
+    id: 8,
+    title: "You Lian",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmyl.png",
+  },
+  {
+    id: 9,
+    title: "PG Soft",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-pg.png",
+  },
+  {
+    id: 10,
+    title: "Lucky365",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-lucky365.png",
+  },
+  {
+    id: 11,
+    title: "NextSpin",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-nextspin.png",
+  },
+  {
+    id: 12,
+    title: "KingMidas",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmkm.png",
+  },
+  {
+    id: 13,
+    title: "Creative Gaming",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-cg.png",
+  },
+  {
+    id: 14,
+    title: "Hacksaw",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-hacksaw.png",
+  },
+  ],
+  lottery: [
+     {
+    id: 1,
+    title: "All",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-lottery.png",
+  },
+  {
+    id: 2,
+    title: "JILI",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmjili.png",
+  },
+  {
+    id: 3,
+    title: "UG",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-ugv3lottery.png",
+  },
+  {
+    id: 4,
+    title: "Yellow Bat",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmyesbingo.png",
+  },
+  {
+    id: 5,
+    title: "KingMidas",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmkm.png",
+  },
+  {
+    id: 6,
+    title: "Joker",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-joker.png",
+  },
+  {
+    id: 7,
+    title: "Number",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-number.png",
+  },
+  {
+    id: 8,
+    title: "CQ9",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-cq9.png",
+  },
+  {
+    id: 9,
+    title: "Rich88",
+    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-rich88.png",
+  },
+  ],
+};
