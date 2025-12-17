@@ -5,6 +5,8 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./components/app-sidebar";
 import MobileAppBar from "./components/MobileAppBar";
 import MobileFooter from "./components/MobileFooter";
+import AuthModal from "./components/AuthModal";
+import VerificationModal from "./components/VerificationModal";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -33,6 +35,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <MobileAppBar />
                   
                   {children}
+                   <AuthModal />
+                  <VerificationModal/>
                   <MobileFooter />
           
             </main>

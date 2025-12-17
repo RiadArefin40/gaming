@@ -1,5 +1,6 @@
 "use client";
 import { useRouter, usePathname } from "next/navigation";
+import { useVerifyModal } from "@/store/VerifyModalState";
 import {
   Menu,
   Gamepad2,
@@ -36,6 +37,8 @@ import { getAuthUser } from "@/lib/auth";
 import { gameImages } from "@/utils/gameData";
 import { ExclusiveGrid } from "./ExclusiveGrid";
 import { GameGrid } from "./GameGrid";
+import { useAuthModal } from "@/store/useAuthModal";
+import { DotLoadingButton } from "./DotLoadingButton";
 interface MenuItem {
   name: string;
   icon: React.ReactNode;
@@ -47,7 +50,11 @@ export default function MobileFooter() {
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
   const [sheetOpen, setSheetOpen] = useState(false); 
    const [psheetOpen, psetSheetOpen] = useState(false); 
+     const [isLoadinge,setIsLoading] = useState(false);
+          const [isVLoading,setIsVLoading] = useState(false);
+       const { openModal:openVerifyModal, closeModal } = useVerifyModal();
   // Controlled sheet state
+  const { openModal } = useAuthModal();
   const user = getAuthUser();
   const pathname = usePathname();
   const router = useRouter();
@@ -115,6 +122,22 @@ export default function MobileFooter() {
 
   // Helper to highlight active button
   const isActive = (path: string) => pathname === path;
+  const handleDeposit = () => {
+    openModal();
+  }
+
+  const handleWithdrawl = () =>{
+    setIsVLoading(true)
+       setTimeout(() => {
+          setIsVLoading(false);
+          openVerifyModal()
+          }, 1000); 
+
+  }
+  const handleRoutechange = (e:any) =>{
+    psetSheetOpen(false)
+    router.push(`/${e}`)
+  }
 
   return (
     <div className="fixed bottom-0 left-0 right-0 md:hidden z-200">
@@ -249,7 +272,7 @@ export default function MobileFooter() {
           )}
         </button>
 
-        <button className="flex flex-col text-gray-400  items-center gap-1">
+        <button onClick={handleDeposit} className="flex flex-col text-gray-400  items-center gap-1">
           <Wallet className="w-6 h-6 " />
           <span className="text-[12px]">Deposit</span>
         </button>
@@ -314,15 +337,20 @@ export default function MobileFooter() {
 
         {/* Actions */}
         <div className="flex gap-3">
-          <Button
-            variant="secondary"
-            className="flex-1 bg-slate-500 text-slate-200 hover:bg-zinc-700"
-          >
-            Withdrawal
-          </Button>
-          <Button className="flex-1 bg-orange-500 hover:bg-orange-600">
-            Deposit
-          </Button>
+             <DotLoadingButton
+             onClick = {handleWithdrawl}
+                          loading={isVLoading}
+                          className=" flex-1 bg-slate-500 text-slate-200 hover:bg-zinc-700"
+                        >
+                           Withdrawal
+              </DotLoadingButton>
+         <DotLoadingButton
+             onClick = {handleWithdrawl}
+                          loading={isVLoading}
+                          className=" flex-1 bg-orange-400 text-slate-200 hover:bg-zinc-700"
+                        >
+                           Deposit
+              </DotLoadingButton>
         </div>
 
         {/* Wallet Card */}
@@ -362,12 +390,12 @@ export default function MobileFooter() {
 
         {/* Menu */}
         <div className="space-y-1">
-          <MenuItem icon={Bell} label="Notifications" badge="8" />
-          <MenuItem icon={User} label="Personal info" />
-          <MenuItem icon={Lock} label="Login & Security" />
+          <MenuItem onClick = {()=>handleRoutechange('notifications')} icon={Bell} label="Notifications" badge="8" />
+          <MenuItem  onClick = {()=>handleRoutechange('personal-info')} icon={User} label="Personal info" />
+          <MenuItem onClick = {()=>handleRoutechange('personal-info')} icon={Lock} label="Login & Security" />
           <MenuItem icon={ShieldCheck} label="Verification" />
-          <MenuItem icon={FileText} label="Transaction records" />
-          <MenuItem icon={TrendingUp} label="Betting records" />
+          <MenuItem onClick = {()=>handleRoutechange('transactions')} icon={FileText} label="Transaction records" />
+          <MenuItem onClick = {()=>handleRoutechange('betting')} icon={TrendingUp} label="Betting records" />
           <MenuItem icon={Wallet} label="Turnover" />
           <MenuItem icon={Crown} label="My VIP" />
         </div>
@@ -409,13 +437,15 @@ function MenuItem({
   icon: Icon,
   label,
   badge,
+  onClick,
 }: {
   icon: any
   label: string
   badge?: string
+  onClick?: () => void
 }) {
   return (
-    <button className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-zinc-800 transition">
+    <button onClick={onClick} className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-zinc-800 transition">
       <div className="flex items-center gap-3">
         <Icon className="h-5 w-5 " />
         <span className="text-sm">{label}</span>

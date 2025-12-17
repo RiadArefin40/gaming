@@ -4,23 +4,35 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { loginUser } from "@/lib/auth";
 import { useRouter } from "next/navigation";
+import { DotLoadingButton } from "@/app/components/DotLoadingButton";
 
 export default function AuthPage() {
   const [tab, setTab] = useState<"login" | "signup">("login");
-
+  const [isLoadinge,setIsLoading] = useState(false);
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const handleLogin = () => {
+    setIsLoading(true);
     setError("");
     const user = loginUser(username, password);
     if (!user) {
-      setError("ভুল ইউজারনেম বা পাসওয়ার্ড");
+   
+       setTimeout(() => {
+          setIsLoading(false);
+            setError("ভুল ইউজারনেম বা পাসওয়ার্ড");
+          }, 1000); 
+
       return;
     }
-    router.push("/");
+
+          setTimeout(() => {
+             setIsLoading(false);
+         router.push("/");
+          }, 1000); 
+
   };
 
   return (
@@ -137,13 +149,14 @@ export default function AuthPage() {
             {error && (
               <p className="text-red-500 text-xs mb-4">{error}</p>
             )}
-
-            <button
-              onClick={handleLogin}
-              className="w-full h-12 bg-orange-700 hover:bg-orange-600 rounded-md font-medium"
-            >
-              লগইন
-            </button>
+   <DotLoadingButton
+   onClick = {handleLogin}
+                loading={isLoadinge}
+                className="max-w-screen w-[80%] mx-auto left-12  h-11 absolute top-[300px] bg-orange-400 hover:bg-orange-600"
+              >
+                Log in
+              </DotLoadingButton>
+     
           </>
         )}
       </div>
