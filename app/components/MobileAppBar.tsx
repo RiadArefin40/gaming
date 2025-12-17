@@ -37,19 +37,42 @@ export default function MobileAppBar() {
         <div className="flex items-center gap-3 z-50">
           {user && (
             <div className="flex items-center">
-              <button className="flex  items-center gap-1 px-3  h-9  bg-gray-500">
-                <Wallet color="orange" size={20} />
+              <button className="flex  items-center gap-1 px-4  h-10 rounded-md bg-slate-800">
+       
                 <div className="flex items-center gap-4 ">
-                  <span className="text-2xl font-bold -mt-[6px]">৳</span>
-                  <span className="text-xl"> 0.00</span>
+             
+
+                  <div className="relative h-8 w-8 rounded-full bg-gradient-to-b from-orange-500 to-orange-800 shadow-[inset_0_2px_2px_rgba(255,255,255,0.35),_0_3px_6px_rgba(0,0,0,0.45)]">
+                    
+                    {/* Sunken inner face */}
+                    <div
+                      className="absolute inset-1 rounded-full 
+                      bg-gradient-to-b from-orange-700 to-orange-400
+                      shadow-[inset_0_3px_4px_rgba(0,0,0,0.55),inset_0_-1px_1px_rgba(255,255,255,0.25)]
+                      flex items-center justify-center"
+                    >
+                        <span className="text-2xl font-bold  drop-shadow-lg -mt-1">
+                        ৳
+                      </span>
+                    </div>
+
+                    {/* Soft rim highlight */}
+                    <div className="absolute top-[6px] left-[7px] h-[2px] w-4 rounded-full bg-white/25 blur-[1px]" />
+                  </div>
+
+
+            
+                 
+                  <span className="text-xl -ml-3"> 0.00</span>
+                  
+            <RotateCw size={24} />
                 </div>
               </button>
-              {/* <button className="w-9 h-9 flex items-center justify-center bg-gray-400 ">
-            <RotateCw size={16} />
-          </button> */}
-              {/* <button className="w-9 h-9 flex items-center justify-center bg-orange-400">
-            <Plus size={16} />
-          </button> */}
+            
+         
+              <button className="w-9 h-[40px] flex -ml-2 items-center justify-center bg-orange-400 rounded-r-md">
+            <Plus size={24} />
+          </button>
             </div>
           )}
 
