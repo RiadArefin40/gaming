@@ -51,7 +51,7 @@ export default function MobileAppBar() {
                       shadow-[inset_0_3px_4px_rgba(0,0,0,0.55),inset_0_-1px_1px_rgba(255,255,255,0.25)]
                       flex items-center justify-center"
                     >
-                        <span className="text-2xl font-bold  drop-shadow-lg -mt-1">
+                        <span className="text-xl font-bold  drop-shadow-lg -mt-1">
                         ৳
                       </span>
                     </div>
