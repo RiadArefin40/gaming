@@ -19,39 +19,22 @@ const handleLogin = async () => {
   setError("");
 
   try {
-    const response = await fetch(
-      "https://bs.sxvwlkohlv.com/api/v2/auth/createtoken/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "*/*",
-        },
-        body: JSON.stringify({
-          clientId: "milon123",
-          clientSecret: "1vHaGWinUcpRDjQFsx0UghE7evaKIvMo",
-        }),
-      }
-    );
+    const res = await fetch("/api/auth/createtoken", {
+      method: "POST",
+    });
 
-    const data = await response.json();
+    const data = await res.json();
 
-    // 🔥 Log full API response
-    console.log("CreateToken API Response:", data);
+    console.log("Token Response:", data);
 
-    if (!response.ok || !data) {
-      throw new Error("Invalid credentials");
-    }
-
-    // Optional: store token if returned
-    // localStorage.setItem("token", data.token);
+    if (!res.ok) throw new Error("Auth failed");
 
     setTimeout(() => {
       setIsLoading(false);
       router.push("/");
     }, 1000);
   } catch (err) {
-    console.error("Login Error:", err);
+    console.error(err);
 
     setTimeout(() => {
       setIsLoading(false);
@@ -59,6 +42,7 @@ const handleLogin = async () => {
     }, 1000);
   }
 };
+
 
 
   return (
