@@ -23,7 +23,7 @@ export async function POST() {
     return Response.json(
       { message: "Token API failed" },
       { status: 500 },
-      {error}
+      {error: error}
     );
   }
 }
