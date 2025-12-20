@@ -21,7 +21,7 @@ export async function POST() {
   } catch (error) {
     console.log(error, 'error')
     return Response.json(
-      { message: "Token API failed" },
+      { message: error },
       { status: 500 },
       {error: error}
     );
