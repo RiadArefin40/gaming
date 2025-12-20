@@ -23,7 +23,7 @@ const handleLogin = async () => {
 
     const status =   fetch('/api/status', {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' , "Accept": "*/*", },
        
       })
       .then(res => res.json())
