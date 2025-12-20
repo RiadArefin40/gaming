@@ -14,26 +14,52 @@ export default function AuthPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = () => {
-    setIsLoading(true);
-    setError("");
-    const user = loginUser(username, password);
-    if (!user) {
-   
-       setTimeout(() => {
-          setIsLoading(false);
-            setError("ভুল ইউজারনেম বা পাসওয়ার্ড");
-          }, 1000); 
+const handleLogin = async () => {
+  setIsLoading(true);
+  setError("");
 
-      return;
+  try {
+    const response = await fetch(
+      "https://bs.sxvwlkohlv.com/api/v2/auth/createtoken/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "*/*",
+        },
+        body: JSON.stringify({
+          clientId: "milon123",
+          clientSecret: "1vHaGWinUcpRDjQFsx0UghE7evaKIvMo",
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    // 🔥 Log full API response
+    console.log("CreateToken API Response:", data);
+
+    if (!response.ok || !data) {
+      throw new Error("Invalid credentials");
     }
 
-          setTimeout(() => {
-             setIsLoading(false);
-         router.push("/");
-          }, 1000); 
+    // Optional: store token if returned
+    // localStorage.setItem("token", data.token);
 
-  };
+    setTimeout(() => {
+      setIsLoading(false);
+      router.push("/");
+    }, 1000);
+  } catch (err) {
+    console.error("Login Error:", err);
+
+    setTimeout(() => {
+      setIsLoading(false);
+      setError("ভুল ইউজারনেম বা পাসওয়ার্ড");
+    }, 1000);
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-slate-700 text-white relative overflow-hidden mt-[80px]">
