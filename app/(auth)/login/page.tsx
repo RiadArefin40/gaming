@@ -19,29 +19,25 @@ const handleLogin = async () => {
   setError("");
 
   try {
-    const response = await fetch(
-      "https://bs.sxvwlkohlv.com/api/v2/auth/createtoken/",
-      {
-        method: "POST",
+    const response = // Instead of calling https://bs.sxvwlkohlv.com/api/v2/auth/createtoken/
+// Call your own domain
+      fetch('/api/auth/createtoken', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          Accept: "*/*",
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          clientId: "milon123",
-          clientSecret: "1vHaGWinUcpRDjQFsx0UghE7evaKIvMo",
-        }),
-      }
-    );
+        body: JSON.stringify({ clientId: 'milon123', clientSecret: '1vHaGWinUcpRDjQFsx0UghE7evaKIvMo' })
+      });
 
-    const data = await response.json();
+
+    const data = await response;
 
     // 🔥 Log full API response
     console.log("CreateToken API Response:", data);
 
-    if (!response.ok || !data) {
-      throw new Error("Invalid credentials");
-    }
+    // if (!response.ok || !data) {
+    //   throw new Error("Invalid credentials");
+    // }
 
     // Optional: store token if returned
     // localStorage.setItem("token", data.token);
