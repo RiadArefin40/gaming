@@ -1,7 +1,7 @@
 export async function POST() {
   try {
     const response = await fetch(
-      "https://bs.sxvwlkohlv.com/api/v2/auth/createtoken/",
+      "https://bs.sxvwlkohlv.com/api/v2/auth/createtoken",
       {
         method: "POST",
         headers: {
@@ -9,8 +9,8 @@ export async function POST() {
           Accept: "*/*",
         },
         body: JSON.stringify({
-          clientId: "testId",
-          clientSecret: "testSecret",
+          clientId: "milon123",
+          clientSecret: "1vHaGWinUcpRDjQFsx0UghE7evaKIvMo",
         }),
       }
     );
