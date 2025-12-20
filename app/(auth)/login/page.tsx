@@ -25,7 +25,7 @@ const handleLogin = async () => {
       fetch('/api/auth/createtoken', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ clientId: 'milon123', clientSecret: '1vHaGWinUcpRDjQFsx0UghE7evaKIvMo' })
+  body: JSON.stringify({ clientId: 'milon123', clientSecret: '1bRiw9JMiF9OsVbwW8chx4MwX0VwC0mKp' })
 })
 .then(res => res.json())
 .then(data => console.log(data));
