@@ -19,16 +19,33 @@ const handleLogin = async () => {
   setError("");
 
   try {
+
+
+    const status =   fetch('/api/status', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+       
+      })
+      .then(res => res.json())
+      .then(data => console.log(data));
+
+      
+    const check = await status;
+
+    // 🔥 Log full API response
+    console.log("CreateToken API Response:", check);
+
+
     const response = // Instead of calling https://bs.sxvwlkohlv.com/api/v2/auth/createtoken/
 
 
       fetch('/api/auth/createtoken', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ clientId: 'milon123', clientSecret: '1bRiw9JMiF9OsVbwW8chx4MwX0VwC0mKp' })
-})
-.then(res => res.json())
-.then(data => console.log(data));
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ clientId: 'milon123', clientSecret: '1bRiw9JMiF9OsVbwW8chx4MwX0VwC0mKp' })
+      })
+      .then(res => res.json())
+      .then(data => console.log(data));
 
 
 
