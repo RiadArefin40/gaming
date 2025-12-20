@@ -17,13 +17,13 @@ export async function POST() {
 
     const data = await response.json();
 
-    return Response.json(data, {
-      status: response.status,
-    });
+    return Response.json(data);
   } catch (error) {
+    console.log(error, 'error')
     return Response.json(
       { message: "Token API failed" },
-      { status: 500 }
+      { status: 500 },
+      {error}
     );
   }
 }
