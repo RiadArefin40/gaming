@@ -20,14 +20,16 @@ const handleLogin = async () => {
 
   try {
     const response = // Instead of calling https://bs.sxvwlkohlv.com/api/v2/auth/createtoken/
-// Call your own domain
+
+
       fetch('/api/auth/createtoken', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ clientId: 'milon123', clientSecret: '1vHaGWinUcpRDjQFsx0UghE7evaKIvMo' })
-      });
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ clientId: 'milon123', clientSecret: '1vHaGWinUcpRDjQFsx0UghE7evaKIvMo' })
+})
+.then(res => res.json())
+.then(data => console.log(data));
+
 
 
     const data = await response;
