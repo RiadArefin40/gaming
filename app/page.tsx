@@ -137,6 +137,7 @@ const checkAvailibilityThenLaunch = async (game: any) => {
     });
 
     const data = await res.json();
+    console.log('data', data)
     if (data.launchUrl) {
       // Open the game in new tab
       window.open(data.launchUrl, '_blank');
