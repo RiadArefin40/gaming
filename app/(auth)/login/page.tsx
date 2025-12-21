@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { loginUser } from "@/lib/auth";
+import { loginUser, getAuthUser } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import { DotLoadingButton } from "@/app/components/DotLoadingButton";
 
@@ -36,30 +36,20 @@ const handleLogin = async () => {
     console.log("CreateToken API Response:", check);
 
 
-    const response = // Instead of calling https://bs.sxvwlkohlv.com/api/v2/auth/createtoken/
-
-
-      fetch('/api/auth/createtoken', {
+    const response = await fetch('/api/auth/createtoken', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ clientId: 'milon123', clientSecret: 'bRiw9JMiF9OsVbwW8chx4MwX0VwC0mKp' })
-      })
-      .then(res => res.json())
-      .then(data => console.log(data));
+      });
 
-
-
-    const data = await response;
+    const data = await response.json();
 
     // 🔥 Log full API response
     console.log("CreateToken API Response:", data);
 
-    // if (!response.ok || !data) {
-    //   throw new Error("Invalid credentials");
-    // }
+    loginUser(username, password, data.token);
 
-    // Optional: store token if returned
-    // localStorage.setItem("token", data.token);
+    console.log('authdata', getAuthUser())
 
     setTimeout(() => {
       setIsLoading(false);
