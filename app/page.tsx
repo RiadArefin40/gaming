@@ -154,7 +154,7 @@ export default function Home() {
               <CategorySlider/> 
 
 
-      {gameList && gameList.map((game) => (
+      {gameList?.map((game) => (
         <div
           key={game.gameId}
           className="bg-gray-800 text-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow duration-300"
