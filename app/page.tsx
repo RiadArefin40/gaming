@@ -155,32 +155,39 @@ export default function Home() {
               <CategorySlider/> 
 
 
-      {gameList?.map((game) => (
-        <div
-          key={game.gameId}
-          className="bg-gray-800 text-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow duration-300"
-        >
-          <img
-            src={game.thumbnail}
-            alt={game.gameName}
-            className="w-full h-32 object-cover"
-          />
-          <div className="p-2">
-            <h3 className="text-sm font-semibold truncate">{game.gameName}</h3>
-            <p className="text-xs text-gray-400 truncate">{game.provider}</p>
-            {game.isNew && (
-              <span className="inline-block text-xs text-green-400 font-semibold mt-1">
-                NEW
-              </span>
-            )}
-            {game.underMaintenance && (
-              <span className="inline-block text-xs text-red-400 font-semibold mt-1">
-                MAINTENANCE
-              </span>
-            )}
-          </div>
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+  {Array.isArray(gameList) && gameList.length > 0 ? (
+    gameList.map((game) => (
+      <div
+        key={game.gameId}
+        className="bg-gray-800 text-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow duration-300"
+      >
+        <img
+          src={game.thumbnail}
+          alt={game.gameName}
+          className="w-full h-32 object-cover"
+        />
+        <div className="p-2">
+          <h3 className="text-sm font-semibold truncate">{game.gameName}</h3>
+          <p className="text-xs text-gray-400 truncate">{game.provider}</p>
+          {game.isNew && (
+            <span className="inline-block text-xs text-green-400 font-semibold mt-1">
+              NEW
+            </span>
+          )}
+          {game.underMaintenance && (
+            <span className="inline-block text-xs text-red-400 font-semibold mt-1">
+              MAINTENANCE
+            </span>
+          )}
         </div>
-      ))}
+      </div>
+    ))
+  ) : (
+    <p className="text-white col-span-full text-center">No games available</p>
+  )}
+</div>
+
 
 
 
