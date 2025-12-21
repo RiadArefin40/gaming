@@ -106,8 +106,8 @@ export default function Home() {
           body: JSON.stringify({ vendorCode, language })
         });
         const data = await res.json();
-        setGameList(data.message);
-        console.log('games list', gameList);
+        setGameList(data?.message);
+        console.log('games-list', gameList);
       } catch (err) {
         console.error('Error fetching games list:', err);
       }
