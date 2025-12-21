@@ -11,7 +11,7 @@ import MatchSlider from "./components/MatchSlider";
 import EventSlider from "./components/EventSlider";
 import FeaturedSlider from "./components/FeaturedSlider";
 import { Menu, Gamepad2, Dice6, Wallet, User, Crown, Activity, Rocket, X,MessageCircle  } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface MenuItem {
   name: string;
@@ -40,7 +40,7 @@ export default function Home() {
   };
 
     const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
-  const [sheetOpen, setSheetOpen] = useState(false); // Controlled sheet state
+    const [sheetOpen, setSheetOpen] = useState(false); // Controlled sheet state
 
   const toggleSection = (section: string) => {
     setOpenSections((prev) => ({
@@ -56,7 +56,31 @@ export default function Home() {
     { name: "Help", icon: <Gamepad2 className="w-5 h-5" />, children: ["Live Casino", "Table Games"] },
 
   ];
+   
 
+  const [gameList, setGameList] = useState<any[]>([]); // store gamelist here
+  const token = user.token
+  useEffect(() => {
+   const getVendorList = async () => {
+      try {
+        const res = await fetch('/api/vendors', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': '*/*',
+            'Authorization': `Bearer ${token}` // pass the token here
+          }
+        });
+        const data = await res.json();
+        setGameList(data);
+        console.log('vendorlist', data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    getVendorList();
+  }, [user]);
 
   return (
     <div className="">
@@ -94,6 +118,8 @@ export default function Home() {
    
 
               <CategorySlider/> 
+
+
 
 
                <ProviderCategory/>
