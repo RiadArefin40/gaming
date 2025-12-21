@@ -107,7 +107,7 @@ export default function Home() {
         });
         const data = await res.json();
         setGameList(data.message);
-        console.log('games list', data);
+        console.log('games list', gameList);
       } catch (err) {
         console.error('Error fetching games list:', err);
       }
