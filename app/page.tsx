@@ -59,7 +59,7 @@ export default function Home() {
    
 
   const [gameList, setGameList] = useState<any[]>([]); // store gamelist here
-  const token = user.token
+  const token = user?.token
   useEffect(() => {
    const getVendorList = async () => {
       try {
@@ -68,7 +68,7 @@ export default function Home() {
           headers: {
             'Content-Type': 'application/json',
             'Accept': '*/*',
-            'Authorization': `Bearer ${token}` // pass the token here
+            'Authorization': `Bearer ${user?.token}` // pass the token here
           }
         });
         const data = await res.json();
