@@ -80,7 +80,7 @@ export default function Home() {
     }
 
     getVendorList();
-  }, [user]);
+  }, []);
 
   return (
     <div className="">
