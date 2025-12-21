@@ -86,7 +86,7 @@ export default function Home() {
 
 
 
-  const [vendorCode, setVendorCode] = useState('casino-pragmatic'); // example vendor
+  const [vendorCode, setVendorCode] = useState('slot-jili'); // example vendor
   const [language, setLanguage] = useState('en');
 
 
