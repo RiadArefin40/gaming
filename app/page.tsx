@@ -61,6 +61,7 @@ export default function Home() {
   const [gameList, setGameList] = useState<any[]>([]); // store gamelist here
   const token = user?.token
   useEffect(() => {
+     if (!token) return;
    const getVendorList = async () => {
       try {
         const res = await fetch('/api/vendors', {
@@ -80,6 +81,39 @@ export default function Home() {
     }
 
     getVendorList();
+  }, []);
+
+
+
+
+  const [vendorCode, setVendorCode] = useState('casino-evolution'); // example vendor
+  const [language, setLanguage] = useState('en');
+
+
+    useEffect(() => {
+    if (!token) return;
+
+    // 2️⃣ Fetch games list
+    const getGames = async () => {
+      try {
+        const res = await fetch('/api/games', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': '*/*',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ vendorCode, language })
+        });
+        const data = await res.json();
+        setGameList(data);
+        console.log('games list', data);
+      } catch (err) {
+        console.error('Error fetching games list:', err);
+      }
+    };
+
+    getGames();
   }, []);
 
   return (
