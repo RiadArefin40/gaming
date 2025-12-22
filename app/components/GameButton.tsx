@@ -3,7 +3,7 @@ import React from "react";
 function LaunchGameButton({ userId, walletAmount, gameUid }: { userId: string; walletAmount: number; gameUid: string }) {
   const handleLaunchGame = () => {
     const url = `/api/launch_game?user_id=${encodeURIComponent(userId)}&wallet_amount=${encodeURIComponent(walletAmount)}&game_uid=${encodeURIComponent(gameUid)}`;
-    window.open(url, "_blank"); // Opens game in a new tab
+    // window.open(url, "_blank"); // Opens game in a new tab
   };
 
   return (
