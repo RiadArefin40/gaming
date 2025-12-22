@@ -6,7 +6,7 @@ function LaunchGameButton({ userId, walletAmount, gameUid }: { userId: string; w
 
 
     try {
-        const res = await fetch(`/api/launch_game?user_id=${encodeURIComponent(userId)}&wallet_amount=${encodeURIComponent(walletAmount)}&game_uid=${encodeURIComponent(gameUid)}`, {
+        const res = await fetch(`/api/launch_game`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
