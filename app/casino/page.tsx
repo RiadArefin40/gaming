@@ -9,7 +9,7 @@ interface Category {
 }
 
 interface Game {
-  id: number;
+  uid: string;
   name: string;
   image: string;
 }
@@ -150,7 +150,7 @@ export default function Casino() {
             ))
           : filteredGames.map((game) => (
               <div
-                key={game.id}
+                key={game.uid}
                 onClick={() => handleGameClick(game.name)}
                 className="relative rounded-lg overflow-hidden cursor-pointer hover:scale-105 transform transition duration-200"
               >
