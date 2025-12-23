@@ -13,57 +13,89 @@ export default function AuthPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+    const [phone, setPhone] = useState("");
+  const [referral, setReferral] = useState("");
+  const [currency, setCurrency] = useState("BDT");
+
+
 
 const handleLogin = async () => {
   setIsLoading(true);
   setError("");
 
   try {
+    const res = await fetch("http://localhost:4000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+      },
+      body: JSON.stringify({ name: username, password: password }),
+    });
 
+    const data = await res.json();
 
-    const status =   fetch('/api/status', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' , "Accept": "*/*", },
-       
-      })
-      .then(res => res.json())
-      .then(data => console.log(data));
-
-      
-    const check = await status;
-
-    // 🔥 Log full API response
-    console.log("CreateToken API Response:", check);
-
-
-    const response = await fetch('/api/auth/createtoken', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ clientId: 'milon123', clientSecret: 'bRiw9JMiF9OsVbwW8chx4MwX0VwC0mKp' })
-      });
-
-    const data = await response.json();
-
-    // 🔥 Log full API response
-    console.log("CreateToken API Response:", data);
-
-    loginUser(username, password, data.token);
-
-    console.log('authdata', getAuthUser())
-
-    setTimeout(() => {
+    if (!res.ok) {
+      // API returned an error (like 400 or 401)
+      setError(data.error || "ভুল ইউজারনেম বা পাসওয়ার্ড");
       setIsLoading(false);
-      router.push("/");
-    }, 1000);
+      return; // Stop execution
+    }
+
+    // ✅ Successful login
+    loginUser(data.user);
+    setIsLoading(false);
+    router.push("/");
   } catch (err) {
     console.error("Login Error:", err);
-
-    setTimeout(() => {
-      setIsLoading(false);
-      setError("ভুল ইউজারনেম বা পাসওয়ার্ড");
-    }, 1000);
+    setError("ভুল ইউজারনেম বা পাসওয়ার্ড");
+    setIsLoading(false);
   }
 };
+
+
+const handleSignUp = async () => {
+ if (!username || !phone) {
+      alert("Name and Phone are required!");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const res = await fetch("http://localhost:4000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "*/*",
+        },
+        body: JSON.stringify({
+          name: username,
+          phone,
+          referred_by: referral || null,
+          // you may also include default email/password for testing
+          email: '',
+          password: password,
+        }),
+      });
+
+      const data = await res.json();
+      console.log(data);
+
+      if (res.ok) {
+        alert("Signup successful!");
+
+        setReferral("");
+      } else {
+        alert(data.error || "Signup failed!");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong!");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
 
   return (
@@ -112,41 +144,45 @@ const handleLogin = async () => {
 
         {/* SIGNUP (UI only for now) */}
         {tab === "signup" && (
-          <>
-            <div className="mb-4">
-              <label className="text-xs text-gray-300 mb-2 block">
-                ব্যবহারকারীর নাম
-              </label>
-              <input
-                className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-sm"
-                placeholder="আপনার ইউজার নেম লিখুন"
-              />
-            </div>
+         <div>
+      <div className="mb-4">
+        <label className="text-xs text-gray-300 mb-2 block">ব্যবহারকারীর নাম</label>
+        <input
+          className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-sm"
+          placeholder="আপনার ইউজার নেম লিখুন"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+      </div>
 
-            <div className="mb-4">
-              <label className="text-xs text-gray-300 mb-2 block">
-                মুদ্রা বেছে নিন
-              </label>
-              <div className="flex items-center justify-between h-12 bg-gray-700/60 rounded-md px-4">
-                <span>BDT</span>
-                <ChevronDown size={16} />
-              </div>
-            </div>
+      <div className="mb-6">
+        <label className="text-xs text-gray-300 mb-2 block">মোবাইল নম্বর</label>
+        <input
+          className="w-full h-12 bg-gray-700/60 rounded-md px-4"
+          placeholder="+880 ---------"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
+      </div>
 
-            <div className="mb-6">
-              <label className="text-xs text-gray-300 mb-2 block">
-                মোবাইল নম্বর
-              </label>
-              <input
-                className="w-full h-12 bg-gray-700/60 rounded-md px-4"
-                placeholder="+880 ---------"
-              />
-            </div>
+      <div className="mb-6">
+        <label className="text-xs text-gray-300 mb-2 block">Reffaral</label>
+        <input
+          className="w-full h-12 bg-gray-700/60 rounded-md px-4"
+          placeholder="Referral Code"
+          value={referral}
+          onChange={(e) => setReferral(e.target.value)}
+        />
+      </div>
 
-            <button className="w-full h-12 bg-orange-700 rounded-md">
-              চালিয়ে যান
-            </button>
-          </>
+      <DotLoadingButton
+        onClick={handleSignUp}
+        loading={isLoadinge}
+        className="max-w-screen w-[80%] mx-auto left-12 h-11 absolute top-[460px] bg-orange-400 hover:bg-orange-600"
+      >
+        Sign Up
+      </DotLoadingButton>
+    </div>
         )}
 
         {/* LOGIN */}

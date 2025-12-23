@@ -5,12 +5,10 @@ export const STATIC_USER = {
   name: "Admin User",
 };
 
-export function loginUser(username: string, password: string, token:string) {
+export function loginUser(user:any) {
   if (
-    username === STATIC_USER.username &&
-    password === STATIC_USER.password
+    user
   ) {
-    const user = { username, name: STATIC_USER.name, token:token };
     localStorage.setItem("auth_user", JSON.stringify(user));
     return user;
   }
