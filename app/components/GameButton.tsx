@@ -19,6 +19,12 @@ function LaunchGameButton({ userId, walletAmount, gameUid }: { userId: string; w
     // Parse the JSON response
     const data = await res.json();
     console.log("Launch Game Response:", data);
+    if (data.success && data.gameUrl) {
+      // 🔥 Redirect to game
+      window.location.href = data.gameUrl;
+    } else {
+      alert("Failed to launch game");
+    }
 
   } catch (error) {
     console.error("Error launching game:", error);
