@@ -89,7 +89,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
         body: JSON.stringify({
           userName: "player123",
           game_uid: item.uid,
-          credit_amount: 1200,
+          credit_amount: 100,
         }),
       });
 
