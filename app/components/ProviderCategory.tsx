@@ -71,88 +71,89 @@ function slugify(text: string) {
 
 
   return (
-    <div className="my-4 px-4 z-50 max-w-screen">
-     <div className="mb-4 flex items-center justify-between">
-  <p className="text-xl border-l-4 border-orange-400 pl-4">
-    Provider
-  </p>
+//     <div className="my-4 px-4 z-50 max-w-screen">
+//      <div className="mb-4 flex items-center justify-between">
+//   <p className="text-xl border-l-4 border-orange-400 pl-4">
+//     Provider
+//   </p>
 
-  <div className="flex gap-2">
-    <button
-      onClick={() => scrollByCard("left")}
-      className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700
-                 flex items-center justify-center text-slate-300
-                 hover:bg-slate-700 transition"
-    >
-      <ChevronLeft size={18} />
-    </button>
+//   <div className="flex gap-2">
+//     <button
+//       onClick={() => scrollByCard("left")}
+//       className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700
+//                  flex items-center justify-center text-slate-300
+//                  hover:bg-slate-700 transition"
+//     >
+//       <ChevronLeft size={18} />
+//     </button>
 
-    <button
-      onClick={() => scrollByCard("right")}
-      className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700
-                 flex items-center justify-center text-slate-300
-                 hover:bg-slate-700 transition"
-    >
-      <ChevronRight size={18} />
-    </button>
-  </div>
-</div>
+//     <button
+//       onClick={() => scrollByCard("right")}
+//       className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700
+//                  flex items-center justify-center text-slate-300
+//                  hover:bg-slate-700 transition"
+//     >
+//       <ChevronRight size={18} />
+//     </button>
+//   </div>
+// </div>
 
-      <div
-        ref={containerRef}
-        className="
-        flex gap-3
-  overflow-x-auto 
-  scroll-smooth
-  snap-x snap-mandatory
-  touch-pan-x
-  overscroll-x-contain
-  max-w-screen
+//       <div
+//         ref={containerRef}
+//         className="
+//         flex gap-3
+//   overflow-x-auto 
+//   scroll-smooth
+//   snap-x snap-mandatory
+//   touch-pan-x
+//   overscroll-x-contain
+//   max-w-screen
   
-  no-scrollbar
-        "
-      >
-        {gameImages.casino.map((item, idx) => {
-          const isActive = idx === selected;
+//   no-scrollbar
+//         "
+//       >
+//         {gameImages.casino.map((item: any, idx: number) => {
+//           const isActive = idx === selected;
 
-          return (
-            <div
-              data-card
-              key={item.id}
-              onClick={() => handleSelect(idx,item.title)}
-              className={`
-    snap-center
-    flex-shrink-0 basis-[48%]   
-max-w-[48%]  pt-2 p-1
+//           return (
+//             <div
+//               data-card
+//               key={item.id}
+//               onClick={() => handleSelect(idx,item.title)}
+//               className={`
+//     snap-center
+//     flex-shrink-0 basis-[48%]   
+// max-w-[48%]  pt-2 p-1
    
-    flex flex-col items-center justify-center
-    cursor-pointer select-none
-    transition-all duration-300 ease-out
-    border
-           bg-gradient-to-br from-slate-800 to-slate-900
-          text-slate-300
+//     flex flex-col items-center justify-center
+//     cursor-pointer select-none
+//     transition-all duration-300 ease-out
+//     border
+//            bg-gradient-to-br from-slate-800 to-slate-900
+//           text-slate-300
    
-          border-slate-700
+//           border-slate-700
    
-  `}
-            >
-              <div
+//   `}
+//             >
+//               <div
 
-              >
-                <div className=" flex items-center"> 
-                      <img className="w-12" src={item.src} alt="" />
-                      <span className="text-sm font-medium">{item.title}</span>
-                </div>
+//               >
+//                 <div className=" flex items-center"> 
+//                       <img className="w-12" src={item.src} alt="" />
+//                       <span className="text-sm font-medium">{item.title}</span>
+//                 </div>
     
-              </div>
+//               </div>
 
             
-            </div>
-          );
-        })}
-      </div>
+//             </div>
+//           );
+//         })}
+//       </div>
 
 
-    </div>
+//     </div>
+<></>
   );
 }

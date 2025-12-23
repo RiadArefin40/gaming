@@ -14,6 +14,7 @@ import {
 import { gameImages } from "@/utils/gameData";
 import { GameGrid } from "./GameGrid";
 import { ExclusiveGrid } from "./ExclusiveGrid";
+import { SportsGrid } from "./SportsGrid";
 const categories = [
   {id:1, name: "Exclusive", icon: <Star /> },
   {id:2, name: "Sports", icon: <Trophy /> },
@@ -143,8 +144,11 @@ export default function CategorySlider() {
         {selectedCategory === "exclusive" && (
           <ExclusiveGrid items={gameImages.exclusive} />
         )}
+         {selectedCategory === "sports" && (
+          <SportsGrid items={activeGamesMap[selectedCategory as keyof typeof activeGamesMap]}  />
+        )}
 
-        {selectedCategory !== "exclusive" && (
+        {(selectedCategory !== "exclusive" && selectedCategory !== "sports")  && (
           <GameGrid items={activeGamesMap[selectedCategory as keyof typeof activeGamesMap]} />
         )}
     </div>
