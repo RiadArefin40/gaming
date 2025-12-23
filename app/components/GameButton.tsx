@@ -1,9 +1,30 @@
 import React from "react";
 
 function LaunchGameButton({ userId, walletAmount, gameUid }: { userId: string; walletAmount: number; gameUid: string }) {
-  const handleLaunchGame = async () => {
-    window.open('/launch_game', '_blank')
-  };
+ const handleLaunchGame = async () => {
+  try {
+    const res = await fetch('/api/launch_game', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+      },
+      body: JSON.stringify({
+        userName: "player123",
+        game_uid: "1189baca156e1bbbecc3b26651a63565",
+        credit_amount: 1200
+      })
+    });
+
+    // Parse the JSON response
+    const data = await res.json();
+    console.log("Launch Game Response:", data);
+
+  } catch (error) {
+    console.error("Error launching game:", error);
+  }
+};
+
 
   return (
     <button
