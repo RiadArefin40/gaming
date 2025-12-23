@@ -24,27 +24,27 @@ export const gameImages: any  = {
 
    sports: [
 
-  {
-    id: 4,
-    uid:'4d31f1186a81e208c003a7e37411ce35',
-    title: "BTi",
+  // {
+  //   id: 4,
+  //   uid:'4d31f1186a81e208c003a7e37411ce35',
+  //   title: "BTi",
 
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-sbtech.svg",
-  },
-  {
-    id: 5,
-    uid: 'e130116fdc9bcde2dbb31735b6c365d6',
-    title: "DP Sports",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-sbtech.svg",
+  // },
+  // {
+  //   id: 5,
+  //   uid: 'e130116fdc9bcde2dbb31735b6c365d6',
+  //   title: "DP Sports",
  
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-cmd.svg",
-  },
-  {
-    id: 6,
-    uid: '08ced9dd788aed11ff3c7f387ae0f063',
-    title: "SABA-Sports",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-cmd.svg",
+  // },
+  // {
+  //   id: 6,
+  //   uid: '08ced9dd788aed11ff3c7f387ae0f063',
+  //   title: "SABA-Sports",
 
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-awcme1sport.svg",
-  },
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/sports-type/icon-awcme1sport.svg",
+  // },
   {
     id: 7,
     uid:'92b24e4c25107367a80e0fe1a97c24e4',
