@@ -44,7 +44,7 @@ export default function Casino() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [sortAsc, setSortAsc] = useState(true);
-
+const [loadingText, setLoadingText] = useState("Launching game...");
   // Update filtered games when searchTerm or sort changes
   useEffect(() => {
     setLoading(true);
@@ -73,40 +73,58 @@ export default function Casino() {
   };
 
   // Handle game card click
-  const handleGameClick = async (game:any) => {
-    // const slug = slugify(gameName);
-    // router.push(`/games/${slug}`);
+  const handleGameClick = async (item:any) => {
+       if (loading) return;
+
+    setLoading(true);
+    setLoadingText("Preparing game session...");
+
     try {
-    const res = await fetch('/api/launch_game', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': '*/*',
-      },
-      body: JSON.stringify({
-        userName: "player123",
-        game_uid: game.uid,
-        credit_amount: 520
-      })
-    });
+      const res = await fetch("/api/launch_game", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "*/*",
+        },
+        body: JSON.stringify({
+          userName: "player123",
+          game_uid: item.uid,
+          credit_amount: 1200,
+        }),
+      });
 
-    // Parse the JSON response
-    const data = await res.json();
-    console.log("Launch Game Response:", data);
-    if (data.success && data.gameUrl) {
-      // 🔥 Redirect to game
-      window.location.href = data.gameUrl;
-    } else {
-      alert("Failed to launch game");
+      const data = await res.json();
+
+      if (res.ok && data.success && data.gameUrl) {
+        setLoadingText("Opening game…");
+
+        // ✅ Open game in new tab
+        window.open(data.gameUrl, "_blank", "noopener,noreferrer");
+      } else {
+        alert(data.error || "Failed to launch game");
+      }
+    } catch (error) {
+      console.error("Error launching game:", error);
+      alert("Something went wrong");
+    } finally {
+      setLoading(false);
     }
-
-  } catch (error) {
-    console.error("Error launching game:", error);
-  }
   };
 
   return (
-    <div className="p-2 py-[100px]">
+    <>
+           {loading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+          <div className="flex flex-col items-center gap-4">
+            <div className="h-12 w-12 animate-spin rounded-full border-4 border-orange-400 border-t-transparent" />
+            <p className="text-sm text-gray-200 animate-pulse">
+              {loadingText}
+            </p>
+          </div>
+        </div>
+      )}
+
+       <div className="p-2 py-[100px]">
       
 
       {/* Category Dropdown */}
@@ -193,5 +211,7 @@ export default function Casino() {
             ))}
       </div>
     </div>
+    </>
+   
   );
 }
