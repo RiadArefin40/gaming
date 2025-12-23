@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 
 function LaunchGameButton({ userId, walletAmount, gameUid }: { userId: string; walletAmount: number; gameUid: string }) {

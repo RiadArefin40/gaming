@@ -9,7 +9,7 @@ interface Category {
 }
 
 interface Game {
-  id: number;
+  uid: string;
   name: string;
   image: string;
 }
@@ -73,9 +73,36 @@ export default function Casino() {
   };
 
   // Handle game card click
-  const handleGameClick = (gameName: string) => {
-    const slug = slugify(gameName);
-    router.push(`/games/${slug}`);
+  const handleGameClick = async (game:any) => {
+    // const slug = slugify(gameName);
+    // router.push(`/games/${slug}`);
+    try {
+    const res = await fetch('/api/launch_game', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': '*/*',
+      },
+      body: JSON.stringify({
+        userName: "player123",
+        game_uid: game.uid,
+        credit_amount: 520
+      })
+    });
+
+    // Parse the JSON response
+    const data = await res.json();
+    console.log("Launch Game Response:", data);
+    if (data.success && data.gameUrl) {
+      // 🔥 Redirect to game
+      window.location.href = data.gameUrl;
+    } else {
+      alert("Failed to launch game");
+    }
+
+  } catch (error) {
+    console.error("Error launching game:", error);
+  }
   };
 
   return (
@@ -150,12 +177,12 @@ export default function Casino() {
             ))
           : filteredGames.map((game) => (
               <div
-                key={game.id}
-                onClick={() => handleGameClick(game.name)}
+                key={game.uid}
+                onClick={() => handleGameClick(game)}
                 className="relative rounded-lg overflow-hidden cursor-pointer hover:scale-105 transform transition duration-200"
               >
                 <img
-                  src={game.image}
+                  src={game.image || 'https://img.j189eb.com/upload/game/AWCV2_PP/BDT/PP-LIVE-188.png?v=1761618162271'}
                   alt={game.name}
                   className="w-full h-32 sm:h-40 md:h-48 object-cover"
                 />
