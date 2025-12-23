@@ -11,7 +11,7 @@ function LaunchGameButton({ userId, walletAmount, gameUid }: { userId: string; w
       },
       body: JSON.stringify({
         userName: "player123",
-        game_uid: "ba2adf72179e1ead9e3dae8f0a7d4c07",
+        game_uid: "8c62471fd4e28c084a61811a3958f7a1",
         credit_amount: 1200
       })
     });
