@@ -2,7 +2,7 @@ import { gameImages } from "./gameData";
 
 const csvData = `
 code,Game Name,Game UID,Game Type,RTP,Release Date,Remarks,货币
-104,Baccarat Lobby,e58e145313cf8c3a41a2240c1579b735,CasinoLive,"Regular Baccarat Player: 98.94%",,,
+104,Baccarat Lobby,89a12f80c6dc0aa7651400364e8f5e80,CasinoLive,"Regular Baccarat Player: 98.94%",,,
 `;
 
 
