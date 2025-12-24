@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { allGames } from "@/utils/allGames";
+import { prgmGamesArray } from "@/utils/prgmGame";
 
 interface Category {
   name: string;
@@ -14,6 +15,7 @@ interface Game {
   image: string;
 }
 
+
 // Slugify helper
 function slugify(text: string) {
   return text
@@ -22,17 +24,14 @@ function slugify(text: string) {
     .replace(/^-+|-+$/g, "");
 }
 
-export const gamesWithImages = allGames.map(game => ({
-  ...game,
-  image: `/evo/${game.name}.png`,
-}));
+
 
 
 export default function Casino() {
   const pathname = usePathname();
   const router = useRouter();
   const lastSegment = pathname.split("/").filter(Boolean).pop();
-
+console.log('alll',prgmGamesArray ,lastSegment)
   const categories: Category[] = [
     { name: "Casino", icon: <span>♠️</span> },
     { name: "Slots", icon: <span>🎰</span> },
@@ -42,6 +41,28 @@ export default function Casino() {
     { name: "Arcade", icon: <span>👾</span> },
     { name: "Lottery", icon: <span>🎫</span> },
   ];
+
+//  const gamesWithImages = allGames.map(game => ({
+//   ...game,
+//   image: `/evo/${game.name}.png`,
+// }));
+
+
+interface GameSource {
+  uid: string;
+  name: string;
+  // Allow extra fields for compatibility
+  [key: string]: any;
+}
+
+const gamesWithImages: Game[] = (
+  pathname.includes('evoulution')
+    ? (allGames as GameSource[])
+    : (prgmGamesArray as GameSource[])
+).map((item: GameSource): Game => ({
+  ...item,
+  image: pathname.includes('evoulution') ? `/evo/${item.name}.png` : '',
+}));
 
   const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
   const [searchTerm, setSearchTerm] = useState("");
@@ -55,11 +76,11 @@ const [loadingText, setLoadingText] = useState("Launching game...");
   useEffect(() => {
     setLoading(true);
     const timeout = setTimeout(() => {
-      let filtered = gamesWithImages.filter((game) =>
+      let filtered = gamesWithImages.filter((game:any) =>
         game.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
 
-      filtered.sort((a, b) =>
+      filtered.sort((a:any, b:any) =>
         sortAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
       );
 
