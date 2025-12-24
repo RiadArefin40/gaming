@@ -1,681 +1,1774 @@
 import { gameImages } from "./gameData";
 
 const csvData = `
-code,Game Name,Game UID,Game Type,RTP,Release Date,Remarks,,,货币,,语言,
-vs20gemfirefor,Gem Fire Fortune,8a0b30eb466a8a07027cbddc19369d0f,Video Slots,96.50%,2025-06-30,,,,AED,,ar,
-vs20wwgcluster,Wild West Gold Blazing Bounty,91cd6233551cd56e70d900794ed728e3,Video Slots,96.48%,2025-06-26,,,,AFN,,hy,
-vs10fingerlfs,Finger Lick’n Free Spins,aa861b71cc3c5dbab1fd7073d5c1c452,Video Slots,96.55%,2025-06-23,,,,ALL,,bg,
-vs25goldpartya,Gold Party 2 – After Hours,e1d2da140286507e851fde1cb2fdd4ba,Video Slots,96.50%,2025-06-19,,,,AMD,,hr,
-vs10diamondrgh,Temple Guardians,d333e6e0316422a0d5ffb7eae28fd3b7,Video Slots,96.53%,2025-06-16,,,,ANG,,cs,
-vs10bbbbrnd,Big Bass Boxing Bonus Round,0b6df3ffc8f38d0e39fccee31e1edf2b,Video Slots,96.50%,2025-06-12,,,,AOA,,da,
-vswaysmjwl,Mummy’s Jewels,f30340fa76609f5220055eae27ab881e,Video Slots,96.50%,2025-06-05,,,,ARS,,nl,
-vs20gtsofhades,Gates of Hades,5eaf8bc24222d8245734ec57cde23bc3,Video Slots,96.52%,2025-06-02,,,,AWG,,en,
-vs20slmpop,Slime Pop,e763129659cb5ec4d4a0393f3236dd38,Video Slots,96.02%,2025-05-29,Country Exclusive: Korea,,,AZN,,et,
-vs15eyeofspart,Eye of Spartacus,94c536991cca6e6df70a30c7e1d896cc,Video Slots,96.42%,2025-05-29,,,,BAM,,fi,
-vswaysmwss,Mahjong Wins Super Scatter,259ad8e105ef217dad404bffe0fff257,Video Slots,96.50%,2025-05-26,"Excluding Indonesia, China, Malaysia & Thailand",,,BBD,,nl,
-vs25goldrexp,Majestic Express - Gold Run,ba642e78eca4b9ac43f1a56f8c824705,Video Slots,96.50%,2025-05-22,,,,BDT,,fr,
-vswaysresurich,Resurrecting Riches,dec331c52aade0f61e5f7dd4bbedfde9,Video Slots,96.50%,2025-05-15,,,,BGN,,ka,
-vs20jjjack,Jumbo Safari,223147051fc0a47a6d90ebe3e3a0e9c6,Video Slots,96.52%,2025-05-12,,,,BHD,,de,
-vs25sleepdrag,Sleeping Dragon,4a67372025a83767178a6c5fc6c4c8d4,Video Slots,96.50%,2025-05-08,,,,BIF,,el,
-vs10gbseries,Fiesta Fortune,fc263087951d1b7406c8a2f3bbedc363,Video Slots,96.50%,2025-05-05,,,,BMD,,hi,"Restricted by GeoIP / 受 GeoIP 限制的市场: US, FR, IL, TW, AU, KP, IN, SG, IR, AE, LB"
-vswayswildbrst,Witch Heart Megaways,a47148d4858a7f4599dfc00c68a2c141,Video Slots,96.49%,2025-05-01,,,,BND,,hu,USA - 美国
-vs20olympgold,Gates of Olympus Super Scatter,880a68222d05a3697055d523d574cb2b,Video Slots,96.50%,2025-04-28,,,,BOB,,id,France - 法国
-vswayscashsurg,Cash Surge,de109cef80306297f2a7522a5283dd18,Video Slots,96.52%,2025-04-24,,,,BRL,,it,Israel - 以色列
-vs20scbparty,Sweet Cherry Blossom,ce6fefa0eb82fd4a3f069827ce4f5e25,Video Slots,96.47%,2025-04-22,Country Exclusive: Japan,,,BSD,,ja,Taiwan - 台湾
-vs10bbbnz1000,Big Bass Bonanza 1000,00d1836f3a1200cb6754a61be4c39160,Video Slots,96.51%,2025-04-21,,,,BTN,,ko,Australia - 澳大利亚
-vsways5lionsr,5 Lions Reborn,b00d127ba0c5f8439f94646887f1fd4d,Video Slots,96.50%,2025-04-17,,,,BWP,,lv,North Korea - 朝鲜
-vs9ridelightng,Ride The Lightning,4a6be4b9aeb053d692a649db586d7e56,Video Slots,96.50%,2025-04-14,,,,BYN,,lt,India - 印度
-vs5jokerjc,Joker’s Jewels Cash,fcb9a4dabb068f060d3701be9fc6a0f0,Video Slots,96.51%,2025-04-10,,,,BZD,,ms,Singapore - 新加坡
-vswaysbandit,Bandit Megaways,de19dcca7f6fbfa5cc5807e786b6b617,Video Slots,96.55%,2025-04-07,,,,CAD,,es,Iran - 伊朗
-vs20fpartydice,Fruit Party Dice,365d741d1fecf08663e58016675d2a11,Video Slots,96.47%,2025-04-04,"Country Exclusive: Belgium, Turkey, Russia, Argentina, Brazil, Indonesia & Korea",,,CDF,,no,United Arab Emirates - 阿联酋
-vs20lightblitz,Blitz Super Wheel,d1f8f611d448510a487271b818eabe2f,Video Slots,96.52%,2025-04-03,,,,CHF,,fa,Lebanon - 黎巴嫩
-vs20fatbook,Book of Monsters,34cb1fb87c318a4923fc7b7b4e31d53e,Video Slots,96.50%,2025-03-31,,,,COP,,pl,"Regulated markets / 受监管市场 - 受监管的市场 – 我们需要确保 B2C 客户在启用之前持有适当的许可证: UK, IT, DK, BS, ES, RO, BG, PT, GI, MT, PH, LT, LV, EE, SE, CO, GG, RS, IM, GR, BY, ZA, DE, UA, NL, BE, GE, CA/ON, NL, BR, PE"
-vswaysasiatrzn,Triple Pot Gold,241e7aaee249b053cb53f7f3e0edf578,Video Slots,96.02%,2025-03-27,,,,CRC,,pt,Great Britain > Blocked by default - 英国 > 默认屏蔽
-vs20dhsuper,The Dog House – Royal Hunt,102fb01e01cbb7528c6ac803bbd9dd13,Video Slots,96.51%,2025-03-24,,,,CUP,,pt,Italy > Blocked by default - 意大利 > 默认屏蔽
-vswaysvlcgds,Volcano Goddess,276582955d8f162b3379939a3eb5b038,Video Slots,96.49%,2025-03-17,,,,CVE,,ro,Denmark > Blocked by default - 丹麦 > 默认屏蔽
-vs25luckwildpb,Lucky’s Wild Pub,fbe795aa609d23d09688d82498d38f50,Video Slots,96.50%,2025-03-13,,,,CZK,,ru,Bahamas > Blocked by default - 巴哈马 > 默认屏蔽
-vswayswwjoker,Wild Wild Joker,45a1f0f25c0b7c3ab56c1993f9e6e03b,Video Slots,96.49%,2025-03-10,,,,DJF,,sr,Spain > Blocked by default - 西班牙 > 默认屏蔽
-vswaysmltchmgw,Raging Waterfall Megaways,497d313c846b303aa1aeea495a4a44b3,Video Slots,96.50%,2025-03-06,,,,DKK,,sk,Romania > Blocked by default - 罗马尼亚 > 默认屏蔽
-vs10fortnpig,Greedy Fortune Pig,200d25646470d5cca20d0dd408d7957a,Video Slots,96.50%,2025-03-03,,,,DOP,,es,Bulgaria > Blocked by default - 保加利亚 > 默认屏蔽
-vsways5lions2,5 Lions Megaways 2,30535756ecf42673db61eca89df50bc3,Video Slots,96.50%,2025-02-27,,,,DZD,,sv,Portugal > Blocked by default - 葡萄牙 > 默认屏蔽
-vswaystonypzz,Peppe’s Pepperoni Pizza Plaza,395891d339277b24073f5a1ca46cce3c,Video Slots,96.55%,2025-02-20,,,,EGP,,th,Gibraltar > Blocked by default - 直布罗陀 >默认屏蔽
-vs10bbrttr,Big Bass Return to the Races,9f4e61bc4ef7ebffd8637dd1db5202f1,Video Slots,96.07%,2025-02-17,,,,ERN,,tr,Malta - 马耳他
-vs12bgrbspl,Bigger Bass Splash,1944eb208471b5dfd960f26e80cc3715,Video Slots,96.50%,2025-02-13,,,,ETB,,uk,Philippines > Blocked by default - 菲律宾 > 默认屏蔽
-vswayssavlgnd,Savannah Legend,69866a02334ebe58c3d69c0a4d59255a,Video Slots,96.50%,2025-02-10,,,,EUR,,vi,Lithuania > Blocked by default - 立陶宛 > 默认屏蔽
-vs10booklight,John Hunter and Galileo’s Secrets,0518b5e45a9953982e1c1e77206c2755,Video Slots,96.50%,2025-02-06,,,,FJD,,,Latvia - 拉脱维亚
-vswaysmodfr,Ancient Island Megaways,914c41ff6ce7c680e2a110d35420b1be,Video Slots,96.55%,2025-02-03,,,,FKP,,,Estonia - 爱沙尼亚
-vs10fireice,Escape the Pyramid Fire & Ice,ce7cd8d59599fec6326d5da24f9847ef,Video Slots,96.50%,2025-01-30,,,,GBP,,,Sweden > Blocked by default - 瑞典 > 默认屏蔽
-vswaysbufstamp,Wild Wildebeest Wins,5f096f82cd6cf67f3f3f030a0bb89542,Video Slots,96.45%,2025-01-27,,,,GEL,,,Colombia > Blocked by default - 哥伦比亚 > 默认屏蔽
-vs20irishcrown,Irish Crown,3a6bb0239060b0acf471ab2671ca74db,Video Slots,96.52%,2025-01-23,,,,GHS,,,Guernsey (Alderney) - 根西岛（奥尔德尼岛）
-vswayspearls,Wild Wild Pearls,69b91ecb2d7ba33c804ceba3ac81956a,Video Slots,96.46%,2025-01-20,,,,GIP,,,Serbia > Blocked by default - 塞尔维亚 > 默认屏蔽
-vswaysaztec,Aztec Gems Megaways,ba3dc54ad1f451262910dda6c61001ce,Video Slots,96.58%,2025-01-16,,,,GMD,,,Isle Of Man - 马恩岛
-vswaysmahwgong,Mahjong Wins - Gong Xi Fa Cai,022f71df2642ce42cec8d75be0ec4c59,Video Slots,97.00%,2025-01-13,"Country Exclusive: China, Malaysia, Indonesia & Thailand",,,GNF,,,Greece - Blocked by default - 希腊 - 默认屏蔽
-vswaysbrickhos,Brick House Bonanza,953182d14bc438f502e277812dc452c4,Video Slots,96.50%,2025-01-09,,,,GTQ,,,Belarus - 白俄罗斯
-vs10fdsnake,Floating Dragon Year of the Snake,acacbc8afd513f03e2ebbbdf2c879a4c,Video Slots,96.71%,2025-01-09,,,,GYD,,,South Africa > Blocked by default - 南非 > 默认屏蔽
-vs10fonzofff,Fonzo’s Feline Fortunes,bd2201cc0e94ca82e519e4210feb9780,Video Slots,96.50%,2025-01-06,,,,HNL,,,Germany - 德国
-vs20plsmcannon,Aztec Smash,f53103b500a4c918eeb82de810152301,Video Slots,96.52%,2025-01-02,,,,HTG,,,Ukraine > Blocked by default - 乌克兰 > 默认屏蔽
-vs20minerush,Mining Rush,1e7a27b5a565c6c132a13d05f14d127a,Video Slots,96.56%,2024-12-19,,,,HUF,,,The Netherlands > Blocked by default - 荷兰 > 默认屏蔽
-vswaysolymp,Gates of Olympus Pachi,c57abeb1b877a6a7ffaa9ab4ccbf3751,Video Slots,96.04%,2024-12-16,Country Exclusive: Japan,,,IDR,,,Belgium - 比利时
-vs5bb3reeler,Big Bass Bonanza 3 Reeler,0e7383431bae567b88fd9be7bf652b45,Video Slots,96.50%,2024-12-16,,,,ILS,,,Georgia - 格鲁吉亚
-vswaysarcher,Archer Gold,76aa54bc79dd32e576b2b52b41ae4103,Video Slots,96.56%,2024-12-12,Country Exclusive: Malaysia,,,INR,,,Ontario province > Blocked by default - 安大略省 > 默认屏蔽
-vswaysbblitz,Money Stacks Megaways,556e56808e1b687474439204cc378e8a,Video Slots,96.50%,2024-12-12,,,,IQD,,,Brazil - 巴西
-vs10dkinghp,Dragon King Hot Pots,c070b94e25d02cbacaea7531830ee790,Video Slots,96.54%,2024-12-09,,,,IRR,,,Peru > Blocked by default - 秘鲁 > 默认屏蔽
-vs15roma,Roma,15b7dc13994eba460c7e73aedf40f9ad,Video Slots,96.55%,2024-12-05,Country Exclusive: Thailand,,,ISK,,,
-vs50fatfrogs,Tiny Toads,459a9079909b284ff898e5e4d8b26fd6,Video Slots,96.51%,2024-12-05,,,,JMD,,,
-vs20rainbowrsh,Santa’s Xmas Rush,ecbea4416112629c154998398bf8bd7c,Video Slots,96.51%,2024-12-02,,,,JOD,,,
-vs20olympxmas,Gates of Olympus Xmas 1000,b696ce6e67b7d6386903a3a88d48b4d9,Video Slots,96.50%,2024-11-28,,,,JPY,,,
-vs25xmasparty,Penguins Christmas Party Time,e330d77b3eb2cfae299f981c692f18af,Video Slots,96.54%,2024-11-25,,,,KES,,,
-vs20msdice,Money Stacks Dice,376b046e39b206c5e1d021e68f8cdc78,Video Slots,96.53%,2024-11-21,"Country Exclusive: Belgium, Turkey, Russia, Argentina, Brazil, Indonesia & Korea",,,KGS,,,
-vswaysmfreya,Might of Freya Megaways,78b425dd73ed6af262dbafaf6da89fcc,Video Slots,96.50%,2024-11-21,,,,KHR,,,
-vs10bbxext,Big Bass Xmas Xtreme,6f18f146e6bb8c9291a3144ebf5e4ca5,Video Slots,96.07%,2024-11-18,,,,KMF,,,
-vswaysfreezet,Eternal Empress – Freeze Time,7e20b309f0e0bf88a751b41f54e35545,Video Slots,96.50%,2024-11-14,,,,KPW,,,
-vs5himalaw,Himalayan Wild,cbf9e465f33f7abb892e8a3286b2af79,Video Slots,96.51%,2024-11-11,,,,KRW,,,
-vs25ultwolgol,Wolf Gold Ultimate,7605e4f0d6ed5812280f6ce3a20fd7d3,Video Slots,96.57%,2024-11-07,,,,KWD,,,
-vs20clreacts,Moleionaire,3293f239dccef44f742e8d5241eb89c0,Video Slots,96.08%,2024-11-04,,,,KYD,,,
-vs20fourmc,Candy Corner,c6f5ee2ea499da7f10b4ce92e434bb9e,Video Slots,96.50%,2024-10-31,,,,KZT,,,
-vswaysmahwblck,Mahjong Wins 3 – Black Scatter,a4f67f1730245d22f834bf826ae22c13,Video Slots,96.50%,2024-10-28,"Country Exclusive: China, Malaysia, Indonesia & Thailand",,,LAK,,,
-vswayssevenc,7 Clovers of Fortune,1e93f95916665108cb61065274cb46a4,Video Slots,96.47%,2024-10-28,,,,LBP,,,
-vs10fangfree,Fangtastic Freespins,3cde6f0025377dd4725f37a7e5e72ead,Video Slots,96.51%,2024-10-24,,,,LKR,,,
-vswayswbounty,Vampy Party,0ab1d901b6cc731b48bc3b2cd07b3cf1,Video Slots,96.00%,2024-10-21,,,,LRD,,,
-vs10bhallbnza2,Big Bass Halloween 2,045f290df6c578256adb632ea1da485f,Video Slots,96.71%,2024-10-17,,,,LSL,,,
-vswayskrakenmw,Release the Kraken Megaways,01e4cb8a338a238c044d7cc69d26000f,Video Slots,96.08%,2024-10-14,,,,LYD,,,
-vs25checaishen,Chests of Cai Shen,d7c6f416bfff4113677afc25d050bf33,Video Slots,96.47%,2024-10-10,,,,MAD,,,
-vs40wildrun,Fortune Hit’n Roll,b210bf0a7ae17ae28c9ca2ebd6f76b05,Video Slots,96.57%,2024-10-07,,,,MDL,,,
-vs20dhcluster2,The Dog House – Muttley Crew,b079ae5505eac4356bf4432efe3e4687,Video Slots,96.50%,2024-10-03,,,,MGA,,,
-vs20procountx,Wisdom of Athena 1000,97a7bed99262b8c950be4bf1b173e23d,Video Slots,96.00%,2024-09-30,,,,MKD,,,
-vswaysanime,Anime Mecha Megaways,38eb6f8133b79c0915e5e101dd70536d,Video Slots,96.09%,2024-09-26,,,,MMK,,,
-vs5triple8gold,888 Gold,5808b410c759813d771f31af6c3f4381,Video Slots,97.52%,2024-09-25,Remake Version. Excluding Korea,,,MNT,,,
-vs25badge,Badge Blitz,df30d3730d30e22c1d56bb5665fdbbf4,Video Slots,96.50%,2024-09-23,,,,MUR,,,
-2201,High Flyer (Crash Game),95c391563f83181c52c5de366a89b9b9,Crash Game,97.00%,2024-09-19,"Live Casino Product, released in Slots",,,MVR,,,
-vs20powerwild,Mystery Mice,389d3ed341890bca57ebe191241bf521,Video Slots,96.49%,2024-09-19,,,,MWK,,,
-vs10noodles,Oodles of Noodles,dfdef0baca51fd11a62636cc9a197e5a,Video Slots,96.58%,2024-09-16,,,,MXN,,,
-vswayscongcash,Congo Cash XL,10cd0742a6692ef9c27a4320e3883c4e,Video Slots,96.41%,2024-09-12,,,,MZN,,,
-vs10bbdoubled,Big Bass Vegas Double Down Deluxe,03ca2d1bef1ca213826750ee1e38b6fd,Video Slots,96.50%,2024-09-09,,,,NAD,,,
-vswaysgoldcol,Mustang Gold Megaways,2cd0ed283355e539bced7ae90d4f2f6e,Video Slots,96.55%,2024-09-05,,,,NGN,,,
-vs15fghtmultlv,Angel vs Sinner,5e5c9899b53b60510a2b61a00c46f9be,Video Slots,96.56%,2024-09-02,,,,NIO,,,
-vs20elevclust,Gem Elevator,c4fc4643a2307e4a5390667c21484c50,Video Slots,96.53%,2024-08-29,,,,NOK,,,
-vs10dgold88,Dragon Gold 88,bc5c4d595345cbd9e888695ffc2e43b2,Video Slots,96.71%,2024-08-26,,,,NPR,,,
-vs20trswild3,Aztec Treasure Hunt,c3d9125886cdd573a4404e6121877754,Video Slots,96.03%,2024-08-22,,,,NZD,,,
-vs10hottb7fs,Hot to Burn – 7 Deadly Free Spins,9fdac2b52d638ecd12d7e17aa51c6ab4,Video Slots,96.54%,2024-08-19,,,,OMR,,,
-vs20forgewilds,Forging Wilds,9353352cfedd5e6bdeebbc62db84a061,Video Slots,96.52%,2024-08-15,,,,PAB,,,
-vs20jhunter,Jackpot Hunter,9dac235c0ee7406bcb06df11fdc35faa,Video Slots,96.00%,2024-08-12,,,,PEN,,,
-vs20mesmult,Yeti Quest,901b9cfd5c94c5679dacbb343181b915,Video Slots,96.06%,2024-08-08,,,,PGK,,,
-vswayscashconv,Running Sushi,31aa32bdf9e65b3d12435fdfc0bfb901,Video Slots,96.00%,2024-08-05,,,,PHP,,,
-vs25wgdice,Wolf Gold Dice,8bc2593695c8eba8138d446bc288e2ab,Video Slots,96.00%,2024-08-01,"Country Exclusive: Belgium, Turkey, Russia, Argentina, Brazil, Indonesia & Korea",,,PKR,,,
-vs20bblitz,Money Stacks,42c498504c1a58713ee24dc1e0922420,Video Slots,96.55%,2024-08-01,,,,PLN,,,
-vs20gembondx,Bow of Artemis,96c03b1b9d99b78b06e2f99ecef038e2,Video Slots,96.05%,2024-07-29,,,,PYG,,,
-vswaysmegwghts,Sumo Supreme Megaways,9428409f076a8b0f8f8202620b1a48ef,Video Slots,96.55%,2024-07-25,,,,QAR,,,
-vs10jokerhot,Joker’s Jewels Hot,db243d8097f9e469dd308699dfad5c6a,Video Slots,96.50%,2024-07-22,,,,RON,,,
-vs10dyndigd,Dynamite Diggin Doug,0a97dccc9a6230fb3c9eea3220c02d9e,Video Slots,96.52%,2024-07-18,,,,RSD,,,
-vs5magicdoor,6 Jokers,cab1a52c8ae4d3c9b5650396d231345a,Video Slots,96.55%,2024-07-15,,,,RUB,,,
-vs5hotbmult,Hot to Burn Multiplier,e6eccf00e6147a91e4d2c679f79b8166,Video Slots,96.51%,2024-07-11,,,,RWF,,,
-vs12scode,Samurai Code,0950740961fbb11cb8e3425ee97f3bc3,Video Slots,96.08%,2024-07-08,,,,SAR,,,
-vs20crankit,Crank It Up,cc0dd70f3e00c73df28585f552298928,Video Slots,95.95%,2024-07-04,,,,SBD,,,
-vs20clustcol,Sweet Kingdom,e342b8ebea1dae1e7dc78a6b6edd7e3b,Video Slots,96.52%,2024-07-01,,,,SCR,,,
-vs20midas2,Hand of Midas 2,04e9ce4628bf5032d5f003343df6b8d4,Video Slots,96.07%,2024-06-27,,,,SDG,,,
-vswaysmahwin2,Mahjong Wins 2,ab3782682b0ef188abf062c90ac72e55,Video Slots,96.50%,2024-06-24,"Exclusive: China, Malaysia, Indonesia & Thailand",,,SEK,,,
-vswaysbkingasc,Buffalo King Untamed Megaways,43397368de7455764195f0097e72a626,Video Slots,96.02%,2024-06-20,,,,SHP,,,
-vs10bbfmission,Big Bass Mission Fishin’,e302e6030d750c678a0ddd351d6d8ec9,Video Slots,96.50%,2024-06-18,,,,SLL,,,
-vs20medusast,Medusa’s Stone,c652da89a1d5352ee30cff7c56ece838,Video Slots,96.46%,2024-06-13,,,,SOS,,,
-vs20devilic,Devilicious,9938b97371ca02e104e109990b8f9329,Video Slots,96.46%,2024-06-11,,,,SRD,,,
-vs10bbbrlact,Big Bass Bonanza - Reel Action,383490651852a945360146cdcf59b93f,Video Slots,96.50%,2024-06-11,,,,SYP,,,
-vs25wildies,Wildies,aaa56510aaf9b54e51cda7ee7ccff609,Video Slots,96.01%,2024-06-06,,,,SZL,,,
-vs20fruitswx,Sweet Bonanza 1000,e3f45e2f03388056aba660b7e737ecf0,Video Slots,96.53%,2024-06-04,,,,TJS,,,
-vswaysloki,Revenge of Loki Megaways,efa2b0e8f55413648daa4aa2b34bdbec,Video Slots,96.51%,2024-05-30,,,,TMT,,,
-vswaysjapan,Starlight Princess Pachi,583ee8a3096dbefe4ee4053730a07d04,Video Slots,96.04%,2024-05-30,,,,TND,,,
-vs20fortbon,Fruity Treats,72d078c9385c5a92f1de8344ac43915d,Video Slots,96.05%,2024-05-28,,,,TOP,,,
-vswayshexhaus,Rise of Pyramids,3c8c57d806e01d6b76dc5cf138a56f4c,Video Slots,95.97%,2024-05-23,,,,TRY,,,
-vswaysspltsym,Dwarf & Dragon,34e8a791c7b048d5fb708b58a4266944,Video Slots,96.59%,2024-05-21,,,,TTD,,,
-vs10frontrun,Odds On Winner,751b5d37674e80824361e09ce285be7f,Video Slots,96.51%,2024-05-16,,,,TZS,,,
-vs20heartcleo,Heart of Cleopatra,d097220b342873db6fa2fd007a150916,Video Slots,96.48%,2024-05-14,,,,UAH,,,
-vs20shootstars,Heroic Spin,8e0755ec28b776e7c8d8763924152920,Video Slots,96.00%,2024-05-09,,,,UGX,,,
-vs20lobseafd,Lobster Bob’s Sea Food and Win It,75490d7675a731a6f7197ff860df1f5b,Video Slots,96.00%,2024-05-07,,,,USD,,,
-vs5jjwild,Joker’s Jewels Wild,00ab11e01d9f85c9b74e0e52233e9a85,Video Slots,96.27%,2024-05-07,,,,USDT,,,
-vs20mkrush,Wukong Rush,a6503e7ed7688aeff856f14f91057c0e,Video Slots,96.50%,2024-05-02,"Excluding Japan, Myanmar & Korea",,,UYU,,,
-vs20candybltz2,Candy Blitz Bombs,5c5ecf28395360512e10ba9b12eb736d,Video Slots,96.49%,2024-04-30,,,,UZS,,,
-vswaysmegahays,Barnyard Megahays Megaways,17905b61e70edc1cb0e90bd84669dd73,Video Slots,96.50%,2024-04-23,,,,VND,,,
-vs20stickypos,Ice Lobster,07b39ef4436dea6438ac2b7d5cfad996,Video Slots,96.06%,2024-04-23,,,,VUV,,,
-vs10bblotgl,Big Bass Secrets of the Golden Lake,aaea3a95f3e5ce36e4beea92c71ed912,Video Slots,96.07%,2024-04-16,,,,WST,,,
-vs40stckwldlvl,Ripe Rewards,c4ed86503269c27ef923b68ef0040bb6,Video Slots,96.02%,2024-04-16,,,,XAF,,,
-vs20bison,Release the Bison,c5730a06691426e313095ac0380106f1,Video Slots,96.54%,2024-04-09,,,,XCD,,,
-vs20sbpnudge,Aztec Powernudge,224479ab56371d6f6a5f1733ad14623c,Video Slots,96.46%,2024-04-09,,,,XOF,,,
-vs10bburger,Big Burger Load it up with Xtra Cheese,ee6844b10cc2295104d72c0554af94b3,Video Slots,96.04%,2024-04-02,,,,XPF,,,
-vs20doghouse2,The Dog House Dog or Alive,82bead4e84621b9b553f6b7c0c5faa73,Video Slots,96.08%,2024-04-02,,,,YER,,,
-vs20cbrhst,Cyber Heist,cb5d7e55024f427d18297db3d3959cb4,Video Slots,96.70%,2024-03-26,,,,ZAR,,,
-vs20sugarrushx,Sugar Rush 1000,3b2630042452d3e6b79054e4e96a2bf3,Video Slots,96.53%,2024-03-26,,,,ZMW,,,
-vs20portals,Fire Portals,563f07d59be196ad3cec2533d7c2fbd0,Video Slots,96.06%,2024-03-26,,,,WST,,,
-vs15samurai4,Rise of Samurai 4,633f235433660d08fe870de3ae927ba5,Video Slots,96.07%,2024-03-19,,,,XAF,,,
-vs20stckwldsc,Pot of Fortune,a0f906347522869dbbbd377a0461995e,Video Slots,96.00%,2024-03-19,,,,XCD,,,
-vswaysbewaretd,Beware The Deep Megaways,cc19f896b3d01e7d2904c0049c30d802,Video Slots,97.47%,2024-03-12,,,,XOF,,,
-vs10bbbnz,Big Bass Day at the Races,9fd858734e7329e7716363be6b610658,Video Slots,96.07%,2024-03-12,,,,XPF,,,
-vs20gatotx,Gates of Gatot Kaca 1000,33ec04f802880123694d7a223542ed6c,Video Slots,96.50%,2024-03-05,,,,YER,,,
-vs20clustext,Gears of Horus,8895e06c770c160e3a864b31e01fd285,Video Slots,95.09%,2024-03-05,,,,ZAR,,,
-vswayscheist,Casino Heist Megaways,03ffa428a8f2a22197068532ff4ed786,Video Slots,96.50%,2024-03-05,Excluding Indonesia,,,ZMW,,,
-vs20ninjapower,Power of Ninja,72e9cc20131f0a2744e3ab9132ef5fd2,Video Slots,96.50%,2024-02-27,,,,,,,
-vs20olympdice,Gates of Olympus Dice,1896e4aac745e9e3bc233db2e06512de,Video Slots,96.50%,2024-02-27,,,,,,,
-vs15seoultrain,Zombie Train,16bc2931ce1875eb9ed575e7cde55d6f,Video Slots,96.07%,2024-02-27,,,,,,,
-vs20mmmelon,Mighty Munching Melons,018cd71c3da7eaecf4c707fe93df0983,Video Slots,96.05%,2024-02-20,,,,,,,
-vs10strawberry,Strawberry Cocktail,2ae4e08329f8acd0834b289e2348af02,Video Slots,96.00%,2024-02-20,,,,,,,
-vs25lagoon,Great Lagoon,9e5eca93ba120437375404c67cd5cd78,Video Slots,96.64%,2024-02-20,,,,,,,
-vs20multiup,Wheel O'Gold,44ab0ddf84f32cc79f6bdcf6309b9710,Video Slots,96.02%,2024-02-13,,,,,,,
-vswaysmegareel,Pompeii Megareels Megaways,eedae4fa7847b2d1e050c9fac07b08d6,Video Slots,96.00%,2024-02-13,,,,,,,
-vs10bbfloats,Big Bass Floats My Boat,64d75dfe52f40c443aeae3c5e9d5f4d8,Video Slots,96.07%,2024-02-06,,,,,,,
-vs5balidragon,Bali Dragon,3285fedfb12a8603737103ca7df79851,Video Slots,96.50%,2024-02-06,Excluding Indonesia,,,,,,
-vswaysalterego,The Alter Ego,7162afaab597e1e6b2e8726143a327ba,Video Slots,96.07%,2024-02-06,,,,,,,
-vs20treesot,Trees of Treasure,33173c718311b3f3e2277204b7a7dbe2,Video Slots,96.10%,2024-01-30,,,,,,,
-vs1024fortune,Fortune Ace,a15d8418eaff591cfa5856a441f6b3eb,Video Slots,96.48%,2024-01-30,,,,,,,
-vswaysfirewmw,Blazing Wilds Megaways,32a9b5e9958d37e859f8ae6f0705c095,Video Slots,96.06%,2024-01-30,,,,,,,
-vs20mergedwndw,Blade & Fangs,98875a7c55c236d138916cd59cde1eea,Video Slots,96.05%,2024-01-23,,,,,,,
-vs1024mjwinbns,Mahjong Wins Bonus,7c9e9decfcd0b4d23050c9d8531e26bf,Video Slots,96.48%,2024-01-23,,,,,,,
-vs20loksriches,Loki's Riches,d659ed2db71ee2f6603998a57f8df6ab,Video Slots,96.04%,2024-01-23,,,,,,,
-vs243fdragon,Fortune Dragon,4563140da50e1b649dc791a7bd9a5ee7,Video Slots,96.50%,2024-01-16,,,,,,,
-vs20bigdawgs,The Big Dawgs,49bf22f2c40ab90ff3933574f53bbe6d,Video Slots,95.97%,2024-01-16,,,,,,,
-vs10luckfort,Good Luck & Good Fortune,59a4562710480f67693cff6e6cdcef8c,Video Slots,96.05%,2024-01-09,,,,,,,
-vswaysexpandng,Castle of Fire,2c70f8e2670dd2b13417ae5228d85375,Video Slots,96.01%,2024-01-09,,,,,,,
-vs20laughluck,Happy Fortune,8f743f3c43a3b649434350f1de898c72,Video Slots,96.25%,2024-01-02,Excluding Indonesia,,,,,,
-vs20yotdk,Year of the Dragon King,7eaed38a7a14080e8f2fa46ac298084c,Video Slots,96.08%,2024-01-02,,,,,,,
-vswaysfltdrgny,Floating Dragon New Year Festival Ultra Megaways,a2a79af10baaf8cbe4f51fb067e1297b,Video Slots,96.70%,2023-12-26,,,,,,,
-vs50jfmulthold,Juicy Fruits Multihold,fb356bd005fb1294952f7f56db50141d,Video Slots,96.04%,2023-12-26,,,,,,,
-vs20olympx,Gates of Olympus 1000,4ae52ed2e1a8c353878ba65ed7791ac4,Video Slots,96.50%,2023-12-19,,,,,,,
-vswayswildgang,The Wild Gang,b17af566fd988c3d7a06ee12facf0c60,Video Slots,96.20%,2023-12-19,,,,,,,
-vswaysseastory,Sea Fantasy,a980bf2816f706eaa7c5b6ca2dab1ff3,Video Slots,96.02%,2023-12-12,,,,,,,
-vswaysstampede,Fire Stampede,39f34ced7888fd518c18262a6bab409d,Video Slots,96.00%,2023-12-12,,,,,,,
-vs20cjcluster,Candy Jar Cluster,1584763738f901c73e643c55c7f2de24,Video Slots,96.08%,2023-12-12,,,,,,,
-vs20dhdice,The Dog House Dice Show,7d53869b99737ebb4c24975a763be669,Video Slots,96.51%,2023-12-05,,,,,,,
-vs20giftcndblz,Xmas Spark,8166e58684c0bfe3a61abc9e37611be5,Video Slots,96.08%,2023-12-05,,,,,,,
-vs10ddcbells,Ding Dong Christmas Bells,5e9b76b4907aa68bb519ddb416446e27,Video Slots,96.05%,2023-12-05,,,,,,,
-vswayscharms,5 Frozen Charms Megaways,d3e7be9440400e644859dba882daec79,Video Slots,96.05%,2023-12-05,,,,,,,
-vs20sugrux,Sugar Rush Xmas,8170339cc716c66d5b52779119fd718f,Video Slots,96.50%,2023-11-28,,,,,,,
-vs20mahjxbnz,Mahjong X,00ff9f1ce40c2c951ef34b0a2bcad07c,Video Slots,96.60%,2023-11-21,Excluding Indonesia,,,,,,
-vs10bbsplxmas,Big Bass Christmas Bash,d78b41ecb69fe8370a561d2d478d980f,Video Slots,96.71%,2023-11-21,,,,,,,
-vs20nilefort,Nile Fortunes,cc4dc803cc5ff595cb81ce52ee259eea,Video Slots,96.03%,2023-11-21,,,,,,,
-vs5jokerdice,Joker Jewels Dice,625498971ffcdb4e4c828c60159a5636,Video Slots,96.50%,2023-11-14,,,,,,,
-vswayscfglory,Chase for Glory,ee95520197282d10c4d0420db30bb686,Video Slots,96.00%,2023-11-14,,,,,,,
-vswaystimber,Timber Stacks,cfe86bd54a5ab5caeeeff12cd333c47e,Video Slots,96.50%,2023-11-14,,,,,,,
-vs20sugarnudge,Sugar Supreme Powernudge,ae20ea3685a6fa25b6489f03489bd83b,Video Slots,96.09%,2023-11-07,,,,,,,
-vs20sugarcoins,Viking Forge,1ad222e9a7940fbb51c603458a1d9aff,Video Slots,96.05%,2023-11-07,,,,,,,
-vs20rujakbnz,Rujak Bonanza,d8f2e87c7c0898a49d5f0dca19321a67,Video Slots,96.48%,2023-11-07,,,,,,,
-vs20olympgrace,Grace of Ebisu,7918e7b0081306132d4020d4d890ef01,Video Slots,96.50%,2023-10-31,,,,,,,
-vs20dhcluster,Twilight Princess,078375547c790a2ad08aabe0427f800c,Video Slots,96.08%,2023-10-31,,,,,,,
-vs243goldfor,888 Bonanza,8d35c74db4cc910c4a608f694f0ac2c9,Video Slots,97.08%,2023-10-24,,,,,,,
-vswaysmoneyman,The Money Men Megaways,ef907480a0cebef4e072c9d15ceb1d84,Video Slots,96.02%,2023-10-24,,,,,,,
-vs40demonpots,Demon Pots,315a7c0ff22e9b9c8f000ba72626b1eb,Video Slots,96.01%,2023-10-24,,,,,,,
-vs20bnnzdice,Sweet Bonanza Dice,2c39d0d7684c6562da4c1fc5b3c07990,Video Slots,96.49%,2023-10-17,,,,,,,
-vs10bhallbnza,Big Bass Halloween,950764651894d3ec34431c4423f23ebb,Video Slots,96.04%,2023-10-17,,,,,,,
-vs40rainbowr,Rainbow Reels,5f969b7d1b8027ea52ba96d92d5c6948,Video Slots,96.07%,2023-10-17,,,,,,,
-vs5gemstone,Gemstone,9f6631b1861423dd72b422669f0e5e60,Video Slots,96.52%,2023-10-10,Excluding Indonesia,,,,,,
-vswaysraghex,Tundra’s Fortune,4dda8aba195fc38dc6464f35f4538ae2,Video Slots,96.04%,2023-10-10,,,,,,,
-vs20maskgame,Cash Chips,b1258e0b4f6ebb00a5ebb41a6cb7bc26,Video Slots,96.03%,2023-10-10,,,,,,,
-vs40infwild,Infective Wild,b9a9503f3580f443d83ba709c5f332f9,Video Slots,96.09%,2023-10-03,,,,,,,
-vs20gravity,Gravity Bonanza,43f280df4cdb1b1489d6744d7b1d6332,Video Slots,96.09%,2023-10-03,,,,,,,
-1320,Big Bass Crash,f4c5947fbaa31d2602e6089962b90876,Crash Game,95.50%,2023-09-27,"Live Casino Product, released in Slots",,,,,,
-vs20candyblitz,Candy Blitz,3f90b6a8e9b089615d514a25c1b29323,Video Slots,96.08%,2023-09-26,,,,,,,
-vswaysstrlght,Fortunes of Aztec,bfb8b9e84ff096a54adffb8688a2bf45,Video Slots,96.42%,2023-09-26,,,,,,,
-vs10gdchalleng,8 Golden Dragon Challenge,9b8db256da26b54e7b8a0766ac7d904d,Video Slots,96.02%,2023-09-19,,,,,,,
-vswaystut,John Hunter and the Book of Tut Megaways,9b19140970cfefc081033d4e35d0b360,Video Slots,96.00%,2023-09-19,,,,,,,
-vswaysftropics,Frozen Tropics,3df26cdfe9500ab174c05367573af3da,Video Slots,96.15%,2023-09-12,,,,,,,
-vswaysincwnd,Gold Oasis,1607b049d8a796222fc273ffab91b5d3,Video Slots,96.06%,2023-09-12,,,,,,,
-vs20saiman,Saiyan Mania,09427b3980780ea41a9f15dda6b2726c,Video Slots,96.50%,2023-09-05,Excluding Indonesia,,,,,,
-vs20earthquake,Cyclops Smash,eba8270a8a2ebe09311a5491b798566d,Video Slots,96.06%,2023-09-05,,,,,,,
-vswaysbbhas,Big Bass Hold & Spinner Megaways,af7a31b3324bbe5c97a808b7603feeec,Video Slots,96.70%,2023-09-05,,,,,,,
-vs1024mahjwins,Mahjong Wins,b1fc7b189ba6f2ccf74e8bcf4b55a686,Video Slots,96.48%,2023-08-29,,,,,,,
-vs20forge,Forge of Olympus,5ac3ad3f0072e0b114a8301f556a8bc5,Video Slots,96.25%,2023-08-29,,,,,,,
-vs20piggybank,Piggy Bankers,c47913d1477cf25524760a3a07dbeedd,Video Slots,96.05%,2023-08-22,,,,,,,
-vs20lvlup,Pub Kings,1bf67bfe1e66d5dee133f69542501e5b,Video Slots,96.08%,2023-08-22,,,,,,,
-vs10trail,Mustang Trail,e378a7f46eef2b738d9737c54c645656,Video Slots,96.04%,2023-08-15,,,,,,,
-vswaysrockblst,Rocket Blast Megaways,87f49701824163c963d2ca41c11cccab,Video Slots,96.01%,2023-08-15,,,,,,,
-vs20supermania,Supermania,9d2ff202764e3ac97e16bff3aed6c9b9,Video Slots,96.50%,2023-08-08,Excluding Indonesia,,,,,,
-vs20lobcrab,Lobster Bob's Crazy Crab Shack,787e0dd629df674a400b212e9125369a,Video Slots,96.03%,2023-08-08,,,,,,,
-vs50dmdcascade,Diamond Cascade,daec52818a6b49138cc584cef0b3a028,Video Slots,96.06%,2023-08-08,,,,,,,
-vs20starlightx,Starlight Princess 1000,09d08939279289a03b89f2f146a7f817,Video Slots,96.50%,2023-08-01,,,,,,,
-vs20wildparty,3 Buzzing Wilds,b7f5590ec64882148207e646949d005f,Video Slots,96.03%,2023-08-01,,,,,,,
-vswayspowzeus,Power of Merlin Megaways,7550347957cc9a63b8c782718bc7bbc1,Video Slots,96.08%,2023-07-25,,,,,,,
-vs20splmystery,Spellbinding Mystery,dcd84d9b162d2949cd8afd949c3bc77e,Video Slots,96.04%,2023-07-25,,,,,,,
-vs20cashmachine,Cash Box,1a75acc43d2f431841df864c2d4629d4,Video Slots,96.02%,2023-07-18,,,,,,,
-vs50jucier,Kraken's Sky Bounty,ced178749b1fda69159e8cf0c1a7be4b,Video Slots,96.05%,2023-07-18,,,,,,,
-vs25jokrace,Joker Race,3a33ab169b2200f7820a4159c7268c31,Video Slots,96.50%,2023-07-11,,,,,,,
-vs243nudge4gold,Hellvis Wild,34d1a5a6cf7970a3fd7d915cdd7a058f,Video Slots,96.01%,2023-07-11,,,,,,,
-vs10bbextreme,Big Bass Amazon Xtreme,5807b1f2837f709f692fc1b65f51cefc,Video Slots,96.07%,2023-07-04,,,,,,,
-vs20hstgldngt,Heist for the Golden Nuggets,7d09a0335b51fd879867402be7f80a43,Video Slots,96.00%,2023-07-04,,,,,,,
-vs20procount,Wisdom of Athena,bda320d9d63d12432d578b1f97855087,Video Slots,96.07%,2023-06-27,,,,,,,
-vs20beefed,Fat Panda,24fc30acc61053509c271a0eaf1782a9,Video Slots,96.07%,2023-06-27,,,,,,,
-vs9outlaw,Pirates Pub,60f7646eb66ad7af6f8ab36ff13723ad,Video Slots,96.03%,2023-06-20,,,,,,,
-vs20jewelparty,Jewel Rush,bd44e960f4ef716c0ad0702c4a8beee8,Video Slots,96.47%,2023-06-20,,,,,,,
-vs4096robber,Robber Strike,525ef3ce7b0ab3155b63f75683e58635,Video Slots,96.51%,2023-06-13,,,,,,,
-vswaysfrbugs,Frogs & Bugs,972eba0227e1b37d5faba91f714f5d8e,Video Slots,96.43%,2023-06-13,,,,,,,
-vs20lampinf,Lamp Of Infinity,df097d9daa1685b9985e1eb39e61a1e7,Video Slots,96.07%,2023-06-13,,,,,,,
-vs10fdrasbf,Floating Dragon - Dragon Boat Festival,6d2c3f62aed12608973fad7fcb8263d0,Video Slots,96.07%,2023-06-06,,,,,,,
-vs20clustwild,Sticky Bees,5829781f73f9ba200a16a41b09f4b548,Video Slots,96.06%,2023-06-06,,,,,,,
-vs25spotz,Knight Hot Spotz,f7f10653ddc4b30609f2b3ec53c60510,Video Slots,96.50%,2023-05-30,,,,,,,
-vs15godsofwar,Zeus vs Hades - Gods of War,df0492724f0fc4ae4ec183d0c0176d46,Video Slots,96.07%,2023-05-30,,,,,,,
-vs20stickywild,Wild Bison Charge,14ead2e47fd93e145d6fd7689ec7001a,Video Slots,96.03%,2023-05-23,,,,,,,
-vs20excalibur,Excalibur Unleashed,65f80fc41945b953333ee709a58e0152,Video Slots,96.05%,2023-05-23,,,,,,,
-vs25holiday,Holiday Ride,28e4d704cf080bb6cae517365b27c1fa,Video Slots,96.56%,2023-05-16,,,,,,,
-vswayseternity,Diamonds of Egypt,5743a2300cc3c54855838cef2af0fc99,Video Slots,96.49%,2023-05-16,,,,,,,
-vs10kingofdth,Kingdom of The Dead,b2bb144d10b6c0ecc70290bac9c46b37,Video Slots,96.07%,2023-05-09,,,,,,,
-vs20mvwild,Jasmine Dreams,e71997252ce1d047424f9fd5a0a064e2,Video Slots,96.48%,2023-05-09,,,,,,,
-vs10jnmntzma,Jane Hunter and the Mask of Montezuma,8bbe5db9292401a1949370cdc622d361,Video Slots,96.02%,2023-05-02,,,,,,,
-vswaysultrcoin,Cowboy Coins,d92892b4f0cf9e5549d6e8219799a58c,Video Slots,96.08%,2023-05-02,,,,,,,
-vs10gizagods,Gods of Giza,8568e9c3c1355b30aaf8771df6c7b749,Video Slots,96.01%,2023-04-25,,,,,,,
-vswaysrsm,Wild Celebrity Bus Megaways,f2123a67dd61d022e892ccf306f035d0,Video Slots,96.01%,2023-04-25,,,,,,,
-vswaysmonkey,3 Dancing Monkeys,ac700413f2a4f9241e306e622a5bf935,Video Slots,96.00%,2023-04-18,,,,,,,
-vs20hotzone,African Elephant,c47e7fda3a1d706d21fc215b4f080551,Video Slots,96.04%,2023-04-18,,,,,,,
-vs1024moonsh,Moonshot,14f3ed57c53c2ad75cba2933b4087b60,Video Slots,96.50%,2023-04-11,,,,,,,
-vswaysredqueen,The Red Queen,7112b25f15d34e49eaab3951356bb9a6,Video Slots,96.06%,2023-04-11,,,,,,,
-vs10bbhas,Big Bass Bonanza - Hold & Spinner,ff8a0e680d8a2a12fc5bd618b291fcff,Video Slots,96.07%,2023-04-11,,,,,,,
-vs20framazon,Fruits of the Amazon,20a5902cf138c5ebdfaa313677a0369f,Video Slots,96.50%,2023-04-04,,,,,,,
-vs20sknights,The Knight King,beb6945fb6425f850f4758ee63785a9e,Video Slots,96.05%,2023-04-04,,,,,,,
-vs20doghousemh,The Dog House Multihold,9198d01543114fa961ad20f0aff63672,Video Slots,96.06%,2023-03-28,,,,,,,
-vs20goldclust,Rabbit Garden,c708cac68bf68fa5de05977fe7f11153,Video Slots,96.05%,2023-03-28,,,,,,,
-vs20pistols,Wild West Duels,584ceb7bf9bf98841294c8da4f9b7705,Video Slots,96.00%,2023-03-21,,,,,,,
-vswaysmorient,Mystery Of The Orient,cb7e319f72c9b39a2f8c92e6d585557d,Video Slots,96.00%,2023-03-21,,,,,,,
-vswayswwriches,Wild Wild Riches Megaways,8dbc6b550d9684f5a4d03d62ff6cd0c5,Video Slots,96.02%,2023-03-14,,,,,,,
-vs10powerlines,Peak Power,14ca4e22f87ef9c06452a6aa3208c3c3,Video Slots,96.02%,2023-03-14,,,,,,,
-vs12tropicana,Club Tropicana,ec96e7f4cf81c39a29127a7a475fc3af,Video Slots,96.08%,2023-03-07,,,,,,,
-vs25archer,Fire Archer,5afb80c4615f2910c9fdf14e78c2b2d7,Video Slots,96.07%,2023-03-07,,,,,,,
-vs20gatotfury,Gatot Kaca's Fury,b3e4366fedc4dc70c9769a7ecbefcc6b,Video Slots,96.54%,2023-02-28,,,,,,,
-vs20mochimon,Mochimon,94ff937e0ce81bb47aa57f48270a7706,Video Slots,96.50%,2023-02-28,,,,,,,
-vs20superlanche,Monster Superlanche,74ca460589928e25b1f0767e15611f3f,Video Slots,96.03%,2023-02-21,,,,,,,
-vs10fisheye,Fish Eye,8666f814f931135eb824726af1217bcd,Video Slots,96.07%,2023-02-21,,,,,,,
-vs25spgldways,Secret City Gold,1a572faa53b45bd8cd1b576aa2717e0d,Video Slots,96.06%,2023-02-14,,,,,,,
-vs20ltng,Pinup Girls,4a0363f5a77c31cada471326ae1470f0,Video Slots,96.44%,2023-02-14,,,,,,,
-vs20mammoth,Mammoth Gold Megaways,bb02b8ec08f419f736dcd5a05dec7e11,Video Slots,96.03%,2023-02-07,,,,,,,
-vswayswwhex,Wild Wild Bananas,1ff5d508e3503952a59200e991f084fb,Video Slots,96.10%,2023-02-07,,,,,,,
-vs20aztecgates,Gates of Aztec,3424ac1587cce058dea273a4e5a3cbf8,Video Slots,96.50%,2023-01-31,,,,,,,
-vswaysfuryodin,Fury of Odin Megaways,756d339c5748f3c294ff9af12b1569f4,Video Slots,95.97%,2023-01-31,,,,,,,
-vs20clspwrndg,Sweet Powernudge,e56351f07bf54902c0dd24eb398ad008,Video Slots,96.08%,2023-01-17,,,,,,,
-vs20dugems,Hot Pepper,5a279ab989b4722a649af9e9cd9bad68,Video Slots,96.45%,2023-01-17,,,,,,,
-vswayspizza,PIZZA! PIZZA? PIZZA!,41a153f648c94ed3a6f8562f39eb039d,Video Slots,96.04%,2023-01-10,,,,,,,
-vs25rlbank,Reel Banks,77022f0e153bb46b43ef08d83b0499ea,Video Slots,96.04%,2023-01-10,,,,,,,
-vswaysrabbits,5 Rabbits Megaways,908f3b21263818f283e3c2b6c57bea25,Video Slots,96.53%,2023-01-03,,,,,,,
-vs20drgbless,Dragon Hero,7213d6d23f67e21cb0843c95ef4d5614,Video Slots,96.00%,2023-01-03,,,,,,,
-vswaysluckyfish,Lucky Fishing Megaways,9a0b02afcb79b9cc0bf01cc5990014cb,Video Slots,96.55%,2022-12-27,,,,,,,
-vs10bbkir,Big Bass Bonanza - Keeping it Reel,f14729c8edfa50174568a18ebb10265f,Video Slots,96.07%,2022-12-27,,,,,,,
-vs20sparta,Shield of Sparta,afec8fc55162675f8812b17accaffc92,Video Slots,96.50%,2022-12-20,,,,,,,
-vs20gatotgates,Gates of Gatot Kaca,4344bf39cbeaafca9edfbd724330d284,Video Slots,96.50%,2022-12-20,,,,,,,
-vs20mtreasure,Pirate Golden Age,7473e246b5a2fdedc5a40487540c19f9,Video Slots,96.49%,2022-12-13,,,,,,,
-vs20lcount,Gems of Serengeti,c338b56623046b9cb3fd5f70b8eee923,Video Slots,96.40%,2022-12-13,,,,,,,
-vswaysconcoll,Firebird Spirit,ff0ca0ef8c05956e517df50e7b3ca4ba,Video Slots,96.00%,2022-12-06,,,,,,,
-vs20theights,Towering Fortunes,5dc2b639da63de5072fb09681fb28dc9,Video Slots,96.50%,2022-12-06,,,,,,,
-vs20schristmas,Starlight Christmas,3140a7726214521c34804325fe35f7a1,Video Slots,96.50%,2022-12-06,,,,,,,
-vs20kraken2,Release the Kraken 2,115e96e8d19b357dfa846d552ddb3c4e,Video Slots,96.03%,2022-11-29,,,,,,,
-vs20porbs,Santa's Great Gifts,4e28ca15834bfdf2a7cd031971dcaff4,Video Slots,96.25%,2022-11-29,,,,,,,
-vs25kfruit,Aztec Blaze,f1f14da82af4fa8bd821dd830a9edc12,Video Slots,96.50%,2022-11-29,,,,,,,
-vs20asgard,Kingdom of Asgard,f126d8d754f8b9069d09f8971ec0d627,Video Slots,96.54%,2022-11-22,,,,,,,
-vs12bbbxmas,Bigger Bass Blizzard - Christmas Catch,98f093dcaa2b0fa713d35f4594e9451e,Video Slots,96.08%,2022-11-22,,,,,,,
-vswaysfrywld,Spin & Score Megaways,bf03791befae5af547d91bbe8c544010,Video Slots,96.55%,2022-11-15,,,,,,,
-vs10tut,John Hunter & the Book of Tut Respin,653fe7e86a0c21c0b07b400ab9feb4b9,Video Slots,96.50%,2022-11-15,,,,,,,
-vswaysoldminer,Old Gold Miner Megaways,90746f39bdca21a346389573de57f9d8,Video Slots,96.56%,2022-11-08,Excluding Korea,,,,,,
-vs20swordofares,Sword of Ares,48ac2e881e15291c39a8304f9aeb6e8c,Video Slots,96.40%,2022-11-01,,,,,,,
-vs20mparty,Wild Hop & Drop,5ffaacab7e6808fd3b84e8d054c51c7c,Video Slots,96.46%,2022-10-25,,,,,,,
-vswaysbook,Book of Golden Sands,73af5e80348d3b609d7948497512e391,Video Slots,96.46%,2022-10-25,,,,,,,
-vswayslofhero,Legend of Heroes Megaways,ffe1a4449dbac923e59d43d203ba8140,Video Slots,96.55%,2022-10-18,,,,,,,
-vs5strh,Striking Hot 5,4824f69228c301b1336d6bd7b133bc4e,Video Slots,96.29%,2022-10-18,,,,,,,
-vs10snakeeyes,Snakes & Ladders - Snake Eyes,418e191caa10619be5020b8386264cab,Video Slots,96.08%,2022-10-18,,,,,,,
-vs20muertos,Muertos Multiplier Megaways,867879954da25a3b1f685bb23fd313be,Video Slots,96.03%,2022-10-11,,,,,,,
-vs10crownfire,Crown of Fire,2b04a4b657245ce3d792074c9f644551,Video Slots,96.36%,2022-10-11,,,,,,,
-vswaysstrwild,Candy Stars,7b0d86eef80df55b6fe0b40af454a14d,Video Slots,96.47%,2022-10-04,,,,,,,
-vs20trswild2,Black Bull,7ebe1e90ae4c91d57b7b30e23dfd6db7,Video Slots,96.51%,2022-10-04,,,,,,,
-vs20wildman,Wildman Super Bonanza,cc5d5413023cf9787d3e631c6ca766c8,Video Slots,96.55%,2022-09-27,Excluding Korea,,,,,,
-vswaysfltdrg,Floating Dragon Megaways,41e17468794cf6284ea8bb4a6272591e,Video Slots,96.70%,2022-09-27,,,,,,,
-vs10mmm,Magic Money Maze,d3b6d44e567dd9d65040e72372a9af48,Video Slots,95.60%,2022-09-20,,,,,,,
-vs20underground,Down the Rails,245d25c8d5b9bf6ac800a75b34626578,Video Slots,96.51%,2022-09-20,,,,,,,
-vs20wolfie,Greedy Wolf,f6ac7090e2eda2d579dc6650acec42ad,Video Slots,96.48%,2022-09-13,,,,,,,
-vs100firehot,Fire Hot 100,cd2e009dc209f21934d8b32c26df7b9c,Video Slots,95.29%,2022-09-13,,,,,,,
-vs40firehot,Fire Hot 40,961f052a9dbd7cef955eea61235d1c2e,Video Slots,95.26%,2022-09-13,,,,,,,
-vs20fh,Fire Hot 20,29890bc4f33992795f14615886c8ad09,Video Slots,95.21%,2022-09-13,,,,,,,
-vs5firehot,Fire Hot 5,eb80337eaf68ca4dc74dbc78242056d1,Video Slots,95.41%,2022-09-13,,,,,,,
-vs1024gmayhem,Gorilla Mayhem,92c36d2e1d02816f9c5048a878abefa8,Video Slots,96.50%,2022-09-06,,,,,,,
-vs20octobeer,Octobeer Fortunes,27ac78d33471d4406de187759ebe4729,Video Slots,96.53%,2022-09-06,,,,,,,
-vs40hotburnx,Hot to Burn Extreme,1a05258e8736462d926bb7d07ee291cb,Video Slots,96.65%,2022-08-30,,,,,,,
-vs243ckemp,Cheeky Emperor,e0490153ae32f9ba425e24f8b2c6b1f9,Video Slots,96.50%,2022-08-30,,,,,,,
-vs20sugarrush,Sugar Rush,6aeb8420d03722cfd4b66d91e17758ba,Video Slots,96.50%,2022-08-23,,,,,,,
-vswaysjkrdrop,Tropical Tiki,ea2c71f8c914f50c991b4f6e55fab410,Video Slots,96.43%,2022-08-16,,,,,,,
-vs10coffee,Coffee Wild,5fa3eef2f06120b976e71f938c6dd2e4,Video Slots,96.49%,2022-08-09,,,,,,,
-vs100sh,Shining Hot 100,6dd17073841d7248ada5c7648fe8e9f6,Video Slots,96.32%,2022-08-09,,,,,,,
-vs40sh,Shining Hot 40,a76a101fcc084cfa9e8c2803636291b2,Video Slots,96.36%,2022-08-09,,,,,,,
-vs20sh,Shining Hot 20,7aa04b0b3a719bb6e8856dbd06af594e,Video Slots,96.33%,2022-08-09,,,,,,,
-vs5sh,Shining Hot 5,4427edf67298a1ba7f12a88e0867ffb3,Video Slots,96.33%,2022-08-09,,,,,,,
-vs10txbigbass,Big Bass Splash,a1dfe25af8aa67b40e3f5c2b090a7f66,Video Slots,96.71%,2022-08-02,,,,,,,
-vs25bomb,Bomb Bonanza,1a7933f4e5a83533018aafa754af8457,Video Slots,96.46%,2022-07-26,,,,,,,
-vs1024mahjpanda,Mahjong Panda,83e5d87b0c496a073bbb5ef110e283dd,Video Slots,96.48%,2022-07-26,,,,,,,
-vs40cosmiccash,Cosmic Cash,b986c1fc6e5d8fb9ed1c22e2e520d96c,Video Slots,96.56%,2022-07-19,,,,,,,
-vs5littlegem,Little Gem,36a7683cd2428224526a5f30c75297c8,Video Slots,96.70%,2022-07-12,,,,,,,
-vs10egrich,Queen of Gods,b6f65caf1829c8546707a16e00c4251c,Video Slots,96.38%,2022-07-12,,,,,,,
-vs20cleocatra,Cleocatra,6dd63841677a36bf07ce069ec54bc456,Video Slots,96.20%,2022-07-05,,,,,,,
-vs243koipond,Koi Pond,1e71c96079cd48c3fedd3420837231e1,Video Slots,95.48%,2022-06-28,,,,,,,
-vs40samurai3,Rise Of Samurai III,1d6625ad2b97fc8059159d2c0bad4242,Video Slots,95.55%,2022-06-28,,,,,,,
-vs50northgard,North Guardians,76ef9aa9b70594ccf793b4be02d7d05d,Video Slots,96.30%,2022-06-21,,,,,,,
-vs20stickysymbol,The Great Stick-Up,b9b2a9b296042d6190edd89b25e1c5fa,Video Slots,96.30%,2022-06-14,,,,,,,
-vswayszombcarn,Zombie Carnival,b66957542324a360e19b6f7b7415ef0d,Video Slots,95.50%,2022-06-14,,,,,,,
-vs20gobnudge,Goblin Heist Powernudge,db9b48adb0db83131d1568968c64f8c1,Video Slots,95.35%,2022-06-07,,,,,,,
-vs40cleoeye,Eye of Cleopatra,5ab0adaae59c7d17204e03e6d16ae9a9,Video Slots,96.50%,2022-05-31,,,,,,,
-vs10firestrike2,Fire Strike 2,f4aa37276d97543e2b7707940c88ec2d,Video Slots,95.50%,2022-05-24,,,,,,,
-vs10spiritadv,Spirit of Adventure,bf51fadccb42972a514bc45373a73e55,Video Slots,95.60%,2022-05-17,,,,,,,
-vs20drtgold,Drill that Gold,10b2e9cc6503ce91881cd78772e08a53,Video Slots,96.49%,2022-05-10,,,,,,,
-vs20mustanggld2,Clover Gold,5ef2e439010aeca067f3a6916c901f07,Video Slots,95.52%,2022-05-10,,,,,,,
-vswayswildwest,Wild West Gold Megaways,f0f54e0bbb300845990c0586fabd9bed,Video Slots,95.35%,2022-05-03,,,,,,,
-vs10chkchase,Chicken Chase,65cf0d0ebf1800fe2b6e84d4fb414d54,Video Slots,96.48%,2022-05-03,,,,,,,
-vs20farmfest,Barn Festival,d0ef313796cb3e2da7844984cd95b726,Video Slots,95.31%,2022-04-26,,,,,,,
-vs243queenie,Queenie,4e6b3295ce7e64395124d7e29ff9347c,Video Slots,96.51%,2022-04-26,,,,,,,
-vs243discolady,Disco Lady,140a4920ece136f2d064355cfb16d309,Video Slots,96.55%,2022-04-19,,,,,,,
-vs10tictac,Tic Tac Take,4e93012ec2a4ea0a907d96c40bf1f14a,Video Slots,96.63%,2022-04-19,,,,,,,
-vs20rainbowg,Rainbow Gold,8c355c92481f747e2e7a040c0a288212,Video Slots,96.45%,2022-04-12,,,,,,,
-vs10snakeladd,Snakes and Ladders Megadice,1cd886e37f8219d223515d7f07693069,Video Slots,96.68%,2022-04-12,,,,,,,
-vs25bullfiesta,Bull Fiesta,4d21b0dc473f89616de76c3b342934fd,Video Slots,96.00%,2022-04-05,,,,,,,
-vs50mightra,Might of Ra,002ccc80cfff9b1563814f7cd2a6d0fe,Video Slots,96.49%,2022-04-05,,,,,,,
-vs10bookazteck,Book of Aztec King,32370b44281b818c3b03bfdb8180ada0,Video Slots,96.50%,2022-03-29,,,,,,,
-vs20bchprty,Wild Beach Party,97d3638d9503b0ade2d467983add7f0d,Video Slots,95.45%,2022-03-29,,,,,,,
-1301,Spaceman,bee355cb11e533e4fdc98a043f2a9b4f,Crash Game,96.50%,2022-03-24,"Live Casino Product, released in Slots",,,,,,
-vs20ultim5,The Ultimate 5,148da0b08792407895f5c96ecbafd29b,Video Slots,96.50%,2022-03-22,,,,,,,
-vs20colcashzone,Colossal Cash Zone,50f573ae28732a404e4a1d5e43349db9,Video Slots,96.50%,2022-03-22,,,,,,,
-vs25copsrobbers,Cash Patrol,6913e0936dc7a1a6355a125d79d1c4b4,Video Slots,96.50%,2022-03-15,,,,,,,
-vs20rockvegas,Rock Vegas,22effb918f8f0b7583abbb0ccf5cb064,Video Slots,96.64%,2022-03-08,,,,,,,
-vswayselements,Elemental Gems Megaways,b83d0a110632be33daadc8c2eb8bca54,Video Slots,95.45%,2022-03-01,,,,,,,
-vs10runes,Gates of Valhalla,95273f38148f66e09a93de2c6337b15d,Video Slots,96.46%,2022-02-22,,,,,,,
-vs25goldparty,Gold Party,fb6886b6f0ee1379fcadbdda398d3dc7,Video Slots,95.48%,2022-02-22,,,,,,,
-vswaysxjuicy,Extra Juicy Megaways,c2a96f6772a34d1351c09bb3e2eb0a79,Video Slots,96.42%,2022-02-15,,,,,,,
-vs40wanderw,Wild Depths,96a059605c65d1af8fb1553a8ee14ccf,Video Slots,96.48%,2022-02-15,,,,,,,
-vs4096magician,Magician's Secrets,a0545098047c96b4a8487e90b3fb15c9,Video Slots,95.52%,2022-02-08,,,,,,,
-vswayscryscav,Crystal Caverns Megaways,dec38f3053ba56c1d78eb170fae4b94d,Video Slots,96.46%,2022-01-25,,,,,,,
-vs20smugcove,Smugglers Cove,00c3f19ee51d2c52a20a7b88fe8c6d9c,Video Slots,96.50%,2022-01-25,,,,,,,
-vs243empcaishen,Emperor Caishen,e539ca804c0c6dbb78b5589d2b147b73,Video Slots,96.49%,2022-01-18,,,,,,,
-vs25tigeryear,Lucky New Year - Tiger Treasures,d735900b365bb483b23a854be3c49818,Video Slots,96.01%,2022-01-11,,,,,,,
-vs20amuleteg,Fortune of Giza,8060b9627603e47cd5381997bf8e54e9,Video Slots,96.51%,2022-01-04,,,,,,,
-vs20superx,Super X,b9929767817a3ec8032d389be803bc93,Video Slots,96.51%,2022-01-04,,,,,,,
-vswaysbbb,Big Bass Bonanza Megaways,96810fa8cb383014cda377b5a04b829a,Video Slots,95.66%,2021-12-28,,,,,,,
-vs88hockattack,Hockey Attack,8137613b01b1a4bfe67e59ec9c915eac,Video Slots,96.37%,2021-12-21,,,,,,,
-vs25btygold,Bounty Gold,74ad5ad66f45a9d1b8136ef704bbdf26,Video Slots,96.50%,2021-12-14,,,,,,,
-vs10bblpop,Bubble Pop,d21f365eb011f93df8639ac49283d9a7,Video Slots,95.50%,2021-12-07,,,,,,,
-vs10bookfallen,Book of Fallen,5d087361d7e0ec97e292b533b0b2e1ea,Video Slots,95.50%,2021-12-07,,,,,,,
-vs10bxmasbnza,Christmas Big Bass Bonanza,5b22ab96368a5d3aed8a1f541ead932f,Video Slots,95.67%,2021-11-30,,,,,,,
-vs20santawonder,Santa's Wonderland,d327a0dea94bd8a5fc090b4855051dff,Video Slots,96.23%,2021-11-23,,,,,,,
-vs40bigjuan,Big Juan,7cdac8e7102f1d8959650c5a76aa9370,Video Slots,96.70%,2021-11-16,,,,,,,
-vs20bermuda,John Hunter and the Quest for Bermuda Riches,c04352fedef3908ac580d4e1ad8a30d0,Video Slots,96.33%,2021-11-09,,,,,,,
-vs10starpirate,Star Pirates Code,5279cdfc3e2ba15abf92cf6d7bdbba38,Video Slots,96.70%,2021-11-02,,,,,,,
-vs20tweethouse,The Tweety House,614e8ca458bbc48331b6c9a5900510e1,Video Slots,95.51%,2021-10-26,,,,,,,
-vswayswest,Mystic Chief,22b9cf05f4d62fec02aca39fb60030c4,Video Slots,96.55%,2021-10-26,,,,,,,
-vs20daydead,Day of Dead,39e5d6e45fce6f88c23be485d0eff5f9,Video Slots,95.50%,2021-10-19,,,,,,,
-vs20candvil,Candy Village,e4fb25a7966b5c0b2fbb4f7028969a30,Video Slots,95.45%,2021-10-19,,,,,,,
-vs9piggybank,Piggy Bank Bills,3f61bad3beddd15d117e01d18b6a44b8,Video Slots,96.50%,2021-10-12,,,,,,,
-vswaysbankbonz,Cash Bonanza,8b6de15508037d99adba63f2009e4d0c,Video Slots,95.50%,2021-10-05,,,,,,,
-vs20trsbox,Treasure Wild,dea1429c68719c72c690d001cf73d9b6,Video Slots,96.53%,2021-09-28,,,,,,,
-vs12bbb,Bigger Bass Bonanza,533b95b0d17cda431521139970d39073,Video Slots,96.71%,2021-09-21,,,,,,,
-vs20starlight,Starlight Princess,be6b6890587ed84289fad941d99a3613,Video Slots,96.50%,2021-09-14,,,,,,,
-vs243chargebull,Raging Bull,4f70e310a4f7645cfeafd50d43a0643c,Video Slots,96.50%,2021-09-07,,,,,,,
-vs20pbonanza,Pyramid Bonanza,ab841b96a216b2321baa11d6121185a3,Video Slots,96.49%,2021-09-07,,,,,,,
-vs10nudgeit,Rise of Giza PowerNudge,5e7203a0b4da86defb2ba59eb29b3ca3,Video Slots,96.49%,2021-08-31,,,,,,,
-vswaysyumyum,Yum Yum Powerways,9560ce847f99d7411ff4bee8fb503b9e,Video Slots,96.43%,2021-08-24,,,,,,,
-vswayschilheat,Chilli Heat Megaways,7361d621d9c309724411620f049e715b,Video Slots,96.50%,2021-08-17,,,,,,,
-vs10luckcharm,"Lucky, Grace And Charm",58bcfeb1a79a4d3d9c2b7753c2d25b9c,Video Slots,95.67%,2021-08-10,,,,,,,
-vswaysaztecking,Aztec King Megaways,41e626a6f7de17238ded22bb566654b3,Video Slots,96.58%,2021-08-10,,,,,,,
-vs20chickdrop,Chicken Drop,85c42fe280b53f00702b07b3335356b4,Video Slots,96.50%,2021-08-03,,,,,,,
-vs20phoenixf,Phoenix Forge,62527f128b508c7a7bdb660d8f327232,Video Slots,95.50%,2021-07-27,,,,,,,
-vs20fparty2,Fruit Party 2,6be857d19ef7b4fac0ba9c375538a7d9,Video Slots,95.45%,2021-07-20,,,,,,,
-vs20emptybank,Empty the Bank,6f0279bab4e1e4812280743ea720b549,Video Slots,96.48%,2021-07-13,,,,,,,
-vswayslight,Lucky Lightning,b992e0dcdcb8d20d4b2305a13471ce3d,Video Slots,95.51%,2021-07-06,,,,,,,
-vs25rio,Heart of Rio,9e749c8762ff58417e45b2330ac805cb,Video Slots,96.50%,2021-07-06,,,,,,,
-vs5drhs,Dragon Hot Hold and Spin,5d4e138370cc6a446e28a4730c9fe3f5,Video Slots,95.63%,2021-06-29,,,,,,,
-vswayslions,5 Lions Megaways,b066c2bdef0f2d541a2317ed5fdac3b4,Video Slots,95.52%,2021-06-22,,,,,,,
-vs576hokkwolf,Hokkaido Wolf,36971499e5df54cc815a4c9de54df254,Video Slots,95.78%,2021-06-15,,,,,,,
-vs20terrorv,Cash Elevator,d48746b0f5aa3677812f76269597b5c1,Video Slots,96.64%,2021-06-15,,,,,,,
-vswayssamurai,Rise of Samurai Megaways,ee8b6a0a96a2687308f1eb850dd986c5,Video Slots,95.70%,2021-06-08,,,,,,,
-vs20magicpot,The Magic Cauldron,6851b7f66872a5cb5947af7c8389f615,Video Slots,96.44%,2021-06-08,,,,,,,
-vs25aztecking,Aztec King,b38c40afbbb60f50925d48720a423de9,Video Slots,95.50%,2021-06-01,,,,,,,
-vs10amm,Amazing Money Machine,67ad028a5b9fdc3a1af99351e3bd07ee,Video Slots,96.42%,2021-06-01,,,,,,,
-vs25pandatemple,Panda Fortune 2,9185ca53157a194f5442894fda79967a,Video Slots,95.50%,2021-05-25,,,,,,,
-vs10floatdrg,Floating Dragon,1be0946d4cdc5c26c5922b96c7e154f0,Video Slots,96.71%,2021-05-18,,,,,,,
-vswaysbufking,Buffalo King Megaways,0ea5af839234de02f6ddcf4c51f31f59,Video Slots,95.55%,2021-05-11,,,,,,,
-vs25hotfiesta,Hot Fiesta,57217d124ca0f93d331ed5e0691deb3b,Video Slots,96.50%,2021-05-04,,,,,,,
-vswayshammthor,Power of Thor Megaways,37676e6e80e6c023f03d48f1ee3befc8,Video Slots,96.55%,2021-04-27,,,,,,,
-vs20wildboost,Wild Booster,13193d9b62a51811db4dc5da940d9a02,Video Slots,96.47%,2021-04-20,,,,,,,
-vs50juicyfr,Juicy Fruits,77e051470b364993d017c7cede10120e,Video Slots,96.51%,2021-04-13,,,,,,,
-vs1024temuj,Temujin Treasures,5db987318a3bd9fc4be76f04bcb89555,Video Slots,96.55%,2021-04-06,,,,,,,
-vs10goldfish,Fishin Reels,1ee85d001705ebaf63cc0ccae61538ca,Video Slots,96.50%,2021-03-30,,,,,,,
-vs20olympgate,Gates of Olympus,9afa884f169dfd11a5cd39da32bd4df1,Video Slots,96.50%,2021-03-23,,,,,,,
-vs20hburnhs,Hot to Burn Hold and Spin,7b99b6b9bd2b31e5b4ea44fab1269c48,Video Slots,96.70%,2021-03-16,,,,,,,
-vs25jokerking,Joker King,b81b86263b26a2dfe287ca8c22750329,Video Slots,96.50%,2021-03-09,,,,,,,
-vs20midas,The Hand of Midas,297941ba67e1ad5a3fb13b3da888a2a7,Video Slots,96.54%,2021-03-02,,,,,,,
-vs10eyestorm,Eye of the Storm,b9ee66020af593bf5c5145c1b2b24a34,Video Slots,96.71%,2021-02-23,,,,,,,
-vs5drmystery,Dragon Kingdom - Eyes of Fire,97122d567e55a7dbb08e9dfc7ac5e9b7,Video Slots,96.49%,2021-02-02,,,,,,,
-vswaysmadame,Madame Destiny Megaways,63c8f96398e1f798e40d44e44282b0fc,Video Slots,96.56%,2021-02-02,,,,,,,
-vs432congocash,Congo Cash,031f433c91b6b997d406773a7385df0f,Video Slots,96.51%,2021-01-26,,,,,,,
-vs20ekingrr,Emerald King Rainbow Road,77d20f8e6ff87397200f694026914bbf,Video Slots,96.71%,2021-01-19,,,,,,,
-vs10wildtut,Mysterious Egypt,0a7e8a1a1618d4afe64d83899a84d630,Video Slots,96.50%,2021-01-12,,,,,,,
-vs25gldox,Golden Ox,c527f165ed3533c67100f891ca4cb401,Video Slots,96.01%,2021-01-12,,,,,,,
-vs40voodoo,Voodoo Magic,1c92aa197397ff9f742121bc1d179efc,Video Slots,96.50%,2021-01-05,,,,,,,
-vs10bbbonanza,Big Bass Bonanza,327fa121c295ee87c7e2c60611d064bc,Video Slots,96.71%,2020-12-08,,,,,,,
-vs20bonzgold,Bonanza Gold,45b73bc24d304f030808d138bf1a824e,Video Slots,96.50%,2020-12-03,,,,,,,
-vs10mayangods,John Hunter and the Mayan Gods,df5b1181bad0795df7f991750e97a09d,Video Slots,96.46%,2020-12-01,,,,,,,
-vs40spartaking,Spartan King,c0c132efaa8a52d4c5808613f27a51a0,Video Slots,96.60%,2020-11-24,,,,,,,
-vs20xmascarol,Christmas Carol Megaways,5af5b5da3e6b88f6396c3cc19dce7d37,Video Slots,96.50%,2020-11-17,,,,,,,
-vs10cowgold,Cowboys Gold,18d7dbff8fd377f709d0aa0655e45522,Video Slots,96.50%,2020-11-10,,,,,,,
-vs40pirgold,Pirate Gold Deluxe,c1c1f92d0bb2134efda172b6d221a1bb,Video Slots,96.48%,2020-11-03,,,,,,,
-vs20eking,Emerald King,97c448a2fafe0a1cdbff7c7831f9dd4a,Video Slots,96.51%,2020-10-27,,,,,,,
-vs1024dtiger,The Dragon Tiger,65cf9a7d8b5af42714ad4bf507740af2,Video Slots,96.50%,2020-10-20,,,,,,,
-vs25bkofkngdm,Book of Kingdoms,9186d388bb0eaec935e5c324d9220422,Video Slots,96.69%,2020-10-13,,,,,,,
-vs10returndead,Return of the Dead,1d9209102c387f85b38f2ee0f1fd6d60,Video Slots,96.71%,2020-10-06,,,,,,,
-vs20goldfever,Gems Bonanza,27cdc3e5e12964d38df093e9c65569eb,Video Slots,96.51%,2020-09-29,,,,,,,
-vs25walker,Wild Walker,f3b587a499b79c46adc9d1ee2e279c0a,Video Slots,96.55%,2020-09-22,,,,,,,
-vs25samurai,Rise of Samurai,501002d1c366989b985b58a99d8ada6f,Video Slots,96.47%,2020-09-15,,,,,,,
-vs1024lionsd,5 Lions Dance,c0f716eee2bc4cd2d0b796d281514988,Video Slots,96.50%,2020-09-08,,,,,,,
-vswayshive,Star Bounty,03e022cf43928af26cfb8bfce18fd8e8,Video Slots,96.61%,2020-09-01,,,,,,,
-vs20rhinoluxe,Great Rhino Deluxe,f4203cff9058051d2ce6459c8d750683,Video Slots,96.01%,2020-08-25,,,,,,,
-vs576treasures,Wild Wild Riches,c00114a78ba7062de33f78405c7cac5d,Video Slots,96.77%,2020-08-18,,,,,,,
-vs5ultra,Ultra Hold and Spin,2f42ef84333961841928d92c029d204f,Video Slots,96.70%,2020-08-11,,,,,,,
-vswayswerewolf,Curse of the Werewolf Megaways,5fcc23cf91acd1f355201351b7a3f26e,Video Slots,96.50%,2020-08-04,,,,,,,
-vs20gorilla,Jungle Gorilla,39371d94a147acda0ae347028f9f9ec4,Video Slots,96.57%,2020-07-28,,,,,,,
-vs9aztecgemsdx,Aztec Gems Deluxe,4e88eb8562a4a9fff6d8673b61153a8d,Video Slots,96.50%,2020-07-14,,,,,,,
-vswaysdogs,The Dog House Megaways,553b3622cad4fa40e351055005915a98,Video Slots,96.55%,2020-07-07,,,,,,,
-vs25tigerwar,The Tiger Warrior,ee424f2933e0473b8f0dccb0cb8d8d01,Video Slots,96.01%,2020-06-30,,,,,,,
-vs40streetracer,Street Racer,5ecabbfd86af974d3807dd15f157f40f,Video Slots,96.52%,2020-06-23,,,,,,,
-vs1fufufu,Fu Fu Fu,05fb524b636b6e8a8b89f90b4550ddac,Video Slots,96.84%,2020-06-16,,,,,,,
-vs1600drago,Drago - Jewels of Fortune,46679fbc1601f8dccb63c64d775ce5a9,Video Slots,96.50%,2020-06-11,,,,,,,
-vs25pyramid,Pyramid King,cc917be61e0ae94a5bfbdb02effc1ec5,Video Slots,96.50%,2020-05-26,,,,,,,
-vs5ultrab,Ultra Burn,4a7e158a0c40fa00d7421b34f6a696c7,Video Slots,96.62%,2020-05-26,,,,,,,
-vs1money,Money Money Money,d72f6494668bdad755e60280c6624a2c,Video Slots,97.09%,2020-05-19,,,,,,,
-vs117649starz,Starz Megaways,4e569fb7bf2a3fe8ec718210e82927b0,Video Slots,96.48%,2020-05-12,,,,,,,
-vs20fruitparty,Fruit Party,1b844e4876a5b393d491c7ec06e31bad,Video Slots,96.50%,2020-05-05,,,,,,,
-vs10bookoftut,John Hunter and the Book of Tut,96b06f36e0c200eea05b00d566d220c8,Video Slots,96.50%,2020-04-28,,,,,,,
-vs10threestar,Three Star Fortune,55180df7fa1b780975c9c0a19b54d8ee,Video Slots,96.27%,2020-04-21,,,,,,,
-vswaysrhino,Great Rhino Megaways,2fc23901b649abfd9bad2ff2fa5dbdc4,Video Slots,96.58%,2020-04-14,,,,,,,
-vs5hotburn,Hot to Burn,9ae32c564eb98c3c00d2f20fe1f1c2d9,Video Slots,96.71%,2020-04-14,,,,,,,
-vs243dancingpar,Dance Party,ec93c88133566994657c4d9eac73443a,Video Slots,96.50%,2020-04-07,,,,,,,
-vs40wildwest,Wild West Gold,16ed3068536a6bdae156e3d98bb9a365,Video Slots,96.51%,2020-03-31,,,,,,,
-vs1ball,Lucky Dragon Ball,0e8527c47171a2f9b6ceca9865f7bd14,Video Slots,96.51%,2020-03-24,,,,,,,
-vs40frrainbow,Fruit Rainbow,369a2383e2bba7509748f15b4c407e5f,Video Slots,96.53%,2020-03-17,,,,,,,
-vs40madwheel,The Wild Machine,1d920015f841a5c3b43df24188570a2f,Video Slots,96.52%,2020-03-10,,,,,,,
-vs7776aztec,Aztec Bonanza,e6eaed7085796b0c706cbde5221d05cf,Video Slots,96.53%,2020-03-02,,,,,,,
-vs4096mystery,Mysterious,13b568ca10943393f4c9b88669ab45c8,Video Slots,96.50%,2020-02-24,,,,,,,
-vs1masterjoker,Master Joker,dfd9384b354f1ed44ed70fa69866e196,Video Slots,96.51%,2020-02-10,,,,,,,
-vs5super7,Super 7s,0e7af06b6ab7fb5dfee3631d2d7ba7a6,Video Slots,96.50%,2020-02-03,,,,,,,
-vs20kraken,Release the Kraken,b776755b597c497bee6fc4e414d72915,Video Slots,96.50%,2020-01-20,,,,,,,
-vs4096bufking,Buffalo King,eb2d846b9948bf6779fa0c68ad2f0c23,Video Slots,96.06%,2020-01-13,,,,,,,
-vs8magicjourn,Magic Journey,8dba2e619f5881a85d698746b8a39942,Video Slots,96.54%,2020-01-06,,,,,,,
-vs25mmouse,Money Mouse,cc2744737c9ea3d8a192f375af176b09,Video Slots,96.01%,2019-12-10,,,,,,,
-vs20aladdinsorc,Aladdin and the Sorcerer,da84df20357e880c2fd6058165534cf8,Video Slots,96.23%,2019-12-10,,,,,,,
-vs243fortseren,Greek Gods,5191554cb700b8418f1821527f66a5c7,Video Slots,96.50%,2019-11-25,,,,,,,
-vs20sbxmas,Sweet Bonanza Xmas,be44f1e2c7d4dd7ba95f39abcef2cb62,Video Slots,96.48%,2019-11-18,,,,,,,
-vs20hercpeg,Hercules and Pegasus,c4d39983d1058da54ecdc773b7b3203e,Video Slots,96.50%,2019-11-11,,,,,,,
-vs10firestrike,Fire Strike,b04d9cd89be5d93602d9a484f8bfe575,Video Slots,96.50%,2019-10-28,,,,,,,
-vs20honey,Honey Honey Honey,3c61adb9dab9d17e9ff5af76f9a1a221,Video Slots,96.50%,2019-10-07,,,,,,,
-vs5spjoker,Super Joker,9568158adcd8e1242e5fb05b7624de22,Video Slots,96.52%,2019-09-30,,,,,,,
-vs25scarabqueen,John Hunter and the Tomb of the Scarab Queen,6ea631cad8e04b5596da2ab771a81198,Video Slots,96.50%,2019-09-16,,,,,,,
-vs1fortunetree,Tree of Riches,e90c55a65b2d48bf31d0c411b643245f,Video Slots,96.50%,2019-08-26,,,,,,,
-vs20chicken,The Great Chicken Escape,749e78a2062d25c3541cd998eac730c8,Video Slots,96.50%,2019-08-19,,,,,,,
-vs10vampwolf,Vampires VS Wolves,2f1c795668c251660ab797e951859dd2,Video Slots,96.49%,2019-08-12,,,,,,,
-vs9hotroll,Hot Chilli,8c51d3f8b59cf20bdf4110c6c5baa206,Video Slots,96.52%,2019-07-29,,,,,,,
-vs7776secrets,John Hunter and the Aztec Treasure,6bb91619b093e2f21d555c94303f376e,Video Slots,96.50%,2019-07-08,,,,,,,
-vs243mwarrior,Monkey Warrior,2d9f6a48204137fbeaca92e979e75666,Video Slots,96.50%,2019-06-24,,,,,,,
-bndt,Dragon Tiger,df683eca3a094ca0b0d9272f01b9cefd,Table Games,96.26%,2019-06-17,,,,,,,
-vs243lionsgold,5 Lions Gold,ab1838c12ae2c6def3f898efb12a09cf,Video Slots,96.50%,2019-05-27,,,,,,,
-vs20wildpix,Wild Pixies,61a6d88cd41af562e7eaf682e1725bb6,Video Slots,96.50%,2019-05-13,,,,,,,
-vs20fruitsw,Sweet Bonanza,6dcaf78e4e23929cbe2deb3d1210928c,Video Slots,96.50%,2019-04-29,,,,,,,
-vs243caishien,Caishen's Cash,71382cb9cad6b853a2e8f6975798aff0,Video Slots,96.50%,2019-04-05,,,,,,,
-vs40pirate,Pirate Gold,e2d420462a8875bb96bf72148cbfd599,Video Slots,96.50%,2019-03-18,,,,,,,
-vs20doghouse,The Dog House,c182b3e577b60ec8d4e411bcbca3f81d,Video Slots,96.51%,2019-03-04,,,,,,,
-vs20egypttrs,Egyptian Fortunes,e20027b755b02a3939f3136315e97aba,Video Slots,96.50%,2019-02-20,,,,,,,
-vs10fruity2,Extra Juicy,d54b53239e52679436d9fd4776545ff4,Video Slots,96.52%,2019-02-11,,,,,,,
-bnadvanced,Dragon Bonus Baccarat,d609de6b9469ae04658b7da73d569cb2,Table Games,98.94%,2019-01-28,,,,,,,
-vs25gladiator,Wild Gladiator,765ac1bad81b9f081c40dff3042f0d20,Video Slots,96.17%,2019-01-24,,,,,,,
-vs25goldpig,Golden Pig,1f4a8ecc237f15c670d0cae1cca820e1,Video Slots,96.00%,2019-01-15,,,,,,,
-vs18mashang,Treasure Horse,09edd9fdd6b7306f7e52fad516a0a866,Video Slots,96.52%,2019-01-07,,,,,,,
-vs50safariking,Safari King,cddafd802c3df5592fa22cfc1bccf57d,Video Slots,96.49%,2018-12-27,,,,,,,
-vs20leprexmas,Leprechaun Carol,3fdf115b63a60711c18d55c39371a68d,Video Slots,96.53%,2018-11-19,,,,,,,
-vs25mustang,Mustang Gold,12afb282e7568a94bd22aeb7e87a29ec,Video Slots,96.53%,2018-11-06,,,,,,,
-vs5trdragons,Triple Dragons,12c7a1d1d24a0055efdc8c44e9ed1c6a,Video Slots,96.51%,2018-10-29,,,,,,,
-bca,Baccarat,fb562d50ee7ee8e1c4aa7b2274218762,Table Games,98.76%,2018-10-22,,,,,,,
-vs10egyptcls,Ancient Egypt Classic,40047e7a073753a94889a242c911a695,Video Slots,96.51%,2018-10-08,,,,,,,
-vs20vegasmagic,Vegas Magic,1329417dfec2ff1842468c5de8c3ea92,Video Slots,96.08%,2018-09-25,,,,,,,
-vs9chen,Master Chen's Fortune,cd8babe80669b3f4b2ad6499948a2d28,Video Slots,96.48%,2018-09-11,,,,,,,
-vs25davinci,Da Vinci's Treasure,e8e0e00455fa575b83a788110ae59be1,Video Slots,96.53%,2018-08-13,,,,,,,
-vs25peking,Peking Luck,684bc8f6b763fdc92ae2fcdbf2ed213c,Video Slots,96.50%,2018-08-02,,,,,,,
-vs20leprechaun,Leprechaun Song,927d144709664384b785a7b5a738654a,Video Slots,96.46%,2018-07-18,,,,,,,
-vs1024butterfly,Jade Butterfly,1bf6fd4cd34c99c1f169bb0370354d76,Video Slots,96.47%,2018-07-02,,,,,,,
-vs10madame,Madame Destiny,88bc3e497f424df40b0f72989e2b57fe,Video Slots,96.50%,2018-06-18,,,,,,,
-vs25asgard,Asgard,8d843e1cee6faf50a2cc6261e1b3b9b6,Video Slots,96.48%,2018-06-04,,,,,,,
-vs243lions,5 Lions,074d93f1cdf8aa749052140efa04d8c0,Video Slots,96.50%,2018-05-14,,,,,,,
-vs20rhino,Great Rhino,a5d72bf4818f1461cb4c7eac8111dc2d,Video Slots,96.53%,2018-04-16,,,,,,,
-bjmb,American Blackjack,bf91fbba325bbc02698a07ddd902fec4,Table Games,99.60%,2018-04-10,,,,,,,
-vs5joker,Joker's Jewels,97bd5b1e85dcd00b3cc141a5f3527529,Video Slots,96.50%,2018-04-02,,,,,,,
-vs15fairytale,Fairytale Fortune,c15c84757d0bcee112913fa03c56aa0c,Video Slots,96.52%,2018-03-19,,,,,,,
-vs7fire88,Fire 88,dc28fc48a87636549f9298e4dcd25b53,Video Slots,96.45%,2018-03-02,,,,,,,
-vs25chilli,Chilli Heat,b04cda159e4fcca273ca5f00e34f883f,Video Slots,96.50%,2018-02-26,,,,,,,
-vs5aztecgems,Aztec Gems,05d693169ee6aeec45d6328c7fc57a43,Video Slots,96.52%,2018-02-05,,,,,,,
-vs25goldrush,Gold Rush,826d4ce68597c8649303fe0b293840d3,Video Slots,96.50%,2018-01-31,,,,,,,
-vs25newyear,Lucky New Year,d8d02a9f7b7411e87c58234236c70c4e,Video Slots,96.00%,2018-01-15,,,,,,,
-vs10egypt,Ancient Egypt,ed25af2d1a4744a55e5087112bf23eec,Video Slots,96.13%,2018-01-14,,,,,,,
-vs1tigers,Triple Tigers,be0c7e72bfc9b2a9186793e005e57ee6,Classic Games,97.52%,2018-01-03,,,,,,,
-cs3w,Diamonds are Forever 3 Lines,ac7e4abe509cbfe467f884bb18d338b2,Classic Games,96.96%,2017-12-27,,,,,,,
-vs9madmonkey,Monkey Madness,a24ff258a3900048358b680ca710be53,Classic Games,96.53%,2017-12-12,,,,,,,
-vs20santa,Santa,27bc99906b89b77408654d25d40d9f1a,Video Slots,95.92%,2017-11-29,,,,,,,
-vs7pigs,7 Piggies,5ec616ca8fcb4702d8cf8cbc7b9acf16,Video Slots,95.99%,2017-10-24,,,,,,,
-vs1dragon8,888 Dragons,50fb95404b19b978a8983f2ff6eafc6d,Classic Games,96.84%,2017-10-07,,,,,,,
-vs25vegas,Vegas Nights,cc02d14ebc1704bc54af93a07557fef0,Video Slots,96.03%,2017-09-26,,,,,,,
-vs25wildspells,Wild Spells,384eac35bfcf5d6857f8a2c692cdbb8a,Video Slots,96.40%,2017-09-26,,,,,,,
-vs15diamond,Diamond Strike,a2c7dd829aa83dc2115e969471da9eda,Video Slots,96.96%,2017-09-10,,,,,,,
-vs25pandagold,Panda's Fortune,4d530e5363907c3799f15bee86023202,Video Slots,96.17%,2017-07-11,,,,,,,
-cs5moneyroll,Money Roll,7815172129169b0933fdcaa529f2bef8,Classic Games,96.93%,2017-07-11,,,,,,,
-vs20eightdragons,8 Dragons,6622a2e83f83ba36c64ac90bd0ccf071,Video Slots,96.37%,2017-05-30,,,,,,,
-vs25wolfgold,Wolf Gold,edfe77c093e19c861d8424b90ce7653b,Video Slots,96.00%,2017-05-16,,,,,,,
-vs25dragonkingdom,Dragon Kingdom,2d4bdde60b24d1fccafdcaff37e52ab8,Video Slots,96.47%,2017-05-01,,,,,,,
-vs25kingdoms,3 Kingdoms - Battle of Red Cliffs,df031f0444447df88d09c485222fac7f,Video Slots,96.50%,2017-04-27,,,,,,,
-vs3train,Gold Train,63a19510c7ab63562b631c97a4604d6d,Video Slots,97.16%,2017-04-07,,,,,,,
-vs50hercules,Hercules Son Of Zeus,a45e9955733a64f20f4fdf051166026a,Video Slots,95.19%,2016-12-20,,,,,,,
-vs25journey,Journey to the West,b8e890effbd62cec2ee8379b54054410,Video Slots,96.47%,2016-10-18,,,,,,,
-vs13g,Devil's 13,e95ccfeade9b0e63f98175190a0ad96a,Video Slots,95.06%,2016-10-17,,,,,,,
-vs50chinesecharms,Lucky Dragons,6ed7c1fa8021f2834ede376afd20e4c5,Video Slots,95.19%,2016-09-08,,,,,,,
-vs243fortune,Caishen's Gold,635fe7b019b4dfbc89f71f87f8fb5997,Video Slots,97.08%,2016-08-23,,,,,,,
-vs50pixie,Pixie Wings,9bd44b5c84d9abb96eb7ecc9d5500f11,Video Slots,96.51%,2016-08-23,,,,,,,
-vs25sea,Great Reef,397959b20dd458657eb10f177884c25c,Video Slots,96.64%,2016-08-23,,,,,,,
-vs50aladdin,3 Genie Wishes,6ceed907bb1461cb78c5244bf8dfe2d5,Video Slots,96.53%,2016-05-12,,,,,,,
-cs3irishcharms,Irish Charms,6afdacbabb9207724df04a4ba94e2f1c,Classic Games,96.96%,2016-01-08,,,,,,,
-bjma,Multihand Blackjack,af6c67dcbe8cdcb706c947855cc3b125,Table Games,99.62%,2016-01-08,,,,,,,
-vs25dwarves_new,Dwarven Gold Deluxe,058e47691b7ce09959a73ca237523e4c,Video Slots,96.47%,2016-01-08,,,,,,,
-vs50kingkong,Mighty Kong,f682eec1fc2a3075d1be80a5cea9c206,Video Slots,96.64%,2016-01-08,,,,,,,
-rla,Roulette,c75a2632e60c6fad859d8228bfb31c08,Table Games,97.30%,2016-01-08,,,,,,,
-vs20bl,Busy Bees,23d3f0af7174897c560bd4e62b23a41c,Video Slots,96.00%,2016-01-08,,,,,,,
-vs25safari,Hot Safari,b9ce78f7e39d12557a194f9ef4d87998,Video Slots,96.17%,2016-01-07,,,,,,,
-vs20godiva,Lady Godiva,0e511a855cd1a0f4ad2a2474de83e8f6,Video Slots,96.54%,2016-01-07,,,,,,,
-vs7monkeys,7 Monkeys,e3a626bb5e72a1ed2ba24ecacaef1923,Video Slots,92.71%,2016-01-07,,,,,,,
-vs1mjokfp,Master Gems,9079c6b23fa7f77314aeb33096319f00,Fat Panda Slots,94.48%,2025-06-23,,,,,,,
-vswaysolwfp,Olympus Wins,3f055f6e73acd6c3b4da3a7193885151,Fat Panda Slots,94.50%,2025-06-02,,,,,,,
-vswaysaztecgm,Fortune of Aztec,f377a33d22b964f452711641a09caa96,Fat Panda Slots,97.50%,2025-05-26,,,,,,,
-vs25pfarmfp,Pig Farm,eb17a6d8839c7a44e059411d6e63bc2c,Fat Panda Slots,97.50%,2025-05-19,,,,,,,
-vswayssw,Starlight Wins,38aafb12492db07ffc0b1e156076d2b5,Fat Panda Slots,97.50%,2025-04-28,,,,,,,
-vs5luckyphnly,Lucky Phoenix,cc8cf6e6be3e19d344b7101ca186383f,Fat Panda Slots,97.50%,2025-04-14,,,,,,,
-vs5luckyt1kly,Lucky Tiger 1000,ec84348a2bdee18aa147f62d1fe91ea2,Fat Panda Slots,97.50%,2025-03-31,,,,,,,
-vs5jellyc,Jelly Candy,ffdc78f4f1f0fe015817228f9fa4d240,Fat Panda Slots,97.50%,2025-03-17,,,,,,,
-vs1dragon888,Plushie Wins,cc76cd19442f8ac49c03d88b66954e53,Fat Panda Slots,97.47%,2025-03-17,,,,,,,
-vs5luckytigly,Lucky Tiger,8007344e017bdd5c2d5d0d4eb43c3b2b,Fat Panda Slots,97.50%,2025-03-17,,,,,,,
-vs10forwildly,Lucky Mouse,d64563c0afd930f39be01d6c8d9fb91b,Fat Panda Slots,97.57%,2025-03-17,,,,,,,
-vs10fortnhsly,Lucky Ox,5ce0e0ad05cb028ebac6a84a677fd678,Fat Panda Slots,97.55%,2025-03-17,,,,,,,
-vs5luckydogly,Lucky Dog,0d241578a8fe23f743ab5003321fac85,Fat Panda Slots,97.50%,2025-03-17,,,,,,,
-vs5luckymly,Lucky Monkey,7bb5fa3556c5cec875d8887a12efb26c,Fat Panda Slots,97.50%,2025-03-17,,,,,,,
-vs10emotiwins,Emotiwins,744b6048621f596bf17e9b215243c079,Fat Panda Slots,97.50%,2025-03-17,,,,,,,
-vs5wfrog,Wealthy Frog,2a83ec010b4d146ffee0646054fd2f55,Fat Panda Slots,97.50%,2025-03-17,,,,,,,
-vs20bigmass,Waves of Poseidon,e30cd08c54817096e863975e309bb457,Video Slots,96.50%,2025-06-30,,,,,,,
-vs12trpcnhour,Club Tropicana – Happy Hour,ecd5138b81f23063f5024a9675c6bc5a,Video Slots,96.50%,2025-07-07,,,,,,,
-vs20swbonsup,Sweet Bonanza Super Scatter,b718a148a4666fe33a07d4d419e31c69,Video Slots,96.51%,2025-07-31,,,,,,,
-vswaysbattlegz,Battle Ground Zero Megaways,418fa5df66d2c139a4fb073c80a364ff,Video Slots,96.01%,2025-07-30,Country Exclusive: Korea,,,,,,
-ar10plinko,Plinko+,3e606335523830a7ca62d105a5205a74,Arcade Game,97.50%,2025-07-28,First Arcade Game,,,,,,
-vs25quadwolf,Wolf Gold 4 Pack,8b7f41c1458a4e3518537b8179bf51f0,Video Slots,96.51%,2025-07-28,,,,,,,
-vswaysbaucccmw,Bau Cua Ca Cop,82fee8d74aa930890482dd2021e91c7e,Video Slots,96.50%,2025-07-24,Country Exclusive: Vietnam,,,,,,
-vs9gemtrio,Gem Trio,e085edebf0ced2228633751409f6a150,Video Slots,96.50%,2025-07-24,,,,,,,
-vs10chillihmr,Chilli Heat Spicy Spins,84da800579bd7f820761727494ab86ef,Video Slots,96.58%,2025-07-21,,,,,,,
-vs10piggybank,You Can Piggy Bank On It,d0b900ab22674260a2a3b34d98c34dc8,Video Slots,96.53%,2025-07-17,,,,,,,
-vs20alieninv,Alien Invaders,80e50c6ec3678adadf5825561c800f8c,Video Slots,96.50%,2025-07-10,,,,,,,
-vs5t8goldfp,777 Rush,1f455e7ee7ba58d116e9aebeac6b4c5a,Fat Panda Slots,94.50%,2025-07-14,,,,,,,
-ar1spire,Spire+,e738af151ad6507118ca0bc24f3ffb1c,Arcade Game,97.50%,2025-08-28,,,,,,,
-vs10jpblaze,Jackpot Blaze,18af359ac7f6f5cccadb98202f02ddb1,Video Slots,96.56%,2025-08-28,,,,,,,
-vswaysfirest2,Fire Stampede 2,ade62c616477b0ac209cfef318e49f39,Video Slots,96.51%,2025-08-25,,,,,,,
-vswayspompmr2,Zombie School Megaways,a01a6f5f2226587509812694f240023c,Video Slots,96.55%,2025-08-21,,,,,,,
-vs10spellmastr,Spellmaster,9c8e8f4cac4abe35810dbc12e2874cc6,Video Slots,96.50%,2025-08-18,,,,,,,
-vs5ultradice,Ultra Burn Dice,60dc952ddf29a0bbf05e978f790399e2,Video Slots,96.62%,2025-08-14,"Country Exclusive: Belgium, Turkey, Russia, Argentina, Brazil, Indonesia & Korea",,,,,,
-vs243matrem,Mat Rempit,6937624c5d4c06a0f7e2e2d9498dded3,Video Slots,96.50%,2025-08-14,Country Exclusive: Malaysia,,,,,,
-vs20popbottles,Ice Mints,15ef2e641fab092342004fb1d26c83be,Video Slots,96.50%,2025-08-14,,,,,,,
-vs10bbrrp,Big Bass Reel Repeat,c1db164bcccbd85224c3dfc5f525613c,Video Slots,96.51%,2025-08-11,,,,,,,
-vswaysargonts,Argonauts,404466af539c16b9d0d27dce3995c688,Video Slots,96.47%,2025-08-07,,,,,,,
-vs7fire88fp,Mystic Wishes,a6732f30850273482b2d6abb23162b65,Fat Panda Slots,97.50%,2025-08-25,,,,,,,
-vs5spjokfp,Code of Cairo,1a666cb5a0c05d483b1a137dea542dde,Fat Panda Slots,97.49%,2025-08-11,,,,,,,
-vs5tdragresk,Dino Drop,b477ee0317e6187024c4aff2920ff87c,Fat Panda Slots,97.44%,2025-07-28,,,,,,,
-vswayschilhtwo,Captain Kraken Megaways,4eae6d615c766a30fe3df1df57018607,Video Slots,96.55%,2025-09-01,,,,,,,
-vs20lbstrhouse,Lobster House,842cf8e49c4f518ef733a277da985790,Video Slots,96.51%,2025-09-04,,,,,,,
-vs20gengembnz,Genie's Gem Bonanza,98d78459ce981e90e1d6a027c6b7256a,Video Slots,96.50%,2025-09-08,,,,,,,
-vs5luckdce88,Lucky Dice,94bb749b1c02e8869b80168f027cc762,Fat Panda Slots,96.53%,2025-09-08,,,,,,,
-vs10beekeep,Bee Keeper,edb7d63de32818cef9f12448c0ea09aa,Video Slots,96.53%,2025-09-11,,,,,,,
-vs20bhunter,Bounty Hunter,2a2c6fb71a11f19aca17b7243759163a,Video Slots,96.51%,2025-09-18,,,,,,,
-vswaysfortsup,Fortune Ace Super Scatter,3fa8affb9baf4dffa777a4971433d34c,Video Slots,96.50%,2025-09-22,,,,,,,
-vs20swrbon,Sweet Rush Bonanza,afd1bca7ba85bf072edb2618281381e7,Video Slots,96.50%,2025-09-29,,,,,,,
-vs20fishptrn,Happy Nets,9438170762baae7b28aa15975d28acee,Fat Panda Slots,96.50%,2025-09-29,,,,,,,
-vs20mmdtres,Mermaid's Treasure Trove,130fba0ef9dd44344062f5e96f590482,Video Slots,96.54%,2025-10-02,,,,,,,
-vs10bhallbnza3,Big Bass Halloween 3,c608ddff076c981fa470d70fba530869,Video Slots,96.50%,2025-10-06,,,,,,,
-vs40wrathnez,Wrath of Nezha,d0a7fff5510eb6183713e563746b3471,Video Slots,96.51%,2025-10-06,Country Exclusive: Indonesia,,,,,,
-vswaysbbarnh,Bigger Barn House Bonanza,6204fe7f30c5c56146f201218ee3ea5e,Video Slots,96.50%,2025-09-22,,,,,,,
-vs100hsandks,Hundreds and Thousands,661e97d65e0f1e9aeffb833d3079ada0,Video Slots,96.52%,2025-09-25,,,,,,,
-vs20starprss,Starlight Princess Super Scatter,b192b1f67b7f27cebd774684cf68284d,Video Slots,96.50%,2025-10-30,,,,,,,
-vs25caishen2,Chests of Cai Shen 2,697a1c901dd57f98b293027e8af62e2d,Video Slots,96.50%,2025-10-09,,,,,,,
-vswayslavabls,Lava Balls,0887ca4815a3fd960d89fdebe5e30f34,Video Slots,96.50%,2025-10-13,,,,,,,
-vs30bingomania,Bingo Mania,7de938fd86a4cd93ecf5d5602ee7569c,Video Slots,96.51%,2025-10-20,,,,,,,
-vs40pdmrsg,Pandemic Rising,dc15dfa9b05d50075a763f9867b38f32,Video Slots,96.51%,2025-10-27,,,,,,,
-vs20oragold,Oracle of Gold,752b270e6a7c2fe69fe7ffd1ba8278d3,Video Slots,96.55%,2025-11-03,,,,,,,
-ar1minehnt,Mines+,c4f954079d20b7eb6da49c9fce1f9b08,Arcade Game,97.50%,2025-10-20,,,,,,,
-vs20frankie,Frightening Frankie,561eedfc4980bcac887eba24f5a6c3fe,Slot,96.53%,2025-10-23,,,,,,,
-vs5lckpnd,Lucky Panda,3e513a54acd691a8925127cb3f359c48,Fat Panda Slots,97.50%,2025-10-23,,,,,,,
-vswayswwrichr,Wild Wild Riches Returns,ee10bcae59fda9734d4097651ccc972c,Slot,96.50%,2025-11-06,,,,,,,
-vs10djneko,DJ Neko,6ee88cd8d45a5abc5797f14ec19137be,Fat Panda Slots,97.50%,2025-11-17,,,,,,,
-vs5supergummy,Super Gummy Strike,dcb62f6846307158bcabb1664f2f30ed,Slot,96.50%,2025-11-17,,,,,,,
-vs20stararx,Starlight Archer 1000,6d69dd8658f4522502e3aaca939a5d23,Slot,96.50%,2025-11-17,,,,,,,
-vs20chestcol,Sweet Craze,7353af1836a0e8dd61aac0e94745d97b,Slot,96.54%,2025-12-01,,,,,,,
-vs20shmnarise,Gates of Pyroth,558163557e7150ea8b21d9a42824fc11,Slot,96.52%,2025-12-01,,,,,,,
-vs10bbglxmas,Big Bass Christmas Frozen Lake,b3441ece8fc94ddaafe01be3f3483273,Slot,96.07%,2025-11-10,,,,,,,
-vs20procountxm,Wisdom of Athena 1000 Xmas,5fc84330832564bfdef55db77be42779,Slot,96.00%,2025-11-27,,,,,,,
-vs10santasl,Santa's Slay,68108c0dbecf2e15cc641fe932b43342,Slot,96.53%,2025-11-20,,,,,,,
-vswaysreelbtl,Zeus vs Typhon,bc50831ebfc92032a26764da1bbecbc4,Slot,96.49%,2025-11-24,,,,,,,
-vswaysyinyang,Duel of Night & Day,cec529661c565cef5ac0c9b199467445,Slot,96.47%,2025-11-23,,,,,,,
-vswayswildb,Bloody Dawn,5fbf5c08a4c79c5b95e29b663c7a4dc0,Slot,96.50%,2025-12-04,,,,,,,
-vs10bbsplashx,Big Bass Splash 1000,be2096f4afa0d1731851c3a96deb362b,Slot,96.50%,2025-12-08,,,,,,,
-vs5luckycol,Lucky Fortune Tree,29180923d6e56fdbb4f95ea56ba47241,Fat Panda Slots,97.51%,2025-12-08,,,,,,,
-vs20olgatssc,Gates of Gatot Kaca Super Scatter,c7831f3bc5a6f3e670c9999b15eba21b,Slot,96.50%,2025-12-08,,,,,,,
-vs20olympgcl,Fortune of Olympus,c2d07f40a0f6315629e88b3d644773d0,Slot,96.55%,2025-12-18,,,,,,,
-ar1limboplus,Limbo+,4c2f18fa61c0becd4706a6da1961b020,Slot,97.50%,2025-12-15,,,,,,,
-vswaysacnd,Anaconda Gold,ca5caf33bdba23d92641ea946cfd5a85,Slot,96.54%,2025-12-11,,,,,,,
-vs40hmrstrm,Hammerstorm,982f8ac34ca69e49fa5c470fbd53eb03,Slot,96.50%,2025-12-11,,,,,,,
-vs15cosplay,Anime Cosplay VS,ad15397c1eeb829025853bc1b28adc34,Slot,96.07%,2025-12-11,,,,,,,
-`;
+code,Game Name,Game UID,Game Type,RTP,Release Date,Remarks,,货币
+104,Baccarat Lobby,e58e145313cf8c3a41a2240c1579b735,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",-,,,AED
+401,Baccarat 1,7e1886a44af41f33e03903df4d96d9f8,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2020-03-23,,,AFN
+404,Baccarat 2,7f648ebed8543261ab954f58d80be69b,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2020-03-23,,,ALL
+422f,Baccarat 3,a5eb9a559136ee869dd16bed3cc132fb,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2022-01-12,,下架,AMD
+422a4,Baccarat Latino 1,cb7c322bed03b8320a31b44095cf930d,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-04-02,"Change from Baccarat 3, Spanish speaking clients only",下架,ANG
+422n,Brazilian Baccarat 1,951e3bd15d529a3d0d2e445d8126885d,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-03-12,"Change from Baccarat 3, Brazilian speaking clients only",下架,AOA
+411,Baccarat 5,593e82ed18fb7d72463dff73110fa52c,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2020-08-12,,,ARS
+413,Baccarat 6,80c0d325044a99b88a34f2e315ef1d9e,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2020-08-12,,,AWG
+425,Baccarat 7,25a8376a5f822cd62869368510ef307e,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2021-12-02,,,AZN
+426b,Turbo Baccarat,0b51fa9dc81ec7e5fe0905812d634419,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-03-11,Upgrade from Baccarat 8,,BAM
+426a2,Turbo Baccarat Latino 1,4cf67d4ec6792bb3e86ff24e96d7e8e1,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-04-02,"Change from Turbo Baccarat, Spanish speaking clients only",下架,BBD
+426i,Brazilian Turbo Baccarat 1,5da3a4042912546809633a4422185441,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-03-12,"Change from Turbo Baccarat, Brazilian speaking clients only",下架,BDT
+436,Baccarat 9,3b657685213b492a9bddb4281a876908,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2023-08-30,,,BGN
+402,Speed Baccarat 1,d0d870f20be2bedb04415d5071a5f866,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",,,,BHD
+403,Speed Baccarat 2,76463248b7ca723ad49cfad50926c30e,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",,,,BIF
+412,Speed Baccarat 3,4102658f5f304e126599367ba6cc13a1,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",,,,BMD
+414,Speed Baccarat 5,22517580773f95ed1fccf11222a727f6,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",,,,BND
+415,Speed Baccarat 6,0bace5f8418a61a7f6efccabefdb30aa,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",,,,BOB
+431,Speed Baccarat 7,eb43ca69904a2d11687774a55a8bd68b,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",,,,BRL
+432,Speed Baccarat 8,6b9fde7e0621b2bca3779a162257739b,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",,,,BSD
+430,Speed Baccarat 9,47ff0ea2ce1eae047a4e128282acc1b8,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",,,,BTN
+428,Speed Baccarat 10,34fad871fa9fec7b1057668360500688,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",,,,BWP
+424f,Speed Baccarat 11,eb98b96ee69b8e1d26f458fb6508ae04,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",,,,BYN
+421f,Speed Baccarat 12,c17ea744619079ba0385f02648f8d22d,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",,,,BZD
+438f,Speed Baccarat 13,3199591c742d1e586446d23ad51afe76,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",,,,CAD
+405,Speed Baccarat 14,08965eef9364825b0e4476bf7290c611,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2020-03-23,,,CDF
+427b,Speed Baccarat 15,b8b814a4ce5f191c4a818018db607281,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2021-12-02,,,CHF
+435,Speed Baccarat 16,ed16a06c9a68f7ccc171fd547fc5bd72,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2023-08-30,,,CLP
+439,Speed Baccarat 17,baf9852dbf195a8f79bbea6b33305c99,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2023-08-30,,,COP
+427a2,Speed Baccarat Latino 1,6922b4ab4fcf1c45d51a6b3a85f548ae,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-04-02,"Change from Speed Baccarat 15, Spanish speaking clients only",下架,CRC
+438a1,Speed Baccarat Latino 2,6d8d3e325414a9106778e75473f4856c,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-04-02,"Change from Speed Baccarat 13, Spanish speaking clients only",下架,CUP
+421a2,Speed Baccarat Latino 3,3e7027156e407b56ceef2bd10a30e9c1,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-04-02,"Change from Speed Baccarat 12, Spanish speaking clients only",下架,CVE
+424a3,Speed Baccarat Latino 4,262e0194ad1b24a8c778bd223a3119df,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-04-02,"Change from Speed Baccarat 11, Spanish speaking clients only",下架,CZK
+427n,Brazilian Speed Baccarat 1,d155481e0ce7c4fbaad3fae66ca193f2,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-03-12,"Change from Speed Baccarat 15, Brazilian speaking clients only",下架,DJF
+438p,Brazilian Speed Baccarat 2,54e73a8f055e59bf360fdea513672454,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-03-12,"Change from Speed Baccarat 13, Brazilian speaking clients only",下架,DKK
+421w,Brazilian Speed Baccarat 3,7353fa4eeee9e52cdf83956a63a7e242,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-03-12,"Change from Speed Baccarat 12, Brazilian speaking clients only",下架,DOP
+424v,Brazilian Speed Baccarat 4,f1cc99f718fc90e6d8f6f49b54a49a43,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-03-12,"Change from Speed Baccarat 11, Brazilian speaking clients only",下架,DZD
+441,Korean Speed Baccarat 1,3f83f390c17e56aaf999480608f7e74b,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2022-12-14,,,EGP
+449,Korean Speed Baccarat 2,a96de223a6cb1b7933bf0783b5bb614e,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2023-03-29,,,ERN
+459,Korean Speed Baccarat 3,22f71244570f56f20e3f62f329859318,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2023-11-22,,,ETB
+460,Korean Speed Baccarat 7,73deeee2bc2a889a286cd4459d9cba02,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2023-11-22,Rename on 2025-04-29,,EUR
+476,Korean Speed Baccarat 5,619d1fb3b26a202c6545acbe1841ed3d,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-02-28,,,FJD
+499,Korean Speed Baccarat 6,48268e48a610c33029cf797d87ebb4e8,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-04-23,Reopening,,FKP
+477,Korean Turbo Baccarat 1,2099d4989d635d92524cf3499f87f58a,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-03-11,Upgrade from Korean Speed Baccarat 6,,GBP
+488,Japanese Speed Baccarat 1,2613dd5c8b385fa70fbf4a2678a8981c,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-02-21,,,GEL
+489,Japanese Speed Baccarat 2,8cc12a57d141fac71ef87357c94c44c3,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-02-21,,,GHS
+490,Japanese Speed Baccarat 3,15ec6cd193207f3e219e0d185205952f,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-03-28,,,GIP
+450,Indonesia Speed Baccarat 1,f9590a5f1796c536e78c85b7f9efd405,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2023-12-12,,,GMD
+451,Thai Speed Baccarat 1,746e28de8b39898a1a5e436bb39b91f6,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-01-24,,,GNF
+452,Thai Speed Baccarat 2,687bc54053fbe1ab50561719d46c234e,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-01-28,,,GTQ
+454,Privé Lounge Baccarat 1,422384b37bffa38f63d24f6d9e098950,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-01-17,,,GYD
+455,Privé Lounge Baccarat 2,744876957659f5833d4beb0cf9f6787c,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-01-17,,,HNL
+456,Privé Lounge Baccarat 3,ca0f92bbad03cbcac09140e56a272001,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-01-17,,,HTG
+458,Privé Lounge Baccarat 5,56634c1f851fcc441b25cabfb904843e,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-01-17,,,HUF
+466,Privé Lounge Baccarat 6,c5e27c4d01c4973ed505b3935740808a,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-06-27,,,IDR
+467,Privé Lounge Baccarat 7,0f4593fbf8f16c85dcc5d13455ac1224,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-06-27,,,ILS
+468,Privé Lounge Baccarat 8,1f3be17a8274456ea0b3b5ce1699c2d7,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-06-27,,,INR
+457,Privé Lounge Baccarat 9,7cd376336ab4101f48c0c8d44fcbdd81,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-10-08,,,IQD
+461,Korean Privé Lounge Baccarat,06cf269e870cf6b0a97278c680c93f85,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-03-20,,,IRR
+433,Super 8 Baccarat,302cf0ef3b36479d4d4f4b57b3560343,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2022-05-25,,,ISK
+434,Fortune 6 Baccarat,c20d79035300304273bdfd6fbb227d91,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2022-07-06,,,JMD
+442,Mega Baccarat,fc836890aa838e03419a2751af98d0ce,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2023-05-10,,,JOD
+481,Chinese Speed Baccarat 1,7065fa8abfbb96b16d87ceb7554503b8,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-03-11,,,JPY
+482,Chinese Speed Baccarat 2,c8b889832a452aa68115ec1494d8843d,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-04-25,,,KES
+483,Chinese Speed Baccarat 3,e8d4616742fc5829633d17e117aac18f,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-07-02,,,KGS
+479,Vietnamese Speed Baccarat 1,4457be7be5a268e8d43747a7af82fec5,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-05-14,,,KHR
+480,Vietnamese Speed Baccarat 2,95af7c5b659d78ca19a3cc1b5f39a83c,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-02-11,,,KMF
+484,Vietnamese Speed Baccarat 3,20edd55781b1239427e6f02a6a310463,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-03-10,,,KPW
+491,Punto Banco Italia Tricolore,0953a894d0e79b4c4a514fc073ef877d,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2024-05-23,,,KRW
+851,Squeeze Baccarat 1,4e6ea2bc5ec46aa9d00fa6e056f8867b,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",2025-04-03,,,KWD
+102,Roulette Lobby,831d834fbc4f2b343e7cd5fb58eb6300,CasinoLive,"Regular Baccarat game theoretical RTP
+Player: 98.94%
+Banker: 98.76%
+Tie: 85.64%
+Side bets theoretical RTP
+Either Pair: 86.29%
+Perfect Pair: 86.97%
+Big: 95.65%
+Small: 94.71%
+No-Commission Baccarat theoretical RTP
+Player: 98.94%
+Banker: 98.54%
+Tie: 85.64%
+Super 6 side bet: 86.18%",-,,,KYD
+227,Roulette 1 - Azure,6310a699c52341452fac399be10a2b48,CasinoLive,97.30%,2020-09-09,,,KZT
+201,Roulette 2 -  Green,2cc6eafbc10fac25501311627b90e59b,CasinoLive,97.30%,2020-09-24,,,LAK
+230a20,Roulette 3 - Ruby,b3ce126267c25045e996424f8a012644,CasinoLive,97.30%,2021-12-07,,,LBP
+206,Roulette Macao,bc981c617e610b6b6bdb9092156fb741,CasinoLive,97.30%,2020-03-23,,,LKR
+221,Russian Roulette,8ae416822700ec743ab026d918aa76e2,CasinoLive,97.30%,2020-02-11,,,LRD
+222,German Roulette,54d923372a1a92b10615557607d3bdc4,CasinoLive,97.30%,2020-02-11,,,LSL
+224,Turkish Roulette,286e61fe71b1ab35a427604bff45e4aa,CasinoLive,97.30%,2020-03-10,,,LYD
+223,Roulette Italia Tricolore,89e6a326a58724c3d8b56e80dd0497db,CasinoLive,97.30%,2020-02-11,,,MAD
+229,Roulette  Indian,93322d58de1175bb2078e473c1ea5757,CasinoLive,97.30%,2021-11-06,Close on 2025-01-31,,MDL
+235,Dutch Roulette,f84f7c9220f185c790ba055fef0584e8,CasinoLive,97.30%,2022-06-30,,下架,MGA
+233,Romanian Roulette,cf4788eb4b98a4db606f19be2cc92293,CasinoLive,97.30%,2022-07-07,,,MKD
+234,Roulette Latina,2c168555600287f0aa10e2185410bebf,CasinoLive,97.30%,2025-06-05,"Upgrade from ""Spanish Roulette""",,MMK
+213,Korean Roulette,8cc297adeaa7484459187b88d1289f4e,CasinoLive,97.30%,2023-08-23,,,MNT
+237,Brazilian Roulette,877b3c2652fc0cbb8cc1f0ceba928df8,CasinoLive,97.30%,2023-08-30,,,MUR
+260,Swedish Roulette,201c85571b7d65f3cf76728e32908148,CasinoLive,97.30%,2023-06-08,Swidish Regulated Market Only,下架,MVR
+297,Greek Roulette,0589e93edde9870d60551e4e2aeae37e,CasinoLive,97.30%,2024-11-06,Greek Regulated Market Only,下架,MWK
+262,Vietnamese Roulette,3db984189385e4dd7a1695fc8bbaea3c,CasinoLive,97.30%,2024-01-18,,,MXN
+951,Indonesian Roulette,b6fcedf3c9f9c3cfcb69256977a59840,CasinoLive,97.30%,2024-12-11,,,MZN
+204,Mega Roulette,b60df57bbcd472a887a9c9cff2a0e19c,CasinoLive,97.30%,2021-02-24,2024-04-22 Upgrade,,NAD
+287,Mega Roulette - Brazilian,d384d4856e230a106657c59821f8c43a,CasinoLive,97.30%,2024-08-28,,,NGN
+208,Turkish Mega Roulette,31b812b939407f0e7971675f306c2f3e,CasinoLive,97.30%,2024-03-14,,,NIO
+298,Italian Mega Roulette,f6c5f7daea4c2237f609351834509a94,CasinoLive,97.30%,2024-12-04,,,NOK
+225,Auto Roulette,97382290852d66f486270fcbb8a4d33c,CasinoLive,97.30%,2020-04-23,,,NPR
+226,Speed Auto Roulette,f0add665a33f9b0440694015268d1d6d,CasinoLive,97.30%,2023-05-03,,,NZD
+210,Auto Mega Roulette,a973fbb6b172cca38155523ab540d69f,CasinoLive,97.30%,2023-07-18,,,OMR
+203,Speed Roulette 1,1f602196b12c5dfa56b9dd2e94d9abab,CasinoLive,97.30%,2019-09-24,,,PAB
+205,Speed Roulette 2,dc4f44b7e7bd3ff918b6008d89598c3f,CasinoLive,97.30%,2019-09-24,,,PEN
+211,Lucky 6 Roulette,f2269c8c6428711cecfbcdf33530a90c,CasinoLive,97.30%,2023-10-11,,,PGK
+240,PowerUP Roulette,d9a2bfc6b6a88dad99f4fb2c9e56a787,CasinoLive,97.30%,2022-10-12,,,PHP
+545,VIP Roulette - The Club,306f8bd0e756fea31ae5c3a0a458dd26,CasinoLive,97.30%,2023-08-02,,,PKR
+266,VIP Auto Roulette,491e8650612cfd6e00c86c976da5f3ae,CasinoLive,97.30%,2024-09-25,,,PLN
+270,Fortune Roulette,8189b037222a0e3812587e4bdebdf6f6,CasinoLive,97.30%,2025-01-29,,,PYG
+292,Immersive Roulette Deluxe,11b298077e1d23836cd28204179eca61,CasinoLive,97.30%,2025-02-19,,,QAR
+261,Thai Roulette,befa78fbaf34a24e50a445a3ee83f85d,CasinoLive,97.30%,2025-03-24,,,RON
+28401,French Roulette,6f007f883359289806f7a25503be1141,CasinoLive,97.30%,2025-05-27,,,RSD
+28201,Privé Lounge Roulette,1d08d4f0e9514c902bb7cf633321afb4,CasinoLive,97.30%,2025-06-24,,下架,RUB
+950,American Roulette,f8810130607b6b5b2bdbb91463ae0fdd,CasinoLive,94.74%,2025-03-05,,,RWF
+105,Game Shows Lobby,1d93109e3e25654e679f911c60b4414b,CasinoLive,,-,,,SAR
+1401,Boom City,4eca0516b36cf28b4a3a66c7f3af284f,CasinoLive,93.49% - 96.21%,2022-07-27,,,SBD
+1101,Sweet Bonanza Candyland,89a12f80c6dc0aa7651400364e8f5e80,CasinoLive,91.59% - 96.95%,2021-11-24,,,SCR
+801,Mega Wheel,e18b53fffb12388f9e3cbe9895ca82f1,CasinoLive,96.50% - 96.51%,2020-11-11,,,SDG
+1601,Snakes & Ladders Live,03a00a10ccd01b5424bc988c3648776a,CasinoLive,96.46% - 96.66%,2024-06-20,New and improved,,SEK
+1701,Treasure Island,9a7ccf5d0e8862eaf13a0f3c18807cd2,CasinoLive,96.51% - 96.55%,2024-11-07,New and improved,,SHP
+1501,The Bingo Spot,8b439fcc22a0f30dd282dcfc0072c0bc,CasinoLive,95.03% - 95.97%,2023-07-26,,,SLL
+4001,Super Trunfo (Football Blitz Top Card),950e9141d10bb5528012e84f1d8bbff8,CasinoLive,87.49% - 96.27%,2024-04-30,,,SOS
+107,Mega Sic Bo Lobby,af022dc4300f7c55ebdaf559688115d9,CasinoLive,97.22%,-,,,SRD
+711,Sic Bo,ac5c6c0d1f5c046ca401375bb3388265,CasinoLive,97.22%,2023-10-18,,下架,SYP
+701,Mega Sic Bo,96682117485be3f7551db8fd70f87c73,CasinoLive,97.22%,2020-07-14,,,SZL
+2101,Mega Sic Bac,8152838110b3d0b988236c9b94db8f78,CasinoLive,97.22%,2024-07-03,,,TJS
+108,Dragon Tiger Lobby,75776a4167b0616cec63966d3877ff22,CasinoLive,96.27%,-,,,TMT
+1001,Dragon Tiger,43473f00e237b4d8754d22095d701b4c,CasinoLive,96.27%,2021-04-28,,,TND
+2701,Casino Hold’em,5b7cd53d358874a31116a5080ce6a8fe,CasinoLive,"Ante (Initial Bet): 97.84%
+ Ante (Total Bet): 99.18%
+ Jackpot: 94.04%
+ AA+: 93.74%",2025-06-18,,下架,TOP
+1024,Andar Bahar,9412795579b89bdee57f00ee2d301a22,CasinoLive,92.97% - 98.10%,2021-10-06,,,TRY
+103,Blackjack Lobby,f86cec4da2d8d7595abd84b4498af5e3,CasinoLive,,-,,下架,TTD
+901,One Blackjack,d123ad1b85006f4d5a5f3f26a81d722b,CasinoLive,99.28%,2021-03-03,,,TZS
+902a9,ONE Blackjack 2 - Ruby,f7821ef4d27448883986e2ddd00a00ca,CasinoLive,99.28%,2021-03-03,,仅面向土耳其市场。,UAH
+903,Dutch ONE Blackjack,aa169b49b583a2b5af89203c2b78c67c,CasinoLive,99.28%,2021-03-03,Dutch Regulated Market Only,20250208,UGX
+904,Turkish ONE Blackjack,f47d0ad31c4c49061b9e505593e3db98,CasinoLive,99.28%,2021-03-03,,,USD
+906,Brazilian ONE Blackjack,e88c3138de3cddcc43c9de3237eada5f,CasinoLive,99.28%,2024-11-05,,,USDT
+912,Bet Behind Pro Blackjack ,82b9e0d3bcaaf66cff008cc4618c40fd,CasinoLive,99.28%,2024-10-09,,,UYU
+521,Blackjack 17 - Azure,91d0432f60cd300de21a2e6208dac5b7,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-06-03,,下架,UZS
+522,Blackjack 18 - Azure,055cb22758a5228225765870963b710a,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-06-03,,下架,VND
+523,Blackjack 19 - Azure,6839a114fa9e9f8ac2bfcb9fba206465,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-06-03,,下架,VUV
+524,Blackjack 20 - Azure,3b1ca946e70290892f421525da403ccc,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-06-03,,下架,WST
+525,Blackjack 21 - Azure,58b5741e665021610fa5a77ad44815fa,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-06-03,,下架,XAF
+526,Blackjack 22 - Azure,e1b6a6ff63ca3bc82a6e41b26e81b9b5,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-06-24,,下架,XCD
+527,Blackjack 23 - Azure,552d3088b31c970afdfee48494e25e48,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-06-24,,下架,XOF
+528,Blackjack 24 - Azure,a8b5904ad0d4cb6e6191cb08bb5d6349,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-06-24,,下架,XPF
+529,Blackjack 25 - Azure,a1291f4da9452c9c6957be507820744d,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-06-24,,下架,YER
+530,Blackjack 26 - Azure,a79ab346c31da793864ef368898ad544,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-06-24,,下架,ZAR
+539,Blackjack 27 - Azure,8389ccc15a79c612c8a592f40479ecff,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-07-29,,下架,ZMW
+538,Blackjack 28 - Azure,735c251edfb00f174c55a3d89694dcad,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-07-29,,下架,
+537,Blackjack 29 - Azure,628aedd1ecdcf2eb02571166ebbeaa34,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-07-29,,下架,
+536,Blackjack 30 - Azure,01656d94c8b88ecd2301f1e75e997dd2,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-07-29,,下架,
+535,Blackjack 31 - Azure,9f32e166bd21a96c40c40bb218159bde,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-07-29,,下架,黑色背景的是需要额外付费的二十一点桌位，要么是受监管的国家/地区桌位
+540,Blackjack 32 - Azure,69a2445fd1a4c4fdfd8b883c289c1b09,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-08-19,,下架,
+511,Blackjack 3 - Azure,415de32b6fc7d584fdaebfa3edbe8e5b,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",,,下架,
+512,Blackjack 6 - Azure,527eb5e3845373717a210c385b25156a,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",,,下架,
+513,Blackjack 7 - Azure,fe39013013d0d6b9597b9b10bbf8d5f5,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",,,下架,
+514,Blackjack 4 - Azure,4c7f6a64b44ba0284750a8b903048871,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",,,下架,
+515,Blackjack 1 - Azure,29ca2281e7447b3face375aedcaa3397,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2020-09-23,,下架,
+516,Blackjack 9 - Azure,8ffc3a97e95397ca4f28525dda788233,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2020-09-23,,下架,
+517,Blackjack 10 - Azure,ca58c5b1cdb54c3e3db03d89d9579fff,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2020-09-09,,下架,
+518,Blackjack 5 - Azure,c01bbc8ad855b4b4c84e2dfcff729e8e,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2020-09-23,,下架,
+519,Blackjack 2 - Azure,fdb638c7581e34cc1b5966903bb93503,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2020-09-23,,下架,
+520,Blackjack 8 - Azure,f851aa0e72778c72d8131d510f2a958f,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2020-11-01,,下架,
+301,Blackjack 11,58d23bbe6844fc3aa643655108f67487,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",,,下架,
+302,Blackjack 12,136f520268917391dcdd9133719def8f,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",,,下架,
+303,Blackjack 14,9ac649ab5d0eb75d27cedba2d6cad415,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",,,下架,
+304,Blackjack 15,90bc12916b442ab46ad299bd119d6ab4,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",,,下架,
+305,Blackjack 16,8f5a6244fe71970797ea363040ea0e1b,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",,,下架,
+541,Blackjack 33 - The Club,567907a58023cc249b189386d0648162,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-11-15,,下架,
+542,Blackjack 34 - The Club,7a6f4f0f5275985a95b55eb73b87ef27,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-11-15,,下架,
+543,Blackjack 35 - The Club,d78d2727b15b1e59ef581c9346d1a7f9,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-11-15,,下架,
+544,Blackjack 36 - The Club,5a9078434d4abe675a40aa33a5308935,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2021-11-15,,下架,
+562,Blackjack 37 - Ruby,1fec32f21f1b1f51dbc59d1e375d4c39,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-16,,下架,
+563,Blackjack 38 - Ruby,84f77a894a99f6513c01c9c15127f8cf,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-16,,下架,
+564,Blackjack 39 - Ruby,aa8978f442ba04335faee18ff2ccf78e,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-16,,下架,
+565,Blackjack 40 - Ruby,b8a5030b7d59d4bc616e0bd783933a49,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-16,,下架,
+555,Blackjack 41 - Ruby,290b36d0bf03a2f4a953fb209f903173,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-16,,下架,
+556,Blackjack 42 - Ruby,7603303ed9ca045c4eb216a49139e698,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-16,,下架,
+557,Blackjack 43 - Ruby,96fd53d40cd66653fa950944db74bb7b,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-16,,下架,
+558,Blackjack 44 - Ruby,eaf2a8428aa8dce45d8eca3512c30cf0,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-16,,下架,
+559,Blackjack 45 - Ruby,8cba287be667414b19e29919dec9d82a,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-16,,下架,
+560,Blackjack 46 - Ruby,dedc4397f5ea230966890a3ae6e8182f,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-16,,下架,
+561,Blackjack 47 - Ruby,ff06cae56d513a8dad8c78956b7a091d,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-16,,下架,
+551,Blackjack 48 - Ruby,e57bb770a9fb68a3770c728387cdf59c,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-16,,下架,
+552,Blackjack 49 - Ruby,6f453a97246c07a84a28bdcd0c3170a1,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-16,,下架,
+553,Blackjack 50 - Ruby,5e50d2591c8d018bbd9692938dedaa42,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-16,,下架,
+554,Blackjack 51 - Ruby,1e733ddde18fa2601903a9973687355c,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-16,,下架,
+594,Blackjack 52 - Ruby,29d4a561a49a5bee4621ce5461f252bb,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-11-30,,下架,
+595,Blackjack 53 - Ruby,f7b2f188afc8d856b59ba75150bcc040,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-11-30,,下架,
+596,Blackjack 54 - Ruby,b9018dbbed0f5d5825ba7510f0560f6c,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-11-30,,下架,
+597,Blackjack 55 - Ruby,581c803de6edcde127bb2d2943063b35,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-11-30,,下架,
+593,Blackjack 56 - Ruby,d42ae55252b2f07aaa9fd4c6c00506b3,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-11-30,,下架,
+598,Blackjack 57 - Azure,c4bc3b17f09e816972d4626795855090,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-01-24,,下架,
+599,Blackjack 58 - Azure,af7496565c99cb9d235ea3e9a294397e,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-01-24,,下架,
+600,Blackjack 59 - Azure,37ec0a5173cb60a45fa68a23e885df25,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-01-24,,下架,
+601,Blackjack 60 - Azure,211d46f91206b166d786cb3ee2586cb7,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-01-24,,下架,
+602,Blackjack 61 - Azure,5d2f76a9535ba2be2dd45efef3b59686,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-01-24,,下架,
+603,Blackjack 62 - Azure,338747b1f48c13477f2dc2ac7432f360,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-01-24,,下架,
+590,Blackjack 63 - Azure,c85d151f106004b3860e26cd43e44e21,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-01-24,,下架,
+730,Blackjack 75 - Azure,1ec3bbb2e41bebde37d77fe45d0c31a3,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-01-31,,下架,
+731,Blackjack 76 - Azure,0c8469a7cf283d5554f850437815e54a,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-01-31,,下架,
+620,Blackjack 64 - Ruby,6773baab3310a1a62c0bcb0f2bb87ef8,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-03-30,,下架,
+621,Blackjack 65 - Ruby,3cb2b440463621c679db6fd904240d06,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-03-30,,下架,
+626,Blackjack 70 - Ruby,a9dddc85b6a550879d3cdeda2e1dcefb,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-03-30,,下架,
+616,Blackjack 71 - Ruby,905c3e86a2deb62ee750242d03cf60dc,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-04-26,,下架,
+617,Blackjack 72 - Ruby,eb2e33f5d45d79b8221138c50f85e656,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-04-26,,下架,
+618,Blackjack 73 - Ruby,e549701764ef66fc2291f867f664525f,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-04-26,,下架,
+619,Blackjack 74 - Ruby,815150b7af997abeec52f97ac046385c,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-04-26,,下架,
+569,Blackjack 77 - Ruby,7b79254291e698861e360a79aa5f8c6d,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-01-31,,下架,
+570,Blackjack 78 - Ruby,6b5c9d3f7a46e88ce266e4c71faaedf7,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-01-31,,下架,
+676,Blackjack 79 - Emerald,3a49b5d0953f31b0dd7cb70a26964de5,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-03-21,,下架,
+677,Blackjack 80 - Emerald,c6263bdb4528b30a05d0a982ea0b7641,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-03-21,,下架,
+678,Blackjack 81 - Emerald,356c141eab19102d8953d3f5f6f8cf34,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-03-21,,下架,
+673,Blackjack 82 - Emerald,ef00dd8e0699f0e786c6b57d6ade7e13,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-04-10,,下架,
+674,Blackjack 83 - Emerald,95d7bab3f6cf28e13eb8038166c50e9d,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-04-10,,下架,
+675,Blackjack 84 - Emerald,18f85b652e631a15b295fc385bf7ff68,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-04-10,,下架,
+683,Blackjack 85 - Emerald,d7996188e2850c5a7f545ab8bb2cba16,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-05-29,,下架,
+369,Blackjack 86 - Ruby,f8f951f2a23056348bff0d096be5f4cf,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-01,,下架,
+776,Blackjack 87 - Emerald,766441c99ec109905079a4355fd9998a,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-04,,下架,
+777,Blackjack 88 - Emerald,83c6742f0d93a564a76aeeb34f3dbcd9,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-04,,下架,
+778,Blackjack 89 - Emerald,507da655e80e2b951a848303be2f7cc8,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-04,,下架,
+767,Blackjack 90 - Azure,e229a2881c6739d975bf64e286a217a2,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-04,,下架,
+768,Blackjack 91 - Azure,aa177f91b10bce3c9b4b10dd5a8a4203,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-04,,下架,
+769,Blackjack 92 - Azure,6356c708f3460df985f3140a76112596,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-04,,下架,
+771,Blackjack 93 - Azure,ca683afa7f94dce7037bd62147ba11a4,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-04,,下架,
+694,Blackjack 94 - Emerald,7ce5d783bb279180d63c99e6293411af,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-31,,下架,
+696,Blackjack 95 - Emerald,1f21a96bc31a34be97530d97da567952,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-31,,下架,
+697,Blackjack 96 - Emerald,b594feb76196752c016d0c876f29ea6d,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-31,,下架,
+787,Blackjack 97 - Azure,365a2c37c3cec3974d1a4fa39f7fa58b,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-31,,下架,
+789,Blackjack 98 - Azure,4958c988a861ccf8e9dc6d1510efde71,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-31,,下架,
+790,Blackjack 99 - Azure,f1e714167e4b8dcd29883234bc094837,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-31,,下架,
+791,Blackjack 100 - Azure,36527b874180fc201bd9c845425c67ea,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-31,,下架,
+792,Blackjack 101 - Azure,b5b4fc0925ae0388072e7bc9af45a983,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-07-31,,下架,
+372,Blackjack 102 - Emerald,f84c284fdd7757593812131e3cbd36d0,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-09-04,,下架,
+373,Blackjack 103 - Emerald,c2d05fa71c564aa289106bc4fc8b7d51,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-09-04,,下架,
+374,Blackjack 104 - Emerald,178b7a3e473967f4034741fd00cb4bef,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-09-04,,下架,
+375,Blackjack 105 - Emerald,09e8e2704e33f5293e993cf3381f81a1,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-09-04,,下架,
+376,Blackjack 106 - Emerald,9a8641c76b864c24f189fc4f4b93b494,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-09-04,,下架,
+689,Blackjack 107 - Emerald,47decc034239ef7d06f451b2429d9c70,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-09-04,,下架,
+698,Blackjack 108 - Emerald,66497efdc438459f78e18da5c5524215,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-09-04,,下架,
+650,Blackjack 109,adc3e08ae26db0da5e2c9962a344b031,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-10-03,,下架,
+651,Blackjack 110,09b75a2e42d9102bea4146a9ec26aae7,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-10-03,,下架,
+652,Blackjack 111,74bc3508f609b932764ab778cafdc9b6,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-10-03,,下架,
+325,Blackjack 112,3e66ec38bd579523b32ded576ee2fe3b,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-10-03,,下架,
+326,Blackjack 113,78b8a690699b6f0d6c0ce65a186c4287,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-10-03,,下架,
+327,Blackjack 114,6505eab8899b20850f3c92e13a85aa50,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-10-03,,下架,
+667,Blackjack 115,63c9f0beda0efbd918091cb06a120126,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-03-03,,下架,
+668,Blackjack 116,e99ad361c428381a264548673e18a494,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-03-03,,下架,
+669,Blackjack 117,506b950a11f79f7fe8d00d06704d263b,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-03-03,,下架,
+670,Blackjack 118,cad90067dfb1d9b72d4d6b4ee7964a40,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-03-03,,下架,
+726,Blackjack 119,791c5fc4d12440b06e2a995fc7bb099f,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-03-03,,下架,
+346,Blackjack 120,88c89110ca466bc6522b4859616c151f,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-03-03,,下架,
+727,Blackjack 121,133c038dce7307e439fb29433ca38db8,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-03-03,,下架,
+728,Blackjack 122,60e87b40824f68c031ad43da176f6c38,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-03-03,,下架,
+729,Blackjack 123,cf73bc9a57a93506c69eaf59f4b63905,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-03-03,,下架,
+732,Blackjack 124,316317b15826c7f43ae98c0d9bc8cc4a,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-03-03,,下架,
+733,Blackjack 125,262d8c66c57ad13ce28103db775f5dbe,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-03-03,,下架,
+347,Blackjack 126,492fe55f51e33e5b0a90fdc2f8bb987d,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-03-03,,下架,
+931,Blackjack 127,0d85b7c5436dd9b828bc79c994d36355,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-24,,下架,
+932,Blackjack 128,20d877882943cb0828016665c388d201,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-24,,下架,
+933,Blackjack 129,274c87f105c6c52b00b07e2bd60aa60b,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-24,,下架,
+1155,Blackjack 130,4c1e422ff83258dc4704202db25b843a,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-24,,下架,
+1157,Blackjack 131,f1f20e5e19221317eed3fd8db3c899b9,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-24,,下架,
+1153,Blackjack 132,0e82e3c5da3f04947ca44b7af3986ea3,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-24,,下架,
+1154,Blackjack 133,d5f5a7965b4015b3d9b6196ff5b6244d,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-24,,下架,
+1156,Blackjack 134,9ef64d9fb8a66286ce38516eed496461,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-24,,下架,
+687,Blackjack 135,92156a92bd82a565098d5df39e5e1797,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-10,Switch from Speed Blackjack 33 to regular,下架,
+684,Blackjack 136,76c69459691bbedbb18e81278c496479,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-10,Switch from Speed Blackjack 36 to regular,下架,
+685,Blackjack 137,2f0ae5b92e05d4b06f9eb0e5ba0f4e3d,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-10,Switch from Speed Blackjack 37 to regular,下架,
+691,Blackjack 138,6af0bf63864b34a29e724c9dd5b670e9,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-10,Switch from Speed Blackjack 48 to regular,下架,
+692,Blackjack 139,8f6d51052aa6edc726b4d4f935b10a96,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-10,Switch from Speed Blackjack 49 to regular,下架,
+693,Blackjack 140,36b43fd1dcade9472d685bcfbc3c447c,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-10,Switch from Speed Blackjack 50 to regular,下架,
+329,Blackjack 141,40780825ff1af74fe50b5a4616d08468,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-10,Switch from Speed Blackjack 63 to regular,下架,
+331,Blackjack 142,9a79efca4e39d8f26fca5cdd60037743,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-04-10,Switch from Speed Blackjack 65 to regular,下架,
+322,Turkish Blackjack 1,f7c5a83bbc44ce2243da13af0aa42c44,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-08-16,Turkish market only,下架,
+766,Turkish Blackjack 2,9f6d054c487916fbd880f1296eff9ca7,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-06-18,Turkish market only,下架,
+765,Turkish Blackjack 3,ae598a43de8d5becb71920e089cb05b6,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-09-23,Turkish market only,下架,
+335,Turkish Blackjack 4,3cc7fd808a9a26d9710c5658a524a0cf,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-10-24,Turkish market only,下架,
+1152,Turkish Privé Lounge Blackjack,52b7ead1fb813542a32cd1af7400561d,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-06-19,Turkish market only,下架,
+382,Brazilian Blackjack 1,6b95a7cdedaa0c1225dd17efdcd5f214,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-02-13,Brazilian market only,下架,
+384,Brazilian Blackjack 2,667347edf3393171a4d74cf139c214bb,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-02-13,Brazilian market only,下架,
+546,VIP Blackjack 1 - Ruby,2e0f09f130bacd981aca5b1cf262d8e8,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-02-23,,下架,
+547,VIP Blackjack 2 - Ruby,199450eaf48946ad346fcad571297d43,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-03-30,,下架,
+548,VIP Blackjack 3 - Ruby,ebe48446f68364d83f8fd09ed8ca0d31,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-03-30,,下架,
+549,VIP Blackjack 4 - Ruby,bf6e45492d2119049ea91c3dc2e14133,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-03-30,,下架,
+550,VIP Blackjack 5 - Ruby,98c2177b5e1319e15f0cf6259d7edb53,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2022-03-30,,下架,
+662,VIP Blackjack 6 - Emerald,90a4ace57f8d1a84d42359a6c0f09511,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-06-14,,下架,
+663,VIP Blackjack 7- Emerald,c8af0ca1c551ccb92ede18bb3b45dac3,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-06-14,,下架,
+664,VIP Blackjack 8 - Emerald,e32ff20a9c349a31daa879c9ca2cf47c,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-06-14,,下架,
+622,VIP Blackjack 9 - Ruby,e6d7fc7fe63b08d2f37553c1d0810828,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-08-18,,下架,
+623,VIP Blackjack 10 - Ruby,c50274b8e8b4a78c73f7b4c8a87bbc82,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-08-18,,下架,
+624,VIP Blackjack 11 - Ruby,5ca79feba16dcc629d549b9aa97ea336,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-08-18,,下架,
+625,VIP Blackjack 12 - Ruby,9dabd1f0fb07bdfe00e58a9f6660dc64,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-08-18,,下架,
+671,VIP Blackjack 13 - Emerald,e3e9c37207c871150d67978f737621b7,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-03-21,,下架,
+672,VIP Blackjack 14 - Emerald,a0ff51f9b994c97d5e807430bc2f6062,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-03-21,,下架,
+355,Romanian VIP Blackjack 1,22cd92eb2804b733bb88111946684f20,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-10-25,,下架,
+385,Brazilian VIP Blackjack 1,4ada862fb271db5ab3a5842bae9cfe81,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2025-02-13,Brazilian market only,下架,
+721,Privé Lounge Blackjack 1,5b9a81d95a47601ed39b401521d397da,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-08-02,,下架,
+722,Privé Lounge Blackjack 2,53ca053f408ad6db1c03bbb5001e5b4d,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-08-02,,下架,
+723,Privé Lounge Blackjack 3,99cc4a7ece8ba5bede61842e71805617,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-08-02,,下架,
+724,Privé Lounge Blackjack 4,72c5f7167452879b8622fff2fe98a58b,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-08-02,,下架,
+725,Privé Lounge Blackjack 5,3196f2781d9f764e6b4baba310977bde,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2023-08-02,,下架,
+747,Privé Lounge Blackjack 6,573701b8d62542b719f27aceb9d44f38,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-04-15,,下架,
+748,Privé Lounge Blackjack 7,cb7d038980fd70c2afc869922b0f8190,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-04-15,,下架,
+749,Privé Lounge Blackjack 8,511afb59e83b2497239408f729dfd722,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-04-15,,下架,
+750,Privé Lounge Blackjack 9,77ed97a4efa44355908e037678161dde,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-04-15,,下架,
+751,Privé Lounge Blackjack 10,7ab5248f9affec6a68a3ffbb39fdcd92,CasinoLive,"Blackjack game: 99.28%
+ Perfect Pairs: 95.90%
+ 21+3: 96.30%",2024-04-15,,下架,
+566,Speed Blackjack 1 - Ruby,2a844a3331ef745d6090cf47e4c22b66,CasinoLive,99.59%,,,下架,
+567,Speed Blackjack 2 - Ruby,e96fd2d5b290ca64aa53b08d10bdd84f,CasinoLive,99.59%,2022-06-01,,下架,
+568,Speed Blackjack 3 - Ruby,70f38d6dbf3ce74a47623d0ddc43eda8,CasinoLive,99.59%,2022-05-04,,下架,
+591,Speed Blackjack 6 - Ruby,392f717ea9796f860a47929c6ff212fc,CasinoLive,99.59%,2023-01-24,,下架,
+592,Speed Blackjack 7 - Ruby,2c9ae5efe538c55ed806330eca464125,CasinoLive,99.59%,2023-01-24,,下架,
+604,Speed Blackjack 8 - Ruby,0efc93a33010fe09a36368c5abf4c606,CasinoLive,99.59%,2023-01-24,,下架,
+605,Speed Blackjack 9 - Ruby,a30a83782ba40ceb25c2b4aedc09fb51,CasinoLive,99.59%,2023-01-24,,下架,
+606,Speed Blackjack 10 - Ruby,f9ec89dc6ea497087fe62d0e416fbc4b,CasinoLive,99.59%,2023-01-24,,下架,
+607,Speed Blackjack 11 - Azure,08d7e07c4180caf4dabfbf875b365445,CasinoLive,99.59%,2023-01-24,,下架,
+608,Speed Blackjack 12 - Azure,59b21b0c4d50ecc046a94754e2348ebe,CasinoLive,99.59%,2023-01-24,,下架,
+609,Speed Blackjack 14 - Azure,62060015742b1a450f01b5601ae79c3d,CasinoLive,99.59%,2023-04-26,,下架,
+612,Speed Blackjack 15 - Ruby,b3635e0ac1a77fc2d693dcec65291eef,CasinoLive,99.59%,2023-04-26,,下架,
+613,Speed Blackjack 16 - Ruby,2fc67894d892e8ac1001fa14e1ec7f84,CasinoLive,99.59%,2023-04-26,,下架,
+614,Speed Blackjack 17 - Ruby,383d754caf92c613a3e2ab8cbbebebbb,CasinoLive,99.59%,2023-04-26,,下架,
+615,Speed Blackjack 18 - Ruby,aaf5c1c39485f11d13919cf10f65c716,CasinoLive,99.59%,2023-04-26,,下架,
+658,Speed Blackjack 19 - Emerald,e42cc9ffb2b2b947476e65d890ab08a7,CasinoLive,99.59%,2023-06-14,,下架,
+659,Speed Blackjack 20 - Emerald,82799e031f36dddf002a831e8e0da575,CasinoLive,99.59%,2023-06-14,,下架,
+660,Speed Blackjack 21 - Emerald,80cf04da18316330e1b6dc932949f8cd,CasinoLive,99.59%,2023-06-14,,下架,
+661,Speed Blackjack 22 - Emerald,08b7c467f1cd9690235074891c57d5e4,CasinoLive,99.59%,2023-06-14,,下架,
+333,Turkish Speed Blackjack 3,e070f03865c17197ecf6dd4759ebb7e6,CasinoLive,99.59%,2024-10-24,Turkish market only,下架,
+764,Turkish Speed Blackjack 2,f41831eb20465b6382b7f75b1516f790,CasinoLive,99.59%,2024-06-18,Turkish market only,下架,
+321,Turkish Speed Blackjack 1,3cbea87e3977c3db6830a10cc0922a8f,CasinoLive,99.59%,2023-08-16,Turkish market only,下架,
+641,Speed Blackjack 24 - Emerald,c644d11694349ef8ef32f0bf51e36c8e,CasinoLive,99.59%,2023-08-09,,下架,
+642,Speed Blackjack 25 - Emerald,93825b206758f9b389a33a5bcef62be6,CasinoLive,99.59%,2023-08-09,,下架,
+643,Speed Blackjack 26 - Emerald,826e4c066a555f4533f1884d40a22799,CasinoLive,99.59%,2023-08-09,,下架,
+644,Speed Blackjack 27 - Emerald,f3b6d567d613b2307f621597349a8ed7,CasinoLive,99.59%,2023-08-09,,下架,
+645,Speed Blackjack 28 - Emerald,7005cac3a79eb72c0f9b6ca2fc507d08,CasinoLive,99.59%,2023-08-09,,下架,
+646,Speed Blackjack 29 - Emerald,c4752d57124fd509506cb7561862e60b,CasinoLive,99.59%,2023-08-09,,下架,
+647,Speed Blackjack 30 - Emerald,e880ab67fc9bb7cf775e3d4c494b1bbd,CasinoLive,99.59%,2023-08-09,,下架,
+681,Speed Blackjack 31 - Emerald,7dbe436b1be09b0e248a957d48a5efec,CasinoLive,99.59%,2024-05-29,,下架,
+682,Speed Blackjack 32 - Emerald,f51ccb0dbc92bebf2c2f85459337283e,CasinoLive,99.59%,2024-05-29,,下架,
+688,Speed Blackjack 34 - Emerald,1815d8f1ebc8a3935cb0ae393ba2bafe,CasinoLive,99.59%,2024-05-29,,下架,
+686,Speed Blackjack 35 - Emerald,514827182897bc05df776ef03700c0d9,CasinoLive,99.59%,2024-05-29,,下架,
+370,Speed Blackjack 38 - Ruby,b0fd1d14762db8ef35ae3e224f78a0e3,CasinoLive,99.59%,2024-07-01,,下架,
+371,Speed Blackjack 39 - Ruby,322fd1a7b4dbb999f99f529cd0eeb739,CasinoLive,99.59%,2024-07-01,,下架,
+779,Speed Blackjack 40 - Emerald,ce80e5df4dee18c498093918099a8022,CasinoLive,99.59%,2024-07-04,,下架,
+780,Speed Blackjack 41 - Emerald,28a6b277b5a66dfa29d437c3dc002ee5,CasinoLive,99.59%,2024-07-04,,下架,
+781,Speed Blackjack 42 - Emerald,ee1fcd8c0328924f4d8ac918ae717e74,CasinoLive,99.59%,2024-07-04,,下架,
+770,Speed Blackjack 43 - Azure,4ff2fafdef69ffd9e1e18dfd4cb6296b,CasinoLive,99.59%,2024-07-04,,下架,
+772,Speed Blackjack 44 - Azure,ee4d8cb5e4e580e877063ef1c53809ee,CasinoLive,99.59%,2024-07-04,,下架,
+773,Speed Blackjack 45 - Azure,864e0afa320068a73b4414f0da9b77a2,CasinoLive,99.59%,2024-07-04,,下架,
+774,Speed Blackjack 46 - Azure,9e726ba28eed43667448a7babb0bfb05,CasinoLive,99.59%,2024-07-04,,下架,
+775,Speed Blackjack 47 - Azure,73984a421f0732077d27ccedca872d8f,CasinoLive,99.59%,2024-07-04,,下架,
+788,Speed Blackjack 51 - Azure,492cb5736927fad39daacc17db222989,CasinoLive,99.59%,2024-07-31,,下架,
+784,Speed Blackjack 52 - Azure,4810929da3aab0311574776e972abeee,CasinoLive,99.59%,2024-07-31,,下架,
+785,Speed Blackjack 53 - Azure,4ef8506602e8c4eebd87bf42b0e8f60f,CasinoLive,99.59%,2024-07-31,,下架,
+786,Speed Blackjack 54 - Azure,0a38edd4414ea1855387fe7ad4c73fe7,CasinoLive,99.59%,2024-07-31,,下架,
+377,Speed Blackjack 55 - Emerald,862a8689b959cc7b82a7b28cb6efcb85,CasinoLive,99.59%,2024-09-04,,下架,
+378,Speed Blackjack 56 - Emerald,ee3d9d1b704c1abbcdb845b2cb282d10,CasinoLive,99.59%,2024-09-04,,下架,
+379,Speed Blackjack 57 -  Emerald,009ac64b70e9c672a3d48dc758432ae4,CasinoLive,99.59%,2024-09-04,,下架,
+380,Speed Blackjack 58 - Emerald,a5d3b6ce6c460bba8ca1f9f7e3cd94f1,CasinoLive,99.59%,2024-09-04,,下架,
+381,Speed Blackjack 59 - Emerald,b269caed186329c3978e2025562df18a,CasinoLive,99.59%,2024-09-04,,下架,
+690,Speed Blackjack 60 - Emerald,6e8b85fdeac8797345ac90841ede19b3,CasinoLive,99.59%,2024-09-04,,下架,
+695,Speed Blackjack 61 - Emerald,26bbdb270e23a564fb035c3ecc1fcf59,CasinoLive,99.59%,2024-09-04,,下架,
+328,Speed Blackjack 62,351468d6871ef3c2e0d0639bbce1eb27,CasinoLive,99.59%,2024-10-03,,下架,
+330,Speed Blackjack 64,ad7905d3b0fd57247a08548130834389,CasinoLive,99.59%,2024-10-03,,下架,
+332,Speed Blackjack 66,13e225cd3f5b5696dadb0c4a55d79686,CasinoLive,99.59%,2024-10-03,,下架,
+3001,Blackjack X 1 - Azure,a92a531d389c718b5f5f82cfc2448e39,CasinoLive,99.28%,2024-03-06,,,
+3002,Blackjack X 2 - Azure,5b59af29c7164779f449311554225daf,CasinoLive,99.28%,2024-03-06,,,
+3003,Blackjack X 3 - Azure,eb28ac23ccd830d067728173c1f91ee6,CasinoLive,99.28%,2024-03-06,,,
+3004,Blackjack X 4 - Ruby,49bba35a57238c3b51d09819045dff93,CasinoLive,99.28%,2024-03-06,,,
+3005,Blackjack X 5 - Ruby,1a98b36378f464b523aa55f335056e47,CasinoLive,99.28%,2024-03-06,,,
+3006,Blackjack X 6 - Azure,1366abf4bb64ddf7937affa23f859026,CasinoLive,99.28%,2024-03-13,,,
+3007,Blackjack X 7- Azure,d64c9a0d9886af9532f70aaa53e622b3,CasinoLive,99.28%,2024-03-13,,,
+3008,Blackjack X 8 - Ruby,ae96e109c6ebb6b93a5f89c5a61bbfda,CasinoLive,99.28%,2024-03-13,,,
+3009,Blackjack X 9 - Ruby,4c31c4ff5031d8f7ea19b58d7deea2ae,CasinoLive,99.28%,2024-03-13,,,
+3010,Blackjack X 10 - Ruby,396319990608a705114e00847b316d1b,CasinoLive,99.28%,2024-03-13,,,
+3046,BlackjackX 11 - Emerald,c730a004b714edfdd4f0c42e9e81fd23,CasinoLive,99.28%,2024-04-18,,,
+3047,BlackjackX 12 - Emerald,4145dd9cf243e0b897d79df58fdf67e1,CasinoLive,99.28%,2024-04-18,,,
+3048,BlackjackX 13 - Emerald,e1223c4465b2ecfebdafcdbb065b5707,CasinoLive,99.28%,2024-04-18,,,
+3014,Blackjack X 14 - Ruby,420b9b1546097c64bb6ee29f74604712,CasinoLive,99.28%,2024-03-13,,下架,
+3015,Blackjack X 15 - Ruby,a0ee8dc9da394e4b9ae9ad5c9ea1e722,CasinoLive,99.28%,2024-03-13,,,
+3016,Blackjack X 16 - Azure,4d6bd82a165718745b741da33ebd0cb0,CasinoLive,99.28%,2024-03-13,,,
+3017,Blackjack X 17 - Azure,f03517eabcf89387efc0f2bfd193c2ce,CasinoLive,99.28%,2024-03-13,,,
+3018,Blackjack X 18 - Azure,e9a3880ae1414fa2b59de54336b6508d,CasinoLive,99.28%,2024-03-13,,,
+3019,Blackjack X 19 - Ruby,ef44063ba6f5fde0769cc7677262838e,CasinoLive,99.28%,2024-03-13,,,
+3020,Blackjack X 20 - Ruby,6255ddedaa5f480b9dfa9fa40f7b8326,CasinoLive,99.28%,2024-03-13,,,
+3021,Blackjack X 21 - Ruby,3e5004fa6ad33e9c5130b1017c0ac6b2,CasinoLive,99.28%,2024-03-13,,,
+3049,BlackjackX 22 - Emerald,a364410030dac262dfff1979521288d8,CasinoLive,99.28%,2024-04-18,,,
+3050,BlackjackX 23 - Emerald,3e0d79b9e524d8d9888848559192611e,CasinoLive,99.28%,2024-04-18,,,
+3024,Blackjack X 24 - Azure,d9b511ca291529bfe669a154a321386a,CasinoLive,99.28%,2024-03-13,,,
+3025,Blackjack X 25 - Azure,ac1e682e6ce50f787124ef4daf01f691,CasinoLive,99.28%,2024-03-13,,,
+3051,BlackjackX 26 - Emerald,d2a22cfc9baaeec562ae159b2672174c,CasinoLive,99.28%,2024-04-18,,,
+3052,BlackjackX 27 - Emerald,17785357bb6ff50b3d252fe4300cb881,CasinoLive,99.28%,2024-04-18,,,
+3053,BlackjackX 28 - Emerald,16f45de0f1ac6aecb7bbbab2816acdd5,CasinoLive,99.28%,2024-04-18,,,
+3054,BlackjackX 29 - Emerald,3c0994fc8d99afdc3e8b290867679f30,CasinoLive,99.28%,2024-04-18,,,
+3055,BlackjackX 30 - Emerald,4cc29ee405b5a2b2d7c245e5ee7bd763,CasinoLive,99.28%,2024-04-18,,,
+3231,BlackjackX 31,995fd6a37ee90f442bf1cdb020097673,CasinoLive,99.28%,2025-01-09,,下架,
+3232,BlackjackX 32,c7490f453eb023fe4b142ae4c7f96307,CasinoLive,99.28%,2025-01-09,,下架,
+3233,BlackjackX 33,0d904227ec25333d6ac1f67189d1dc1a,CasinoLive,99.28%,2025-01-09,,下架,
+3234,BlackjackX 34,558ef1a939e5d2a0227f48a7876458a4,CasinoLive,99.28%,2025-01-09,,下架,
+3235,BlackjackX 35,d7db7afef5c428d0b7bf75545efe67b1,CasinoLive,99.28%,2025-01-09,,下架,
+3238,BlackjackX 36,294c94dd9c4e5e0453f1de38f473912e,CasinoLive,99.28%,2025-01-09,,下架,
+3239,BlackjackX 37,254bbca908409b4ee044affb9ea5161a,CasinoLive,99.28%,2025-01-09,,下架,
+3240,BlackjackX 38,f0c81700bbe0ae9c71f630f870999542,CasinoLive,99.28%,2025-01-09,,下架,
+3241,BlackjackX 39,2309cfa59d6064db6ae8573eb220aa8e,CasinoLive,99.28%,2025-01-09,,下架,
+3242,BlackjackX 40,93c22ce9abe70468f73cd394c0b528ef,CasinoLive,99.28%,2025-01-09,,下架,
+3252,Indonesian BlackjackX 1,e9a53623feebf01c99683d18bb1626a5,CasinoLive,99.28%,2024-12-12,,下架,
+3253,Indonesian BlackjackX 2,f2d45286b1bf353251ce64c09f29da8e,CasinoLive,99.28%,2024-12-12,,下架,
+3254,Indonesian BlackjackX 3,c841cfbc8d51fb08302f4af21e7c5d8c,CasinoLive,99.28%,2024-12-12,,下架,
+3255,Indonesian BlackjackX 4,85cffde52811b2c5d0b709f5e9933096,CasinoLive,99.28%,2024-12-12,,下架,
+3256,Indonesian BlackjackX 5,ebf939f487f8a55cc9d14d8fae174789,CasinoLive,99.28%,2024-12-12,,下架,
+3310,Indonesian BlackjackX 6,9d22271dd2e069f651b17a5b5f220e6c,CasinoLive,99.28%,2025-02-18,,下架,
+3311,Indonesian BlackjackX 7,06acb5ea3578b3ed8d1785daab1512c1,CasinoLive,99.28%,2025-02-18,,下架,
+3312,Indonesian BlackjackX 8,ca4d32b8d0f2ca3698c515289d73cfb4,CasinoLive,99.28%,2025-02-18,,下架,
+3313,Indonesian BlackjackX 9,8feab75c075507d5b127050ebc16e9bb,CasinoLive,99.28%,2025-02-18,,下架,
+3314,Indonesian BlackjackX 10,4d9cf931867a942fe0c8bec5c7fb4f69,CasinoLive,99.28%,2025-02-18,,下架,
+3315,Indonesian BlackjackX 11,946da5ed901d063be7d882eb685aaa36,CasinoLive,99.28%,2025-02-18,,下架,
+3316,Indonesian BlackjackX 12,983f036814b9f4cc169cfba7da163538,CasinoLive,99.28%,2025-02-18,,下架,
+3317,Indonesian BlackjackX 13,2798b92c4a47cfb6cdc173a761afe341,CasinoLive,99.28%,2025-02-18,,下架,
+3318,Indonesian BlackjackX 14,49062a067ec68b21e6a30029d9560ff4,CasinoLive,99.28%,2025-02-18,,下架,
+3319,Indonesian BlackjackX 15,478fa18daabb990ef390df55daada6d9,CasinoLive,99.28%,2025-02-18,,下架,
+3340,Indonesian BlackjackX 16,2177dd3793a027f66f35a96be15220b0,CasinoLive,99.28%,2025-04-30,,下架,
+3341,Indonesian BlackjackX 17,2408d5f936015af27c29b44a186d431f,CasinoLive,99.28%,2025-04-30,,下架,
+3342,Indonesian BlackjackX 18,b4a18dfc8a7ba8753fb7da62e55e600c,CasinoLive,99.28%,2025-04-30,,下架,
+3343,Indonesian BlackjackX 19,0254f321cb5f35d5446f9bb918d43d0b,CasinoLive,99.28%,2025-04-30,,下架,
+3344,Indonesian BlackjackX 20,7b28ef278e33ea89e829e2ac5d1e67dd,CasinoLive,99.28%,2025-04-30,,下架,
+3321,BlackjackX Latino 1,9c6573beab469465862daf18734df021,CasinoLive,99.28%,2025-04-02,Spanish speaking clients only,下架,
+3322,BlackjackX Latino 2,a84a821300eacb8128a70f5ad86dc078,CasinoLive,99.28%,2025-04-02,Spanish speaking clients only,下架,
+3323,BlackjackX Latino 3,f25c88b061a0b1abd70c1e6900cdab47,CasinoLive,99.28%,2025-04-02,Spanish speaking clients only,下架,
+3324,BlackjackX Latino 4,1e9855329053c9e02f80cfca72ab67be,CasinoLive,99.28%,2025-04-02,Spanish speaking clients only,下架,
+3325,BlackjackX Latino 5,74248dd080ccfc49927a78ea2e6a7c60,CasinoLive,99.28%,2025-04-02,Spanish speaking clients only,下架,
+3133,Korean BlackjackX 1,21dd6efed2a194bd9575d0fd0187cabb,CasinoLive,99.28%,2024-07-24,Korean Market Only,下架,
+3134,Korean BlackjackX 2,bb4d0881bcd52ca3bf54b5badc54ecd4,CasinoLive,99.28%,2024-07-24,Korean Market Only,下架,
+3135,Korean BlackjackX 3,057a010fc58f224987dc90461d1583d2,CasinoLive,99.28%,2024-07-24,Korean Market Only,下架,
+3091,Turkish BlackjackX 1,16955e346b4a8ae2b34c5e7619bafaf8,CasinoLive,99.28%,2024-06-19,Turkish market only,下架,
+3092,Turkish BlackjackX 2,a1602f9a3993a58524bb9765b1497c4f,CasinoLive,99.28%,2024-06-19,Turkish market only,下架,
+3093,Turkish BlackjackX 3,81bd146c32e6a4873e061eadd959b3ec,CasinoLive,99.28%,2024-06-19,Turkish market only,下架,
+3094,Turkish BlackjackX 4,98f6d32cb904703d10253d6146434987,CasinoLive,99.28%,2024-06-19,Turkish market only,下架,
+3095,Turkish BlackjackX 5,4bb93110a55eb548980f4e4c008f0ad2,CasinoLive,99.28%,2024-06-19,Turkish market only,下架,
+3096,Turkish BlackjackX 6,6d7c28e8af9b950263ea70ff950cb315,CasinoLive,99.28%,2024-09-18,Turkish market only,下架,
+3097,Turkish BlackjackX 7,44413a3285581c8528e697ebd43cd8c5,CasinoLive,99.28%,2024-09-18,Turkish market only,下架,
+3125,BlackjackX Italia Tricolore 1,89a45b49281562f9fbebeb24c369d8a2,CasinoLive,99.28%,2024-06-25,Italian market only,下架,
+3126,BlackjackX Italia Tricolore 2,cc2ba40571cba9ea787a9a8cb059d4f1,CasinoLive,99.28%,2024-06-25,Italian market only,下架,
+3127,BlackjackX Italia Tricolore 3,c7345b6df8705a7509bcd610d5a1dd61,CasinoLive,99.28%,2024-06-25,Italian market only,下架,
+3128,BlackjackX Italia Tricolore 4,e81b5b8923f944d016cc40605b252270,CasinoLive,99.28%,2024-06-25,Italian market only,下架,
+3129,BlackjackX Italia Tricolore 5,5150ec4999a1f9ccc78c83e43e47be93,CasinoLive,99.28%,2024-06-25,Italian market only,下架,
+3334,Dutch BlackjackX 1,d38b7f4066082e7b8f413a414a67a4f9,CasinoLive,99.28%,2025-05-15,Dutch and Belgian market only,下架,
+3335,Dutch BlackjackX 2,d845f57d46939fcaa49dd967aad976cc,CasinoLive,99.28%,2025-05-15,Dutch and Belgian market only,下架,
+3336,Dutch BlackjackX 3,ff74c1e33bda3bd4d230a7bcf9e8f028,CasinoLive,99.28%,2025-05-15,Dutch and Belgian market only,下架,
+3337,Dutch BlackjackX 4,e3574bcf1110887b84e71705e72f631d,CasinoLive,99.28%,2025-05-15,Dutch and Belgian market only,下架,
+3338,Dutch BlackjackX 5,259cb7bb7907d2e6bc9ffca235b46b67,CasinoLive,99.28%,2025-05-15,Dutch and Belgian market only,下架,
+3141,Brazilian BlackjackX 1,32433f23788008307ec42888a912f300,CasinoLive,99.28%,2024-12-28,Brazilian market only,下架,
+3142,Brazilian BlackjackX 2,bc5effaa426d03bcd61ed936d145ee14,CasinoLive,99.28%,2024-12-28,Brazilian market only,下架,
+3143,Brazilian BlackjackX 3,886f664af4cb8a46574d8d2fae4d04c8,CasinoLive,99.28%,2024-12-28,Brazilian market only,下架,
+3144,Brazilian BlackjackX 4,3d5f160597b4c188c204a76cf856e009,CasinoLive,99.28%,2024-12-28,Brazilian market only,下架,
+3145,Brazilian BlackjackX 5,c6b70ab1dfab07bd65c5ba4341264cda,CasinoLive,99.28%,2024-12-28,Brazilian market only,下架,
+3155,Romanian BlackjackX 1,c46c253b7c8606d4c9404433f3b44d93,CasinoLive,99.28%,2024-09-11,Romanian market only,下架,
+3156,Romanian BlackjackX 2,10d4c1536233c5c01733bfbe99dc338d,CasinoLive,99.28%,2024-09-11,Romanian market only,下架,
+3157,Romanian BlackjackX 3,5a79013a992f1c6bd1280f1a2dca01da,CasinoLive,99.28%,2024-09-11,Romanian market only,下架,
+3158,Romanian BlackjackX 4,f3136cace991627fc8cb0ea94a011fc4,CasinoLive,99.28%,2024-09-11,Romanian market only,下架,
+3159,Romanian BlackjackX 5,ce1ac98875d198eef851263402195561,CasinoLive,99.28%,2024-09-11,Romanian market only,下架,
+2601,Jacks or Better Draw Poker,a027f3ed752e12a2bf9a55b16307d359,CasinoLive,"Optimal strategy 99.54%
+Simplified strategy 96.69%
+Jackpot	 94.04%",2025-07-02,,,
+1401,Dice City,ac0d236e246960e00ce50daebf1396c6,CasinoLive,96.55% - 96.57%,2025-07-10,,,
+28301,Privé Lounge Roulette Deluxe,884fc1978b337e63a42f8bd0ad223955,CasinoLive,97.30%,2025-07-15,,,
+1159,Korean ONE Blackjack,4f4ee74b552beb580ddee0da0feadb48,CasinoLive,99.28%,2025-07-17,,,
+1160,Indonesian ONE Blackjack,b9eaeb81370231860bec7bf0f6d5b98b,CasinoLive,99.28%,2025-07-22,,,
+703a1,Korean Mega Sic Bo,af8554a4f8763de3eeffb07ef1f324be,CasinoLive,97.22%,2025-08-07,,,
+703a2,Indonesian Mega Sic Bo,b4ff5ded8990dce64fd7601af15d50ed,CasinoLive,97.22%,2025-08-25,,,
+2750,Money Time,042f275d795c467244dd0014618ccc76,CasinoLive,96.56%,2025-09-24,,,
+2901,Mega Roulette 3000,303b7bda6d4878d36b0f3cfe7e35ac1f,CasinoLive,97.30% - 97.50%,2025-10-29,,,
+`
 
-function parseGames(csv:any) {
-  const lines = csv.trim().split('\n');
-  // Skip the header line
-  return lines.slice(1).map((line: any) => {
-    const parts = line.split(',');
-    return {
-      name: parts[1].trim(),
-      uid: parts[2].trim(),
-      img: ''
-    };
-  });
+
+
+
+interface Game {
+  name: string;
+  uid: string;
+  image: string;
 }
+function parseGames(csv: string): Game[] {
+  const games: Game[] = [];
+  const regex = /("([^"]|"")*"|[^,]+)(?=,|$)/g;
+
+  const lines = csv.split(/\r?\n/);
+  let buffer: string[] = [];
+
+  for (const line of lines) {
+    // accumulate lines until quotes are balanced
+    buffer.push(line);
+    const joined = buffer.join('\n');
+    const quoteCount = (joined.match(/"/g) || []).length;
+
+    if (quoteCount % 2 === 0) {
+      // balanced quotes => full row
+      const matches = joined.match(regex) || [];
+      const name = matches[1]?.replace(/^"|"$/g, '').trim() || '';
+      const uid = matches[2]?.replace(/^"|"$/g, '').trim() || '';
+
+      games.push({ name, uid, image: '' });
+      buffer = [];
+    }
+  }
+
+  return games;
+}
+
 
 export const prgmGamesArray = parseGames(csvData);
 console.log(prgmGamesArray);
