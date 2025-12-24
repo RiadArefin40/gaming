@@ -22,6 +22,12 @@ function slugify(text: string) {
     .replace(/^-+|-+$/g, "");
 }
 
+export const gamesWithImages = allGames.map(game => ({
+  ...game,
+  image: `/evo/${game.name}.png`,
+}));
+
+
 export default function Casino() {
   const pathname = usePathname();
   const router = useRouter();
@@ -39,7 +45,7 @@ export default function Casino() {
 
   const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredGames, setFilteredGames] = useState<Game[]>(allGames);
+  const [filteredGames, setFilteredGames] = useState<Game[]>(gamesWithImages);
   const [loading, setLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -49,7 +55,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
   useEffect(() => {
     setLoading(true);
     const timeout = setTimeout(() => {
-      let filtered = allGames.filter((game) =>
+      let filtered = gamesWithImages.filter((game) =>
         game.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
 
@@ -202,7 +208,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
                 <img
                   src={game.image || 'https://img.j189eb.com/upload/game/AWCV2_PP/BDT/PP-LIVE-188.png?v=1761618162271'}
                   alt={game.name}
-                  className="w-full h-32 sm:h-40 md:h-48 object-cover"
+                  className="w-full h-[240px]  object-fill"
                 />
                 <div className="absolute bottom-0 h-[28px] left-0 w-full bg-slate-600 bg-opacity-50 text-slate-200 text-center py-1 text-sm sm:text-base">
                   {game.name}

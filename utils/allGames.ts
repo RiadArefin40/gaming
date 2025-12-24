@@ -1,7 +1,7 @@
 export const allGames = [
-  { name: "French Roulette Gold", uid: "36b1e71c6f51827e24261d06a22b1e31", image: "" },
-  { name: "Emperor Speed Baccarat B", uid: "7b44393101abad7ac31e21fc1bdb3d56", image: "" },
-  { name: "Fan Tan", uid: "5cb6aa4e2ce1c775c568561401ffdfca", image: "" },
+  { name: "French Roulette Gold", uid: "36b1e71c6f51827e24261d06a22b1e31", image: "/evo/Roulette.png" },
+  { name: "Emperor Speed Baccarat B", uid: "7b44393101abad7ac31e21fc1bdb3d56", image: "/evo/Emperor Speed Baccarat B.png" },
+  { name: "Fan Tan", uid: "5cb6aa4e2ce1c775c568561401ffdfca", image: "/evo/Fan Tan.png" },
   { name: "Speed Roulette", uid: "b4af506243cafae52908e8fa266f8ff6", image: "" },
   { name: "Blackjack VIP 12", uid: "87a7f4550407f5ed73c3353a54a11187", image: "" },
   { name: "Blackjack VIP R", uid: "20e34228a5086c5a4198a3c967f99301", image: "" },

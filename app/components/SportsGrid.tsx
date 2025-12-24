@@ -84,7 +84,7 @@ export function SportsGrid({ items }: SportsGridProps) {
               <img className="w-8" src={item.src} alt={item.title} />
               <span className="text-sm font-medium text-slate-300">
                 {item.title}
-              </span>
+              </span> 
             </div>
           </div>
         ))}
