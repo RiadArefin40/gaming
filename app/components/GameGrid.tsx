@@ -25,7 +25,9 @@ export function GameGrid({ items }: GameGridProps) {
 
 const [loadingText, setLoadingText] = useState("Launching game...");
   const handleClick = async (title: string) => {
-    if(title == 'pragmatic-play'){
+    const slug = slugify(title);
+    console.log('gamegrid', title )
+    if(slug == 'pragmatic-play'){
 
        if (loading) return;
 
