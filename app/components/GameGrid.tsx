@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-
+import { useState, useEffect } from "react";
 interface GameItem {
   id: number | string;
   title: string;
@@ -21,15 +21,73 @@ function slugify(text: string) {
 
 export function GameGrid({ items }: GameGridProps) {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
-  const handleClick = (title: string) => {
+const [loadingText, setLoadingText] = useState("Launching game...");
+  const handleClick = async (title: string) => {
+    if(title == 'pragmatic-play'){
+
+       if (loading) return;
+
+    setLoading(true);
+    setLoadingText("Preparing game session...");
+
+    try {
+      const res = await fetch("/api/launch_game", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "*/*",
+        },
+        body: JSON.stringify({
+          userName: "player123",
+          game_uid: "e58e145313cf8c3a41a2240c1579b735",
+          credit_amount: 100,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success && data.gameUrl) {
+        setLoadingText("Opening game…");
+
+        // ✅ Open game in new tab
+        window.open(data.gameUrl, "_blank", "noopener,noreferrer");
+      } else {
+        alert(data.error || "Failed to launch game");
+      }
+    } catch (error) {
+      console.error("Error launching game:", error);
+      alert("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+
+    }
+    else{
     const slug = slugify(title);
     router.push(`/games/${slug}`);
+    }
+
     
   };
 
   return (
-    <div className="grid grid-cols-2 gap-2 p-4">
+    <>
+
+
+      {loading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+          <div className="flex flex-col items-center gap-4">
+            <div className="h-12 w-12 animate-spin rounded-full border-4 border-orange-400 border-t-transparent" />
+            <p className="text-sm text-gray-200 animate-pulse">
+              {loadingText}
+            </p>
+          </div>
+        </div>
+      )}
+
+        <div className="grid grid-cols-2 gap-2 p-4">
       {items.map((item) => (
         <div
           data-card
@@ -50,5 +108,8 @@ export function GameGrid({ items }: GameGridProps) {
         </div>
       ))}
     </div>
+    
+    </>
+  
   );
 }
