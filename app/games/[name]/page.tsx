@@ -56,12 +56,12 @@ interface GameSource {
 }
 
 const gamesWithImages: Game[] = (
-  pathname.includes('evoulution')
+  lastSegment == 'evolution'
     ? (allGames as GameSource[])
     : (prgmGamesArray as GameSource[])
 ).map((item: GameSource): Game => ({
   ...item,
-  image: pathname.includes('evoulution') ? `/evo/${item.name}.png` : '',
+  image: lastSegment == 'evolution' ? `/evo/${item.name}.png` : 'https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png',
 }));
 
   const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
@@ -226,14 +226,40 @@ const [loadingText, setLoadingText] = useState("Launching game...");
                 onClick={() => handleGameClick(game)}
                 className="relative rounded-lg overflow-hidden cursor-pointer hover:scale-105 transform transition duration-200"
               >
-                <img
+                {lastSegment === 'evolution' ? (
+                  <>
+                  
+                       <img
                   src={game.image || 'https://img.j189eb.com/upload/game/AWCV2_PP/BDT/PP-LIVE-188.png?v=1761618162271'}
                   alt={game.name}
-                  className="w-full h-[160px]  object-fill"
+                  className="w-auto h-[160px]  object-cover"
                 />
-                <div className="absolute bottom-0 h-[28px] left-0 w-full bg-slate-600 bg-opacity-50 text-slate-200 text-center py-1 text-sm sm:text-base">
+                  
+                     <div className="absolute bottom-0 h-[28px] left-0 w-full bg-slate-600 bg-opacity-50 text-slate-200 text-center py-1 text-sm sm:text-base">
                   {game.name}
                 </div>
+                  </>
+            
+                ) : (
+
+
+                  <div className="flex bg-slate-600 items-center px-4 py-2 w-full">
+
+                        <img
+                      src={game.image || 'https://img.j189eb.com/upload/game/AWCV2_PP/BDT/PP-LIVE-188.png?v=1761618162271'}
+                      alt={game.name}
+                      className="w-[35px] h-[35px]"
+                    />
+
+                        <div className="  bg-opacity-50 text-slate-200 text-center py-1 text-xl sm:text-base">
+                  {game.name}
+                </div>
+                  
+                  </div>
+        
+                )}
+             
+             
               </div>
             ))}
       </div>
