@@ -208,7 +208,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
                 <img
                   src={game.image || 'https://img.j189eb.com/upload/game/AWCV2_PP/BDT/PP-LIVE-188.png?v=1761618162271'}
                   alt={game.name}
-                  className="w-full h-[170px]  object-fill"
+                  className="w-full h-[160px]  object-fill"
                 />
                 <div className="absolute bottom-0 h-[28px] left-0 w-full bg-slate-600 bg-opacity-50 text-slate-200 text-center py-1 text-sm sm:text-base">
                   {game.name}
