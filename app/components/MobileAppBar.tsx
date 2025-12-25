@@ -3,7 +3,7 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Plus, RotateCw, X, Wallet } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { getAuthUser } from "@/lib/auth";
@@ -19,6 +19,44 @@ export default function MobileAppBar() {
   ];
   const router = useRouter();
   const pathname = usePathname();
+    const [balance, setBalance] = useState(() => {
+    const stored = localStorage.getItem("balance");
+    return stored ? JSON.parse(stored) : 0;
+  });
+
+  useEffect(() => {
+    if (!user) return;
+
+const fetchBalance = async () => {
+  if (!user || !user.id) return; // make sure user exists
+
+  try {
+    const res = await fetch(`https://api.bajiraj.cloud/users/${user.id}/balance`);
+
+    if (!res.ok) {
+      console.error("Failed to fetch balance:", res.status);
+      return;
+    }
+
+    const data = await res.json();
+
+    if (data.balance !== undefined) {
+      setBalance(data.balance);
+      localStorage.setItem("balance", JSON.stringify(data.balance)); // store in localStorage
+    } else {
+      console.error("Balance not found in response:", data);
+    }
+  } catch (err) {
+    console.error("Error fetching balance:", err);
+  }
+};
+
+
+    fetchBalance(); // call immediately
+    const interval = setInterval(fetchBalance, 10000); // every 10 sec
+
+    return () => clearInterval(interval); // cleanup on unmount
+  }, [user]);
   return (
     <>
       {/* Blur overlay */}
