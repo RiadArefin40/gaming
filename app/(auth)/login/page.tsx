@@ -24,7 +24,7 @@ const handleLogin = async () => {
   setError("");
 
   try {
-    const res = await fetch("/login", {
+    const res = await fetch("/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +69,7 @@ const handleSignUp = async () => {
     setIsLoading(true);
 
     try {
-const res = await fetch("/users", {
+const res = await fetch("/api/users", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
