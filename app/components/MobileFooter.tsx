@@ -119,7 +119,7 @@ export default function MobileFooter() {
     router.push("/slots");
   };
 
-  const goToPromotions = () => router.push("/promotions");
+  const goToPromotions = () => router.push("/promos");
 
   // Helper to highlight active button
   const isActive = (path: string) => pathname === path;
