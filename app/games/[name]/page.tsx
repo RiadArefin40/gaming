@@ -143,6 +143,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
           userName: user.name,
           game_uid: item.uid,
           credit_amount: user.wallet,
+          game_type: 'slot'
         }),
       });
 
