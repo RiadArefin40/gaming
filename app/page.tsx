@@ -65,7 +65,7 @@ export default function Home() {
      if (!token) return;
    const getVendorList = async () => {
       try {
-        const res = await fetch('/api/vendors', {
+        const res = await fetch('//vendors', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ export default function Home() {
     // 2️⃣ Fetch games list
     const getGames = async () => {
       try {
-        const res = await fetch('/api/games', {
+        const res = await fetch('//games', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -120,7 +120,7 @@ export default function Home() {
 
 const checkAvailibilityThenLaunch = async (game: any) => {
   try {
-    const res = await fetch('/api/game/launch', {
+    const res = await fetch('//game/launch', {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json', 

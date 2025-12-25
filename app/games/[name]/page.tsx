@@ -107,7 +107,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
     setLoadingText("Preparing game session...");
 
     try {
-      const res = await fetch("https://bajiraj.cloud/api/launch_game", {
+      const res = await fetch("/launch_game", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
