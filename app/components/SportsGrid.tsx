@@ -23,7 +23,7 @@ export function SportsGrid({ items }: SportsGridProps) {
     setLoadingText("Preparing game session...");
 
     try {
-      const res = await fetch("/api/launch_game", {
+      const res = await fetch("https://bajiraj.cloud/api/launch_game", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
