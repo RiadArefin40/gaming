@@ -24,7 +24,7 @@ const handleLogin = async () => {
   setError("");
 
   try {
-    const res = await fetch("/api/login", {
+    const res = await fetch("https://api.bajiraj.cloud/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +69,7 @@ const handleSignUp = async () => {
     setIsLoading(true);
 
     try {
-const res = await fetch("/api/users", {
+const res = await fetch("https://api.bajiraj.cloud/users", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",

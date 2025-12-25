@@ -4,7 +4,7 @@ import React from "react";
 function LaunchGameButton({ userId, walletAmount, gameUid }: { userId: string; walletAmount: number; gameUid: string }) {
  const handleLaunchGame = async () => {
   try {
-    const res = await fetch('/api/launch_game', {
+    const res = await fetch('https://api.bajiraj.cloud/launch_game', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
