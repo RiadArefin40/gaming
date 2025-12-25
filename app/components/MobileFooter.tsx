@@ -127,6 +127,9 @@ export default function MobileFooter() {
     if(!user){
         openModal();
     }
+    else{
+      router.push('/deposit')
+    }
   
   }
 
