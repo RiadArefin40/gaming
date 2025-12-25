@@ -30,7 +30,7 @@ const handleLogin = async () => {
         "Content-Type": "application/json",
         Accept: "*/*",
       },
-      body: JSON.stringify({ name: username, password: password }),
+      body: JSON.stringify({ identifier: username, password: password }),
     });
 
     const data = await res.json();
@@ -48,7 +48,13 @@ const handleLogin = async () => {
     router.push("/");
   } catch (err) {
     console.error("Login Error:", err);
-    setError("ভুল ইউজারনেম বা পাসওয়ার্ড");
+    let errorMsg = "Unknown error";
+    if (typeof err === "string") {
+      errorMsg = err;
+    } else if (err instanceof Error) {
+      errorMsg = err.message;
+    }
+    setError(errorMsg);
     setIsLoading(false);
   }
 };
@@ -63,29 +69,30 @@ const handleSignUp = async () => {
     setIsLoading(true);
 
     try {
-      const res = await fetch("http://localhost:4000/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "*/*",
-        },
-        body: JSON.stringify({
-          name: username,
-          phone,
-          referred_by: referral || null,
-          // you may also include default email/password for testing
-          email: '',
-          password: password,
-        }),
-      });
+const res = await fetch("http://localhost:4000/users", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "*/*",
+  },
+  body: JSON.stringify({
+    name: username,
+    phone: phone,
+    password: password,
+    referred_by: referral || null, // optional
+    wallet: 0,                     // optional default
+  }),
+});
 
-      const data = await res.json();
+const data = await res.json();
+
+
       console.log(data);
 
       if (res.ok) {
-        alert("Signup successful!");
-
-        setReferral("");
+      loginUser(data.user);
+      setIsLoading(false);
+      router.push("/");
       } else {
         alert(data.error || "Signup failed!");
       }
@@ -144,45 +151,65 @@ const handleSignUp = async () => {
 
         {/* SIGNUP (UI only for now) */}
         {tab === "signup" && (
-         <div>
-      <div className="mb-4">
-        <label className="text-xs text-gray-300 mb-2 block">ব্যবহারকারীর নাম</label>
-        <input
-          className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-sm"
-          placeholder="আপনার ইউজার নেম লিখুন"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
+<div>
+  {/* Name */}
+  <div className="mb-4">
+    <label className="text-xs text-gray-300 mb-2 block">ব্যবহারকারীর নাম</label>
+    <input
+      type="text"
+      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-sm"
+      placeholder="আপনার ইউজার নেম লিখুন"
+      value={username}
+      onChange={(e) => setUsername(e.target.value)}
+    />
+  </div>
 
-      <div className="mb-6">
-        <label className="text-xs text-gray-300 mb-2 block">মোবাইল নম্বর</label>
-        <input
-          className="w-full h-12 bg-gray-700/60 rounded-md px-4"
-          placeholder="+880 ---------"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-        />
-      </div>
+  {/* Phone */}
+  <div className="mb-4">
+    <label className="text-xs text-gray-300 mb-2 block">মোবাইল নম্বর</label>
+    <input
+      type="text"
+      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-sm"
+      placeholder="+880 ---------"
+      value={phone}
+      onChange={(e) => setPhone(e.target.value)}
+    />
+  </div>
 
-      <div className="mb-6">
-        <label className="text-xs text-gray-300 mb-2 block">Reffaral</label>
-        <input
-          className="w-full h-12 bg-gray-700/60 rounded-md px-4"
-          placeholder="Referral Code"
-          value={referral}
-          onChange={(e) => setReferral(e.target.value)}
-        />
-      </div>
+  {/* Password */}
+  <div className="mb-4">
+    <label className="text-xs text-gray-300 mb-2 block">Password</label>
+    <input
+      type="password"
+      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-sm"
+      placeholder="আপনার পাসওয়ার্ড লিখুন"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+    />
+  </div>
 
-      <DotLoadingButton
-        onClick={handleSignUp}
-        loading={isLoadinge}
-        className="max-w-screen w-[80%] mx-auto left-12 h-11 absolute top-[460px] bg-orange-400 hover:bg-orange-600"
-      >
-        Sign Up
-      </DotLoadingButton>
-    </div>
+  {/* Referral (optional) */}
+  <div className="mb-6">
+    <label className="text-xs text-gray-300 mb-2 block">Referral</label>
+    <input
+      type="text"
+      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-sm"
+      placeholder="Referral Code (optional)"
+      value={referral}
+      onChange={(e) => setReferral(e.target.value)}
+    />
+  </div>
+
+  {/* Sign Up Button */}
+  <DotLoadingButton
+    onClick={handleSignUp}
+    loading={isLoadinge}
+    className="max-w-screen w-[80%] mx-auto left-12 h-11 absolute top-[460px] bg-orange-400 hover:bg-orange-600"
+  >
+    Sign Up
+  </DotLoadingButton>
+</div>
+
         )}
 
         {/* LOGIN */}
