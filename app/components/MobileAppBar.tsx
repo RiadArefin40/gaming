@@ -19,43 +19,40 @@ export default function MobileAppBar() {
   ];
   const router = useRouter();
   const pathname = usePathname();
-    const [balance, setBalance] = useState(() => {
+  const [balance, setBalance] = useState(0); 
+useEffect(() => {
+    if (!user || typeof window === "undefined") return;
+
+    // Read from localStorage on the client
     const stored = localStorage.getItem("balance");
-    return stored ? JSON.parse(stored) : 0;
-  });
+    if (stored) setBalance(JSON.parse(stored));
 
-  useEffect(() => {
-    if (!user) return;
+    const fetchBalance = async () => {
+      try {
+        const res = await fetch(
+          `https://api.bajiraj.cloud/users/${user.id}/balance`
+        );
 
-const fetchBalance = async () => {
-  if (!user || !user.id) return; // make sure user exists
+        if (!res.ok) {
+          console.error("Failed to fetch balance:", res.status);
+          return;
+        }
 
-  try {
-    const res = await fetch(`https://api.bajiraj.cloud/users/${user.id}/balance`);
+        const data = await res.json();
 
-    if (!res.ok) {
-      console.error("Failed to fetch balance:", res.status);
-      return;
-    }
+        if (data.balance !== undefined) {
+          setBalance(data.balance);
+          localStorage.setItem("balance", JSON.stringify(data.balance));
+        }
+      } catch (err) {
+        console.error("Error fetching balance:", err);
+      }
+    };
 
-    const data = await res.json();
+    fetchBalance();
+    const interval = setInterval(fetchBalance, 10000);
 
-    if (data.balance !== undefined) {
-      setBalance(data.balance);
-      localStorage.setItem("balance", JSON.stringify(data.balance)); // store in localStorage
-    } else {
-      console.error("Balance not found in response:", data);
-    }
-  } catch (err) {
-    console.error("Error fetching balance:", err);
-  }
-};
-
-
-    fetchBalance(); // call immediately
-    const interval = setInterval(fetchBalance, 10000); // every 10 sec
-
-    return () => clearInterval(interval); // cleanup on unmount
+    return () => clearInterval(interval);
   }, [user]);
   return (
     <>
