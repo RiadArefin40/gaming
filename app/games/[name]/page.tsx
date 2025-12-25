@@ -5,6 +5,7 @@ import { allGames } from "@/utils/allGames";
 import { prgmGamesArray } from "@/utils/prgmGame";
 import { jilliSlotArray } from "@/utils/jilliSlots";
 import { getAuthUser } from "@/lib/auth";
+import { PgSlotArray } from "@/utils/pgSlots";
 const user = getAuthUser()
 interface Category {
   name: string;
@@ -62,6 +63,9 @@ const gamesWithImages: Game[] = (
     ? (allGames as GameSource[])
     : lastSegment === 'jili'
       ? (jilliSlotArray as GameSource[])
+     : lastSegment === 'pg-soft'
+    ? (PgSlotArray as GameSource[])
+   
       : (prgmGamesArray as GameSource[])
 ).map((item: GameSource): Game => {
   let image = '';
@@ -70,8 +74,13 @@ const gamesWithImages: Game[] = (
     image = `/evo/${item.name}.png`;
   } else if (lastSegment === 'jili') {
     image = 'https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmjili.png'; // <-- replace with the actual Jilli image path
-  } else {
-    image = 'https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png';
+  } 
+  else if (lastSegment === 'pg-soft') {
+    image = 'https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-pg.png'; // <-- replace with the actual Jilli image path
+  } 
+  
+  else {
+    image = 'https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-pg.png';
   }
 
   return {
