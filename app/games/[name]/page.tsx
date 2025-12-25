@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { allGames } from "@/utils/allGames";
 import { prgmGamesArray } from "@/utils/prgmGame";
+import { jilliSlotArray } from "@/utils/jilliSlots";
 import { getAuthUser } from "@/lib/auth";
 const user = getAuthUser()
 interface Category {
@@ -57,13 +58,28 @@ interface GameSource {
 }
 
 const gamesWithImages: Game[] = (
-  lastSegment == 'evolution'
+  lastSegment === 'evolution'
     ? (allGames as GameSource[])
-    : (prgmGamesArray as GameSource[])
-).map((item: GameSource): Game => ({
-  ...item,
-  image: lastSegment == 'evolution' ? `/evo/${item.name}.png` : 'https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png',
-}));
+    : lastSegment === 'jili'
+      ? (jilliSlotArray as GameSource[])
+      : (prgmGamesArray as GameSource[])
+).map((item: GameSource): Game => {
+  let image = '';
+
+  if (lastSegment === 'evolution') {
+    image = `/evo/${item.name}.png`;
+  } else if (lastSegment === 'jili') {
+    image = 'https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmjili.png'; // <-- replace with the actual Jilli image path
+  } else {
+    image = 'https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png';
+  }
+
+  return {
+    ...item,
+    image,
+  };
+});
+
 
   const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
   const [searchTerm, setSearchTerm] = useState("");
