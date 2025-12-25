@@ -63,7 +63,7 @@ export default function MobileAppBar() {
 
             
                  
-                  <span className="text-xl -ml-3"> 0.00</span>
+                  <span className="text-xl -ml-3"> {user.wallet}</span>
                   
             <RotateCw size={24} />
                 </div>
