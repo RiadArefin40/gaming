@@ -1,5 +1,6 @@
 "use client";
 import { useRouter, usePathname } from "next/navigation";
+
 import { useVerifyModal } from "@/store/VerifyModalState";
 import {
   Menu,
@@ -328,7 +329,7 @@ export default function MobileFooter() {
             I
           </div>
           <div>
-            <p className="font-semibold">likhon4040</p>
+            <p className="font-semibold">{user?.name}</p>
             <p className="text-xs ">
               Sign up date : 2025-12-12
             </p>
