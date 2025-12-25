@@ -21,7 +21,7 @@ const EWalletPage = ({ currentUser }) => {
     const fetchData = async () => {
       try {
         // Promotions
-        const promoRes = await fetch("https://api.bajiraj.cloud/promotions");
+        const promoRes = await fetch("https://api.bajiraj.cloud/promos");
         const promoData = await promoRes.json();
         setPromotions(promoData);
         setSelectedPromotion(promoData[0]?.id || null);
