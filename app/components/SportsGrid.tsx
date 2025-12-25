@@ -35,6 +35,7 @@ export function SportsGrid({ items }: SportsGridProps) {
              userName: user.name,
           game_uid: item.uid,
           credit_amount: user.wallet,
+            game_type: 'live-casino'
         }),
       });
 
