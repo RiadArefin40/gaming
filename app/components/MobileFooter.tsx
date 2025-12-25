@@ -124,7 +124,10 @@ export default function MobileFooter() {
   // Helper to highlight active button
   const isActive = (path: string) => pathname === path;
   const handleDeposit = () => {
-    openModal();
+    if(!user){
+        openModal();
+    }
+  
   }
 
   const handleWithdrawl = () =>{
