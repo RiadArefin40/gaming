@@ -50,7 +50,7 @@ useEffect(() => {
     };
 
     fetchBalance();
-    const interval = setInterval(fetchBalance, 10000);
+    const interval = setInterval(fetchBalance, 9000);
 
     return () => clearInterval(interval);
   }, [user]);
@@ -98,7 +98,7 @@ useEffect(() => {
 
             
                  
-                  <span className="text-xl -ml-3"> {user.wallet}</span>
+                  <span className="text-xl -ml-3"> {balance}</span>
                   
             <RotateCw size={24} />
                 </div>
