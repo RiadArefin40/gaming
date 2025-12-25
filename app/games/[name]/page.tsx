@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { allGames } from "@/utils/allGames";
 import { prgmGamesArray } from "@/utils/prgmGame";
-
+import { getAuthUser } from "@/lib/auth";
+const user = getAuthUser()
 interface Category {
   name: string;
   icon: React.ReactNode;
@@ -114,9 +115,9 @@ const [loadingText, setLoadingText] = useState("Launching game...");
           Accept: "*/*",
         },
         body: JSON.stringify({
-          userName: "player123",
+          userName: user.name,
           game_uid: item.uid,
-          credit_amount: 100,
+          credit_amount: user.wallet,
         }),
       });
 

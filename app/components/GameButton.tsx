@@ -1,5 +1,7 @@
 'use client'
 import React from "react";
+import { getAuthUser } from "@/lib/auth";
+const user = getAuthUser()
 
 function LaunchGameButton({ userId, walletAmount, gameUid }: { userId: string; walletAmount: number; gameUid: string }) {
  const handleLaunchGame = async () => {
@@ -11,9 +13,9 @@ function LaunchGameButton({ userId, walletAmount, gameUid }: { userId: string; w
         'Accept': '*/*',
       },
       body: JSON.stringify({
-        userName: "player123",
-        game_uid: "89a12f80c6dc0aa7651400364e8f5e80",
-        credit_amount: 100
+          userName: user.name,
+          game_uid: "89a12f80c6dc0aa7651400364e8f5e80",
+          credit_amount: user.wallet,
       })
     });
 

@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { getAuthUser } from "@/lib/auth";
+const user = getAuthUser()
 
 interface GameItem {
   id: number | string;
@@ -30,9 +32,9 @@ export function SportsGrid({ items }: SportsGridProps) {
           Accept: "*/*",
         },
         body: JSON.stringify({
-          userName: "player123",
+             userName: user.name,
           game_uid: item.uid,
-          credit_amount: 100,
+          credit_amount: user.wallet,
         }),
       });
 

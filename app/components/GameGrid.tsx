@@ -1,6 +1,8 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { getAuthUser } from "@/lib/auth";
+const user = getAuthUser()
 interface GameItem {
   id: number | string;
   title: string;
@@ -24,9 +26,9 @@ export function GameGrid({ items }: GameGridProps) {
   const [loading, setLoading] = useState(false);
 
 const [loadingText, setLoadingText] = useState("Launching game...");
-  const handleClick = async (title: string) => {
-    const slug = slugify(title);
-    console.log('gamegrid', title )
+  const handleClick = async (item: any) => {
+    const slug = slugify(item.title);
+    console.log('gamegrid', item.title )
     if(slug == 'pragmatic-play'){
 
        if (loading) return;
@@ -42,9 +44,9 @@ const [loadingText, setLoadingText] = useState("Launching game...");
           Accept: "*/*",
         },
         body: JSON.stringify({
-          userName: "player123",
-          game_uid: "e58e145313cf8c3a41a2240c1579b735",
-          credit_amount: 100,
+         userName: user.name,
+          game_uid: item.uid,
+          credit_amount: user.wallet,
         }),
       });
 
@@ -67,7 +69,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
 
     }
     else{
-    const slug = slugify(title);
+    const slug = slugify(item.title);
     router.push(`/games/${slug}`);
     }
 
@@ -94,7 +96,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
         <div
           data-card
           key={item.id}
-          onClick={() => handleClick(item.title)}
+          onClick={() => handleClick(item)}
           className="
             pt-2 p-1
             transition-all duration-300 ease-out border
