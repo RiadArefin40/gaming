@@ -148,6 +148,11 @@ const [loadingText, setLoadingText] = useState("Launching game...");
     setLoadingText("Preparing game session...");
 
     try {
+      if (!user) {
+        alert("User not authenticated");
+        setLoading(false);
+        return;
+      }
       const res = await fetch("https://api.bajiraj.cloud/launch_game", {
         method: "POST",
         headers: {

@@ -21,6 +21,11 @@ export function SportsGrid({ items }: SportsGridProps) {
   const handleClick = async (item: GameItem) => {
     if (loading) return;
 
+    if (!user) {
+      alert("User not authenticated");
+      return;
+    }
+
     setLoading(true);
     setLoadingText("Preparing game session...");
 
@@ -32,10 +37,10 @@ export function SportsGrid({ items }: SportsGridProps) {
           Accept: "*/*",
         },
         body: JSON.stringify({
-             userName: user.name,
+          userName: user.name,
           game_uid: item.uid,
           credit_amount: user.wallet,
-            game_type: 'live-casino'
+          game_type: 'live-casino'
         }),
       });
 
