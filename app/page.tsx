@@ -60,29 +60,8 @@ export default function Home() {
    
 
   const [gameList, setGameList] = useState<any[]>([]); // store gamelist here
-  const token = user?.token
-  useEffect(() => {
-     if (!token) return;
-   const getVendorList = async () => {
-      try {
-        const res = await fetch('/api/vendors', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': '*/*',
-            'Authorization': `Bearer ${user?.token}` // pass the token here
-          }
-        });
-        const data = await res.json();
-        setGameList(data);
-        console.log('vendorlist', data);
-      } catch (err) {
-        console.error(err);
-      }
-    }
 
-    getVendorList();
-  }, []);
+
 
 
 
@@ -91,65 +70,9 @@ export default function Home() {
   const [language, setLanguage] = useState('en');
 
 
-    useEffect(() => {
-    if (!token) return;
-
-    // 2️⃣ Fetch games list
-    const getGames = async () => {
-      try {
-        const res = await fetch('/api/games', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': '*/*',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({ vendorCode, language })
-        });
-        const data = await res.json();
-        setGameList(data.message);
-        console.log('games-list',data.message, gameList);
-      } catch (err) {
-        console.error('Error fetching games list:', err);
-      }
-    };
-
-    getGames();
-  }, []);
 
 
-const checkAvailibilityThenLaunch = async (game: any) => {
-  try {
-    const res = await fetch('/api/game/launch', {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json', 
-        'Accept': '*/*',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        vendorCode: game.vendorCode,
-        gameCode: game.gameCode,
-        userCode: user.username, // or however you identify the user
-        language: 'en',
-        lobbyUrl: '',
-        theme: 1
-      })
-    });
 
-    const data = await res.json();
-    console.log('data', data)
-    if (data.launchUrl) {
-      // Open the game in new tab
-      window.open(data.launchUrl, '_blank');
-    } else {
-      alert('Game is not available.');
-    }
-  } catch (err) {
-    console.error(err);
-    alert('Failed to launch game.');
-  }
-};
 
 
 
@@ -194,31 +117,7 @@ const checkAvailibilityThenLaunch = async (game: any) => {
 
 
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {Array.isArray(gameList) && gameList.length > 0 ? (
-                  gameList.map((game) => (
-                    <div
-                      key={game.gameId}
-                      onClick={() => checkAvailibilityThenLaunch(game)} // ✅ wrap in arrow function
-                      className="bg-gray-800 text-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow duration-300 cursor-pointer"
-                    >
-                      <img
-                        src={game.thumbnail}
-                        alt={game.gameName}
-                        className="w-full h-32 object-cover"
-                      />
-                      <div className="p-2">
-                        <h3 className="text-sm font-semibold truncate">{game.gameName}</h3>
-                        <p className="text-xs text-gray-400 truncate">{game.provider}</p>
-                        {game.isNew && <span className="inline-block text-xs text-green-400 font-semibold mt-1">NEW</span>}
-                        {game.underMaintenance && <span className="inline-block text-xs text-red-400 font-semibold mt-1">MAINTENANCE</span>}
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-white col-span-full text-center"></p>
-                )}
-              </div>
+  
 
 
 

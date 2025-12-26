@@ -40,6 +40,12 @@ import { ExclusiveGrid } from "./ExclusiveGrid";
 import { CasinoGrid } from "./CasinoGrid";
 import { useAuthModal } from "@/store/useAuthModal";
 import { DotLoadingButton } from "./DotLoadingButton";
+import {useAutoFetch} from "@/hooks/use-auto-fetch"
+
+interface BalanceData {
+  balance: number;
+  turnover: number;
+}
 interface MenuItem {
   name: string;
   icon: React.ReactNode;
@@ -65,6 +71,13 @@ export default function MobileFooter() {
       [section]: !prev[section],
     }));
   };
+
+    const { data, error } = useAutoFetch<BalanceData | undefined>(
+      user ? `https://api.bajiraj.cloud/users/${user.id}/balance` : "",
+      1000
+    );
+  const balance = data?.balance ?? 0;
+  const turnover = data?.turnover ?? 0;
   const handleLogout = () => {
     // remove user data
     localStorage.removeItem("auth_user");
@@ -405,7 +418,7 @@ const [notifications, setNotifications] = useState(null)
 
             <div className="text-xl font-bold flex items-center gap-2">
               <Wallet className="h-5 w-5 text-green-500" />
-              0
+              {balance}
             </div>
 
             <div className="flex items-center justify-between pt-2 border-t border-zinc-700">
@@ -434,7 +447,7 @@ const [notifications, setNotifications] = useState(null)
           <MenuItem icon={ShieldCheck} label="Verification" />
           <MenuItem onClick = {()=>handleRoutechange('transactions')} icon={FileText} label="Transaction records" />
           <MenuItem onClick = {()=>handleRoutechange('betting')} icon={TrendingUp} label="Betting records" />
-          <MenuItem icon={Wallet} label="Turnover" />
+          <MenuItem onClick = {()=>handleRoutechange('turnover')} icon={Wallet} label="Turnover" />
           <MenuItem icon={Crown} label="My VIP" />
         </div>
         {user && (

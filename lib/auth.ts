@@ -1,26 +1,41 @@
 // lib/auth.ts
-export const STATIC_USER = {
-  username: "admin",
-  password: "123456",
-  name: "Admin User",
-};
 
-export function loginUser(user:any) {
-  if (
-    user
-  ) {
+export interface User {
+  username: string;
+  password?: string;
+  name: string;
+  id:number;
+  wallet:number;
+
+}
+
+
+
+/**
+ * Logs in a user and saves it in localStorage
+ */
+export function loginUser(user: User | null) {
+  if (typeof window === "undefined") return null; // client-only
+  if (user) {
     localStorage.setItem("auth_user", JSON.stringify(user));
     return user;
   }
   return null;
 }
 
+/**
+ * Logs out the user
+ */
 export function logoutUser() {
+  if (typeof window === "undefined") return; // client-only
   localStorage.removeItem("auth_user");
 }
 
-export function getAuthUser() {
-  if (typeof window === "undefined") return null;
+/**
+ * Gets the currently logged in user from localStorage
+ */
+export function getAuthUser(): User | null {
+  if (typeof window === "undefined") return null; // SSR safe
   const data = localStorage.getItem("auth_user");
-  return data ? JSON.parse(data) : null;
+  return data ? (JSON.parse(data) as User) : null;
 }
