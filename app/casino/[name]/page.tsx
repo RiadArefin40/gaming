@@ -142,12 +142,17 @@ const [loadingText, setLoadingText] = useState("Launching game...");
 
   // Handle game card click
   const handleGameClick = async (item:any) => {
-       if (loading) return;
+    if (loading) return;
 
     setLoading(true);
     setLoadingText("Preparing game session...");
 
     try {
+      if (!user) {
+        alert("User not authenticated");
+        setLoading(false);
+        return;
+      }
       const res = await fetch("https://api.bajiraj.cloud/launch_game", {
         method: "POST",
         headers: {
