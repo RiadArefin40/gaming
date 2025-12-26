@@ -12,7 +12,7 @@ import EventSlider from "./components/EventSlider";
 import FeaturedSlider from "./components/FeaturedSlider";
 import { Menu, Gamepad2, Dice6, Wallet, User, Crown, Activity, Rocket, X,MessageCircle  } from "lucide-react";
 import { useState, useEffect } from "react";
-import LaunchGameButton from "./components/GameButton";
+
 
 interface MenuItem {
   name: string;
@@ -190,11 +190,7 @@ const checkAvailibilityThenLaunch = async (game: any) => {
 
               <CategorySlider/> 
 
-              <LaunchGameButton 
-  userId="9999999999" 
-  walletAmount={1000} 
-  gameUid="1189baca156e1bbbecc3b26651a63565" 
-/>
+
 
 
 
@@ -220,7 +216,7 @@ const checkAvailibilityThenLaunch = async (game: any) => {
                     </div>
                   ))
                 ) : (
-                  <p className="text-white col-span-full text-center">No games available</p>
+                  <p className="text-white col-span-full text-center"></p>
                 )}
               </div>
 

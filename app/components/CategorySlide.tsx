@@ -12,9 +12,10 @@ import {
   Plane
 } from "lucide-react";
 import { gameImages } from "@/utils/gameData";
-import { GameGrid } from "./GameGrid";
+import { CasinoGrid } from "./CasinoGrid";
 import { ExclusiveGrid } from "./ExclusiveGrid";
 import { SportsGrid } from "./SportsGrid";
+import { SlotGrid } from "./SlotGrid";
 const categories = [
   {id:1, name: "Exclusive", icon: <Star /> },
   {id:2, name: "Sports", icon: <Trophy /> },
@@ -147,10 +148,16 @@ export default function CategorySlider() {
          {selectedCategory === "sports" && (
           <SportsGrid items={activeGamesMap[selectedCategory as keyof typeof activeGamesMap]}  />
         )}
-
-        {(selectedCategory !== "exclusive" && selectedCategory !== "sports")  && (
-          <GameGrid items={activeGamesMap[selectedCategory as keyof typeof activeGamesMap]} />
+          {selectedCategory === "casino" && (
+         <CasinoGrid items={activeGamesMap[selectedCategory as keyof typeof activeGamesMap]} />
         )}
+           {selectedCategory === "slot" && (
+         <SlotGrid items={activeGamesMap[selectedCategory as keyof typeof activeGamesMap]} />
+        )}
+
+        {/* {(selectedCategory !== "exclusive" && selectedCategory !== "sports")  && (
+           <CasinoGrid items={activeGamesMap[selectedCategory as keyof typeof activeGamesMap]} />
+        )} */}
     </div>
   );
 }

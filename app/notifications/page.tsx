@@ -8,12 +8,20 @@ import {
 } from "@/components/ui/accordion";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChevronLeft } from "lucide-react";
+import { getAuthUser } from "@/lib/auth";
+type ApiNotification = {
+  id: number;
+  title: string;
+  message: string;
+  is_read: boolean;
+  created_at: string;
+};
 
 type NotificationItem = {
-  id: string;
+  id: number;
   title: string;
   description: string;
-  unread?: boolean;
+  unread: boolean;
 };
 
 type NotificationGroup = {
@@ -21,47 +29,76 @@ type NotificationGroup = {
   items: NotificationItem[];
 };
 
-const notifications: NotificationGroup[] = [
-  {
-    date: "2025-12-14",
-    items: [
-      {
-        id: "1",
-        title: "Daily Login Free Spins",
-        description:
-          "You've received 3 free spins from ডেইলি ফ্রি স্পিন today’s login reward. Use them within 1 days.",
-      },
-      {
-        id: "2",
-        title: "ক্রিকেট ম্যাচ: ১.৫০ কোটি টাকার অফার!",
-        description:
-          "প্রিয় গ্রাহক, আমাদের ক্রিকেট ম্যাচ ফিচার চালু হয়েছে। আজই অংশ নিন।",
-        unread: true,
-      },
-      {
-        id: "3",
-        title: "এক্সক্লুসিভ গিফট - ৮০০০ বোনাস",
-        description:
-          "প্রিয় গ্রাহক, উত্তোলনযোগ্য বোনাস। আমাদের নতুন সদস্যদের জন্য।",
-        unread: true,
-      },
-    ],
-  },
-  {
-    date: "2025-12-13",
-    items: [
-      {
-        id: "4",
-        title: "ডিপোজিট এক্সক্লুসিভ গিফট - এক্সট্রা ক্যাশ প্রাইজ",
-        description:
-          "প্রিয় গ্রাহক, আপনি JeetBuzz-এ আপনার গেমিং অভিজ্ঞতা উন্নত করুন।",
-        unread: true,
-      },
-    ],
-  },
-];
+
+import { useState,useEffect } from "react";
+
+
 
 export default function NotificationsPage() {
+
+    const user = getAuthUser();
+    
+const [unreadCount, setUnread] = useState<number>(0);
+const [notifications, setNotifications] = useState<NotificationGroup[]>([]);
+function groupNotificationsByDate(data: ApiNotification[]): NotificationGroup[] {
+  const groups: Record<string, NotificationItem[]> = {};
+
+  data.forEach((item) => {
+    const date = new Date(item.created_at).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+    if (!groups[date]) {
+      groups[date] = [];
+    }
+
+    groups[date].push({
+      id: item.id,
+      title: item.title,
+      description: item.message,
+      unread: !item.is_read,
+    });
+  });
+
+  return Object.entries(groups).map(([date, items]) => ({
+    date,
+    items,
+  }));
+}
+
+useEffect(() => {
+  if (!user || typeof window === "undefined") return;
+
+  const fetchNotification = async () => {
+    try {
+      const res = await fetch(
+        `https://api.bajiraj.cloud/notifications/user/${user.id}`
+      );
+
+      if (!res.ok) return;
+
+      const data = await res.json();
+
+      setUnread(data.unread_count);
+      setNotifications(groupNotificationsByDate(data.notifications));
+    } catch (err) {
+      console.error("Error fetching notifications:", err);
+    }
+  };
+
+  fetchNotification();
+  const interval = setInterval(fetchNotification, 500);
+
+  return () => clearInterval(interval);
+}, []);
+const markAsRead = async (id: number) => {
+  await fetch(`https://api.bajiraj.cloud/notifications/${id}/read`, {
+    method: "PATCH",
+  });
+};
+
   return (
     <div className="h-screen bg-slate-900 text-white flex flex-col">
       {/* Header */}
@@ -73,46 +110,22 @@ export default function NotificationsPage() {
       {/* Scrollable Content */}
       <ScrollArea className="flex-1">
         <div className="pb-6">
-          {notifications.map((group) => (
-            <div key={group.date}>
-              {/* Date */}
-              <div className="px-4 pt-8 pb-4 text-xl  text-gray-100">
-                {group.date}
-              </div>
+       {notifications?.map((group) => (
+  <div key={group.date}>
+    <div className="px-4 pt-8 pb-4 text-xl text-gray-100">
+      {group.date}
+    </div>
 
-              <Accordion type="single" collapsible>
-                {group.items.map((item) => (
-                  <AccordionItem
-                    key={item.id}
-                    value={item.id}
-                    className="border-none"
-                  >
-                    <div className="px-4 py-4 bg-slate-700 flex gap-3">
-                      {/* Left */}
-                      <div className="flex-1">
-                        <AccordionTrigger className="p-0 hover:no-underline">
-                          <div className="text-left">
-                            <h3 className="font-semibold text-sm leading-snug">
-                              {item.title}
-                            </h3>
-                          </div>
-                        </AccordionTrigger>
+    <Accordion type="single" collapsible>
+      {group.items.map((item) => (
+        <AccordionItem onClick={() => markAsRead(item.id)} key={item.id} value={String(item.id)}>
+         <div className="px-4 py-4 bg-slate-700 flex gap-3"> {/* Left */} <div className="flex-1"> <AccordionTrigger className="p-0 hover:no-underline"> <div className="text-left"> <h3 className="font-semibold text-sm leading-snug"> {item.title} </h3> </div> </AccordionTrigger> <AccordionContent className="pt-2 text-sm text-gray-400"> {item.description} </AccordionContent> </div> {/* Right */} {item.unread && ( <span className="mt-1 h-2 w-2 rounded-full bg-orange-400 shrink-0" /> )} </div>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  </div>
+))}
 
-                        <AccordionContent className="pt-2 text-sm text-gray-400">
-                          {item.description}
-                        </AccordionContent>
-                      </div>
-
-                      {/* Right */}
-                      {item.unread && (
-                        <span className="mt-1 h-2 w-2 rounded-full bg-orange-400 shrink-0" />
-                      )}
-                    </div>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-          ))}
         </div>
       </ScrollArea>
     </div>

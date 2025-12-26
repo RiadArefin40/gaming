@@ -33,11 +33,11 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { getAuthUser } from "@/lib/auth";
 import { gameImages } from "@/utils/gameData";
 import { ExclusiveGrid } from "./ExclusiveGrid";
-import { GameGrid } from "./GameGrid";
+import { CasinoGrid } from "./CasinoGrid";
 import { useAuthModal } from "@/store/useAuthModal";
 import { DotLoadingButton } from "./DotLoadingButton";
 interface MenuItem {
@@ -75,6 +75,37 @@ export default function MobileFooter() {
     // redirect after logout
     window.location.href = "/login";
   };
+const [unreadCount, setUnread] = useState(null)
+const [notifications, setNotifications] = useState(null)
+  useEffect(() => {
+      if (!user || typeof window === "undefined") return;
+  
+  
+      const fetchNotification = async () => {
+        try {
+          const res = await fetch(
+            `https://api.bajiraj.cloud/notifications/user/${user.id}`
+          );
+  
+          if (!res.ok) {
+            console.error("Failed to fetch balance:", res.status);
+            return;
+          }
+  
+          const data = await res.json();
+          setUnread(data.unread_count);
+          setNotifications(data.notifications)
+          console.log('notofication', data)
+        } catch (err) {
+          console.error("Error fetching balance:", err);
+        }
+      };
+  
+      fetchNotification();
+      const interval = setInterval(fetchNotification, 500000);
+  
+      return () => clearInterval(interval);
+    }, []);
   const menuItems: MenuItem[] = [
     { name: "Favourite", icon: <span>⭐</span>, link: "#" },
     {
@@ -86,28 +117,28 @@ export default function MobileFooter() {
     {
       name: "Sports",
       icon: <Activity className="w-5 h-5 mr-[6px]" />,
-      children: <GameGrid items={gameImages.sports} />,
+      children: <CasinoGrid items={gameImages.sports} />,
     },
     {
       name: "Casino",
       icon: <Gamepad2 className="w-5 h-5 mr-[6px]" />,
-      children: <GameGrid items={gameImages.casino} />,
+      children: <CasinoGrid items={gameImages.casino} />,
     },
     {
       name: "Slot",
       icon: <Dice6 className="w-5 h-5 mr-[8px]" />,
-      children: <GameGrid items={gameImages.slot} />,
+      children: <CasinoGrid items={gameImages.slot} />,
     },
     {
       name: "Crash",
       icon: <Rocket className="w-5 h-5 mr-[6px]" />,
-      children: <GameGrid items={gameImages.crash} />,
+      children: <CasinoGrid items={gameImages.crash} />,
     },
 
     {
       name: "Fishing",
       icon: <span>🎣</span>,
-      children: <GameGrid items={gameImages.fishing} />,
+      children: <CasinoGrid items={gameImages.fishing} />,
     },
   ];
 
@@ -288,8 +319,8 @@ export default function MobileFooter() {
           <Sheet open={psheetOpen} onOpenChange={psetSheetOpen}>
             <SheetTrigger>
               <div className="relative flex flex-col items-center gap-1">
-                <span className="absolute -top-1.5 -right-2 bg-red-600 text-white text-[8px] font-bold px-1 py-[1px] rounded-full">
-                  4
+                <span className="absolute -top-1.5 -right-2 bg-red-600 text-white text-[12px] font-bold px-1 py-[1px] rounded-full">
+                  {unreadCount}
                 </span>
                 <div
                   className={`flex flex-col items-center gap-1 px-2 py-1 relative ${
@@ -397,7 +428,7 @@ export default function MobileFooter() {
 
         {/* Menu */}
         <div className="space-y-1">
-          <MenuItem onClick = {()=>handleRoutechange('notifications')} icon={Bell} label="Notifications" badge="8" />
+          <MenuItem onClick = {()=>handleRoutechange('notifications')} icon={Bell} label="Notifications"   badge={unreadCount !== null && unreadCount !== undefined ? String(unreadCount) : undefined} />
           <MenuItem  onClick = {()=>handleRoutechange('personal-info')} icon={User} label="Personal info" />
           <MenuItem onClick = {()=>handleRoutechange('personal-info')} icon={Lock} label="Login & Security" />
           <MenuItem icon={ShieldCheck} label="Verification" />

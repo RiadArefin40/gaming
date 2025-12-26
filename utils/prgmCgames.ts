@@ -285,7 +285,6 @@ vs20aztecgates,Gates of Aztec,3424ac1587cce058dea273a4e5a3cbf8,Video Slots,96.50
 vswaysfuryodin,Fury of Odin Megaways,756d339c5748f3c294ff9af12b1569f4,Video Slots,95.97%,2023-01-31,,,,,,,
 vs20clspwrndg,Sweet Powernudge,e56351f07bf54902c0dd24eb398ad008,Video Slots,96.08%,2023-01-17,,,,,,,
 vs20dugems,Hot Pepper,5a279ab989b4722a649af9e9cd9bad68,Video Slots,96.45%,2023-01-17,,,,,,,
-vswayspizza,PIZZA! PIZZA? PIZZA!,41a153f648c94ed3a6f8562f39eb039d,Video Slots,96.04%,2023-01-10,,,,,,,
 vs25rlbank,Reel Banks,77022f0e153bb46b43ef08d83b0499ea,Video Slots,96.04%,2023-01-10,,,,,,,
 vswaysrabbits,5 Rabbits Megaways,908f3b21263818f283e3c2b6c57bea25,Video Slots,96.53%,2023-01-03,,,,,,,
 vs20drgbless,Dragon Hero,7213d6d23f67e21cb0843c95ef4d5614,Video Slots,96.00%,2023-01-03,,,,,,,
@@ -677,7 +676,7 @@ function parseGames(csv:any) {
   });
 }
 
-export const prgmGamesArray = parseGames(csvData);
-console.log(prgmGamesArray);
+export const prgmSlotGamesArray = parseGames(csvData);
+console.log(prgmSlotGamesArray);
 
 

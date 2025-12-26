@@ -20,40 +20,41 @@ export default function MobileAppBar() {
   const router = useRouter();
   const pathname = usePathname();
   const [balance, setBalance] = useState(0); 
+
 useEffect(() => {
-    if (!user || typeof window === "undefined") return;
+  console.log('okkkk')
+  if (!user || typeof window === "undefined") return;
 
-    // Read from localStorage on the client
-    const stored = localStorage.getItem("balance");
-    if (stored) setBalance(JSON.parse(stored));
+  // Read from localStorage on the client
+  const stored = localStorage.getItem("balance");
+  if (stored) setBalance(JSON.parse(stored));
 
-    const fetchBalance = async () => {
-      try {
-        const res = await fetch(
-          `https://api.bajiraj.cloud/users/${user.id}/balance`
-        );
+  const fetchBalance = async () => {
+    try {
+      const res = await fetch(`https://api.bajiraj.cloud/users/${user.id}/balance`);
 
-        if (!res.ok) {
-          console.error("Failed to fetch balance:", res.status);
-          return;
-        }
-
-        const data = await res.json();
-
-        if (data.balance !== undefined) {
-          setBalance(data.balance);
-          localStorage.setItem("balance", JSON.stringify(data.balance));
-        }
-      } catch (err) {
-        console.error("Error fetching balance:", err);
+      if (!res.ok) {
+        console.error("Failed to fetch balance:", res.status);
+        return;
       }
-    };
 
-    fetchBalance();
-    const interval = setInterval(fetchBalance, 9000);
+      const data = await res.json();
 
-    return () => clearInterval(interval);
-  }, [user]);
+      if (data.balance !== undefined) {
+        setBalance(data.balance);
+        localStorage.setItem("balance", JSON.stringify(data.balance));
+      }
+    } catch (err) {
+      console.error("Error fetching balance:", err);
+    }
+  };
+
+  fetchBalance();
+  const interval = setInterval(fetchBalance, 500);
+
+  return () => clearInterval(interval);
+}, [user]); // <-- add user here
+
   return (
     <>
       {/* Blur overlay */}

@@ -21,58 +21,15 @@ function slugify(text: string) {
     .replace(/^-+|-+$/g, "");    // remove leading/trailing hyphens
 }
 
-export function GameGrid({ items }: GameGridProps) {
+export function SlotGrid({ items }: GameGridProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
 const [loadingText, setLoadingText] = useState("Launching game...");
-  const handleClick = async (item: any) => {
+    const handleClick = async (item: any) => {
     const slug = slugify(item.title);
-    console.log('gamegrid', item.title )
-    if(slug == 'pragmatic-play'){
-
-       if (loading) return;
-
-    setLoading(true);
-    setLoadingText("Preparing game session...");
-
-    try {
-      const res = await fetch("https://api.bajiraj.cloud/launch_game", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "*/*",
-        },
-        body: JSON.stringify({
-         userName: user.name,
-          game_uid: item.uid,
-          credit_amount: user.wallet,
-          game_type: 'slot'
-        }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok && data.success && data.gameUrl) {
-        setLoadingText("Opening game…");
-
-        // ✅ Open game in new tab
-        window.open(data.gameUrl, "_blank", "noopener,noreferrer");
-      } else {
-        alert(data.error || "Failed to launch game");
-      }
-    } catch (error) {
-      console.error("Error launching game:", error);
-      alert("Something went wrong");
-    } finally {
-      setLoading(false);
-    }
-
-    }
-    else{
-    const slug = slugify(item.title);
-    router.push(`/games/${slug}`);
-    }
+    router.push(`/slots/${slug}`);
+    
 
     
   };
