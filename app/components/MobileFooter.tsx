@@ -181,7 +181,14 @@ const [notifications, setNotifications] = useState(null)
     setIsVLoading(true)
        setTimeout(() => {
           setIsVLoading(false);
+            if(!user){
           openVerifyModal()
+    }
+    else{
+      psetSheetOpen(false)
+        router.push('/deposit')
+    }
+       
           }, 1000); 
 
   }
@@ -389,14 +396,14 @@ const [notifications, setNotifications] = useState(null)
         {/* Actions */}
         <div className="flex gap-3">
              <DotLoadingButton
-             onClick = {handleWithdrawl}
+            //  onClick = {handleWithdrawl}
                           loading={isVLoading}
                           className=" flex-1 bg-slate-500 text-slate-200 hover:bg-zinc-700"
                         >
                            Withdrawal
               </DotLoadingButton>
          <DotLoadingButton
-             onClick = {handleWithdrawl}
+             onClick={handleWithdrawl}
                           loading={isVLoading}
                           className=" flex-1 bg-orange-400 text-slate-200 hover:bg-zinc-700"
                         >

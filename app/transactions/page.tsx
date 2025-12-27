@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { List } from "lucide-react";
-
+import { getAuthUser } from "@/lib/auth";
 const TransactionRecordPage = () => {
   const [timeRange, setTimeRange] = useState("Last 7 days");
   const [transactions, setTransactions] = useState<any[]>([]);
-  const userId = 1; // Replace with dynamic user ID if needed
+   const user = getAuthUser();
+  const userId = user?.id; // Replace with dynamic user ID if needed
 
   // Fetch deposits from API
   useEffect(() => {
