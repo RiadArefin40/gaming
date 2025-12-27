@@ -204,7 +204,7 @@ const data = await res.json();
   <DotLoadingButton
     onClick={handleSignUp}
     loading={isLoadinge}
-    className="max-w-screen w-[80%] mx-auto left-12 h-11 absolute top-[460px] bg-orange-400 hover:bg-orange-600"
+    className="max-w-screen w-[80%] mx-auto left-12 h-11  bg-orange-400 hover:bg-orange-600"
   >
     Sign Up
   </DotLoadingButton>
