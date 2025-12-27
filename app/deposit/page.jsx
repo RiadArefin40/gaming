@@ -320,11 +320,12 @@ export default function EWalletPage() {
 
               <Label className="mb-1 block text-slate-200 text-lg">Receiver Number</Label>
               <div className="flex gap-2 items-center">
-                <Input
-                  value={maskNumber(receiverNumber)}
-                  disabled
-                  className="bg-slate-700 h-14 text-slate-100 text-lg font-medium tracking-wider"
-                />
+            <Input
+  value={receiverNumber}
+  readOnly
+  className="bg-slate-700 h-14 text-white text-lg font-medium tracking-wider cursor-not-allowed"
+/>
+
                 <Button
                   variant="outline"
                   className="bg-slate-700 h-14"
