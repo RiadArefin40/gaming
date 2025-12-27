@@ -9,6 +9,7 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import { getAuthUser } from "@/lib/auth";
 import { useRouter, usePathname } from "next/navigation";
 import {useAutoFetch} from "@/hooks/use-auto-fetch"
+import RefreshButton from "./RefreshButton";
 
 interface BalanceData {
   balance: number;
@@ -35,7 +36,14 @@ export default function MobileAppBar() {
 
   const balance = data?.balance ?? 0;
   const turnover = data?.turnover ?? 0;
-
+  const [isLoading, setIsloading] = useState(false)
+  const fetchBalance = () =>{
+    setIsloading (true);
+   setTimeout(async () => {
+ setIsloading (false);
+    }, 1500); // 1.5 seconds delay
+  }
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       {/* Blur overlay */}
@@ -54,28 +62,58 @@ export default function MobileAppBar() {
         <div className="flex items-center gap-3 z-50">
           {user && (
             <div className="flex items-center">
-              <button className="flex items-center gap-1 px-4 h-10 rounded-md bg-slate-800">
-                <div className="flex items-center gap-4">
-                  <div className="relative h-8 w-8 rounded-full bg-gradient-to-b from-orange-500 to-orange-800 shadow-[inset_0_2px_2px_rgba(255,255,255,0.35),_0_3px_6px_rgba(0,0,0,0.45)]">
-                    <div
-                      className="absolute inset-1 rounded-full 
-                      bg-gradient-to-b from-orange-700 to-orange-400
-                      shadow-[inset_0_3px_4px_rgba(0,0,0,0.55),inset_0_-1px_1px_rgba(255,255,255,0.25)]
-                      flex items-center justify-center"
-                    >
-                      <span className="text-xl font-bold drop-shadow-lg">৳</span>
-                    </div>
-                    <div className="absolute top-[6px] left-[7px] h-[2px] w-4 rounded-full bg-white/25 blur-[1px]" />
-                  </div>
+      <RefreshButton
+  balance={balance}
+  loading= {isLoading}
+  onRefresh={async () => {
 
-                  <span className="text-xl -ml-3">{balance}</span>
-                  <RotateCw size={24} />
-                </div>
-              </button>
+      fetchBalance();
+ 
+  }}
+/>
 
-              <button className="w-9 h-[40px] flex -ml-2 items-center justify-center bg-orange-400 rounded-r-md">
+
+              <button  onClick={() => setIsOpen(true)} className="w-9 h-[40px] flex -ml-2 items-center justify-center bg-orange-400 rounded-r-md">
                 <Plus size={24} />
               </button>
+
+
+                    {/* Sheet */}
+      <Sheet open={isOpen} onOpenChange={setIsOpen} >
+   
+
+        <SheetContent
+        side="top"
+          className="fixed !top-[67px] bottom-0 max-h-[150px] left-0 right-0 bg-slate-900  p-6 flex flex-col gap-4 shadow-lg
+          transform transition-transform duration-300 border-b-0"
+        >
+         <VisuallyHidden>
+                <DialogTitle>Mobile Menu</DialogTitle>
+              </VisuallyHidden>
+
+          <div className="flex flex gap-4 mt-4">
+            <button
+              className="w-full py-3 rounded-lg bg-slate-700 text-white font-semibold hover:scale-105 transition-transform"
+              onClick={() => {
+                alert("Withdraw clicked");
+                setIsOpen(false);
+              }}
+            >
+              Withdraw
+            </button>
+
+            <button
+              className="w-full py-3 rounded-lg bg-gradient-to-r from-orange-500 to-orange-400 text-white font-semibold hover:scale-105 transition-transform"
+              onClick={() => {
+                router.push('/deposit')
+                setIsOpen(false)
+              }}
+            >
+              Deposit
+            </button>
+          </div>
+        </SheetContent>
+      </Sheet>
             </div>
           )}
 
