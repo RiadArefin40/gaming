@@ -340,7 +340,7 @@ const [notifications, setNotifications] = useState(null)
             <SheetTrigger>
               <div className="relative flex flex-col items-center gap-1">
                 <span className="absolute -top-1.8 -right-[6px] bg-red-600 text-white text-lg font-bold px-[5px] py-[1px] rounded-full">
-                  {unreadCount}
+                  {unreadCount || 0}
                 </span>
                 <div
                   className={`flex flex-col items-center gap-1 px-2 py-1 relative ${
