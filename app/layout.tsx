@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import Head from "next/head";
 import { AppSidebar } from "./components/app-sidebar";
 import MobileAppBar from "./components/MobileAppBar";
 import MobileFooter from "./components/MobileFooter";
@@ -25,6 +26,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html className="" lang="en">
+       <Head>
+        {/* Android Chrome status bar */}
+        <meta name="theme-color" content="#0f172a" />
+        
+        {/* iOS Safari status bar */}
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+      </Head>
+
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900`}>
         <SidebarProvider>
           <div className="flex h-full w-full">
