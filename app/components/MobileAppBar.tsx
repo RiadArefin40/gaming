@@ -54,8 +54,9 @@ export default function MobileAppBar() {
       <div className="flex fixed top-0 w-full items-center justify-between px-4 py-4 shadow-md z-50 bg-gray-900">
         <div className="flex items-center gap-3">
           <SidebarTrigger className="hidden md:block" />
-          <div onClick={() => router.push("/")} className="w-[120px] -ml-2">
-            <img src="/tlogo.png" alt="Logo" />
+          <div onClick={() => router.push("/")} className="">
+            {/* <img src="/tlogo.png" alt="Logo" /> */}
+            <p className="tracking-wider text-3xl font-bold text-yellow-300">Bajiraj</p>
           </div>
         </div>
 
@@ -121,7 +122,7 @@ export default function MobileAppBar() {
             <>
               <button
                 onClick={() => router.push("/login")}
-                className="px-3 w-[70px] py-[6px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
+                className="px-3 w-[90px] py-[6px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
               >
                 Login
               </button>

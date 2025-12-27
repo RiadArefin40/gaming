@@ -52,6 +52,20 @@ interface MenuItem {
   link?: string;
   children?: string[] | React.ReactNode;
 }
+type User = {
+  id: number;
+  email: string | null;
+  password: string;
+  name: string;
+  created_at: string;
+  referral_code: string;
+  referred_by: string | null;
+  wallet: string;
+  phone: string;
+  role: string;
+  is_block_user: boolean;
+  turnover: string;
+};
 
 export default function MobileFooter() {
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
@@ -387,9 +401,10 @@ const [notifications, setNotifications] = useState(null)
           </div>
           <div>
             <p className="font-semibold">{user?.name}</p>
-            <p className="text-lg ">
-              Sign up date : 2025-12-12
-            </p>
+      <p className="text-lg">
+  {(user as any).created_at || ''}
+</p>
+
           </div>
         </div>
 
@@ -418,8 +433,8 @@ const [notifications, setNotifications] = useState(null)
             <div className="flex items-center justify-between">
               <p className="text-lg ">Main wallet</p>
               <div className="flex gap-2">
-                <EyeOff className="h-4 w-4 " />
-                <RefreshCcw className="h-4 w-4 " />
+                {/* <EyeOff className="h-4 w-4 " />
+                <RefreshCcw className="h-4 w-4 " /> */}
               </div>
             </div>
 
