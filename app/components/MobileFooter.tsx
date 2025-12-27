@@ -74,7 +74,7 @@ export default function MobileFooter() {
 
     const { data, error } = useAutoFetch<BalanceData | undefined>(
       user ? `https://api.bajiraj.cloud/users/${user.id}/balance` : "",
-      1000
+      10000
     );
   const balance = data?.balance ?? 0;
   const turnover = data?.turnover ?? 0;
