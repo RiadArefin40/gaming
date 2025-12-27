@@ -213,17 +213,17 @@ const [notifications, setNotifications] = useState(null)
 
   return (
     <div className="fixed bottom-0 left-0 right-0 md:hidden z-200">
-      <div className="flex items-center justify-between px-6 pt-4  border-t border-slate-800 text-gray-400 w-full  bg-gray-900">
+      <div className="flex items-center justify-between px-6 pt-2  border-t border-slate-800 text-gray-400 w-full  bg-gray-900">
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
           <SheetTrigger>
             <div className="flex flex-col items-center gap-1">
               <div
                 className={`flex flex-col items-center gap-1 px-2 py-1 relative ${
-                  sheetOpen ? "text-orange-400" : "text-gray-400"
+                  sheetOpen ? "text-orange-400 bg-orange-400 text-lg font-bold " : "text-gray-400"
                 }`}
               >
-                <Menu className="w-6 h-6 text-white font-medium" />
-                <span className="text-md text-white ">Menu</span>
+                <Menu className="w-6 h-6 text-white" />
+                <span className="text-white ">Menu</span>
                 {sheetOpen && (
                   <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
                 )}
@@ -258,18 +258,20 @@ const [notifications, setNotifications] = useState(null)
               <img src="/b-1.jpg" alt="Logo" className="-mt-4 mb-2" />
               {menuItems.map((item, idx) => (
                 <li key={idx}>
-                  <button
-                    onClick={() => item.children && toggleSection(item.name)}
-                    className="flex items-center justify-between w-full py-2 px-3 rounded hover:bg-gray-100"
-                  >
-                    <div className="flex items-center gap-2">
-                      {item.icon}
-                      <span>{item.name}</span>
-                    </div>
-                    {item.children && (
-                      <span>{openSections[item.name] ? "▲" : "▼"}</span>
-                    )}
-                  </button>
+                <button
+                onClick={() => item.children && toggleSection(item.name)}
+                className={`flex items-center justify-between w-full py-2 px-3 rounded hover:bg-gray-100 transition-colors
+                  ${openSections[item.name] ? "text-orange-400 font-semibold" : "text-gray-200"}`}
+              >
+                <div className="flex items-center gap-2">
+                  {item.icon}
+                  <span>{item.name}</span>
+                </div>
+                {item.children && (
+                  <span>{openSections[item.name] ? "▲" : "▼"}</span>
+                )}
+              </button>
+
                   {item.children && openSections[item.name] && (
                     <>
                       {Array.isArray(item.children) ? (
@@ -297,7 +299,7 @@ const [notifications, setNotifications] = useState(null)
               {user && (
                 <button
                   onClick={handleLogout}
-                  className="px-3 mb-[220px] mt-6 w-[175px] py-[6px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
+                  className="px-3 w-full mb-[220px] mt-6 w-full py-[8px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
                 >
                   Log Out
                 </button>
@@ -320,11 +322,11 @@ const [notifications, setNotifications] = useState(null)
         <button
           onClick={goToCasino}
           className={`flex flex-col items-center gap-1 px-2 py-1 relative ${
-            isActive("/casino") ? "text-orange-400" : "text-gray-400"
+            isActive("/casino") ? "text-orange-400 bg-orange-400 text-lg font-bold" : "text-gray-400"
           }`}
         >
-          <Star className="w-6 h-6 text-white font-medium" />
-          <span className="text-md text-white ">Casino</span>
+          <Star className="w-6 h-6 text-white" />
+          <span className="text-white ">Casino</span>
           {isActive("/casino") && (
             <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
           )}
@@ -334,35 +336,37 @@ const [notifications, setNotifications] = useState(null)
         <button
           onClick={goToSlots}
           className={`flex flex-col items-center gap-1 px-4 py-1 relative ${
-            isActive("/slots") ? "text-orange-400  " : "text-gray-400 "
+            isActive("/slots") ? "text-orange-400 bg-orange-400 text-lg font-bold " : "text-gray-400 "
           }`}
         >
-          <Dice6 className="w-6 h-6 text-white font-medium" />
-          <span className="text-md text-white ">Slots</span>
+          <Dice6 className="w-6 h-6 text-white" />
+          <span className="text-white ">Slots</span>
           {isActive("/slots") && (
             <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
           )}
         </button>
 
-        <button onClick={handleDeposit} className="flex flex-col text-gray-400  items-center gap-1">
-          <Wallet className="w-6 h-6 text-white font-medium " />
-          <span className="text-md text-white ">Deposit</span>
+        <button onClick={handleDeposit}   className={`flex flex-col items-center gap-1 px-4 py-1 relative ${
+            isActive("/deposit") ? "text-orange-400 bg-orange-400 text-lg font-bold " : "text-gray-400 "
+          }`}>
+          <Wallet className="w-6 h-6 text-white" />
+          <span className="text-white ">Deposit</span>
         </button>
 
         {user && (
           <Sheet open={psheetOpen} onOpenChange={psetSheetOpen}>
             <SheetTrigger>
               <div className="relative flex flex-col items-center gap-1">
-                <span className="absolute -top-1.8 -right-[6px] bg-red-600 text-white text-lg font-bold px-[5px] py-[1px] rounded-full">
+                <span className="absolute -top-1.8 -right-[6px] bg-red-600 text-white text-lg z-100 font-bold px-[5px] py-[1px] rounded-full">
                   {unreadCount || 0}
                 </span>
                 <div
                   className={`flex flex-col items-center gap-1 px-2 py-1 relative ${
-                    psheetOpen ? "text-orange-400" : "text-gray-400"
+                    psheetOpen ? "text-orange-400 bg-orange-400 text-lg font-bold" : "text-gray-400"
                   }`}
                 >
-                  <User className="w-6 h-6 text-white font-medium" />
-                  <span className="text-md text-white ">Profile</span>
+                  <User className="w-6 h-6 text-white" />
+                  <span className="text-white ">Profile</span>
                   {psheetOpen && (
                     <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
                   )}
@@ -475,7 +479,7 @@ const [notifications, setNotifications] = useState(null)
         {user && (
                 <button
                   onClick={handleLogout}
-                  className="px-3 mb-[220px] mt-6 w-[175px] py-[6px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
+                  className="px-3 mb-[220px] mt-6 w-full py-[10px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
                 >
                   Log Out
                 </button>

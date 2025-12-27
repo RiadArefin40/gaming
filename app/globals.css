@@ -144,6 +144,11 @@
   background: rgba(255, 255, 255, 0.8);
   animation: dotFade 1.4s infinite ease-in-out;
 }
+.lucide-chevron-down{
+  height: 30px !important;
+  width: 30px !important;
+  color: white !important;
+}
 
 .delay-200 {
   animation-delay: 0.2s;

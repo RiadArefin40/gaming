@@ -17,6 +17,7 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"; // if you use radix or ui kit
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -298,19 +299,23 @@ useEffect(() => {
               <Label className="mt-4 text-slate-200 text-lg">
                 Deposit Channel
               </Label>
-              <select
-                className="w-full p-2 h-14 rounded-md bg-slate-700 text-white"
-                value={selectedChannel || ""}
-                onChange={(e) => setSelectedChannel(e.target.value)}
-              >
-                {[...new Set(paymentOptions.map((p) => p.deposit_channel))].map(
-                  (c) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  )
-                )}
-              </select>
+          <Select
+          className="h-14"
+  value={selectedChannel || ""}
+  onValueChange={(value) => setSelectedChannel(value)}
+>
+  <SelectTrigger className="!h-14 !bg-slate-800 w-full  text-white rounded-md pl-10">
+  
+    <SelectValue placeholder="Select channel" />
+  </SelectTrigger>
+  <SelectContent className="bg-slate-800 text-white rounded-md">
+    {[...new Set(paymentOptions.map((p) => p.deposit_channel))].map((c) => (
+      <SelectItem key={c} value={c}>
+        {c}
+      </SelectItem>
+    ))}
+  </SelectContent>
+</Select>
 
               <Button
                 disabled={!canStep1}
