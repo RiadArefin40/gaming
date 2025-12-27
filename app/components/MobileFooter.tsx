@@ -244,10 +244,10 @@ const [notifications, setNotifications] = useState(null)
                 <p>Live Support</p>
               </button>
               <button
-                className="bg-gray-300 px-4 py-1 rounded-lg flex items-center justify-center z-100"
+                className="bg-orange-400 px-4 py-1 rounded-lg flex items-center justify-center z-100"
                 onClick={() => setSheetOpen(false)} // This actually closes the sheet
               >
-                <X className="w-8 h-8 text-gray-700 hover:text-red-600" />
+                <X className="w-8 h-8 text-gray-100 hover:text-red-600" />
               </button>
             </div>
 
