@@ -296,7 +296,7 @@ export default function EWalletPage() {
 
               <Button
                 disabled={!canStep1}
-                className="w-full h-14 text-lg mt-4 bg-orange-400"
+                className="w-full h-14 text-lg mt-4 mb-[300px] bg-orange-400"
                 onClick={() => setStep(2)}
               >
                 Continue
@@ -367,7 +367,7 @@ export default function EWalletPage() {
 
               <Button
                 disabled={!canStep2 || Number(amount) < 200}
-                className="w-full mt-2 h-14 text-lg bg-orange-400"
+                className="w-full mt-2 h-14 text-lg bg-orange-400 mb-[300px]"
                 onClick={() => setStep(3)}
               >
                 Next
