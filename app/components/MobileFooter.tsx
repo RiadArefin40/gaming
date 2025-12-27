@@ -396,7 +396,7 @@ const [notifications, setNotifications] = useState(null)
         {/* Actions */}
         <div className="flex gap-3">
              <DotLoadingButton
-            //  onClick = {handleWithdrawl}
+        onClick = {()=>handleRoutechange('withdraw')}
                           loading={isVLoading}
                           className=" flex-1 bg-slate-500 text-slate-200 hover:bg-zinc-700"
                         >

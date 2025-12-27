@@ -95,7 +95,7 @@ export default function MobileAppBar() {
             <button
               className="w-full py-3 rounded-lg bg-slate-700 text-white font-semibold hover:scale-105 transition-transform"
               onClick={() => {
-                alert("Withdraw clicked");
+                router.push('/withdraw')
                 setIsOpen(false);
               }}
             >
