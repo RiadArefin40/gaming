@@ -48,7 +48,7 @@ export default function MobileAppBar() {
     <>
       {/* Blur overlay */}
       {sheetOpen && (
-        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 transition-opacity" />
+        <div className="fixed max-w-screen inset-0 bg-black/30 backdrop-blur-sm z-40 transition-opacity" />
       )}
 
       <div className="flex fixed top-0 w-full items-center justify-between px-4 py-4 shadow-md z-50 bg-gray-900">
@@ -121,14 +121,14 @@ export default function MobileAppBar() {
             <>
               <button
                 onClick={() => router.push("/login")}
-                className="px-3 w-[75px] py-[6px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
+                className="px-3 w-[70px] py-[6px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
               >
                 Login
               </button>
 
               <button
                 onClick={() => router.push("/login")}
-                className="px-3 -ml-2 w-[75px] py-[6px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-green-600"
+                className="px-3 -ml-2 w-[90px] py-[6px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-green-600"
               >
                 Sign Up
               </button>

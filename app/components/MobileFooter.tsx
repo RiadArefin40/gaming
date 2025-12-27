@@ -199,7 +199,7 @@ const [notifications, setNotifications] = useState(null)
 
   return (
     <div className="fixed bottom-0 left-0 right-0 md:hidden z-200">
-      <div className="flex items-center justify-between px-6 py-1  border-t text-gray-400 w-full  bg-gray-900">
+      <div className="flex items-center justify-between px-6 pt-4  border-t border-slate-800 text-gray-400 w-full  bg-gray-900">
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
           <SheetTrigger>
             <div className="flex flex-col items-center gap-1">
@@ -209,7 +209,7 @@ const [notifications, setNotifications] = useState(null)
                 }`}
               >
                 <Menu className="w-6 h-6 text-white font-medium" />
-                <span className="text-lg text-white ">Menu</span>
+                <span className="text-md text-white ">Menu</span>
                 {sheetOpen && (
                   <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
                 )}
@@ -219,7 +219,7 @@ const [notifications, setNotifications] = useState(null)
 
           <SheetContent
             side="left"
-            className="w-full h-[85%] !top-[57px] !bottom-[57px] p-0 bg-slate-800 overflow-y-auto"
+            className="w-full h-[100%] p-0 bg-slate-800 overflow-y-auto"
           >
             <VisuallyHidden>
               <DialogTitle>Mobile Menu</DialogTitle>
@@ -310,7 +310,7 @@ const [notifications, setNotifications] = useState(null)
           }`}
         >
           <Star className="w-6 h-6 text-white font-medium" />
-          <span className="text-lg text-white ">Casino</span>
+          <span className="text-md text-white ">Casino</span>
           {isActive("/casino") && (
             <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
           )}
@@ -324,7 +324,7 @@ const [notifications, setNotifications] = useState(null)
           }`}
         >
           <Dice6 className="w-6 h-6 text-white font-medium" />
-          <span className="text-lg text-white ">Slots</span>
+          <span className="text-md text-white ">Slots</span>
           {isActive("/slots") && (
             <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
           )}
@@ -332,7 +332,7 @@ const [notifications, setNotifications] = useState(null)
 
         <button onClick={handleDeposit} className="flex flex-col text-gray-400  items-center gap-1">
           <Wallet className="w-6 h-6 text-white font-medium " />
-          <span className="text-lg text-white ">Deposit</span>
+          <span className="text-md text-white ">Deposit</span>
         </button>
 
         {user && (
@@ -348,7 +348,7 @@ const [notifications, setNotifications] = useState(null)
                   }`}
                 >
                   <User className="w-6 h-6 text-white font-medium" />
-                  <span className="text-lg text-white ">Profile</span>
+                  <span className="text-md text-white ">Profile</span>
                   {psheetOpen && (
                     <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
                   )}
