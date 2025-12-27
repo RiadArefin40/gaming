@@ -258,19 +258,22 @@ const [notifications, setNotifications] = useState(null)
               <img src="/b-1.jpg" alt="Logo" className="-mt-4 mb-2" />
               {menuItems.map((item, idx) => (
                 <li key={idx}>
-                <button
-                onClick={() => item.children && toggleSection(item.name)}
-                className={`flex items-center justify-between w-full py-2 px-3 rounded hover:bg-gray-100 transition-colors
-                  ${openSections[item.name] ? "text-orange-400 font-semibold" : "text-gray-200"}`}
-              >
-                <div className="flex items-center gap-2">
-                  {item.icon}
-                  <span>{item.name}</span>
-                </div>
-                {item.children && (
-                  <span>{openSections[item.name] ? "▲" : "▼"}</span>
-                )}
-              </button>
+  <button
+  onClick={() => item.children && toggleSection(item.name)}
+  className={`flex items-center justify-between w-full py-2 px-3 rounded transition-colors
+    ${openSections[item.name] ? "text-orange-400 bg-slate-800 font-semibold" : "text-gray-200 bg-transparent"}
+    hover:bg-gray-100`}
+  style={{ WebkitTapHighlightColor: "transparent" }} // removes default mobile touch highlight
+>
+  <div className="flex items-center gap-2">
+    {item.icon}
+    <span>{item.name}</span>
+  </div>
+  {item.children && (
+    <span>{openSections[item.name] ? "▲" : "▼"}</span>
+  )}
+</button>
+
 
                   {item.children && openSections[item.name] && (
                     <>
