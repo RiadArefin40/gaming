@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getAuthUser } from "@/lib/auth";
+import { Eye, EyeOff } from "lucide-react";
 
 /* ================= TYPES ================= */
 type Phone = {
@@ -36,7 +37,7 @@ export default function ProfilePage() {
   const [phones, setPhones] = useState<Phone[]>([]);
   const [newPhone, setNewPhone] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-
+  const [showPassword, setShowPassword] = useState(false);
 
 
 useEffect(() => {
@@ -127,9 +128,9 @@ useEffect(() => {
     <div className="max-w-screen mx-auto p-4">
       <h1 className="text-2xl font-semibold mb-6">Profile</h1>
 
-      <Tabs defaultValue="personal" className="space-y-4">
-        <TabsList className="bg-slate-500 mx-auto mt-4">
-          <TabsTrigger value="personal">Personal info</TabsTrigger>
+      <Tabs defaultValue="personal" className="space-y-4 p-1">
+        <TabsList className="bg-slate-500 max-w-screen mx-auto mt-4 p-1">
+          <TabsTrigger value="personal">Personal</TabsTrigger>
           <TabsTrigger value="login">Login & Security</TabsTrigger>
           <TabsTrigger value="verification">Verification</TabsTrigger>
         </TabsList>
@@ -159,8 +160,25 @@ useEffect(() => {
               <Input className="h-14 text-lg" id="email" type="email" value={user.name || ""} readOnly />
             </div>
             <div>
-              <Label className="text-lg mb-2" htmlFor="password">Password</Label>
-              <Input className="h-14 text-lg" id="password" type="password" value={user.password} readOnly />
+    <div className="relative">
+      <Label className="text-lg mb-2" htmlFor="password">
+        Password
+      </Label>
+      <Input
+        id="password"
+        type={showPassword ? "text" : "password"}
+        value={user.password}
+        readOnly
+        className="h-14 text-lg pr-12" // add padding for the eye icon
+      />
+      <button
+        type="button"
+        className="absolute right-3 top-[54px] text-gray-400 hover:text-gray-200"
+        onClick={() => setShowPassword(!showPassword)}
+      >
+        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+      </button>
+    </div>
             </div>
             <Button className="mt-2">Update Login Info</Button>
           </div>

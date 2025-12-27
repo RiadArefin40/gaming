@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getAuthUser } from "@/lib/auth";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 type User = {
   id: number;
@@ -169,7 +170,7 @@ export default function WithdrawPage() {
 
           {/* Phone Selection */}
           <Label className="mt-4 text-slate-200 text-lg">Your Number</Label>
-          <select
+          {/* <select
             className="w-full p-2 h-14 rounded-md bg-slate-700 text-white"
             value={selectedPhone}
             onChange={(e) => setSelectedPhone(e.target.value)}
@@ -178,7 +179,24 @@ export default function WithdrawPage() {
             {[user.phone, ...phones.map(p => p.phone)].map((n) => (
               <option key={n} value={n}>{n}</option>
             ))}
-          </select>
+          </select> */}
+
+                    <Select
+            value={selectedPhone || ""}
+            onValueChange={(value) => setSelectedPhone(value)}
+          >
+            <SelectTrigger className="!h-14 !bg-slate-700 w-full  text-white rounded-md pl-4">
+            
+              <SelectValue placeholder="Select channel" />
+            </SelectTrigger>
+            <SelectContent className="bg-slate-700 text-white rounded-md">
+              {[...new Set(phones.map((p) => p.phone))].map((c) => (
+                <SelectItem key={c} value={c}>
+                  {c}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
           {/* Amount */}
           {/* <Label className="mt-4 text-slate-200 text-lg">Amount</Label>

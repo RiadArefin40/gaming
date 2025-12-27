@@ -38,7 +38,7 @@ export default function RefreshButton({ balance, onRefresh, loading }: RefreshBu
               shadow-[inset_0_3px_4px_rgba(0,0,0,0.55),inset_0_-1px_1px_rgba(255,255,255,0.25)]
               flex items-center justify-center"
           >
-            <span className="text-lg font-bold drop-shadow-lg">৳</span>
+            <span className="text-md font-bold drop-shadow-lg">৳</span>
           </div>
           <div className="absolute top-[6px] left-[7px] h-[2px] w-4 rounded-full bg-white/25 blur-[1px]" />
         </div>

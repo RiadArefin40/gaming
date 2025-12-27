@@ -213,20 +213,18 @@ const [notifications, setNotifications] = useState(null)
 
   return (
     <div className="fixed bottom-0 left-0 right-0 md:hidden z-200">
-      <div className="flex items-center justify-between px-6 pt-2  border-t border-slate-800 text-gray-400 w-full  bg-gray-900">
+      <div className="flex items-center justify-between px-6 pt-2 gap-2  border-t border-slate-800 text-gray-400 w-full  bg-gray-900">
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
           <SheetTrigger>
             <div className="flex flex-col items-center gap-1">
               <div
-                className={`flex flex-col items-center gap-1 px-2 py-1 relative ${
+                className={`flex flex-col w-[70px] items-center gap-1 px-2 py-1 mb-1 relative ${
                   sheetOpen ? "text-orange-400 bg-orange-400 text-lg font-bold " : "text-gray-400"
                 }`}
               >
                 <Menu className="w-6 h-6 text-white" />
                 <span className="text-white ">Menu</span>
-                {sheetOpen && (
-                  <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
-                )}
+      
               </div>
             </div>
           </SheetTrigger>
@@ -328,32 +326,28 @@ const [notifications, setNotifications] = useState(null)
         {/* Casino */}
         <button
           onClick={goToCasino}
-          className={`flex flex-col items-center gap-1 px-2 py-1 relative ${
+          className={`flex flex-col w-[70px] items-center gap-1 px-2 py-1 mb-1 relative ${
             isActive("/casino") ? "text-orange-400 bg-orange-400 text-lg font-bold" : "text-gray-400"
           }`}
         >
           <Star className="w-6 h-6 text-white" />
           <span className="text-white ">Casino</span>
-          {isActive("/casino") && (
-            <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
-          )}
+ 
         </button>
 
         {/* Slots */}
         <button
           onClick={goToSlots}
-          className={`flex flex-col items-center gap-1 px-4 py-1 relative ${
+          className={`flex flex-col w-[70px] items-center gap-1 px-4 py-1 mb-1 relative ${
             isActive("/slots") ? "text-orange-400 bg-orange-400 text-lg font-bold " : "text-gray-400 "
           }`}
         >
           <Dice6 className="w-6 h-6 text-white" />
           <span className="text-white ">Slots</span>
-          {isActive("/slots") && (
-            <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
-          )}
+ 
         </button>
 
-        <button onClick={handleDeposit}   className={`flex flex-col items-center gap-1 px-4 py-1 relative ${
+        <button onClick={handleDeposit}   className={`flex w-[70px] flex-col items-center gap-1 mb-1 px-4 py-1 relative ${
             isActive("/deposit") ? "text-orange-400 bg-orange-400 text-lg font-bold " : "text-gray-400 "
           }`}>
           <Wallet className="w-6 h-6 text-white" />
@@ -368,15 +362,13 @@ const [notifications, setNotifications] = useState(null)
                   {unreadCount || 0}
                 </span>
                 <div
-                  className={`flex flex-col items-center gap-1 px-2 py-1 relative ${
+                  className={`flex flex-col w-[70px] items-center gap-1 px-2 py-1 mb-1 relative ${
                     psheetOpen ? "text-orange-400 bg-orange-400 text-lg font-bold" : "text-gray-400"
                   }`}
                 >
                   <User className="w-6 h-6 text-white" />
                   <span className="text-white ">Profile</span>
-                  {psheetOpen && (
-                    <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
-                  )}
+             
                 </div>
               </div>
             </SheetTrigger>
