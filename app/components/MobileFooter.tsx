@@ -218,7 +218,7 @@ const [notifications, setNotifications] = useState(null)
           <SheetTrigger>
             <div className="flex flex-col items-center gap-1">
               <div
-                className={`flex flex-col w-[70px] items-center gap-1 px-2 py-1 mb-1 relative ${
+                className={`flex flex-col w-[70px] items-center gap-1 px-2 py-1 mb-1 -ml-[20px] relative ${
                   sheetOpen ? "text-orange-400 bg-orange-400 text-lg font-bold " : "text-gray-400"
                 }`}
               >
