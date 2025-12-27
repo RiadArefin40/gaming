@@ -199,7 +199,7 @@ const [notifications, setNotifications] = useState(null)
 
   return (
     <div className="fixed bottom-0 left-0 right-0 md:hidden z-200">
-      <div className="flex items-center justify-between px-6 py-4  border-t text-gray-400 w-full  bg-gray-900">
+      <div className="flex items-center justify-between px-6 py-1  border-t text-gray-400 w-full  bg-gray-900">
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
           <SheetTrigger>
             <div className="flex flex-col items-center gap-1">
@@ -339,7 +339,7 @@ const [notifications, setNotifications] = useState(null)
           <Sheet open={psheetOpen} onOpenChange={psetSheetOpen}>
             <SheetTrigger>
               <div className="relative flex flex-col items-center gap-1">
-                <span className="absolute -top-1.5 -right-2 bg-red-600 text-white text-[12px] font-bold px-1 py-[1px] rounded-full">
+                <span className="absolute -top-1.8 -right-[6px] bg-red-600 text-white text-[12px] font-bold px-[5px] py-[1px] rounded-full">
                   {unreadCount}
                 </span>
                 <div
