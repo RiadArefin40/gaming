@@ -25,7 +25,7 @@ export function SportsGrid({ items }: SportsGridProps) {
       alert("User not authenticated");
       return;
     }
-
+   console.log(item)
     setLoading(true);
     setLoadingText("Preparing game session...");
 

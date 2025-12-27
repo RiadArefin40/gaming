@@ -153,6 +153,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
         setLoading(false);
         return;
       }
+         console.log(item)
       const res = await fetch("https://api.bajiraj.cloud/launch_game", {
         method: "POST",
         headers: {
