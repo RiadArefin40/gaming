@@ -110,8 +110,8 @@ const data = await res.json();
       {/* Header */}
       <header className="h-14 px-4 flex items-center justify-between border-b border-white/10">
         <div className="flex items-center gap-2">
-          <span className="text-green-400 font-bold text-lg">Jeet</span>
-          <span className="text-orange-500 font-bold text-lg">Buzz</span>
+          <span className="text-green-400 font-bold text-lg">Baji</span>
+          <span className="text-orange-500 font-bold text-lg">Raj</span>
         </div>
         <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">
           <span className="text-sm">🏠</span>
