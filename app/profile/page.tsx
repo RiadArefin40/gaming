@@ -31,7 +31,7 @@ export default function ProfilePage() {
           </div>
           <div>
             <p className="font-semibold">likhon4040</p>
-            <p className="text-xs ">
+            <p className="text-lg ">
               Sign up date : 2025-12-12
             </p>
           </div>
@@ -55,7 +55,7 @@ export default function ProfilePage() {
           <CardContent className="p-4 space-y-4">
 
             <div className="flex items-center justify-between">
-              <p className="text-sm ">Main wallet</p>
+              <p className="text-lg ">Main wallet</p>
               <div className="flex gap-2">
                 <EyeOff className="h-4 w-4 " />
                 <RefreshCcw className="h-4 w-4 " />
@@ -69,14 +69,14 @@ export default function ProfilePage() {
 
             <div className="flex items-center justify-between pt-2 border-t border-zinc-700">
               <div>
-                <p className="text-sm ">VIP Points</p>
+                <p className="text-lg ">VIP Points</p>
                 <p className="flex items-center gap-2 font-medium">
                   <Crown className="h-4 w-4 text-yellow-500" />
                   0
                 </p>
               </div>
 
-              <div className="flex items-center gap-2 text-sm bg-zinc-700 px-3 py-1 rounded-full">
+              <div className="flex items-center gap-2 text-lg bg-zinc-700 px-3 py-1 rounded-full">
                 Normal
                 <ChevronRight className="h-4 w-4" />
               </div>
@@ -117,12 +117,12 @@ function MenuItem({
     <button className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-zinc-800 transition">
       <div className="flex items-center gap-3">
         <Icon className="h-5 w-5 " />
-        <span className="text-sm">{label}</span>
+        <span className="text-lg">{label}</span>
       </div>
 
       <div className="flex items-center gap-2">
         {badge && (
-          <span className="text-xs bg-red-500 px-2 py-0.5 rounded-full">
+          <span className="text-lg bg-red-500 px-2 py-0.5 rounded-full">
             {badge}
           </span>
         )}

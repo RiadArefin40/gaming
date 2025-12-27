@@ -206,17 +206,17 @@ export default function CategorySlider() {
        <div className="w-full max-w-sm rounded-lg overflow-hidden bg-slate-700 shadow-lg">
   {/* Header */}
   <div className="flex items-center justify-between bg-orange-400 px-3 py-2">
-    <span className="text-sm font-semibold text-white">
+    <span className="text-lg font-semibold text-white">
       Under-19s Asia Cup
     </span>
 
     <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-      <span className="text-white text-sm">➜</span>
+      <span className="text-white text-lg">➜</span>
     </div>
   </div>
 
   {/* Sub Header */}
-  <div className="grid grid-cols-3 text-xs text-gray-300 px-3 py-2 border-b border-gray-700">
+  <div className="grid grid-cols-3 text-lg text-gray-300 px-3 py-2 border-b border-gray-700">
     <span className="text-green-400 font-semibold">IN PLAY</span>
     <span className="text-center">Back</span>
     <span className="text-center">Lay</span>
@@ -224,26 +224,26 @@ export default function CategorySlider() {
 
   {/* Team 1 */}
   <div className="grid grid-cols-3 items-center px-3 py-2 gap-2">
-    <span className="text-sm text-white">Sri Lanka U19</span>
+    <span className="text-lg text-white">Sri Lanka U19</span>
 
-    <div className="bg-sky-400 text-black text-sm font-semibold rounded px-2 py-1 text-center">
+    <div className="bg-sky-400 text-black text-lg font-semibold rounded px-2 py-1 text-center">
       1.75
     </div>
 
-    <div className="bg-pink-400 text-black text-sm font-semibold rounded px-2 py-1 text-center">
+    <div className="bg-pink-400 text-black text-lg font-semibold rounded px-2 py-1 text-center">
       1.82
     </div>
   </div>
 
   {/* Team 2 */}
   <div className="grid grid-cols-3 items-center px-3 pb-3 gap-2">
-    <span className="text-sm text-white">Afghanistan U19</span>
+    <span className="text-lg text-white">Afghanistan U19</span>
 
-    <div className="bg-sky-400 text-black text-sm font-semibold rounded px-2 py-1 text-center">
+    <div className="bg-sky-400 text-black text-lg font-semibold rounded px-2 py-1 text-center">
       2.2
     </div>
 
-    <div className="bg-pink-400 text-black text-sm font-semibold rounded px-2 py-1 text-center">
+    <div className="bg-pink-400 text-black text-lg font-semibold rounded px-2 py-1 text-center">
       2.34
     </div>
   </div>

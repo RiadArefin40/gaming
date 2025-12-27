@@ -60,7 +60,7 @@ export default function AuthModal() {
         </h2>
 
         {/* Subtitle */}
-        <p className="text-sm text-gray-400 mb-6 leading-relaxed">
+        <p className="text-lg text-gray-400 mb-6 leading-relaxed">
           Please log in to play the game. If you don&apos;t have an account,
           sign up for free!
         </p>

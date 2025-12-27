@@ -114,7 +114,7 @@ const data = await res.json();
           <span className="text-orange-500 font-bold text-lg">Raj</span>
         </div>
         <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">
-          <span className="text-sm">🏠</span>
+          <span className="text-lg">🏠</span>
         </div>
       </header>
 
@@ -123,7 +123,7 @@ const data = await res.json();
 
       <div className="relative z-10 px-4 pt-6 max-w-md mx-auto">
         {/* Tabs */}
-        <div className="flex gap-8 text-sm mb-6">
+        <div className="flex gap-8 text-lg mb-6">
           <button
             onClick={() => setTab("login")}
             className={`relative pb-2 ${
@@ -154,10 +154,10 @@ const data = await res.json();
 <div>
   {/* Name */}
   <div className="mb-4">
-    <label className="text-xs text-gray-300 mb-2 block">ব্যবহারকারীর নাম</label>
+    <label className="text-lg text-gray-300 mb-2 block">ব্যবহারকারীর নাম</label>
     <input
       type="text"
-      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-sm"
+      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
       placeholder="আপনার ইউজার নেম লিখুন"
       value={username}
       onChange={(e) => setUsername(e.target.value)}
@@ -166,10 +166,10 @@ const data = await res.json();
 
   {/* Phone */}
   <div className="mb-4">
-    <label className="text-xs text-gray-300 mb-2 block">মোবাইল নম্বর</label>
+    <label className="text-lg text-gray-300 mb-2 block">মোবাইল নম্বর</label>
     <input
       type="text"
-      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-sm"
+      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
       placeholder="+880 ---------"
       value={phone}
       onChange={(e) => setPhone(e.target.value)}
@@ -178,10 +178,10 @@ const data = await res.json();
 
   {/* Password */}
   <div className="mb-4">
-    <label className="text-xs text-gray-300 mb-2 block">Password</label>
+    <label className="text-lg text-gray-300 mb-2 block">Password</label>
     <input
       type="password"
-      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-sm"
+      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
       placeholder="আপনার পাসওয়ার্ড লিখুন"
       value={password}
       onChange={(e) => setPassword(e.target.value)}
@@ -190,10 +190,10 @@ const data = await res.json();
 
   {/* Referral (optional) */}
   <div className="mb-6">
-    <label className="text-xs text-gray-300 mb-2 block">Referral</label>
+    <label className="text-lg text-gray-300 mb-2 block">Referral</label>
     <input
       type="text"
-      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-sm"
+      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
       placeholder="Referral Code (optional)"
       value={referral}
       onChange={(e) => setReferral(e.target.value)}
@@ -216,32 +216,32 @@ const data = await res.json();
         {tab === "login" && (
           <>
             <div className="mb-4">
-              <label className="text-xs text-gray-300 mb-2 block">
+              <label className="text-lg text-gray-300 mb-2 block">
                 ব্যবহারকারীর নাম
               </label>
               <input
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-sm"
+                className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
                 placeholder="user name"
               />
             </div>
 
             <div className="mb-2">
-              <label className="text-xs text-gray-300 mb-2 block">
+              <label className="text-lg text-gray-300 mb-2 block">
                 পাসওয়ার্ড
               </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-sm"
+                className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
                 placeholder="XX"
               />
             </div>
 
             {error && (
-              <p className="text-red-500 text-xs mb-4">{error}</p>
+              <p className="text-red-500 text-lg mb-4">{error}</p>
             )}
    <DotLoadingButton
    onClick = {handleLogin}

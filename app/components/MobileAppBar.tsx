@@ -121,14 +121,14 @@ export default function MobileAppBar() {
             <>
               <button
                 onClick={() => router.push("/login")}
-                className="px-3 w-[75px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
+                className="px-3 w-[75px] py-[6px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
               >
                 Login
               </button>
 
               <button
                 onClick={() => router.push("/login")}
-                className="px-3 -ml-2 w-[75px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-green-600"
+                className="px-3 -ml-2 w-[75px] py-[6px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-green-600"
               >
                 Sign Up
               </button>

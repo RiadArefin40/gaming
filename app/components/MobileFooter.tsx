@@ -208,8 +208,8 @@ const [notifications, setNotifications] = useState(null)
                   sheetOpen ? "text-orange-400" : "text-gray-400"
                 }`}
               >
-                <Menu className="w-6 h-6 " />
-                <span className="text-[12px]">Menu</span>
+                <Menu className="w-6 h-6 text-white font-medium" />
+                <span className="text-lg text-white ">Menu</span>
                 {sheetOpen && (
                   <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
                 )}
@@ -283,7 +283,7 @@ const [notifications, setNotifications] = useState(null)
               {user && (
                 <button
                   onClick={handleLogout}
-                  className="px-3 mb-[220px] mt-6 w-[175px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
+                  className="px-3 mb-[220px] mt-6 w-[175px] py-[6px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
                 >
                   Log Out
                 </button>
@@ -309,8 +309,8 @@ const [notifications, setNotifications] = useState(null)
             isActive("/casino") ? "text-orange-400" : "text-gray-400"
           }`}
         >
-          <Star className="w-6 h-6" />
-          <span className="text-[12px]">Casino</span>
+          <Star className="w-6 h-6 text-white font-medium" />
+          <span className="text-lg text-white ">Casino</span>
           {isActive("/casino") && (
             <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
           )}
@@ -323,23 +323,23 @@ const [notifications, setNotifications] = useState(null)
             isActive("/slots") ? "text-orange-400  " : "text-gray-400 "
           }`}
         >
-          <Dice6 className="w-6 h-6" />
-          <span className="text-[12px]">Slots</span>
+          <Dice6 className="w-6 h-6 text-white font-medium" />
+          <span className="text-lg text-white ">Slots</span>
           {isActive("/slots") && (
             <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
           )}
         </button>
 
         <button onClick={handleDeposit} className="flex flex-col text-gray-400  items-center gap-1">
-          <Wallet className="w-6 h-6 " />
-          <span className="text-[12px]">Deposit</span>
+          <Wallet className="w-6 h-6 text-white font-medium " />
+          <span className="text-lg text-white ">Deposit</span>
         </button>
 
         {user && (
           <Sheet open={psheetOpen} onOpenChange={psetSheetOpen}>
             <SheetTrigger>
               <div className="relative flex flex-col items-center gap-1">
-                <span className="absolute -top-1.8 -right-[6px] bg-red-600 text-white text-[12px] font-bold px-[5px] py-[1px] rounded-full">
+                <span className="absolute -top-1.8 -right-[6px] bg-red-600 text-white text-lg font-bold px-[5px] py-[1px] rounded-full">
                   {unreadCount}
                 </span>
                 <div
@@ -347,8 +347,8 @@ const [notifications, setNotifications] = useState(null)
                     psheetOpen ? "text-orange-400" : "text-gray-400"
                   }`}
                 >
-                  <User className="w-6 h-6 " />
-                  <span className="text-[12px]">Profile</span>
+                  <User className="w-6 h-6 text-white font-medium" />
+                  <span className="text-lg text-white ">Profile</span>
                   {psheetOpen && (
                     <span className="absolute -top-1 w-full h-1 bg-orange-400 rounded-t-md"></span>
                   )}
@@ -387,7 +387,7 @@ const [notifications, setNotifications] = useState(null)
           </div>
           <div>
             <p className="font-semibold">{user?.name}</p>
-            <p className="text-xs ">
+            <p className="text-lg ">
               Sign up date : 2025-12-12
             </p>
           </div>
@@ -416,7 +416,7 @@ const [notifications, setNotifications] = useState(null)
           <CardContent className="p-4 space-y-4">
 
             <div className="flex items-center justify-between">
-              <p className="text-sm ">Main wallet</p>
+              <p className="text-lg ">Main wallet</p>
               <div className="flex gap-2">
                 <EyeOff className="h-4 w-4 " />
                 <RefreshCcw className="h-4 w-4 " />
@@ -430,14 +430,14 @@ const [notifications, setNotifications] = useState(null)
 
             <div className="flex items-center justify-between pt-2 border-t border-zinc-700">
               <div>
-                <p className="text-sm ">VIP Points</p>
+                <p className="text-lg ">VIP Points</p>
                 <p className="flex items-center gap-2 font-medium">
                   <Crown className="h-4 w-4 text-yellow-500" />
                   0
                 </p>
               </div>
 
-              <div className="flex items-center gap-2 text-sm bg-zinc-700 px-3 py-1 rounded-full">
+              <div className="flex items-center gap-2 text-lg bg-zinc-700 px-3 py-1 rounded-full">
                 Normal
                 <ChevronRight className="h-4 w-4" />
               </div>
@@ -460,7 +460,7 @@ const [notifications, setNotifications] = useState(null)
         {user && (
                 <button
                   onClick={handleLogout}
-                  className="px-3 mb-[220px] mt-6 w-[175px] py-[6px] text-sm bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
+                  className="px-3 mb-[220px] mt-6 w-[175px] py-[6px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
                 >
                   Log Out
                 </button>
@@ -506,12 +506,12 @@ function MenuItem({
     <button onClick={onClick} className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-zinc-800 transition">
       <div className="flex items-center gap-3">
         <Icon className="h-5 w-5 " />
-        <span className="text-sm">{label}</span>
+        <span className="text-lg">{label}</span>
       </div>
 
       <div className="flex items-center gap-2">
         {badge && (
-          <span className="text-xs bg-red-500 px-2 py-0.5 rounded-full">
+          <span className="text-lg bg-red-500 px-2 py-0.5 rounded-full">
             {badge}
           </span>
         )}

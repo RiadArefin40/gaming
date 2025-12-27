@@ -119,7 +119,7 @@ const markAsRead = async (id: number) => {
     <Accordion type="single" collapsible>
       {group.items.map((item) => (
         <AccordionItem onClick={() => markAsRead(item.id)} key={item.id} value={String(item.id)}>
-         <div className="px-4 py-4 bg-slate-700 flex gap-3"> {/* Left */} <div className="flex-1"> <AccordionTrigger className="p-0 hover:no-underline"> <div className="text-left"> <h3 className="font-semibold text-sm leading-snug"> {item.title} </h3> </div> </AccordionTrigger> <AccordionContent className="pt-2 text-sm text-gray-400"> {item.description} </AccordionContent> </div> {/* Right */} {item.unread && ( <span className="mt-1 h-2 w-2 rounded-full bg-orange-400 shrink-0" /> )} </div>
+         <div className="px-4 py-4 bg-slate-700 flex gap-3"> {/* Left */} <div className="flex-1"> <AccordionTrigger className="p-0 hover:no-underline"> <div className="text-left"> <h3 className="font-semibold text-lg leading-snug"> {item.title} </h3> </div> </AccordionTrigger> <AccordionContent className="pt-2 text-lg text-gray-400"> {item.description} </AccordionContent> </div> {/* Right */} {item.unread && ( <span className="mt-1 h-2 w-2 rounded-full bg-orange-400 shrink-0" /> )} </div>
         </AccordionItem>
       ))}
     </Accordion>

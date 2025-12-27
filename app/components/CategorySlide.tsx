@@ -137,7 +137,7 @@ export default function CategorySlider() {
                 {item.icon}
               </div>
 
-              <span className="text-sm font-medium">{item.name}</span>
+              <span className="text-lg font-medium">{item.name}</span>
             </div>
           );
         })}

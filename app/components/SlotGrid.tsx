@@ -42,7 +42,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-4">
             <div className="h-12 w-12 animate-spin rounded-full border-4 border-orange-400 border-t-transparent" />
-            <p className="text-sm text-gray-200 animate-pulse">
+            <p className="text-lg text-gray-200 animate-pulse">
               {loadingText}
             </p>
           </div>
@@ -65,7 +65,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
         >
           <div className="flex items-center px-4 gap-2">
             <img className="w-8" src={item.src} alt={item.title} />
-            <span className="text-sm font-medium">{item.title}</span>
+            <span className="text-lg font-medium">{item.title}</span>
           </div>
         </div>
       ))}

@@ -99,7 +99,7 @@ const TransactionRecordPage = () => {
                 >
                   <div>
                     <p className="font-medium">{tx.payment_gateway}</p>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-lg text-gray-400">
                       {tx.promo_code || "No Promo"} • {new Date(tx.created_at).toLocaleString()}
                     </p>
                   </div>
@@ -125,7 +125,7 @@ const TransactionRecordPage = () => {
                 >
                   <div>
                     <p className="font-medium">{tx.payment_gateway}</p>
-                    <p className="text-sm text-gray-400">
+                    <p className="text-lg text-gray-400">
                       {tx.promo_code || "No Promo"} • {new Date(tx.created_at).toLocaleString()}
                     </p>
                   </div>

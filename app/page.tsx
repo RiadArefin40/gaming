@@ -86,7 +86,7 @@ export default function Home() {
          
                 <Volume  className="w-8 h-8 text-orange-400 bg-gray-800 z-10 pl-2" />
                 <div className="flex-1 absolute overflow-hidden">
-                  <span className="animate-marquee text-white text-sm inline-block whitespace-nowrap">
+                  <span className="animate-marquee text-white text-lg inline-block whitespace-nowrap">
                   এই একটি উদাহরণ বাংলার ম্যারিক টেক্সট যা বাম থেকে ডান দিকে চলবে। এটি স্বয়ংক্রিয়ভাবে স্ক্রল হবে।
                   </span>
                 </div>
@@ -170,17 +170,17 @@ export default function Home() {
 <div className="flex items-center gap-2">
 <img className="h-[34px w-[34px]" src="https://img.j189eb.com/jb/h5/assets/v3/images/sponsor/delhi-bulls.png?v=1765526091482&source=drccdnsrc" alt="Delhi Bulls"  />
 <div>
-<p className="text-sm font-medium">Delhi Bulls</p>
-<p className="text-xs text-gray-400">টাইটেল স্পন্সর</p>
-<p className="text-xs text-gray-500">২০২৩ - ২০২৮</p>
+<p className="text-lg font-medium">Delhi Bulls</p>
+<p className="text-lg text-gray-400">টাইটেল স্পন্সর</p>
+<p className="text-lg text-gray-500">২০২৩ - ২০২৮</p>
 </div>
 </div>
 <div className="flex items-center gap-2">
 <img className="h-[34px w-[34px]" src="https://img.j189eb.com/jb/h5/assets/v3/images/sponsor/montreal-tigers.png?v=1765526091482&source=drccdnsrc" alt="Montreal Tigers" />
 <div>
-<p className="text-sm font-medium">Montreal Tigers</p>
-<p className="text-xs text-gray-400">টাইটেল স্পন্সর</p>
-<p className="text-xs text-gray-500">২০২৪ - ২০২৫</p>
+<p className="text-lg font-medium">Montreal Tigers</p>
+<p className="text-lg text-gray-400">টাইটেল স্পন্সর</p>
+<p className="text-lg text-gray-500">২০২৪ - ২০২৫</p>
 </div>
 </div>
 </div>
@@ -193,13 +193,13 @@ export default function Home() {
 <h3 className="text-amber-400 font-semibold mb-3">ব্র্যান্ড অ্যাম্বাসেডরস</h3>
 <div className="flex justify-between gap-10">
 <div>
-<p className="text-sm font-medium">Andre Dwayne Russell</p>
-<p className="text-xs text-gray-500">২০২৪ - ২০২৬</p>
+<p className="text-lg font-medium">Andre Dwayne Russell</p>
+<p className="text-lg text-gray-500">২০২৪ - ২০২৬</p>
 <img className="h-[24px w-[94px]" src="https://img.j189eb.com/jb/h5/assets/v3/images/ambassador/andre-russell.png?v=1765526091482&source=drccdnsrc" alt="" />
 </div>
 <div>
-<p className="text-sm font-medium">Glenn McGrath</p>
-<p className="text-xs text-gray-500">২০২৩ - ২০২৪</p>
+<p className="text-lg font-medium">Glenn McGrath</p>
+<p className="text-lg text-gray-500">২০২৩ - ২০২৪</p>
 <img className="h-[24px w-[94px]" src="https://img.j189eb.com/jb/h5/assets/v3/images/ambassador/glenn-mcgrat.png?v=1765526091482&source=drccdnsrc" alt="" />
 </div>
 </div>

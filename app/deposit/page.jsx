@@ -131,6 +131,24 @@ export default function EWalletPage() {
     (option, index, self) =>
       index === self.findIndex((o) => o.name === option.name)
   );
+
+  const [phones, setPhones] = useState([]);
+
+useEffect(() => {
+  if (!currentUser) return;
+  const fetchPhones = async () => {
+    try {
+      const res = await fetch(`https://api.bajiraj.cloud/users/phones/${currentUser.id}`);
+      const data= await res.json();
+      setPhones(data.map(p => p.phone));
+      setSenderNumber(currentUser.phone); // default to main phone
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  fetchPhones();
+}, [currentUser]);
+
   return (
     <div className="mt-14 bg-slate-900 flex justify-center p-2">
       <Card className="w-full max-w-lg rounded-2xl border bg-slate-900 border-0 shadow-xl">
@@ -205,7 +223,7 @@ export default function EWalletPage() {
                               <p className="text-white font-semibold">
                                 {promo.name || promo.code}
                               </p>
-                              <p className="text-gray-400 text-sm">
+                              <p className="text-gray-400 text-lg">
                                 {promo.description}
                               </p>
                             </div>
@@ -305,76 +323,82 @@ export default function EWalletPage() {
           )}
 
           {/* STEP 2 */}
-          {step === 2 && (
-            <>
-              <Button className="bg-red-500 text-slate-100" variant="ghost" onClick={() => setStep(1)}>
-                ← Back
-              </Button>
+        {step === 2 && (
+  <>
+    <Button
+      className="bg-red-500 text-slate-100"
+      variant="ghost"
+      onClick={() => setStep(1)}
+    >
+      ← Back
+    </Button>
 
-              <Label className="text-slate-200 text-lg">Your Number</Label>
-              <Input
-              className="h-14 bg-slate-700 text-slate-100 text-lg"
-                value={senderNumber}
-                onChange={(e) => setSenderNumber(e.target.value)}
-              />
+    <Label className="text-slate-200 text-lg">Your Number</Label>
+    <select
+      className="w-full p-2 h-14 rounded-md bg-slate-700 text-white text-lg"
+      value={senderNumber || currentUser.phone} // default to main phone
+      onChange={(e) => setSenderNumber(e.target.value)}
+    >
+      {[currentUser.phone, ...(phones || [])].map((num) => (
+        <option key={num} value={num}>
+          {num}
+        </option>
+      ))}
+    </select>
 
-              <Label className="mb-1 block text-slate-200 text-lg">Receiver Number</Label>
-              <div className="flex gap-2 items-center">
-            <Input
-  value={receiverNumber}
-  readOnly
-  className="bg-slate-700 h-14 text-white text-lg font-medium tracking-wider cursor-not-allowed"
-/>
+    <Label className="mb-1 block text-slate-200 text-lg">Receiver Number</Label>
+    <div className="flex gap-2 items-center">
+      <Input
+        value={receiverNumber}
+        readOnly
+        className="bg-slate-700 h-14 text-white text-lg font-medium tracking-wider cursor-not-allowed"
+      />
+      <Button
+        variant="outline"
+        className="bg-slate-700 h-14"
+        onClick={() => copyText(receiverNumber)}
+        disabled={!receiverNumber}
+      >
+        <span className="text-lg">{copied ? "✔" : "📋"}</span>
+      </Button>
+    </div>
 
-                <Button
-                  variant="outline"
-                  className="bg-slate-700 h-14"
-                  onClick={() => copyText(receiverNumber)}
-                  disabled={!receiverNumber}
-                >
-                  <span className="text-lg">  {copied ? "✔" : "📋"}</span>
-                
-                </Button>
-              </div>
+    <Label className="mb-1 block text-slate-200 text-lg">Amount (Min 200)</Label>
+    <Input
+      type="number"
+      value={amount}
+      min={200}
+      onChange={(e) => setAmount(e.target.value)}
+      className="mb-3 bg-slate-700 h-14 text-slate-100 text-lg"
+    />
 
-              <Label className="mb-1 block text-slate-200 text-lg">Amount (Min 200)</Label>
-              <Input
-                type="number"
-                value={amount}
-                min={200}
-                onChange={(e) => setAmount(e.target.value)}
-                className="mb-3 bg-slate-700 h-14 text-slate-100 text-lg"
-              />
+    <div className="grid grid-cols-3 gap-2 mb-3">
+      {[200, 500, 1000].map((value) => (
+        <Button
+          key={value}
+          variant="outline"
+          onClick={() =>
+            setAmount((prev) => (Number(prev || 0) + value).toString())
+          }
+        >
+          +{value}
+        </Button>
+      ))}
+    </div>
 
-              <div className="grid grid-cols-3 gap-2 mb-3">
-                {[200, 500, 1000].map((value) => (
-                  <Button
-                    key={value}
-                    variant="outline"
-                    onClick={() =>
-                      setAmount((prev) => Number(prev || 0) + value)
-                    }
-                  >
-                    +{value}
-                  </Button>
-                ))}
-              </div>
+    {Number(amount) < 200 && amount !== "" && (
+      <p className="text-lg text-red-500 mb-2">Minimum amount is 200</p>
+    )}
 
-              {amount < 200 && amount !== "" && (
-                <p className="text-xs text-red-500 mb-2">
-                  Minimum amount is 200
-                </p>
-              )}
-
-              <Button
-                disabled={!canStep2 || Number(amount) < 200}
-                className="w-full mt-2 h-14 text-lg bg-orange-400 mb-[300px]"
-                onClick={() => setStep(3)}
-              >
-                Next
-              </Button>
-            </>
-          )}
+    <Button
+      disabled={!canStep2 || Number(amount) < 200}
+      className="w-full mt-2 h-14 text-lg bg-orange-400 mb-[300px]"
+      onClick={() => setStep(3)}
+    >
+      Next
+    </Button>
+  </>
+)}
 
           {/* STEP 3 */}
           {step === 3 && (

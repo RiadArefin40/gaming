@@ -159,7 +159,7 @@ export default function Casino() {
                   alt={game.name}
                   className="w-full h-32 sm:h-40 md:h-48 object-cover"
                 />
-                <div className="absolute bottom-0 h-[28px] left-0 w-full bg-slate-600 bg-opacity-50 text-slate-200 text-center py-1 text-sm sm:text-base">
+                <div className="absolute bottom-0 h-[28px] left-0 w-full bg-slate-600 bg-opacity-50 text-slate-200 text-center py-1 text-lg sm:text-base">
                   {game.name}
                 </div>
               </div>

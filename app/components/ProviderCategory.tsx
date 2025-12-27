@@ -141,7 +141,7 @@ function slugify(text: string) {
 //               >
 //                 <div className=" flex items-center"> 
 //                       <img className="w-12" src={item.src} alt="" />
-//                       <span className="text-sm font-medium">{item.title}</span>
+//                       <span className="text-lg font-medium">{item.title}</span>
 //                 </div>
     
 //               </div>
