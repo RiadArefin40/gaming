@@ -271,7 +271,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
           : filteredGames.map((game) => (
               <div
                 key={game.uid}
-                onClick={() => handleGameClick(game.name)}
+                onClick={() => handleGameClick(game)}
                 className="relative rounded-lg overflow-hidden cursor-pointer hover:scale-105 transform transition duration-200"
               >
 
