@@ -106,7 +106,7 @@ const data = await res.json();
 
 
   return (
-    <div className="min-h-screen bg-slate-700 text-white relative overflow-hidden mt-[80px]">
+    <div className="min-h-screen bg-slate-900 text-white relative overflow-hidden mt-[80px]">
       {/* Header */}
       <header className="h-14 px-4 flex items-center justify-between border-b border-white/10">
         <div className="flex items-center gap-2">
@@ -119,7 +119,7 @@ const data = await res.json();
       </header>
 
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-900/40 via-black to-black" />
+      <div className="absolute bg-slate-900" />
 
       <div className="relative z-10 px-4 pt-6 max-w-md mx-auto">
         {/* Tabs */}
@@ -223,7 +223,7 @@ const data = await res.json();
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-sm"
-                placeholder="admin"
+                placeholder="user name"
               />
             </div>
 
@@ -236,7 +236,7 @@ const data = await res.json();
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-sm"
-                placeholder="123456"
+                placeholder="XX"
               />
             </div>
 
