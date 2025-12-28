@@ -375,7 +375,7 @@ const [notifications, setNotifications] = useState(null)
 
                <SheetContent
             side="bottom"
-            className="w-full h-[91%] !top-[0px] !bottom-[57px] p-0 bg-slate-800 overflow-y-auto"
+            className="w-full h-[100%] !top-[0px] !bottom-[0px] p-0 bg-slate-800 overflow-y-auto"
           >
             <VisuallyHidden>
               <DialogTitle>Mobile Menu</DialogTitle>
@@ -387,7 +387,7 @@ const [notifications, setNotifications] = useState(null)
 
               </div>
               <button
-                className="bg-gray-300 px-4 py-1 rounded-lg flex items-center justify-center z-100"
+                className="bg-orange-400 px-4 py-1 rounded-lg flex items-center justify-center z-100"
                 onClick={() => psetSheetOpen(false)} // This actually closes the sheet
               >
                 <X className="w-8 h-8 text-gray-700 hover:text-red-600" />

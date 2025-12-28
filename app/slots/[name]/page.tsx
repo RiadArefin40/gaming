@@ -1,26 +1,26 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { allGames } from "@/utils/allGames";
-import { prgmGamesArray } from "@/utils/prgmGame";
 import { jilliSlotArray } from "@/utils/jilliSlots";
-import { getAuthUser } from "@/lib/auth";
 import { PgSlotArray } from "@/utils/pgSlots";
-import { prgmSlotGamesArray } from "@/utils/prgmCgames";
-import { JdbSlotArray } from "@/utils/JdbSlots";
 import SafeImage from "@/app/components/SafeImageProps";
-const user = getAuthUser()
+import { getAuthUser } from "@/lib/auth";
+
+const user = getAuthUser();
+
 interface Category {
   name: string;
   icon: React.ReactNode;
 }
 
 interface Game {
-  uid: string;
-  name: string;
+  serial: number;
+  title: string;
   image: string;
+  game_uid: string;
 }
-
 
 // Slugify helper
 function slugify(text: string) {
@@ -30,14 +30,14 @@ function slugify(text: string) {
     .replace(/^-+|-+$/g, "");
 }
 
-
-
-
 export default function Casino() {
   const pathname = usePathname();
   const router = useRouter();
-  const lastSegment = pathname.split("/").filter(Boolean).pop();
-console.log('alll',prgmGamesArray ,lastSegment)
+
+  const segments = pathname.split("/").filter(Boolean);
+  const firstSegment = segments[0] || "";
+  const lastSegment = segments.pop() || "";
+
   const categories: Category[] = [
     { name: "Casino", icon: <span>♠️</span> },
     { name: "Slots", icon: <span>🎰</span> },
@@ -48,100 +48,78 @@ console.log('alll',prgmGamesArray ,lastSegment)
     { name: "Lottery", icon: <span>🎫</span> },
   ];
 
-//  const gamesWithImages = allGames.map(game => ({
-//   ...game,
-//   image: `/evo/${game.name}.png`,
-// }));
+  const providers = [
+    { name: "Jili", icon: <span>♠️</span> },
+    { name: "Pg-soft", icon: <span>🎰</span> },
+    { name: "Jdb", icon: <span>💥</span> },
+  ];
 
-
-interface GameSource {
-  uid: string;
-  name: string;
-  // Allow extra fields for compatibility
-  [key: string]: any;
-}
-
-const gamesWithImages: Game[] = (
-  lastSegment === 'evolution'
-    ? (allGames as GameSource[])
-    : lastSegment === 'jili'
-      ? (jilliSlotArray as GameSource[])
-      : lastSegment === 'jdb'
-      ? (JdbSlotArray as GameSource[])
-     : lastSegment === 'pg-soft'
-    ? (PgSlotArray as GameSource[])
-        : lastSegment === 'pragmatic-play'
-    ? (prgmSlotGamesArray as GameSource[])
-   
-      : (prgmGamesArray as GameSource[])
-).map((item: GameSource): Game => {
-  let image = '';
-
-  if (lastSegment === 'evolution') {
-    image = `/evo/${item.name}.png`;
-  } else if (lastSegment === 'jili') {
-    image = `/JILI Slot/${item.name}.png`; // <-- replace with the actual Jilli image path
-  } 
-  else if (lastSegment === 'jdb') {
-    image = `/JDB Slot/${item.name}.png`; // <-- replace with the actual Jilli image path
-  } 
-  else if (lastSegment === 'pg-soft') {
-    
-     image = `/PG Slot/${item.name}.png`; // < // <-- replace with the actual Jilli image path
-  } 
-    else if (lastSegment === 'pragmatic-play') {
-    
-     image = `/pp/${item.name}.png`; // < // <-- replace with the actual Jilli image path
-  } 
-  
-  else {
-    image = 'https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-pg.png';
-  }
-
-  return {
+  const gamesWithImages: Game[] = (
+    lastSegment === "evolution"
+      ? allGames
+      : lastSegment === "jili"
+      ? jilliSlotArray
+      : lastSegment === "pg-soft"
+      ? PgSlotArray
+      : jilliSlotArray
+  ).map((item: any): Game => ({
     ...item,
-    image,
-  };
-});
+  }));
 
+  const [selectedCategory, setSelectedCategory] = useState(() => {
+    const matchedCategory = categories.find(
+      (cat) => cat.name.toLowerCase() === firstSegment.toLowerCase()
+    );
+    return matchedCategory ? matchedCategory.name : categories[0].name;
+  });
 
-  const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
+  const [selectedProvider, setSelectedProvider] = useState(() => {
+    const matchedProvider = providers.find(
+      (p) => p.name.toLowerCase() === lastSegment.toLowerCase()
+    );
+    return matchedProvider ? matchedProvider.name : providers[0].name;
+  });
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [providerDropdownOpen, setProviderDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredGames, setFilteredGames] = useState<Game[]>(gamesWithImages);
   const [loading, setLoading] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [loadingText, setLoadingText] = useState("Launching game...");
   const [sortAsc, setSortAsc] = useState(true);
-const [loadingText, setLoadingText] = useState("Launching game...");
-  // Update filtered games when searchTerm or sort changes
+  const [searchOpen, setSearchOpen] = useState(true);
+
+  // Filter & sort games
   useEffect(() => {
     setLoading(true);
     const timeout = setTimeout(() => {
-      let filtered = gamesWithImages.filter((game:any) =>
-        game.name.toLowerCase().includes(searchTerm.toLowerCase())
+      let filtered = gamesWithImages.filter((game: Game) =>
+        game.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
-
-      filtered.sort((a:any, b:any) =>
-        sortAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
+      filtered.sort((a, b) =>
+        sortAsc ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
       );
-
       setFilteredGames(filtered);
       setLoading(false);
     }, 500);
-
     return () => clearTimeout(timeout);
   }, [searchTerm, sortAsc]);
 
-  // Handle category selection: update state and navigate
   const handleCategorySelect = (catName: string) => {
     setSelectedCategory(catName);
     setDropdownOpen(false);
     const slug = slugify(catName);
-    router.push(`/games/${slug}`);
+    console.log("slug", slug);
+    // router.push(`/games/${slug}`); // Uncomment if needed
   };
 
-  // Handle game card click
-  const handleGameClick = async (item:any) => {
+  const handleProviderSelect = (provider: string) => {
+    setSelectedProvider(provider);
+    setProviderDropdownOpen(false);
+   router.push(`/${firstSegment}/${provider}`);
+  };
+
+  const handleGameClick = async (item: any) => {
     if (loading) return;
 
     setLoading(true);
@@ -153,7 +131,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
         setLoading(false);
         return;
       }
-      console.log(item)
+
       const res = await fetch("https://api.bajiraj.cloud/launch_game", {
         method: "POST",
         headers: {
@@ -164,7 +142,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
           userName: user.name,
           game_uid: item.uid,
           credit_amount: user.wallet,
-          game_type: 'slot'
+          game_type: "slot",
         }),
       });
 
@@ -172,8 +150,6 @@ const [loadingText, setLoadingText] = useState("Launching game...");
 
       if (res.ok && data.success && data.gameUrl) {
         setLoadingText("Opening game…");
-
-        // ✅ Open game in new tab
         window.open(data.gameUrl, "_blank", "noopener,noreferrer");
       } else {
         alert(data.error || "Failed to launch game");
@@ -188,108 +164,125 @@ const [loadingText, setLoadingText] = useState("Launching game...");
 
   return (
     <>
-           {loading && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+      {loading && (
+        <div className="fixed inset-0 z-200 flex items-center justify-center bg-black/70 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-4">
             <div className="h-12 w-12 animate-spin rounded-full border-4 border-orange-400 border-t-transparent" />
-            <p className="text-lg text-gray-200 animate-pulse">
-              {loadingText}
-            </p>
+            <p className="text-lg text-gray-200 animate-pulse">{loadingText}</p>
           </div>
         </div>
       )}
 
-       <div className="p-2 py-[100px]">
-      
+      <div className="p-2 py-[80px]">
+        <div className="sticky top-2 bg-slate-900 z-50">
 
-      {/* Category Dropdown */}
-      <div className="relative mb-2 -mt-2">
-        <button
-          onClick={() => setDropdownOpen(!dropdownOpen)}
-          className="flex items-center space-x-1 font-semibold px-3 py-1 bg-gray-700 rounded hover:bg-gray-600"
-        >
-          {categories.find((c) => c.name === selectedCategory)?.icon}
-          <span>{selectedCategory}</span>
-          <span>{dropdownOpen ? "▲" : "▼"}</span>
-        </button>
-        {dropdownOpen && (
-          <div className="absolute mt-2 w-40 bg-gray-700 rounded-md shadow-lg z-10">
-            {categories.map((cat) => (
-              <div
-                key={cat.name}
-                onClick={() => handleCategorySelect(cat.name)}
-                className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
-                  selectedCategory === cat.name ? "bg-slate-400" : ""
-                }`}
-              >
-                {cat.icon} <span>{cat.name}</span>
+                  <div className="flex items-center  justify-between">
+
+                   {/* Provider Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setProviderDropdownOpen(!providerDropdownOpen)}
+              className="flex min-w-[180px] items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
+            >
+              <span>{selectedProvider}</span>
+              <span className="pl-2">{providerDropdownOpen ? "▲" : "▼"}</span>
+            </button>
+            {providerDropdownOpen && (
+              <div className="absolute w-full bg-gray-700 rounded-md shadow-lg z-10">
+                {providers.map((p) => (
+                  <div
+                    key={p.name}
+                    onClick={() => handleProviderSelect(p.name)}
+                    className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
+                      selectedProvider === p.name ? "bg-slate-400" : ""
+                    }`}
+                  >
+                    {p.icon} <span>{p.name}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
-        )}
-      </div>
+          {/* Category Dropdown */}
+          <div className="relative mt-2">
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="flex min-w-[150px] -mt-4 items-center space-x-1 font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
+            >
+              {categories.find((c) => c.name === selectedCategory)?.icon}
+              <span>{selectedCategory}</span>
+              <span className="pl-6">{dropdownOpen ? "▲" : "▼"}</span>
+            </button>
+            {dropdownOpen && (
+              <div className="absolute w-full bg-gray-700 rounded-md shadow-lg z-10">
+                {categories.map((cat) => (
+                  <div
+                    key={cat.name}
+                    onClick={() => handleCategorySelect(cat.name)}
+                    className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
+                      selectedCategory === cat.name ? "bg-slate-400" : ""
+                    }`}
+                  >
+                    {cat.icon} <span>{cat.name}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
-      {/* Top bar: search toggle + sorting */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-gray-800 text-white p-2 rounded-md mb-4 space-y-2 sm:space-y-0">
-        <div className="flex items-center space-x-2 w-full sm:w-auto">
-          <button
-            onClick={() => setSearchOpen((prev) => !prev)}
-            className="px-3 py-1 bg-indigo-600 rounded hover:bg-indigo-500"
-          >
-            🔍
-          </button>
+ 
+        </div>
 
-          {searchOpen && (
-            <input
-              type="text"
-              placeholder="Search games..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="px-3 py-1 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-1 transition-all duration-300"
-            />
-          )}
+        {/* Search */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-white py-2 rounded-md mb-4">
+          <div className="flex items-center">
+            {searchOpen && (
+              <input
+                type="text"
+                placeholder="Search games..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="px-3 w-[180px] py-1 flex-1 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
+              />
+            )}
+          </div>
+        </div>
 
-          <button
-            onClick={() => setSortAsc((prev) => !prev)}
-            className="px-3 py-1 bg-gray-600 rounded hover:bg-gray-500"
-            title={`Sort ${sortAsc ? "Z-A" : "A-Z"}`}
-          >
-            ⚙️ {sortAsc ? "A-Z" : "Z-A"}
-          </button>
+        </div>
+
+
+        {/* Games Grid */}
+        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {loading
+            ? Array.from({ length: 8 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="animate-pulse bg-gray-700 rounded-lg h-32 sm:h-40 md:h-48"
+                />
+              ))
+            : filteredGames.map((game) => (
+                <div
+                  key={game.serial}
+                  onClick={() => handleGameClick(game)}
+                  className="relative rounded-lg overflow-hidden cursor-pointer hover:scale-105 transform transition duration-200"
+                >
+                  <SafeImage
+                    src={game.image}
+                    width={130}
+                    height={170}
+                    className="rounded-[10px]"
+                  />
+                  <div className="-mt-6 bg-slate-600 bg-opacity-50 text-slate-200 text-center py-1 text-lg sm:text-base">
+                    <span className="pb-1">
+                      {game.title.length > 12
+                        ? `${game.title.slice(0, 12)}..`
+                        : game.title}
+                    </span>
+                  </div>
+                </div>
+              ))}
         </div>
       </div>
-
-      {/* Games Grid */}
-        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        {loading
-          ? Array.from({ length: 8 }).map((_, i) => (
-              <div
-                key={i}
-                className="animate-pulse bg-gray-700 rounded-lg h-32 sm:h-40 md:h-48"
-              />
-            ))
-          : filteredGames.map((game) => (
-              <div
-                key={game.uid}
-                onClick={() => handleGameClick(game)}
-                className="relative rounded-lg overflow-hidden cursor-pointer hover:scale-105 transform transition duration-200"
-              >
-
-                
-                <SafeImage
-                     src={game.image} // could be broken or empty
-                      width={140}
-                      height={170}
-                      className="rounded-[10px]"
-                />
-                <div className="absolute bottom-0 h-[28px] left-0 w-full bg-slate-600 bg-opacity-50 text-slate-200 text-center py-1 text-lg sm:text-base">
-                  {game.name}
-                </div>
-              </div>
-            ))}
-      </div>
-    </div>
     </>
-   
   );
 }

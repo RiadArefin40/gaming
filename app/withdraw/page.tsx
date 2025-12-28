@@ -132,7 +132,7 @@ export default function WithdrawPage() {
       index === self.findIndex((o) => o.name === option.name)
   );
   return (
-    <div className="max-w-3xl mx-auto p-4">
+    <div className="max-w-screen mx-auto mt-4">
       <Card className="bg-slate-900 border-0 shadow-xl rounded-2xl">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl text-white">Withdraw</CardTitle>
@@ -140,7 +140,7 @@ export default function WithdrawPage() {
         <CardContent className="space-y-4">
 
           {/* Payment Method */}
-          <Label className="text-slate-200 text-lg">Payment Method</Label>
+          <Label className="text-slate-200 text-2xl">Payment Method</Label>
           <div className="grid grid-cols-2 gap-3">
             {uniquePaymentOptions.map((p) => (
               <button
@@ -154,7 +154,7 @@ export default function WithdrawPage() {
                 ${
                   selectedPayment === p.id
                     ? "bg-slate-800 border-2 text-white border-orange-500"
-                    : "bg-slate-800 text-gray-100 border-gray-300"
+                    : "bg-slate-900 text-gray-100 border-gray-300"
                 } border`}
               >
                 {p.name}
@@ -185,7 +185,7 @@ export default function WithdrawPage() {
             value={selectedPhone || ""}
             onValueChange={(value) => setSelectedPhone(value)}
           >
-            <SelectTrigger className="!h-14 !bg-slate-700 w-full  text-white rounded-md pl-4">
+            <SelectTrigger className="!h-14 bg-slate-900 w-full  text-white rounded-md pl-4">
             
               <SelectValue placeholder="Select channel" />
             </SelectTrigger>
@@ -212,11 +212,11 @@ export default function WithdrawPage() {
   value={amount}
   min={200}
   onChange={(e) => setAmount(e.target.value)}
-  className="mb-3 bg-slate-700 h-14 text-slate-100 text-lg"
+  className="mb-3 bg-slate-900 h-14 text-slate-100 text-lg"
   placeholder="Enter amount"
 />
 
-<div className="grid grid-cols-3 gap-2 mb-3">
+<div className="grid grid-cols-3 gap-2 mb-3 mt-3">
   {[200, 500, 1000].map((value) => (
     <Button
       key={value}

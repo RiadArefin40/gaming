@@ -151,16 +151,13 @@ useEffect(() => {
 }, [currentUser]);
 
   return (
-    <div className="mt-14 bg-slate-900 flex justify-center p-2">
-      <Card className="w-full max-w-lg rounded-2xl border bg-slate-900 border-0 shadow-xl">
+    <div className="mt-14 bg-slate-900 flex justify-center">
+      <Card className="w-full max-w-screen rounded-2xl border bg-slate-900 border-0 shadow-xl">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl text-white">E-Wallet</CardTitle>
-          {/* <CardDescription className="text-gray-400 text-xl">
-            Fast & secure deposit
-          </CardDescription> */}
         </CardHeader>
 
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-3">
           {/* STEP 1 */}
           {step === 1 && (
             <>
@@ -265,8 +262,8 @@ useEffect(() => {
                       className={`w-full flex items-center gap-2 py-4 px-4 rounded-lg font-medium transition 
     ${
       selectedPayment === p.id
-        ? "bg-slate-800 border-2  text-white border-orange-500"
-        : "bg-slate-800 text-gray-100 border-gray-300"
+        ? "bg-slate-800 border-2  text-white border-orange-400"
+        : "bg-slate-900 text-gray-100 border-gray-300"
     } 
     border`}
                     >
@@ -280,7 +277,7 @@ useEffect(() => {
               <div className="border-orange-400">
                 <div
                   className={`w-full items-center justify-between flex gap-8 py-4 px-4 rounded-lg font-medium transition 
-    border-2 border-orange-500 text-slate-100 text-lg`}
+    border-2 border-orange-400 text-slate-100 text-lg`}
                 >
                
                   Selected{" "}
@@ -330,16 +327,16 @@ useEffect(() => {
           {/* STEP 2 */}
         {step === 2 && (
   <>
-    <Button
-      className="bg-red-500 text-slate-100"
-      variant="ghost"
+    <button
+      className="bg-orange-400 -mt-4 h-10 w-[80px] !text-xl font-medium px-4 py-2 rounded-lg text-slate-100"
+
       onClick={() => setStep(1)}
     >
-      ← Back
-    </Button>
+    <span className="text-5xl absolute !-mt-7 left-12"> ←</span> 
+    </button>
 
     <Label className="text-slate-200 text-lg">Your Number</Label>
-    <select
+    {/* <select
       className="w-full p-2 h-14 rounded-md bg-slate-700 text-white text-lg"
       value={senderNumber || currentUser.phone} // default to main phone
       onChange={(e) => setSenderNumber(e.target.value)}
@@ -349,22 +346,48 @@ useEffect(() => {
           {num}
         </option>
       ))}
-    </select>
+    </select> */}
+
+<Select
+  className="h-14 w-full"
+  value={senderNumber || currentUser.phone}
+  onValueChange={(value) => setSenderNumber(value)}
+>
+  <SelectTrigger className="!h-14 !bg-slate-800 w-full text-white rounded-md pl-3">
+    <SelectValue placeholder="Select channel or phone" />
+  </SelectTrigger>
+
+  <SelectContent className="bg-slate-800 text-white rounded-md">
+    {/* Payment channels */}
+    {/* {[...new Set(paymentOptions.map((p) => p.deposit_channel))].map((c) => (
+      <SelectItem key={c} value={c}>
+        {c}
+      </SelectItem>
+    ))} */}
+
+    {/* User phones */}
+    {[currentUser.phone, ...(phones || [])].map((num) => (
+      <SelectItem key={num} value={num}>
+        {num}
+      </SelectItem>
+    ))}
+  </SelectContent>
+</Select>
 
     <Label className="mb-1 block text-slate-200 text-lg">Receiver Number</Label>
     <div className="flex gap-2 items-center">
       <Input
         value={receiverNumber}
         readOnly
-        className="bg-slate-700 h-14 text-white text-lg font-medium tracking-wider cursor-not-allowed"
+        className="bg-slate-800 h-14 text-white text-lg font-medium tracking-wider cursor-not-allowed"
       />
       <Button
         variant="outline"
-        className="bg-slate-700 h-14"
+        className="bg-slate-900 h-14"
         onClick={() => copyText(receiverNumber)}
         disabled={!receiverNumber}
       >
-        <span className="text-lg">{copied ? "✔" : "📋"}</span>
+        <span className="text-3xl">{copied ? "✔" : "📋"}</span>
       </Button>
     </div>
 
@@ -374,7 +397,7 @@ useEffect(() => {
       value={amount}
       min={200}
       onChange={(e) => setAmount(e.target.value)}
-      className="mb-3 bg-slate-700 h-14 text-slate-100 text-lg"
+      className="mb-3 bg-slate-900 h-14 text-slate-100 text-lg"
     />
 
     <div className="grid grid-cols-3 gap-2 mb-3">
@@ -408,13 +431,17 @@ useEffect(() => {
           {/* STEP 3 */}
           {step === 3 && (
             <>
-              <Button className="bg-red-500 text-slate-100" variant="ghost" onClick={() => setStep(2)}>
-                ← Back
-              </Button>
+               <button
+      className="bg-orange-400 -mt-4 h-10 w-[80px] !text-xl font-medium px-4 py-2 rounded-lg text-slate-100"
+
+      onClick={() => setStep(1)}
+    >
+    <span className="text-5xl absolute !-mt-7 left-12"> ←</span> 
+    </button>
 
               <Label className="text-slate-200 text-lg">Transaction ID</Label>
               <Input
-              className="text-slate-200 text-lg bg-slate-700 h-14"
+              className="text-slate-200 text-lg bg-slate-900 h-14"
                 value={transactionId}
                 onChange={(e) => setTransactionId(e.target.value)}
               />

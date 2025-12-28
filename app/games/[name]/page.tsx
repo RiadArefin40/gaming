@@ -2,12 +2,12 @@
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { allGames } from "@/utils/allGames";
-import { prgmGamesArray } from "@/utils/prgmGame";
+// import { prgmGamesArray } from "@/utils/prgmGame";
 import { jilliSlotArray } from "@/utils/jilliSlots";
 import { getAuthUser } from "@/lib/auth";
 import { PgSlotArray } from "@/utils/pgSlots";
-import { prgmSlotGamesArray } from "@/utils/prgmCgames";
-import { JdbSlotArray } from "@/utils/JdbSlots";
+// import { prgmSlotGamesArray } from "@/utils/prgmCgames";
+// import { JdbSlotArray } from "@/utils/JdbSlots";
 import SafeImage from "@/app/components/SafeImageProps";
 const user = getAuthUser()
 interface Category {
@@ -16,9 +16,10 @@ interface Category {
 }
 
 interface Game {
-  uid: string;
-  name: string;
-  image: string;
+serial: number;
+    title: string;
+    image: string;
+    game_uid: string;
 }
 
 
@@ -37,7 +38,7 @@ export default function Casino() {
   const pathname = usePathname();
   const router = useRouter();
   const lastSegment = pathname.split("/").filter(Boolean).pop();
-console.log('alll',prgmGamesArray ,lastSegment)
+// console.log('alll',prgmGamesArray ,lastSegment)
   const categories: Category[] = [
     { name: "Casino", icon: <span>♠️</span> },
     { name: "Slots", icon: <span>🎰</span> },
@@ -55,26 +56,26 @@ console.log('alll',prgmGamesArray ,lastSegment)
 
 
 interface GameSource {
-  uid: string;
-  name: string;
-  // Allow extra fields for compatibility
-  [key: string]: any;
+serial: number;
+    title: string;
+    image: string;
+    game_uid: string;
 }
 
 const gamesWithImages: Game[] = (
   lastSegment === 'evolution'
-    ? (allGames as GameSource[])
+    ? (allGames )
     : lastSegment === 'jili'
-      ? (jilliSlotArray as GameSource[])
-      : lastSegment === 'jdb'
-      ? (JdbSlotArray as GameSource[])
+      ? (jilliSlotArray)
+      // : lastSegment === 'jdb'
+      // ? (JdbSlotArray as GameSource[])
      : lastSegment === 'pg-soft'
-    ? (PgSlotArray as GameSource[])
-        : lastSegment === 'pragmatic-play'
-    ? (prgmSlotGamesArray as GameSource[])
+    ? (PgSlotArray )
+    //     : lastSegment === 'pragmatic-play'
+    // ? (prgmSlotGamesArray as GameSource[])
    
-      : (prgmGamesArray as GameSource[])
-).map((item: GameSource): Game => {
+      : (jilliSlotArray)
+).map((item: any): Game => {
   let image = '';
 
   if (lastSegment === 'evolution') {
@@ -270,7 +271,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
             ))
           : filteredGames.map((game) => (
               <div
-                key={game.uid}
+                key={game.game_uid}
                 onClick={() => handleGameClick(game)}
                 className="relative rounded-lg overflow-hidden cursor-pointer hover:scale-105 transform transition duration-200"
               >
@@ -283,7 +284,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
                       className="rounded-[10px]"
                 />
                 <div className="absolute bottom-0 h-[28px] left-0 w-full bg-slate-600 bg-opacity-50 text-slate-200 text-center py-1 text-lg sm:text-base">
-                  {game.name}
+                  {game.title}
                 </div>
               </div>
             ))}
