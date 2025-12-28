@@ -184,13 +184,34 @@ export default function Casino() {
           </div>
         </div>
       )}
-  {showGame && gameUrl && (
+{showGame && gameUrl && (
+  <>
+    {/* Close Button */}
+    <button
+      onClick={() => {
+        setShowGame(false);
+        setGameUrl(null);
+      }}
+      className="fixed top-4 right-4 z-[1000] flex items-center justify-center 
+                 w-10 h-10 rounded-full 
+                 bg-black/60 backdrop-blur-md 
+                 text-white hover:bg-red-500 
+                 transition-all duration-200 
+                 hover:scale-110 shadow-lg"
+      aria-label="Close Game"
+    >
+      ✕
+    </button>
+
+    {/* Game Frame */}
     <iframe
       src={gameUrl}
       className="fixed inset-0 w-full h-full border-0 z-[998]"
       allow="fullscreen"
     />
-  )}
+  </>
+)}
+
       
     {!showGame && (
  <div className="p-2 py-[80px]">
