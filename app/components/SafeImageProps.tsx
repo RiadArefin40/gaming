@@ -49,7 +49,7 @@ export default function SafeImage({
     <img
     src={imgSrc}
     alt={alt}
-    className= "h-8 rounded-full w-8 opacity-80 z-200 absolute top-0 right-1"
+    className= "h-8 rounded-full w-8 opacity-80 z-200 absolute top-0 right-2"
     onLoad={() => setLoading(false)}
     onError={() => {
       setImgSrc(FALLBACK_IMAGE);
@@ -57,7 +57,7 @@ export default function SafeImage({
     }}
   />
   <div
-      className= "h-6 rounded-full  text-slate-100 z-200 absolute top-0 left-2"
+      className= "h-6 rounded-full  text-slate-100 absolute top-0 left-2"
   >
     Bajiraj
   </div>
