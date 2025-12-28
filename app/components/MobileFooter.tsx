@@ -167,11 +167,11 @@ export default function MobileFooter() {
 
   const goToCasino = () => {
     setSheetOpen(false);
-    router.push("/slots/pg-soft");
+    router.push("/casino/all");
   };
   const goToSlots = () => {
     setSheetOpen(false)
-    router.push("/slots/jilli");
+    router.push("/slots/all");
   };
 
   const goToPromotions = () => router.push("/promos");

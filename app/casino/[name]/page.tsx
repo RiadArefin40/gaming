@@ -18,6 +18,7 @@ const user = getAuthUser();
 interface Category {
   name: string;
   icon: React.ReactNode;
+  label: string
 }
 
 interface Game {
@@ -46,49 +47,60 @@ export default function Casino() {
   const [gameUrl, setGameUrl] = useState(null);
 
 
-  const categories: Category[] = [
-    { name: "Casino", icon: <span>♠️</span> },
-    { name: "Slots", icon: <span>🎰</span> },
-    { name: "Crash", icon: <span>💥</span> },
-    { name: "Table", icon: <span>🃏</span> },
-    { name: "Fishing", icon: <span>🎣</span> },
-    { name: "Arcade", icon: <span>👾</span> },
-    { name: "Lottery", icon: <span>🎫</span> },
-  ];
+const categories: Category[] = [
+  { name: "casino", label: "Casino", icon: <span>♠️</span> },
+  { name: "slots", label: "Slots", icon: <span>🎰</span> },
+  { name: "crash", label: "Crash", icon: <span>💥</span> },
+  { name: "table", label: "Table", icon: <span>🃏</span> },
+  { name: "fishing", label: "Fishing", icon: <span>🎣</span> },
+  { name: "arcade", label: "Arcade", icon: <span>👾</span> },
+  { name: "lottery", label: "Lottery", icon: <span>🎫</span> },
+];
 
-  const providers = [
-    { name: "Evaluation live", title:"evaluation-live",  icon: <span>♠️</span> },
-    { name: "Pragmatic play live", title:"pragmatic-play-live", icon: <span>🎰</span> },
-    { name: "Ezugi live",title:"ezugi-live", icon: <span>💥</span> },
-    { name: "Playtech live",title:"playtech-live", icon: <span>💥</span> },
-  ];
+const providers = [
+  { name: "all", label: "All", icon: <span>🌐</span> }, // fallback
+  { name: "evaluation-live", label: "Evaluation Live", icon: <span>♠️</span> },
+  { name: "pragmatic-play-live", label: "Pragmatic Play Live", icon: <span>🎰</span> },
+  { name: "ezugi-live", label: "Ezugi Live", icon: <span>💥</span> },
+  { name: "playtech-live", label: "Playtech Live", icon: <span>💥</span> },
+];
 
-  const gamesWithImages: Game[] = (
-    lastSegment === "evaluation-live"
-      ? evolive
-      : lastSegment === "pragmatic-play-live"
-      ? ppAsia
-      : lastSegment === "ezugi-live"
-      ? PgSlotArray
-        : lastSegment === "playtech-live"
-      ? pt
-      : jilliSlotArray
-  ).map((item: any): Game => ({
-    ...item,
-  }));
+// Combine all arrays for "all"
+const allGames = [
+  ...(Array.isArray(evolive) ? evolive : []),
+  ...(Array.isArray(ppAsia) ? ppAsia : []),
+  ...(Array.isArray(PgSlotArray) ? PgSlotArray : []),
+  ...(Array.isArray(pt) ? pt : []),
+  ...(Array.isArray(jilliSlotArray) ? jilliSlotArray : []),
+];
+
+// Select games based on lastSegment (mirrors your ternary logic)
+const gamesWithImages: Game[] = (
+  lastSegment === "evaluation-live"
+    ? evolive
+    : lastSegment === "pragmatic-play-live"
+    ? ppAsia
+    : lastSegment === "ezugi-live"
+    ? PgSlotArray
+    : lastSegment === "playtech-live"
+    ? pt
+    : allGames
+).map((item: any): Game => ({
+  ...item,
+}));
 
   const [selectedCategory, setSelectedCategory] = useState(() => {
     const matchedCategory = categories.find(
       (cat) => cat.name.toLowerCase() === firstSegment.toLowerCase()
     );
-    return matchedCategory ? matchedCategory.name : categories[0].name;
+    return matchedCategory ? matchedCategory.label : categories[0].name;
   });
 
   const [selectedProvider, setSelectedProvider] = useState(() => {
     const matchedProvider = providers.find(
-      (p) => p.title.toLowerCase() === lastSegment.toLowerCase()
+      (p) => p.name.toLowerCase() === lastSegment.toLowerCase()
     );
-    return matchedProvider ? matchedProvider.name : providers[0].name;
+    return matchedProvider ? matchedProvider.label : providers[0].name;
   });
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -121,7 +133,7 @@ export default function Casino() {
     setDropdownOpen(false);
     const slug = slugify(catName);
     console.log("slug", slug);
-    // router.push(`/games/${slug}`); // Uncomment if needed
+    router.push(`/${slug}/all`); // Uncomment if needed
   };
 
   const handleProviderSelect = (provider: string) => {
@@ -240,12 +252,12 @@ export default function Casino() {
                 {providers.map((p,i) => (
                   <div
                     key={i}
-                    onClick={() => handleProviderSelect(p.title)}
+                    onClick={() => handleProviderSelect(p.name)}
                     className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
-                      selectedProvider === p.title ? "bg-slate-400" : ""
+                      selectedProvider === p.label ? "bg-slate-400" : ""
                     }`}
                   >
-                    {p.icon} <span>{p.name}</span>
+                    {p.icon} <span>{p.label}</span>
                   </div>
                 ))}
               </div>
@@ -271,7 +283,7 @@ export default function Casino() {
                       selectedCategory === cat.name ? "bg-slate-400" : ""
                     }`}
                   >
-                    {cat.icon} <span>{cat.name}</span>
+                    {cat.icon} <span>{cat.label}</span>
                   </div>
                 ))}
               </div>
