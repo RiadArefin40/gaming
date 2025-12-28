@@ -65,7 +65,7 @@ export const gameImages: any  = {
   },
   {
     id: 2,
-    title: "Evolution",
+    title: "Evaluation Live",
     src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-evo.png",
   },
   {
@@ -73,46 +73,46 @@ export const gameImages: any  = {
     title: "Pragmatic Play",
     src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png",
   },
-  {
-    id: 4,
-    title: "Sexy",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmsexy.png",
-  },
-  {
-    id: 5,
-    title: "Playtech",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpt.png",
-  },
-  {
-    id: 6,
-    title: "HotRoad",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmhotroad.png",
-  },
-  {
-    id: 7,
-    title: "Dream Gaming",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmdg.png",
-  },
-  {
-    id: 8,
-    title: "Microgaming",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-mg.png",
-  },
-  {
-    id: 9,
-    title: "Big Gaming",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-bg.png",
-  },
-  {
-    id: 10,
-    title: "Winfinity",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-winfinity.png",
-  },
-  {
-    id: 11,
-    title: "Viacasino",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmvia.png",
-  },
+  // {
+  //   id: 4,
+  //   title: "Sexy",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmsexy.png",
+  // },
+  // {
+  //   id: 5,
+  //   title: "Playtech",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpt.png",
+  // },
+  // {
+  //   id: 6,
+  //   title: "HotRoad",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmhotroad.png",
+  // },
+  // {
+  //   id: 7,
+  //   title: "Dream Gaming",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmdg.png",
+  // },
+  // {
+  //   id: 8,
+  //   title: "Microgaming",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-mg.png",
+  // },
+  // {
+  //   id: 9,
+  //   title: "Big Gaming",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-bg.png",
+  // },
+  // {
+  //   id: 10,
+  //   title: "Winfinity",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-winfinity.png",
+  // },
+  // {
+  //   id: 11,
+  //   title: "Viacasino",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmvia.png",
+  // },
   ],
 
   // 👇 same common images reused
