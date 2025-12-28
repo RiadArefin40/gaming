@@ -33,7 +33,7 @@ export default function SafeImage({
         <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-md" />
       )}
 
-<div className="relative w-full h-[150px]"> {/* Set your container size */}
+<div className="relative w-full "> {/* Set your container size */}
   <img
     src={imgSrc}
     alt={alt}
@@ -46,6 +46,23 @@ export default function SafeImage({
       setLoading(false);
     }}
   />
+    <img
+    src={imgSrc}
+    alt={alt}
+    className= "h-8 rounded-full w-8 opacity-80 z-200 absolute top-0 right-1"
+    onLoad={() => setLoading(false)}
+    onError={() => {
+      setImgSrc(FALLBACK_IMAGE);
+      setLoading(false);
+    }}
+  />
+  <div
+      className= "h-6 rounded-full  text-slate-100 z-200 absolute top-0 left-2"
+  >
+    Bajiraj
+  </div>
+
+
 </div>
     </div>
   );
