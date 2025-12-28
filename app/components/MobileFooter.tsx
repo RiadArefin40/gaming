@@ -209,7 +209,7 @@ export default function MobileFooter() {
           <SheetTrigger>
             <div className="flex flex-col relative items-center gap-1">
               <div
-                className={`flex flex-col w-[70px] items-center gap-1 px-2 py-1 mb-1 -ml-[20px] relative `}
+                className={`flex flex-col w-[70px] items-center gap-1 px-2 py-1  -ml-[20px] relative `}
               >
                 {/* <Menu    className={`w-6 h-6 absolute bottom-2 ${
                   sheetOpen ? "!text-orange-500 w-9 h-9" : "!text-white "
@@ -356,7 +356,7 @@ export default function MobileFooter() {
         {/* Casino */}
 <button
   onClick={goToCasino}
-  className="flex flex-col w-[70px] items-center gap-1 px-2 py-1 mb-1 relative"
+  className="flex flex-col w-[70px] items-center gap-1 px-2 py-1  relative"
 >
   <div className="relative w-14 h-14 flex flex-col items-center justify-center">
     {/* Glowing animated 3D background */}
@@ -404,7 +404,7 @@ export default function MobileFooter() {
         {/* Slots */}
     <button
   onClick={goToSlots}
-  className="flex flex-col w-[70px] items-center gap-1 px-4 py-1 mb-1 relative"
+  className="flex flex-col w-[70px] items-center gap-1 px-4 py-1  relative"
 >
   <div className="relative w-14 h-14 flex flex-col items-center justify-center">
     {/* Glowing animated 3D background */}
@@ -447,7 +447,7 @@ export default function MobileFooter() {
 
  <button
   onClick={handleDeposit}
-  className="flex w-[70px] flex-col items-center gap-1 mb-1 px-4 py-1 relative"
+  className="flex w-[70px] flex-col items-center gap-1  px-4 py-1 relative"
 >
   <div className="relative w-14 h-14 flex flex-col items-center justify-center">
     {/* Glowing animated 3D background */}
