@@ -170,6 +170,31 @@
   }
 }
 
+[data-slot="sheet-overlay"] {
+  pointer-events: auto; /* keep clicks on sheet only */
+}
+
+[data-slot="sheet-content"] {
+  z-index: 900; /* ensure sheet above buttons */
+}
+
+.bottom-nav-buttons {
+  z-index: 950; /* above sheet overlay for interaction */
+}
+
+/* MobileFooter.css */
+[data-slot="sheet-overlay"] {
+  pointer-events: none !important;
+  top: 3.5rem !important;
+  height: calc(100vh - 9.5rem) !important;
+  bottom: 3.5rem !important;
+  backdrop-filter: none !important;
+}
+
+[data-slot="sheet-content"] {
+  pointer-events: auto !important;
+  z-index: 100 !important;
+}
 
 
 }
