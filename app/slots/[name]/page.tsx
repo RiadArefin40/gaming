@@ -50,7 +50,7 @@ export default function Casino() {
 
   const providers = [
     { name: "Jili", icon: <span>♠️</span> },
-    { name: "Pg-soft", icon: <span>🎰</span> },
+    { name: "pg-soft", icon: <span>🎰</span> },
     { name: "Jdb", icon: <span>💥</span> },
   ];
 
@@ -140,7 +140,7 @@ export default function Casino() {
         },
         body: JSON.stringify({
           userName: user.name,
-          game_uid: item.uid,
+          game_uid: item.game_uid,
           credit_amount: user.wallet,
           game_type: "slot",
         }),

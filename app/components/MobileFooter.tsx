@@ -204,7 +204,7 @@ export default function MobileFooter() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 md:hidden z-200">
-      <div className="flex items-center justify-between px-6 pt-2 gap-2  border-t border-slate-800 text-gray-400 w-full  bg-gray-900">
+      <div className="flex items-center justify-between px-6  gap-2  border-t border-slate-800 text-gray-400 w-full  bg-gray-900">
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
           <SheetTrigger>
             <div className="flex flex-col relative items-center gap-1">
@@ -215,7 +215,7 @@ export default function MobileFooter() {
                   sheetOpen ? "!text-orange-500 w-9 h-9" : "!text-white "
                 }`} /> */}
                <div className="relative flex flex-col items-center gap-1">
-  <div className="relative w-16 h-16 flex flex-col items-center justify-center">
+  <div className="relative w-14 h-14 flex flex-col items-center justify-center">
     {/* Glowing animated 3D background */}
     <div
       className={`absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 
@@ -227,7 +227,7 @@ export default function MobileFooter() {
     <Menu
       className={`absolute bottom-4 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
-        ${sheetOpen ? "text-orange-400 w-10 h-10 scale-100" : "text-white w-8 h-8 scale-100"} 
+        ${sheetOpen ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
         drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
     />
 
@@ -235,18 +235,18 @@ export default function MobileFooter() {
     <div
       className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
         transition-all duration-500 ease-out
-        ${sheetOpen ? "w-16 h-16 scale-115" : "w-12 h-12"}`}
+        ${sheetOpen ? "w-12 h-12" : "w-10 h-10"}`}
     />
     <div
       className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
         transition-all duration-500 ease-out
-        ${sheetOpen ? "w-14 h-14 scale-115 border-white" : "w-14 h-14"}`}
+        ${sheetOpen ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
     />
   </div>
 
   {/* Label */}
   <span
-    className={`text-white text-md font-medium drop-shadow-lg
+    className={`-mt-2 text-white text-md font-medium drop-shadow-lg
       ${sheetOpen ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
   >
     Menu
@@ -275,7 +275,7 @@ export default function MobileFooter() {
                 className="bg-orange-400 px-4 py-1 rounded-lg flex items-center justify-center z-100"
                 onClick={() => setSheetOpen(false)} // This actually closes the sheet
               >
-                <X className="w-8 h-8 text-gray-100 hover:text-red-600" />
+                <X className="w-6 h-6 text-gray-100 hover:text-red-600" />
               </button>
             </div>
 
@@ -358,7 +358,7 @@ export default function MobileFooter() {
   onClick={goToCasino}
   className="flex flex-col w-[70px] items-center gap-1 px-2 py-1 mb-1 relative"
 >
-  <div className="relative w-16 h-16 flex flex-col items-center justify-center">
+  <div className="relative w-14 h-14 flex flex-col items-center justify-center">
     {/* Glowing animated 3D background */}
     <div
       className={`absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 
@@ -370,7 +370,7 @@ export default function MobileFooter() {
     <Star
       className={`absolute bottom-4 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
-        ${isActive("/casino") ? "text-orange-400 w-10 h-10 scale-100" : "text-white w-8 h-8 scale-100"} 
+        ${isActive("/casino") ? "text-orange-400 w-8 h-8 scale-100" : "text-white w-6 h-6 scale-100"} 
         drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
     />
 
@@ -378,18 +378,21 @@ export default function MobileFooter() {
     <div
       className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
         transition-all duration-500 ease-out
-        ${isActive("/casino") ? "w-16 h-16 scale-115" : "w-12 h-12"}`}
+        ${isActive("/slots") ? "w-12 h-12 scale-115" : "w-10 h-10"}`}
     />
     <div
       className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
         transition-all duration-500 ease-out
-        ${isActive("/casino") ? "w-14 h-14 scale-115 border-white" : "w-14 h-14"}`}
+        ${isActive("/slots") ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
     />
   </div>
 
+
+
+
   {/* Label */}
   <span
-    className={`text-white text-md font-medium drop-shadow-lg
+    className={`-mt-2 text-white text-md font-medium drop-shadow-lg
       ${isActive("/casino") ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
   >
     Casino
@@ -403,7 +406,7 @@ export default function MobileFooter() {
   onClick={goToSlots}
   className="flex flex-col w-[70px] items-center gap-1 px-4 py-1 mb-1 relative"
 >
-  <div className="relative w-16 h-16 flex flex-col items-center justify-center">
+  <div className="relative w-14 h-14 flex flex-col items-center justify-center">
     {/* Glowing animated 3D background */}
     <div
       className={`absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 
@@ -415,7 +418,7 @@ export default function MobileFooter() {
     <Dice6
       className={`absolute bottom-4 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
-        ${isActive("/slots") ? "text-orange-400 w-10 h-10 scale-100" : "text-white w-8 h-8 scale-100"} 
+        ${isActive("/slots") ? "text-orange-400 w-8 h-8 scale-100" : "text-white w-6 h-6 scale-100"} 
         drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
     />
 
@@ -423,18 +426,18 @@ export default function MobileFooter() {
     <div
       className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
         transition-all duration-500 ease-out
-        ${isActive("/slots") ? "w-16 h-16 scale-115" : "w-12 h-12"}`}
+        ${isActive("/slots") ? "w-12 h-12 scale-115" : "w-10 h-10"}`}
     />
     <div
       className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
         transition-all duration-500 ease-out
-        ${isActive("/slots") ? "w-14 h-14 scale-115 border-white" : "w-14 h-14"}`}
+        ${isActive("/slots") ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
     />
   </div>
 
   {/* Label */}
   <span
-    className={`text-white text-md font-medium drop-shadow-lg
+    className={`-mt-2 text-white text-md font-medium drop-shadow-lg
       ${isActive("/slots") ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
   >
     Slots
@@ -446,7 +449,7 @@ export default function MobileFooter() {
   onClick={handleDeposit}
   className="flex w-[70px] flex-col items-center gap-1 mb-1 px-4 py-1 relative"
 >
-  <div className="relative w-16 h-16 flex flex-col items-center justify-center">
+  <div className="relative w-14 h-14 flex flex-col items-center justify-center">
     {/* Glowing animated 3D background */}
     <div
       className={`absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 
@@ -458,26 +461,26 @@ export default function MobileFooter() {
     <Wallet
       className={`absolute bottom-4 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
-        ${isActive("/deposit") ? "text-orange-400 w-10 h-10 scale-100" : "text-white w-8 h-8 scale-100"} 
+        ${isActive("/deposit") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
         drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
     />
 
     {/* Floating rings */}
-    <div
+       <div
       className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
         transition-all duration-500 ease-out
-        ${isActive("/deposit") ? "w-16 h-16 scale-115" : "w-12 h-12"}`}
+        ${isActive("/deposit") ? "w-10 h-10 scale-115" : "w-10 h-10"}`}
     />
     <div
       className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
         transition-all duration-500 ease-out
-        ${isActive("/deposit") ? "w-14 h-14 scale-115 border-white" : "w-14 h-14"}`}
+        ${isActive("/deposit") ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
     />
   </div>
 
   {/* Label */}
   <span
-    className={`text-white text-md font-medium drop-shadow-lg
+    className={`-mt-2 text-white text-md font-medium drop-shadow-lg
       ${isActive("/deposit") ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
   >
     Deposit
@@ -495,7 +498,7 @@ export default function MobileFooter() {
   </span>
 
   <div
-    className={`relative w-16 h-16 flex flex-col items-center justify-center`}
+    className={`relative w-14 h-14 flex flex-col items-center justify-center`}
   >
     {/* Glowing animated 3D background */}
     <div
@@ -508,7 +511,7 @@ export default function MobileFooter() {
     <User
       className={`absolute bottom-4 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
-        ${psheetOpen ? "text-orange-400 w-10 h-10 scale-100" : "text-white w-8 h-8 scale-100"} 
+        ${psheetOpen ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
         drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
     />
 
@@ -516,18 +519,18 @@ export default function MobileFooter() {
     <div
       className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
         transition-all duration-500 ease-out
-        ${psheetOpen ? "w-16 h-16 scale-115" : "w-12 h-12"}`}
+        ${psheetOpen ? "w-10 h-10 scale-115" : "w-10 h-10"}`}
     />
     <div
       className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
         transition-all duration-500 ease-out
-        ${psheetOpen ? "w-14 h-14 scale-115 border-white" : "w-14 h-14"}`}
+        ${psheetOpen ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
     />
   </div>
 
   {/* Label */}
   <span
-    className={`text-white text-md font-medium drop-shadow-lg
+    className={`text-white -mt-2 text-md font-medium drop-shadow-lg
       ${psheetOpen ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
   >
     Profile
@@ -551,7 +554,7 @@ export default function MobileFooter() {
                   className="bg-orange-400 px-4 py-1 rounded-lg flex items-center justify-center z-100"
                   onClick={() => psetSheetOpen(false)} // This actually closes the sheet
                 >
-                  <X className="w-8 h-8 text-gray-700 hover:text-red-600" />
+                  <X className="w-6 h-6 text-gray-700 hover:text-red-600" />
                 </button>
               </div>
 
