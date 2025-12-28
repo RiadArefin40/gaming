@@ -56,7 +56,10 @@ export default function MobileAppBar() {
           <SidebarTrigger className="hidden md:block" />
           <div onClick={() => router.push("/")} className="">
             {/* <img src="/tlogo.png" alt="Logo" /> */}
-            <p className="tracking-wider text-3xl font-bold text-yellow-300">Bajiraj</p>
+       <p className="tracking-wider text-3xl font-bold text-yellow-300 select-none touch-none">
+  Bajiraj
+</p>
+
           </div>
         </div>
 

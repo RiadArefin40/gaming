@@ -26,6 +26,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { ArrowLeft } from "lucide-react";
 
 export default function EWalletPage() {
   const router = useRouter();
@@ -151,7 +152,7 @@ useEffect(() => {
 }, [currentUser]);
 
   return (
-    <div className="mt-14 bg-slate-900 flex justify-center">
+    <div className="mt-24 bg-slate-900 flex justify-center">
       <Card className="w-full max-w-screen rounded-2xl border bg-slate-900 border-0 shadow-xl">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl text-white">E-Wallet</CardTitle>
@@ -327,13 +328,24 @@ useEffect(() => {
           {/* STEP 2 */}
         {step === 2 && (
   <>
-    <button
-      className="bg-orange-400 -mt-4 h-10 w-[80px] !text-xl font-medium px-4 py-2 rounded-lg text-slate-100"
+<button
+  onClick={() => setStep(1)}
+  className="
+    fixed top-[120px] left-6 z-50
+    h-12 w-12 rounded-full
+    bg-orange-500 text-white
+    flex items-center justify-center
+    shadow-lg shadow-orange-500/40
+    hover:bg-red-600 hover:scale-110
+    active:scale-95
+    transition-all duration-200
+    select-none
+  "
+  aria-label="Go Back"
+>
+  <ArrowLeft size={22} strokeWidth={2.5} />
+</button>
 
-      onClick={() => setStep(1)}
-    >
-    <span className="text-5xl absolute !-mt-7 left-12"> ←</span> 
-    </button>
 
     <Label className="text-slate-200 text-lg">Your Number</Label>
     {/* <select
@@ -431,13 +443,23 @@ useEffect(() => {
           {/* STEP 3 */}
           {step === 3 && (
             <>
-               <button
-      className="bg-orange-400 -mt-4 h-10 w-[80px] !text-xl font-medium px-4 py-2 rounded-lg text-slate-100"
-
-      onClick={() => setStep(1)}
-    >
-    <span className="text-5xl absolute !-mt-7 left-12"> ←</span> 
-    </button>
+<button
+  onClick={() => setStep(1)}
+  className="
+    fixed top-[120px] left-6 z-50
+    h-12 w-12 rounded-full
+    bg-orange-500 text-white
+    flex items-center justify-center
+    shadow-lg shadow-orange-500/40
+    hover:bg-red-600 hover:scale-110
+    active:scale-95
+    transition-all duration-200
+    select-none
+  "
+  aria-label="Go Back"
+>
+  <ArrowLeft size={22} strokeWidth={2.5} />
+</button>
 
               <Label className="text-slate-200 text-lg">Transaction ID</Label>
               <Input
