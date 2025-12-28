@@ -80,8 +80,6 @@ const gamesWithImages: Game[] = (
     ? evolive
     : lastSegment === "pragmatic-play-live"
     ? ppAsia
-    : lastSegment === "ezugi-live"
-    ? PgSlotArray
     : lastSegment === "playtech-live"
     ? pt
     : allGames
