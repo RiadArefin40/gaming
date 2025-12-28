@@ -252,19 +252,28 @@ export default function Casino() {
 
       {!showGame && (
         <div className="p-2 py-[80px]">
-          <div className="sticky top-2 bg-slate-900 z-50">
+          <div className="sticky h-[100px] top-2 bg-slate-900 z-50">
             <div className="flex items-center  justify-between">
               {/* Provider Dropdown */}
               <div className="relative">
-                <button
-                  onClick={() => setProviderDropdownOpen(!providerDropdownOpen)}
-                  className="flex min-w-[180px] items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
-                >
-                  <span>{selectedProvider}</span>
-                  <span className="pl-2">
-                    {providerDropdownOpen ? "▲" : "▼"}
-                  </span>
-                </button>
+            <button
+  onClick={() => setProviderDropdownOpen(!providerDropdownOpen)}
+  className="flex min-w-[180px]  h-10 items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
+>
+  <div className="flex items-center space-x-2">
+    {/* Provider icon */}
+    {providers.find((p) => p.label == selectedProvider)?.icon}
+
+    {/* Provider label */}
+    <span>
+      {providers.find((p) => p.name === selectedProvider)?.label || selectedProvider}
+    </span>
+  </div>
+
+  {/* Dropdown arrow */}
+  <span className="pl-2">{providerDropdownOpen ? "▲" : "▼"}</span>
+</button>
+
                 {providerDropdownOpen && (
                   <div className="absolute w-full bg-gray-700 rounded-md shadow-lg z-10">
                     {providers.map((p, i) => (
@@ -283,14 +292,21 @@ export default function Casino() {
               </div>
               {/* Category Dropdown */}
               <div className="relative mt-2">
-                <button
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex min-w-[150px] -mt-4 items-center space-x-1 font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
-                >
-                  {categories.find((c) => c.label === selectedCategory)?.icon}
-                  <span>{selectedCategory}</span>
-                  <span className="pl-6">{dropdownOpen ? "▲" : "▼"}</span>
-                </button>
+                 <button
+  onClick={() => setDropdownOpen(!dropdownOpen)}
+  className="flex min-w-[150px] h-10 -mt-4 items-center space-x-1 font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
+>
+  {/* Show category icon */}
+  {categories.find((c) => c.label == selectedCategory)?.icon}
+  
+  {/* Show category label or fallback to name */}
+  <span>
+    {categories.find((c) => c.name == selectedCategory)?.label || selectedCategory}
+  </span>
+  
+  {/* Dropdown arrow */}
+  <span className="pl-8">{dropdownOpen ? "▲" : "▼"}</span>
+</button>
                 {dropdownOpen && (
                   <div className="absolute w-full bg-gray-700 rounded-md shadow-lg z-10">
                     {categories.map((cat, i) => (
@@ -310,19 +326,39 @@ export default function Casino() {
             </div>
 
             {/* Search */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-white py-2 rounded-md mb-4">
-              <div className="flex items-center">
-                {searchOpen && (
-                  <input
-                    type="text"
-                    placeholder="Search games..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="px-3 w-[180px] py-1 flex-1 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
-                  />
-                )}
-              </div>
-            </div>
+        <div className="flex flex-col  h-10 sm:flex-row items-start sm:items-center justify-between text-white py-2 rounded-md mb-8">
+  <div className="relative flex items-center">
+    {searchOpen && (
+      <>
+        {/* Magnifying glass icon */}
+        <span className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M12.9 14.32a8 8 0 111.414-1.414l4.387 4.387a1 1 0 01-1.414 1.414l-4.387-4.387zM14 8a6 6 0 11-12 0 6 6 0 0112 0z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </span>
+
+        {/* Input field */}
+        <input
+          type="text"
+          placeholder="Search games..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="pl-8  h-10 px-3 w-[180px] py-1 flex-1 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
+        />
+      </>
+    )}
+  </div>
+</div>
+
           </div>
 
           {/* Games Grid */}
