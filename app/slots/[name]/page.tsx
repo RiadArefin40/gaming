@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { allGames } from "@/utils/allGames";
 import { jilliSlotArray } from "@/utils/jilliSlots";
+import { JdbSlotArray } from "@/utils/JdbSlots";
 import { PgSlotArray } from "@/utils/pgSlots";
 import SafeImage from "@/app/components/SafeImageProps";
 import { getAuthUser } from "@/lib/auth";
@@ -37,6 +38,9 @@ export default function Casino() {
   const segments = pathname.split("/").filter(Boolean);
   const firstSegment = segments[0] || "";
   const lastSegment = segments.pop() || "";
+  const [showGame, setShowGame] = useState(false);
+  const [gameUrl, setGameUrl] = useState(null);
+
 
   const categories: Category[] = [
     { name: "Casino", icon: <span>♠️</span> },
@@ -61,6 +65,8 @@ export default function Casino() {
       ? jilliSlotArray
       : lastSegment === "pg-soft"
       ? PgSlotArray
+        : lastSegment === "Jdb"
+      ? JdbSlotArray
       : jilliSlotArray
   ).map((item: any): Game => ({
     ...item,
@@ -118,7 +124,7 @@ export default function Casino() {
     setProviderDropdownOpen(false);
    router.push(`/${firstSegment}/${provider}`);
   };
-
+  const [data, setData] = useState(null)
   const handleGameClick = async (item: any) => {
     if (loading) return;
 
@@ -149,13 +155,18 @@ export default function Casino() {
       const data = await res.json();
 
       if (res.ok && data.success && data.gameUrl) {
+         setShowGame(true);
+        setData(data.gameUrl)
+        setGameUrl(data.gameUrl);
         setLoadingText("Opening game…");
-        window.open(data.gameUrl, "_blank", "noopener,noreferrer");
+        // window.open(data.gameUrl, "_blank", "noopener,noreferrer");
       } else {
         alert(data.error || "Failed to launch game");
+        setShowGame(false);
       }
     } catch (error) {
       console.error("Error launching game:", error);
+      setShowGame(false);
       alert("Something went wrong");
     } finally {
       setLoading(false);
@@ -164,6 +175,7 @@ export default function Casino() {
 
   return (
     <>
+    
       {loading && (
         <div className="fixed inset-0 z-200 flex items-center justify-center bg-black/70 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-4">
@@ -172,8 +184,16 @@ export default function Casino() {
           </div>
         </div>
       )}
-
-      <div className="p-2 py-[80px]">
+  {showGame && gameUrl && (
+    <iframe
+      src={gameUrl}
+      className="fixed inset-0 w-full h-full border-0 z-[998]"
+      allow="fullscreen"
+    />
+  )}
+      
+    {!showGame && (
+ <div className="p-2 py-[80px]">
         <div className="sticky top-2 bg-slate-900 z-50">
 
                   <div className="flex items-center  justify-between">
@@ -189,9 +209,9 @@ export default function Casino() {
             </button>
             {providerDropdownOpen && (
               <div className="absolute w-full bg-gray-700 rounded-md shadow-lg z-10">
-                {providers.map((p) => (
+                {providers.map((p,i) => (
                   <div
-                    key={p.name}
+                    key={i}
                     onClick={() => handleProviderSelect(p.name)}
                     className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
                       selectedProvider === p.name ? "bg-slate-400" : ""
@@ -215,9 +235,9 @@ export default function Casino() {
             </button>
             {dropdownOpen && (
               <div className="absolute w-full bg-gray-700 rounded-md shadow-lg z-10">
-                {categories.map((cat) => (
+                {categories.map((cat,i) => (
                   <div
-                    key={cat.name}
+                    key={i}
                     onClick={() => handleCategorySelect(cat.name)}
                     className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
                       selectedCategory === cat.name ? "bg-slate-400" : ""
@@ -260,9 +280,9 @@ export default function Casino() {
                   className="animate-pulse bg-gray-700 rounded-lg h-32 sm:h-40 md:h-48"
                 />
               ))
-            : filteredGames.map((game) => (
+            : filteredGames.map((game,i) => (
                 <div
-                  key={game.serial}
+                  key={i}
                   onClick={() => handleGameClick(game)}
                   className="relative rounded-lg overflow-hidden cursor-pointer hover:scale-105 transform transition duration-200"
                 >
@@ -283,6 +303,8 @@ export default function Casino() {
               ))}
         </div>
       </div>
+    )}
+     
     </>
   );
 }
