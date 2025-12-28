@@ -34,10 +34,9 @@ export default function SafeImage({
       )}
 
 <div className="relative w-full h-[150px]"> {/* Set your container size */}
-  <Image
+  <img
     src={imgSrc}
     alt={alt}
-    fill
     className={`object-cover transition-opacity duration-300 ${
       loading ? "opacity-0" : "opacity-100"
     }`}

@@ -8,7 +8,10 @@ import { JdbSlotArray } from "@/utils/JdbSlots";
 import { PgSlotArray } from "@/utils/pgSlots";
 import SafeImage from "@/app/components/SafeImageProps";
 import { getAuthUser } from "@/lib/auth";
-import {evoLive} from "@/utils/evoLive"
+import { ppAsia } from "@/utils/liveCasinoGames/ppAsia";
+import { evo } from "@/utils/liveCasinoGames/evo";
+import { pt } from "@/utils/liveCasinoGames/pt";
+import { evolive } from "@/utils/liveCasinoGames/evolive";
 
 const user = getAuthUser();
 
@@ -18,7 +21,7 @@ interface Category {
 }
 
 interface Game {
-  serial: number;
+  id: number;
   title: string;
   image: string;
   game_uid: string;
@@ -54,20 +57,21 @@ export default function Casino() {
   ];
 
   const providers = [
-    { name: "Jili", icon: <span>♠️</span> },
-    { name: "pg-soft", icon: <span>🎰</span> },
-    { name: "Jdb", icon: <span>💥</span> },
+    { name: "Evaluation live", title:"evaluation-live",  icon: <span>♠️</span> },
+    { name: "Pragmatic play live", title:"pragmatic-play-live", icon: <span>🎰</span> },
+    { name: "Ezugi live",title:"ezugi-live", icon: <span>💥</span> },
+    { name: "Playtech live",title:"playtech-live", icon: <span>💥</span> },
   ];
 
   const gamesWithImages: Game[] = (
-    lastSegment === "evolution"
-      ? allGames
-      : lastSegment === "jili"
-      ? jilliSlotArray
-      : lastSegment === "pg-soft"
+    lastSegment === "evaluation-live"
+      ? evolive
+      : lastSegment === "pragmatic-play-live"
+      ? ppAsia
+      : lastSegment === "ezugi-live"
       ? PgSlotArray
-        : lastSegment === "Jdb"
-      ? JdbSlotArray
+        : lastSegment === "playtech-live"
+      ? pt
       : jilliSlotArray
   ).map((item: any): Game => ({
     ...item,
@@ -82,7 +86,7 @@ export default function Casino() {
 
   const [selectedProvider, setSelectedProvider] = useState(() => {
     const matchedProvider = providers.find(
-      (p) => p.name.toLowerCase() === lastSegment.toLowerCase()
+      (p) => p.title.toLowerCase() === lastSegment.toLowerCase()
     );
     return matchedProvider ? matchedProvider.name : providers[0].name;
   });
@@ -174,7 +178,7 @@ export default function Casino() {
     }
   };
 
-  console.log(evoLive);
+
 
   return (
     <>
@@ -236,9 +240,9 @@ export default function Casino() {
                 {providers.map((p,i) => (
                   <div
                     key={i}
-                    onClick={() => handleProviderSelect(p.name)}
+                    onClick={() => handleProviderSelect(p.title)}
                     className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
-                      selectedProvider === p.name ? "bg-slate-400" : ""
+                      selectedProvider === p.title ? "bg-slate-400" : ""
                     }`}
                   >
                     {p.icon} <span>{p.name}</span>
@@ -316,15 +320,22 @@ export default function Casino() {
                     height={170}
                     className="rounded-[10px]"
                   />
-                  <div className="-mt-6 bg-slate-800 h-8 text-slate-200 text-white text-center py-1 text-lg sm:text-base">
-                    <span className="pb-1">
+                  {/* <img src={game.image} alt="" /> */}
+                  <div className="-mt-2  text-white text-center py-1 text-lg sm:text-base">
+                    {/* <p className="text-orange-500 text-xl">{game.id}</p> */}
+                    {/* <span className="pb-1 mt-4 !text-blue-600">
+                    
                       {game.title.length > 10
                         ? `${game.title.slice(0, 10)}..`
                         : game.title}
-                    </span>
+                    </span> */}
                   </div>
                 </div>
               ))}
+        </div>
+
+        <div className="!my-28">
+            <p className="text-center text-xl font-medium">The End</p>
         </div>
       </div>
     )}
