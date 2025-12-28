@@ -272,10 +272,10 @@ export default function Casino() {
                     height={170}
                     className="rounded-[10px]"
                   />
-                  <div className="-mt-6 bg-slate-600 bg-opacity-50 text-slate-200 text-center py-1 text-lg sm:text-base">
+                  <div className="-mt-6 bg-slate-800 h-8 text-slate-200 text-white text-center py-1 text-lg sm:text-base">
                     <span className="pb-1">
-                      {game.title.length > 12
-                        ? `${game.title.slice(0, 12)}..`
+                      {game.title.length > 10
+                        ? `${game.title.slice(0, 10)}..`
                         : game.title}
                     </span>
                   </div>
