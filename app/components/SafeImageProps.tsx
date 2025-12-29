@@ -40,11 +40,11 @@ export default function SafeImage({
   )}
 
   {/* Image container */}
-  <div className="relative w-full h-full">
+  <div className="relative ">
     <img
       src={imgSrc}
       alt={alt}
-      className={`object-cover w-full h-full transition-opacity duration-500 rounded-md ${
+      className={`object-cover  transition-opacity duration-500 rounded-md ${
         loading ? "opacity-0" : "opacity-100"
       }`}
       onLoad={() => setLoading(false)}
