@@ -82,7 +82,7 @@ export function SportsGrid({ items }: SportsGridProps) {
             key={item.id}
             onClick={() => handleClick(item)}
             className={`
-              pt-2 p-1 transition-all duration-300 ease-out border
+              pt-2 p-1 transition-all rounded-lg duration-300 ease-out border
               bg-gradient-to-br from-slate-800 to-slate-900
               border-slate-700 cursor-pointer hover:scale-105
               ${loading ? "pointer-events-none opacity-50" : ""}

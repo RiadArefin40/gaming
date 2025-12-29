@@ -57,6 +57,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
           onClick={() => handleClick(item)}
           className="
             pt-2 p-1
+            rounded-lg
             transition-all duration-300 ease-out border
             bg-gradient-to-br from-slate-800 to-slate-900 text-slate-300
             border-slate-700
