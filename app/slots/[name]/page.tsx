@@ -416,7 +416,7 @@ export default function Casino() {
           </div>
 
           {/* Games Grid */}
-          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-2">
             {loading
               ? Array.from({ length: 8 }).map((_, i) => (
                   <div
