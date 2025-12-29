@@ -251,7 +251,7 @@ export default function Casino() {
       )}
 
       {!showGame && (
-         <div className="p-2 pt-[80px] ">
+         <div className="p-2 pt-[67px] ">
           <div className="sticky h-[60px] top-2 bg-slate-900 z-50">
             <div className="flex items-center gap-2 justify-between">
               {/* Provider Dropdown */}
