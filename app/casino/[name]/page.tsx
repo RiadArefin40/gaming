@@ -245,7 +245,7 @@ export default function Casino() {
               <div className="relative mt-[20px]">
                 <button
                   onClick={() => setProviderDropdownOpen(!providerDropdownOpen)}
-                  className="flex  h-10 min-w-[200px] items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
+                  className="flex  h-10 w-full min-w-[200px] items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
                 >
                   <div className="flex items-center space-x-2">
                     {/* Provider icon */}
@@ -307,7 +307,7 @@ export default function Casino() {
                       placeholder="Search games..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-8  h-10 px-3 w-[200px] py-1 flex-1 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
+                      className="pl-8  h-10 px-3 w-full py-1 flex-1 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
                     />
                   </>
                 )}
