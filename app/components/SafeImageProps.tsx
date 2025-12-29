@@ -69,7 +69,7 @@ export default function SafeImage({
     /> */}
 
     {/* Bajiraj label */}
-    <div className="absolute top-0 right-2 px-2 py-1 bg-gradient-to-r from-cyan-500 via-pink-500 to-orange-400 text-white font-semibold text-sm rounded-lg shadow-lg drop-shadow-lg">
+    <div className="absolute top-0 right-0 px-2 py-1 bg-gradient-to-r from-cyan-500 via-pink-500 to-orange-400 text-white font-semibold text-sm rounded-lg shadow-lg drop-shadow-lg">
       Bajiraj
     </div>
   </div>
