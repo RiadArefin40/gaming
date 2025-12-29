@@ -55,7 +55,7 @@ export default function SafeImage({
     />
 
     {/* Top-right badge */}
-    <img
+    {/* <img
       src={imgSrc}
       alt={alt}
       className={`h-8 w-8 rounded-full opacity-80 absolute top-0 right-2 transition-opacity duration-500 ${
@@ -66,7 +66,7 @@ export default function SafeImage({
         setImgSrc(FALLBACK_IMAGE);
         setLoading(false);
       }}
-    />
+    /> */}
 
     {/* Bajiraj label */}
     <div className="absolute opacity-80 top-0 right-2 px-2 py-1 bg-gradient-to-r from-cyan-500 via-pink-500 to-orange-400 text-white font-semibold text-sm rounded-lg shadow-lg drop-shadow-lg">
