@@ -138,7 +138,7 @@ export default function MobileAppBar() {
         <div className="fixed max-w-screen inset-0 bg-black/30 backdrop-blur-sm z-40 transition-opacity" />
       )}
 
-      <div className="flex fixed top-0 w-full items-center justify-between px-4 py-4 shadow-md z-50 bg-gray-900">
+      <div className="flex fixed top-0 w-full items-center justify-between px-4 py-1 shadow-md z-50 bg-gray-900">
         <div className="flex items-center gap-3">
           <SidebarTrigger className="hidden md:block" />
           <div onClick={() => router.push("/")} className="flex items-center gap-2">
@@ -148,7 +148,7 @@ export default function MobileAppBar() {
               <SheetTrigger>
                 <div className="flex flex-col relative items-center gap-1">
                   <div
-                    className={`flex flex-col w-[70px] items-center gap-1 px-2 py-1  -ml-[20px] relative `}
+                    className={`flex flex-col w-[70px] items-center gap-1 px-2 py-1  -ml-[25px] relative `}
                   >
                     {/* <Menu    className={`w-6 h-6 absolute bottom-2 ${
                   sheetOpen ? "!text-orange-500 w-9 h-9" : "!text-white "
@@ -194,7 +194,7 @@ export default function MobileAppBar() {
 
               <SheetContent
                 side="left"
-                className="w-full max-h-screen h-[90%] p-0 bg-slate-800 z-50 fixed"
+                className="w-full max-h-screen h-[90%] p-0 bg-slate-800 overflow-y-auto"
               >
                 <VisuallyHidden>
                   <DialogTitle>Mobile Menu</DialogTitle>
@@ -289,7 +289,7 @@ export default function MobileAppBar() {
                 `}</style>
               </SheetContent>
             </Sheet>
-              <p className="tracking-wider text-2xl -mt-2 -ml-4 font-bold text-yellow-300 select-none touch-none">
+              <p className="tracking-wider text-2xl -ml-4 font-bold text-yellow-300 select-none touch-none">
               Bajiraj
             </p>
           </div>

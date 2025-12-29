@@ -27,7 +27,7 @@ export default function RefreshButton({ balance, onRefresh, loading }: RefreshBu
       onClick={handleRefresh}       // Desktop click
       onTouchStart={handleRefresh}  // Mobile touch
       onPointerDown={handleRefresh} // Pointer devices
-      className="flex items-center gap-2 px-4 h-10 rounded-md bg-slate-800 hover:bg-slate-700 transition-colors duration-300 select-none"
+      className="flex items-center gap-2 px-2 h-10 rounded-md bg-slate-800 hover:bg-slate-700 transition-colors duration-300 select-none"
     >
       <div className="flex w-[120px] items-center gap-4 pointer-events-auto">
         {/* Balance Icon */}
@@ -44,7 +44,7 @@ export default function RefreshButton({ balance, onRefresh, loading }: RefreshBu
         </div>
 
         {/* Balance */}
-        <span className="text-xl -ml-3 font-semibold"> {loading? " ----- " : balance}</span>
+        <span className="text-xl -ml-3 font-medium"> {loading? " ----- " : balance}</span>
 
         {/* Refresh Icon */}
         <RotateCw
