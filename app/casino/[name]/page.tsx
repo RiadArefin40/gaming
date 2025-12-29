@@ -181,7 +181,9 @@ export default function Casino() {
       const data = await res.json();
 
       if (res.ok && data.success && data.gameUrl) {
-        setShowGame(true);
+       setTimeout(() => {
+  setShowGame(true);
+}, 3000); // 1000ms = 1 second
         setData(data.gameUrl);
         setGameUrl(data.gameUrl);
         setLoadingText("Opening game…");
@@ -201,14 +203,40 @@ export default function Casino() {
 
   return (
     <>
-      {loading && (
-        <div className="fixed inset-0 z-200 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-          <div className="flex flex-col items-center gap-4">
-            <div className="h-12 w-12 animate-spin rounded-full border-4 border-orange-400 border-t-transparent" />
-            <p className="text-lg text-gray-200 animate-pulse">{loadingText}</p>
-          </div>
-        </div>
-      )}
+{loading && (
+  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 backdrop-blur-md">
+    <div className="relative flex flex-col items-center justify-center gap-4">
+      
+      {/* Rotating gradient rings */}
+      <div className="relative w-20 h-20">
+        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 opacity-40 blur-xl animate-spin-slow" />
+        <div className="absolute inset-0 rounded-full border-4 border-white border-t-transparent animate-spin shadow-lg" />
+        <div className="absolute inset-0 rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
+      </div>
+
+      {/* Floating dots around spinner */}
+      <div className="absolute w-32 h-32 flex items-center justify-center">
+        {[...Array(6)].map((_, i) => (
+          <span
+            key={i}
+            className={`absolute w-3 h-3 bg-gradient-to-tr from-purple-400 via-pink-500 to-orange-400 rounded-full animate-bounce`}
+            style={{
+              transform: `rotate(${i * 60}deg) translateX(4rem)`,
+              animationDelay: `${i * 0.1}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Loading text */}
+      <p className="mt-24 text-lg text-white font-semibold tracking-wide animate-pulse">
+        {loadingText}
+      </p>
+    </div>
+  </div>
+)}
+
+
       {showGame && gameUrl && (
         <>
           {/* Close Button */}
