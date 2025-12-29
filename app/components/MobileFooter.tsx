@@ -177,7 +177,8 @@ export default function MobileFooter() {
   const goToPromotions = () => router.push("/promos");
 
   // Helper to highlight active button
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path: string) => pathname === path || pathname.startsWith(path + "/");
+
   const handleDeposit = () => {
     if (!user) {
       openModal();
@@ -371,7 +372,7 @@ export default function MobileFooter() {
     <Star
       className={`absolute bottom-4 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
-        ${isActive("/casino") ? "text-orange-400 w-8 h-8 scale-100" : "text-white w-6 h-6 scale-100"} 
+        ${isActive("/casino") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
         drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
     />
 
@@ -379,12 +380,12 @@ export default function MobileFooter() {
     <div
       className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
         transition-all duration-500 ease-out
-        ${isActive("/slots") ? "w-12 h-12 scale-115" : "w-10 h-10"}`}
+        ${isActive("/casino") ? "w-10 h-10 scale-115" : "w-10 h-10"}`}
     />
     <div
       className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
         transition-all duration-500 ease-out
-        ${isActive("/slots") ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
+        ${isActive("/casino") ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
     />
   </div>
 
@@ -419,7 +420,7 @@ export default function MobileFooter() {
     <Dice6
       className={`absolute bottom-4 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
-        ${isActive("/slots") ? "text-orange-400 w-8 h-8 scale-100" : "text-white w-6 h-6 scale-100"} 
+        ${isActive("/slots") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
         drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
     />
 
@@ -427,7 +428,7 @@ export default function MobileFooter() {
     <div
       className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
         transition-all duration-500 ease-out
-        ${isActive("/slots") ? "w-12 h-12 scale-115" : "w-10 h-10"}`}
+        ${isActive("/slots") ? "w-10 h-10 scale-115" : "w-10 h-10"}`}
     />
     <div
       className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
