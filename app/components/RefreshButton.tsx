@@ -49,7 +49,7 @@ export default function RefreshButton({ balance, onRefresh, loading }: RefreshBu
         {/* Refresh Icon */}
         <RotateCw
           size={24}
-          className={`transition-transform duration-500 ${loading? "animate-spin" : ""}`}
+          className={`transition-transform mr-1 duration-500 ${loading? "animate-spin" : ""}`}
         />
       </div>
     </button>
