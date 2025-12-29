@@ -239,13 +239,13 @@ export default function Casino() {
 
       {!showGame && (
         <div className="p-2 pt-[67px]">
-          <div className="sticky h-[60px] top-2 bg-slate-900 z-50">
+          <div className="sticky h-[60px] top-2  z-50">
             <div className="flex items-center gap-2 justify-between">
               {/* Provider Dropdown */}
               <div className="relative mt-[8px]">
                 <button
                   onClick={() => setProviderDropdownOpen(!providerDropdownOpen)}
-                  className="flex  h-10 w-full min-w-[180px] items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
+                  className="flex  -ml-1 h-10 w-full min-w-[180px] items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
                 >
                   <div className="flex items-center space-x-2">
                     {/* Provider icon */}
