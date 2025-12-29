@@ -49,7 +49,10 @@ export default function SafeImage({
     <img
     src={imgSrc}
     alt={alt}
-    className= "h-8 rounded-full w-8 opacity-80 absolute top-0 right-1"
+      className={`h-8 rounded-full w-8 opacity-80 absolute top-0 right-1 ${
+      loading ? "opacity-0" : "opacity-80"
+    }`}
+ 
     onLoad={() => setLoading(false)}
     onError={() => {
       setImgSrc(FALLBACK_IMAGE);
