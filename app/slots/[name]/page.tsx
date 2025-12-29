@@ -192,13 +192,14 @@ export default function Casino() {
       const data = await res.json();
 
       if (res.ok && data.success && data.gameUrl) {
-       setTimeout(() => {
-  setShowGame(true);
-}, 3000); // 1000ms = 1 second
+
 
         setData(data.gameUrl);
         setGameUrl(data.gameUrl);
         setLoadingText("Opening game…");
+               setTimeout(() => {
+  setShowGame(true);
+}, 3000); // 1000ms = 1 second
         // window.open(data.gameUrl, "_blank", "noopener,noreferrer");
       } else {
         alert(data.error || "Failed to launch game");
@@ -209,7 +210,7 @@ export default function Casino() {
       setShowGame(false);
       alert("Something went wrong");
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
@@ -269,31 +270,39 @@ export default function Casino() {
 
 
       {showGame && gameUrl && (
-        <>
-          {/* Close Button */}
-          <button
-            onClick={() => {
-              setShowGame(false);
-              setGameUrl(null);
-            }}
-            className="fixed top-4 right-4 z-[1000] flex items-center justify-center 
-                 w-10 h-10 rounded-full 
-                 bg-black/60 backdrop-blur-md 
-                 text-white hover:bg-red-500 
-                 transition-all duration-200 
-                 hover:scale-110 shadow-lg"
-            aria-label="Close Game"
-          >
-            ✕
-          </button>
+             <>
+  {/* Top Bar */}
+  <div className="fixed top-0 left-0 w-full z-[1000] flex items-center justify-between bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 shadow-lg h-16 px-4">
+    {/* Logo / Text */}
+    <div className="flex items-center gap-3">
+      {/* Optional Logo */}
+      <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
+        <span className="text-orange-500 font-bold text-lg">B</span>
+      </div>
+      <span className="text-white font-bold text-xl drop-shadow-lg">Bajiraj</span>
+    </div>
 
-          {/* Game Frame */}
-          <iframe
-            src={gameUrl}
-            className="fixed inset-0 w-full h-full border-0 z-[998]"
-            allow="fullscreen"
-          />
-        </>
+    {/* Close Button */}
+    <button
+      onClick={() => {
+        setShowGame(false);
+        setGameUrl(null);
+        setLoading(false);
+      }}
+      className="flex items-center justify-center w-10 h-10 rounded-full bg-black/60 backdrop-blur-md text-white hover:bg-red-500 transition-all duration-200 hover:scale-110 shadow-lg"
+      aria-label="Close Game"
+    >
+      ✕
+    </button>
+  </div>
+
+  {/* Game Frame */}
+  <iframe
+    src={gameUrl}
+    className="fixed inset-0 top-16 w-full h-[calc(100%-4rem)] border-0 z-[998]"
+    allow="fullscreen"
+  />
+</>
       )}
 
       {!showGame && (
