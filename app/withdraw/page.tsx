@@ -100,33 +100,47 @@ export default function WithdrawPage() {
 
   if (!user) return <p className="text-white text-center mt-20">Loading user...</p>;
 
-  const handleWithdraw = async () => {
-    if (!user || !selectedPhone || !amount || !selectedPayment || !selectedChannel) return;
+const handleWithdraw = async () => {
+  if (!user || !selectedPhone || !amount || !selectedPayment || !selectedChannel) return;
 
-    setIsLoading(true);
-    try {
-      const gateway = paymentOptions.find((p) => p.id === selectedPayment);
-      await fetch("https://api.bajiraj.cloud/withdraw", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          user_id: user.id,
-          amount,
-          sender_number: selectedPhone,
-          receiver_number: receiverNumber,
-          payment_gateway: gateway?.name || "",
-        }),
-      });
-      alert("Withdraw request submitted!");
-      setAmount("");
-      setSelectedPhone("");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to submit withdraw request");
-    } finally {
-      setIsLoading(false);
+  setIsLoading(true);
+
+  try {
+    const gateway = paymentOptions.find((p) => p.id === selectedPayment);
+
+    const res = await fetch("https://api.bajiraj.cloud/withdrawals", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_id: user.id,
+        amount,
+        sender_number: selectedPhone,
+        receiver_number: receiverNumber,
+        payment_gateway: gateway?.name || "",
+      }),
+    });
+
+    const data = await res.json(); // 🔥 IMPORTANT
+
+    if (!res.ok) {
+      // show backend error message
+      alert(data.error || "Something went wrong");
+      return;
     }
-  };
+
+    // Success
+    alert(data.message || "Withdrawal request submitted successfully");
+
+    setAmount("");
+    setSelectedPhone("");
+  } catch (err) {
+    console.error(err);
+    alert("Network error. Please try again.");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
   const uniquePaymentOptions = paymentOptions.filter(
     (option, index, self) =>
       index === self.findIndex((o) => o.name === option.name)

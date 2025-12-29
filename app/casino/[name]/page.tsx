@@ -174,7 +174,7 @@ export default function Casino() {
           userName: user.name,
           game_uid: item.game_uid,
           credit_amount: user.wallet,
-          game_type: "slot",
+          game_type: "live-casino",
         }),
       });
 

@@ -67,6 +67,10 @@ export default function EWalletPage() {
       const payData = (await payRes.json()).filter((p) => p.is_active);
 
       setPromotions(promoData);
+
+       let defaultPromo = promoData.find(p => p.promo_type == "default");
+
+      setSelectedPromotion(defaultPromo.id || 9)
       setPaymentOptions(payData);
 
       if (payData.length) {
@@ -166,7 +170,7 @@ useEffect(() => {
                 {/* Promotion selection */}
                 <div className="flex left-2 absolute text-slate-200 top-[18px] text-lg items-center gap-2">
                   <Gift />
-                  <Label className="text-lg">Promotion</Label>
+                  <Label className="text-lg ">Promotion</Label>
                 </div>
 
                 <Sheet
@@ -176,7 +180,7 @@ useEffect(() => {
                   <SheetTrigger asChild>
                     <Button
                       variant="outline"
-                      className="w-full bg-slate-800 text-slate-200 h-16 text-lg pl-32 text-left"
+                      className="w-full text-orange-400 bg-slate-800 h-16 text-lg pl-32 text-left"
                     >
                       {selectedPromotion
                         ? (() => {
