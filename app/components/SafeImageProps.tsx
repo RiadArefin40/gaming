@@ -58,7 +58,7 @@ export default function SafeImage({
     <img
       src={imgSrc}
       alt={alt}
-      className={`h-8 w-8 rounded-full opacity-80 absolute top-2 right-2 transition-opacity duration-500 ${
+      className={`h-8 w-8 rounded-full opacity-80 absolute top-0 right-4 transition-opacity duration-500 ${
         loading ? "opacity-0" : "opacity-80"
       }`}
       onLoad={() => setLoading(false)}
