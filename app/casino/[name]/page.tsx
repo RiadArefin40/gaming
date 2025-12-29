@@ -17,7 +17,7 @@ const user = getAuthUser();
 
 interface Category {
   name: string;
-  icon:  string;
+  icon: React.ReactNode;
   label: string;
 }
 
@@ -46,27 +46,27 @@ export default function Casino() {
   const [showGame, setShowGame] = useState(false);
   const [gameUrl, setGameUrl] = useState(null);
 
-  // const categories: Category[] = [
-  //   { name: "casino", label: "Casino", icon: <span>♠️</span> },
-  //   { name: "slots", label: "Slots", icon: <span>🎰</span> },
-  //   { name: "crash", label: "Crash", icon: <span>💥</span> },
-  //   { name: "table", label: "Table", icon: <span>🃏</span> },
-  //   { name: "fishing", label: "Fishing", icon: <span>🎣</span> },
-  //   { name: "arcade", label: "Arcade", icon: <span>👾</span> },
-  //   { name: "lottery", label: "Lottery", icon: <span>🎫</span> },
-  // ];
+  const categories: Category[] = [
+    { name: "casino", label: "Casino", icon: <span>♠️</span> },
+    { name: "slots", label: "Slots", icon: <span>🎰</span> },
+    { name: "crash", label: "Crash", icon: <span>💥</span> },
+    { name: "table", label: "Table", icon: <span>🃏</span> },
+    { name: "fishing", label: "Fishing", icon: <span>🎣</span> },
+    { name: "arcade", label: "Arcade", icon: <span>👾</span> },
+    { name: "lottery", label: "Lottery", icon: <span>🎫</span> },
+  ];
 
   const providers = [
-    { name: "all", label: "All", icon: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-casino.png" }, // fallback
+    { name: "all", label: "All", icon: <span>🌐</span> }, // fallback
     {
       name: "evaluation-live",
       label: "Evaluation Live",
-      icon: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-evo.png",
+      icon: <span>♠️</span>,
     },
     {
       name: "pragmatic-play-live",
       label: "Pragmatic Play Live",
-      icon: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png",
+      icon: <span>🎰</span>,
     },
     { name: "ezugi-live", label: "Ezugi Live", icon: <span>💥</span> },
     { name: "playtech-live", label: "Playtech Live", icon: <span>💥</span> },
@@ -96,12 +96,12 @@ export default function Casino() {
     })
   );
 
-  // const [selectedCategory, setSelectedCategory] = useState(() => {
-  //   const matchedCategory = categories.find(
-  //     (cat) => cat.name.toLowerCase() === firstSegment.toLowerCase()
-  //   );
-  //   return matchedCategory ? matchedCategory.label : categories[0].name;
-  // });
+  const [selectedCategory, setSelectedCategory] = useState(() => {
+    const matchedCategory = categories.find(
+      (cat) => cat.name.toLowerCase() === firstSegment.toLowerCase()
+    );
+    return matchedCategory ? matchedCategory.label : categories[0].name;
+  });
 
   const [selectedProvider, setSelectedProvider] = useState(() => {
     const matchedProvider = providers.find(
@@ -137,13 +137,13 @@ export default function Casino() {
     return () => clearTimeout(timeout);
   }, [searchTerm, sortAsc]);
 
-  // const handleCategorySelect = (catName: string) => {
-  //   setSelectedCategory(catName);
-  //   setDropdownOpen(false);
-  //   const slug = slugify(catName);
-  //   console.log("slug", slug);
-  //   router.push(`/${slug}/all`); // Uncomment if needed
-  // };
+  const handleCategorySelect = (catName: string) => {
+    setSelectedCategory(catName);
+    setDropdownOpen(false);
+    const slug = slugify(catName);
+    console.log("slug", slug);
+    router.push(`/${slug}/all`); // Uncomment if needed
+  };
 
   const handleProviderSelect = (provider: string) => {
     setSelectedProvider(provider);
@@ -302,16 +302,7 @@ export default function Casino() {
                   className="flex  -ml-1 h-10 w-full min-w-[180px] items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
                 >
                   <div className="flex items-center space-x-2">
-                   <div className="w-6 h-6">
-  {providers.find((p) => p.label === selectedProvider)?.icon || null}
-</div>
-
-                  {/* <img
-  src={providers.find((p) => p.label === selectedProvider)?.icon || ''}
-  alt=""
-  className="w-6 h-6"
-/> */}
-
+                    {/* Provider icon */}
                     {providers.find((p) => p.label === selectedProvider)?.icon}
 
                     {/* Provider label */}
