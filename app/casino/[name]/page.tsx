@@ -206,32 +206,49 @@ export default function Casino() {
 {loading && (
   <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 backdrop-blur-md">
     <div className="relative flex flex-col items-center justify-center gap-4">
-      
-      {/* Rotating gradient rings */}
-      <div className="relative w-20 h-20">
+
+      {/* Rotating gradient rings with text inside */}
+      <div className="relative w-28 h-28 flex items-center justify-center">
         <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 opacity-40 blur-xl animate-spin-slow" />
         <div className="absolute inset-0 rounded-full border-4 border-white border-t-transparent animate-spin shadow-lg" />
         <div className="absolute inset-0 rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
+
+        {/* Center text */}
+        <span className="relative text-white text-xl font-bold drop-shadow-lg">
+          Bajiraj
+        </span>
       </div>
 
       {/* Floating dots around spinner */}
-      <div className="absolute w-32 h-32 flex items-center justify-center">
-        {[...Array(6)].map((_, i) => (
+      <div className="absolute w-40 h-40 flex items-center justify-center">
+        {[...Array(12)].map((_, i) => (
           <span
             key={i}
-            className={`absolute w-3 h-3 bg-gradient-to-tr from-purple-400 via-pink-500 to-orange-400 rounded-full animate-bounce`}
+            className="absolute w-2 h-2 bg-gradient-to-tr from-purple-400 via-pink-500 to-orange-400 rounded-full animate-bounce"
             style={{
-              transform: `rotate(${i * 60}deg) translateX(4rem)`,
-              animationDelay: `${i * 0.1}s`,
+              transform: `rotate(${i * 30}deg) translateX(5rem)`,
+              animationDelay: `${i * 0.05}s`,
             }}
           />
         ))}
       </div>
 
-      {/* Loading text */}
-      <p className="mt-24 text-lg text-white font-semibold tracking-wide animate-pulse">
-        {loadingText}
-      </p>
+      {/* Sparkling stars around */}
+      <div className="absolute w-full h-full">
+        {[...Array(20)].map((_, i) => (
+          <span
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
+            style={{
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              animationDuration: `${0.5 + Math.random()}s`,
+            }}
+          />
+        ))}
+      </div>
+
+
     </div>
   </div>
 )}
