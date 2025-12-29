@@ -7,6 +7,7 @@ interface TurnoverCardProps {
   amount: string
   progress: number
   progressText: string
+  progressClassName: string
   status?: "completed" | "active"
 }
 
@@ -35,7 +36,7 @@ export default function TurnoverCard({
 
       {/* Progress */}
       <div className="mt-3 space-y-1">
-        <Progress value={80} className="h-2 " />
+        <Progress value={progress}  className={`h-2 ${status === "completed" ? "bg-orange-500" : "bg-orange-100"}`} />
         <div className="flex justify-between text-lg text-orange-500">
           <span>{progressText}</span>
           <span>{progress.toFixed(2)}%</span>

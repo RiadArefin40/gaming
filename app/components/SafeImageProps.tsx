@@ -14,8 +14,8 @@ type SafeImageProps = {
 export default function SafeImage({
   src,
   alt = "image",
-  width = 300,
-  height = 150,
+  width = 200,
+  height = 140,
   className = "",
 }: SafeImageProps) {
   const FALLBACK_IMAGE = "/images/demo.png"; // put this in /public/images/
