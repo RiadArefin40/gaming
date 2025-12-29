@@ -51,10 +51,16 @@ export default function Home() {
   };
 
   const menuItems: MenuItem[] = [
-    { name: "Gaming", icon: <span>⭐</span>, children: ["Option 1", "Option 2"]  },
-    { name: "About", icon: <Crown className="w-5 h-5" />, children: ["Option 1", "Option 2"] },
-    { name: "Feature", icon: <Activity className="w-5 h-5" />, children: ["Football", "Cricket"] },
-    { name: "Help", icon: <Gamepad2 className="w-5 h-5" />, children: ["Live Casino", "Table Games"] },
+  { 
+    name: "Features", 
+    icon: <Activity className="w-5 h-5" />, 
+    children: ["Live Casino","Slots","Football Betting", "Cricket Betting", "Instant Withdrawals", "Bonuses & Promotions"] 
+  },
+  { 
+    name: "Help", 
+    icon: <Gamepad2 className="w-5 h-5" />, 
+    children: ["Live Chat Support", "FAQ", "Terms & Conditions", "Deposit & Withdrawal Guide"] 
+  },
 
   ];
    
@@ -87,7 +93,8 @@ export default function Home() {
                 <Volume  className="w-8 h-8 text-orange-400 bg-gray-800 z-10 pl-2" />
                 <div className="flex-1 absolute overflow-hidden">
                   <span className="animate-marquee text-white text-lg inline-block whitespace-nowrap">
-                  এই একটি উদাহরণ বাংলার ম্যারিক টেক্সট যা বাম থেকে ডান দিকে চলবে। এটি স্বয়ংক্রিয়ভাবে স্ক্রল হবে।
+    🎉 <span className="text-orange-400 font-bold">Bajiraj</span> অনলাইন ক্যাসিনো এখন লাইভ! সাইন আপ করুন এবং আপনার প্রথম ডিপোজিটে ৫০% বোনাস উপভোগ করুন! 🎰
+
                   </span>
                 </div>
        
