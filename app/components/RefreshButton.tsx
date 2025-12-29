@@ -29,7 +29,7 @@ export default function RefreshButton({ balance, onRefresh, loading }: RefreshBu
       onPointerDown={handleRefresh} // Pointer devices
       className="flex items-center gap-2 px-4 h-10 rounded-md bg-slate-800 hover:bg-slate-700 transition-colors duration-300 select-none"
     >
-      <div className="flex items-center gap-4 pointer-events-auto">
+      <div className="flex w-[120px] items-center gap-4 pointer-events-auto">
         {/* Balance Icon */}
         <div className="relative h-8 w-8 rounded-full bg-gradient-to-b from-orange-500 to-orange-800 shadow-[inset_0_2px_2px_rgba(255,255,255,0.35),_0_3px_6px_rgba(0,0,0,0.45)]">
           <div
@@ -44,7 +44,7 @@ export default function RefreshButton({ balance, onRefresh, loading }: RefreshBu
         </div>
 
         {/* Balance */}
-        <span className="text-xl -ml-3 font-semibold"> {loading? "*******" : balance}</span>
+        <span className="text-xl -ml-3 font-semibold"> {loading? " ----- " : balance}</span>
 
         {/* Refresh Icon */}
         <RotateCw

@@ -22,6 +22,7 @@ import {
   FileText,
   Wallet,
   TrendingUp,
+  HomeIcon,
   Crown,
   EyeOff,
   RefreshCcw,
@@ -173,7 +174,10 @@ export default function MobileFooter() {
     setSheetOpen(false)
     router.push("/slots/all");
   };
-
+ const goToHome  = () => {
+    setSheetOpen(false)
+    router.push("/");
+  };
   const goToPromotions = () => router.push("/promos");
 
   // Helper to highlight active button
@@ -207,153 +211,48 @@ export default function MobileFooter() {
   return (
     <div className="fixed bottom-0 left-0 right-0 md:hidden z-200">
       <div className="flex items-center justify-between px-6  gap-2  border-t border-slate-800 text-gray-400 w-full  bg-gray-900">
-        <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-          <SheetTrigger>
-            <div className="flex flex-col relative items-center gap-1">
-              <div
-                className={`flex flex-col w-[70px] items-center gap-1 px-2 py-1  -ml-[20px] relative `}
-              >
-                {/* <Menu    className={`w-6 h-6 absolute bottom-2 ${
-                  sheetOpen ? "!text-orange-500 w-9 h-9" : "!text-white "
-                }`} /> */}
-               <div className="relative flex flex-col items-center gap-1">
+     
+<button
+  onClick={goToHome}
+  className="flex flex-col w-[70px] items-center gap-1 px-2 py-1 relative"
+>
   <div className="relative w-14 h-14 flex flex-col items-center justify-center">
     {/* Glowing animated 3D background */}
     <div
-      className={`absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 
+      className={`absolute inset-0 rounded-full bg-gradient-to-tr from-blue-400 via-cyan-500 to-purple-500
         blur-3xl opacity-70 scale-110 
-        ${sheetOpen ? "animate-spin-slow" : ""}`}
+        ${isActive("/") ? "animate-spin-slow" : ""}`}
     />
 
-    {/* Floating Menu icon with tilt + shadow */}
-    <Menu
+    {/* Floating Home icon with tilt + shadow */}
+    <HomeIcon
       className={`absolute bottom-4 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
-        ${sheetOpen ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
+        ${isActive("/") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
         drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
     />
 
-    {/* Floating rings for 3D effect */}
+    {/* Floating rings */}
     <div
       className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
         transition-all duration-500 ease-out
-        ${sheetOpen ? "w-12 h-12" : "w-10 h-10"}`}
+        ${isActive("/") ? "w-10 h-10 scale-115" : "w-10 h-10"}`}
     />
     <div
       className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
         transition-all duration-500 ease-out
-        ${sheetOpen ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
+        ${isActive("/") ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
     />
   </div>
 
   {/* Label */}
   <span
     className={`-mt-2 text-white text-md font-medium drop-shadow-lg
-      ${sheetOpen ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
+      ${isActive("/") ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
   >
-    Menu
+    Home
   </span>
-</div>
-
-              </div>
-            </div>
-          </SheetTrigger>
-
-          <SheetContent
-            side="left"
-            className="w-full max-h-screen h-[90%] p-0 bg-slate-800 overflow-y-auto"
-          >
-            <VisuallyHidden>
-              <DialogTitle>Mobile Menu</DialogTitle>
-            </VisuallyHidden>
-
-            {/* Custom Close Button */}
-            <div className="p-4 flex justify-between">
-              <button className="bg-gray-900 px-4 py-1 flex items-center gap-2 rounded-lg">
-                <MessageCircle className="w-5 h-5" />
-                <p>Live Support</p>
-              </button>
-              <button
-                className="bg-orange-400 px-4 py-1 rounded-lg flex items-center justify-center z-100"
-                onClick={() => setSheetOpen(false)} // This actually closes the sheet
-              >
-                <X className="w-6 h-6 text-gray-100 hover:text-red-600" />
-              </button>
-            </div>
-
-            {/* Menu Items */}
-            <ul className="p-4 space-y-2 text-lg text-gray-300">
-              <img src="/b-1.jpg" alt="Logo" className="-mt-4 mb-2" />
-              {menuItems.map((item, idx) => (
-                <li key={idx}>
-                  <button
-                    onClick={() => item.children && toggleSection(item.name)}
-                    className={`flex items-center justify-between w-full py-2 px-3 rounded transition-colors
-    ${
-      openSections[item.name]
-        ? "text-orange-400 bg-slate-800 font-semibold"
-        : "text-gray-200 bg-transparent"
-    }
-    hover:bg-gray-100 focus:outline-none focus:bg-slate-800`}
-                    style={{
-                      WebkitTapHighlightColor: "transparent", // removes default mobile highlight
-                      touchAction: "manipulation", // helps mobile taps behave properly
-                    }}
-                  >
-                    <div className="flex items-center gap-2">
-                      {item.icon}
-                      <span>{item.name}</span>
-                    </div>
-                    {item.children && (
-                      <span>{openSections[item.name] ? "▲" : "▼"}</span>
-                    )}
-                  </button>
-
-                  {item.children && openSections[item.name] && (
-                    <>
-                      {Array.isArray(item.children) ? (
-                        <ul className="pl-8 mt-1 space-y-1">
-                          {item.children.map((child, cidx) => (
-                            <li key={cidx}>
-                              <a
-                                href="#"
-                                className="block py-1 text-gray-700 hover:text-purple-700"
-                              >
-                                {child}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <div onClick={() => setSheetOpen(false)}>
-                          {item.children}
-                        </div>
-                      )}
-                    </>
-                  )}
-                </li>
-              ))}
-              {user && (
-                <button
-                  onClick={handleLogout}
-                  className="px-3 w-full mb-[220px] mt-6 w-full py-[8px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
-                >
-                  Log Out
-                </button>
-              )}
-            </ul>
-
-            <style jsx global>{`
-              [data-slot="sheet-overlay"] {
-                top: 3.5rem !important;
-                height: calc(100vh - 9.5rem) !important;
-
-                backdrop-filter: none !important;
-                bottom: 3.5rem !important;
-              }
-            `}</style>
-          </SheetContent>
-        </Sheet>
+</button>
 
         {/* Casino */}
 <button
