@@ -240,22 +240,27 @@ export default function Casino() {
       {!showGame && (
         <div className="p-2 pt-[80px]">
           <div className="sticky h-[80px] top-2 bg-slate-900 z-50">
-            <div className="flex items-center  justify-between">
+            <div className="flex items-center gap-2 justify-between">
               {/* Provider Dropdown */}
               <div className="relative mt-[20px]">
                 <button
                   onClick={() => setProviderDropdownOpen(!providerDropdownOpen)}
-                  className="flex  h-10 w-full min-w-[200px] items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
+                  className="flex  h-10 w-full min-w-[180px] items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
                 >
                   <div className="flex items-center space-x-2">
                     {/* Provider icon */}
                     {providers.find((p) => p.label === selectedProvider)?.icon}
 
                     {/* Provider label */}
-                    <span>
-                      {providers.find((p) => p.name === selectedProvider)
-                        ?.label || selectedProvider}
-                    </span>
+               <span>
+  {(() => {
+    const label =
+      providers.find((p) => p.name === selectedProvider)?.label ||
+      selectedProvider;
+    return label.length > 12 ? label.slice(0, 12) + "..." : label;
+  })()}
+</span>
+
                   </div>
 
                   {/* Dropdown arrow */}
