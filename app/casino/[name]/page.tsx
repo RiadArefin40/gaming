@@ -257,7 +257,7 @@ export default function Casino() {
     const label =
       providers.find((p) => p.name === selectedProvider)?.label ||
       selectedProvider;
-    return label.length > 12 ? label.slice(0, 12) + "..." : label;
+    return label.length > 9 ? label.slice(0, 9) + " .." : label;
   })()}
 </span>
 
