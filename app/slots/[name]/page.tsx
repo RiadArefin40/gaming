@@ -251,14 +251,14 @@ export default function Casino() {
       )}
 
       {!showGame && (
-        <div className="p-2 py-[80px]">
-          <div className="sticky h-[100px] top-2 bg-slate-900 z-50">
+         <div className="p-2 pt-[80px] ">
+          <div className="sticky h-[80px] top-2 bg-slate-900 z-50">
             <div className="flex items-center  justify-between">
               {/* Provider Dropdown */}
-              <div className="relative">
+              <div className="relative mt-[20px]">
             <button
   onClick={() => setProviderDropdownOpen(!providerDropdownOpen)}
-  className="flex min-w-[180px]  h-10 items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
+  className="flex min-w-[200px]  h-10 items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
 >
   <div className="flex items-center space-x-2">
     {/* Provider icon */}
@@ -279,7 +279,7 @@ export default function Casino() {
                     {providers.map((p, i) => (
                       <div
                         key={i}
-                        onClick={() => handleProviderSelect(p.label)}
+                        onClick={() => handleProviderSelect(p.name)}
                         className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
                           selectedProvider === p.label ? "bg-slate-400" : ""
                         }`}
@@ -290,43 +290,7 @@ export default function Casino() {
                   </div>
                 )}
               </div>
-              {/* Category Dropdown */}
-              <div className="relative mt-2">
-                 <button
-  onClick={() => setDropdownOpen(!dropdownOpen)}
-  className="flex min-w-[150px] h-10 -mt-4 items-center space-x-1 font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
->
-  {/* Show category icon */}
-  {categories.find((c) => c.label == selectedCategory)?.icon}
-  
-  {/* Show category label or fallback to name */}
-  <span>
-    {categories.find((c) => c.name == selectedCategory)?.label || selectedCategory}
-  </span>
-  
-  {/* Dropdown arrow */}
-  <span className="pl-8">{dropdownOpen ? "▲" : "▼"}</span>
-</button>
-                {dropdownOpen && (
-                  <div className="absolute w-full bg-gray-700 rounded-md shadow-lg z-10">
-                    {categories.map((cat, i) => (
-                      <div
-                        key={i}
-                        onClick={() => handleCategorySelect(cat.label)}
-                        className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
-                          selectedCategory === cat.name ? "bg-slate-400" : ""
-                        }`}
-                      >
-                        {cat.icon} <span>{cat.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Search */}
-        <div className="flex flex-col  h-10 sm:flex-row items-start sm:items-center justify-between text-white py-2 rounded-md mb-8">
+                                       <div className="flex  h-10 flex-col sm:flex-row items-start sm:items-center justify-between text-white py-2 rounded-md mt-[4px]">
   <div className="relative flex items-center">
     {searchOpen && (
       <>
@@ -352,12 +316,49 @@ export default function Casino() {
           placeholder="Search games..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-8  h-10 px-3 w-[180px] py-1 flex-1 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
+          className="pl-8  h-10 px-3 w-[200px] py-1 flex-1 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
         />
       </>
     )}
   </div>
 </div>
+        
+              {/* <div className="relative mt-2">
+                 <button
+  onClick={() => setDropdownOpen(!dropdownOpen)}
+  className="flex min-w-[150px] h-10 -mt-4 items-center space-x-1 font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
+>
+
+  {categories.find((c) => c.label == selectedCategory)?.icon}
+  
+
+  <span>
+    {categories.find((c) => c.name == selectedCategory)?.label || selectedCategory}
+  </span>
+  
+
+  <span className="pl-8">{dropdownOpen ? "▲" : "▼"}</span>
+</button>
+                {dropdownOpen && (
+                  <div className="absolute w-full bg-gray-700 rounded-md shadow-lg z-10">
+                    {categories.map((cat, i) => (
+                      <div
+                        key={i}
+                        onClick={() => handleCategorySelect(cat.label)}
+                        className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
+                          selectedCategory === cat.name ? "bg-slate-400" : ""
+                        }`}
+                      >
+                        {cat.icon} <span>{cat.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div> */}
+            </div>
+
+            {/* Search */}
+
 
           </div>
 
