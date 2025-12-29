@@ -209,12 +209,12 @@ export default function MobileFooter() {
   };
 
   return (
-    <div className="fixed max-w-screen bottom-0 left-0 right-0 md:hidden z-200">
-      <div className="flex items-center justify-between px-6  gap-2  border-t border-slate-800 text-gray-400 w-full -ml-[20px] bg-gray-900">
+    <div className="fixed min-w-screen bottom-0 left-0 right-0 md:hidden z-200">
+      <div className="flex items-center justify-between px-6  gap-2  border-t border-slate-800 text-gray-400 w-full  bg-gray-900">
      
 <button
   onClick={goToHome}
-  className="flex flex-col w-[70px] items-center gap-1 px-2 py-1 relative"
+  className="flex flex-col w-[70px] items-center gap-1 px-2 py-1 -ml-[20px] relative"
 >
   <div className="relative w-14 h-14 flex flex-col items-center justify-center">
     {/* Glowing animated 3D background */}
