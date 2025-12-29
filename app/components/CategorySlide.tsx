@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { gameImages } from "@/utils/gameData";
 import { CasinoGrid } from "./CasinoGrid";
+import { ex } from "@/utils/exclusive";
 import { ExclusiveGrid } from "./ExclusiveGrid";
 import { SportsGrid } from "./SportsGrid";
 import { SlotGrid } from "./SlotGrid";
@@ -143,7 +144,7 @@ export default function CategorySlider() {
         })}
       </div>
         {selectedCategory === "exclusive" && (
-          <ExclusiveGrid items={gameImages.exclusive} />
+          <ExclusiveGrid items={ex} />
         )}
          {selectedCategory === "sports" && (
           <SportsGrid items={activeGamesMap[selectedCategory as keyof typeof activeGamesMap]}  />
