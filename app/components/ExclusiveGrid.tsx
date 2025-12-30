@@ -208,6 +208,7 @@ export function ExclusiveGrid({ items }: ExclusiveGridProps) {
       } else {
         alert(data.error || "Failed to launch game");
         setShowGame(false);
+        setLoading(false);
       }
     } catch (error) {
       console.error("Error launching game:", error);

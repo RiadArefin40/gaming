@@ -204,6 +204,7 @@ export default function Casino() {
       } else {
         alert(data.error || "Failed to launch game");
         setShowGame(false);
+           setLoading(false);
       }
     } catch (error) {
       console.error("Error launching game:", error);
