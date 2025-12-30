@@ -129,7 +129,7 @@ export function ExclusiveGrid({ items }: ExclusiveGridProps) {
   const [providerDropdownOpen, setProviderDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredGames, setFilteredGames] = useState<Game[]>(gamesWithImages);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [loadingText, setLoadingText] = useState("Launching game...");
   const [sortAsc, setSortAsc] = useState(true);
   const [searchOpen, setSearchOpen] = useState(true);
@@ -147,7 +147,7 @@ export function ExclusiveGrid({ items }: ExclusiveGridProps) {
           : b.title.localeCompare(a.title)
       );
       setFilteredGames(filtered);
-      setLoading(false);
+      // setLoading(false);
     }, 500);
     return () => clearTimeout(timeout);
   }, [searchTerm, sortAsc]);
@@ -223,14 +223,14 @@ export function ExclusiveGrid({ items }: ExclusiveGridProps) {
     <div className="">
 
     {loading && (
-  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 backdrop-blur-md">
+  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 backdrop-blur-lg">
     <div className="relative flex flex-col items-center justify-center gap-4">
 
       {/* Rotating gradient rings with text inside */}
-      <div className="relative w-28 h-28 flex items-center justify-center">
-        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 opacity-40 blur-xl animate-spin-slow" />
-        <div className="absolute inset-0 rounded-full border-4 border-white border-t-transparent animate-spin shadow-lg" />
-        <div className="absolute inset-0 rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
+      <div className="relative w-28 m-1 h-28 flex items-center justify-center">
+        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-200 opacity-40 blur-xl animate-spin-slow" />
+        <div className="absolute inset-0 rounded-full border-3 border-white border-t-transparent animate-spin shadow-lg" />
+        <div className="absolute inset-0  rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
 
         {/* Center text */}
         <span className="relative text-white text-xl font-bold drop-shadow-lg">
@@ -239,7 +239,7 @@ export function ExclusiveGrid({ items }: ExclusiveGridProps) {
       </div>
 
       {/* Floating dots around spinner */}
-      <div className="absolute w-40 h-40 flex items-center justify-center">
+      {/* <div className="absolute w-40 h-40 flex items-center justify-center">
         {[...Array(12)].map((_, i) => (
           <span
             key={i}
@@ -250,21 +250,36 @@ export function ExclusiveGrid({ items }: ExclusiveGridProps) {
             }}
           />
         ))}
-      </div>
+      </div> */}
 
       {/* Sparkling stars around */}
       <div className="absolute w-full h-full">
+        {[...Array(50)].map((_, i) => (
+          <span
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
+            style={{
+              top: `${-Math.random() * 250}%`,
+              left: `${Math.random() * 400}%`,
+              animationDuration: `${0.4 + Math.random()}s`,
+            }}
+          />
+        ))}
+        
+      </div>
+            <div className="absolute w-full h-full">
         {[...Array(20)].map((_, i) => (
           <span
             key={i}
             className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
             style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDuration: `${0.5 + Math.random()}s`,
+              top: `${Math.random() * 300}%`,
+              left: `${-Math.random() * 100}%`,
+              animationDuration: `${0.4 + Math.random()}s`,
             }}
           />
         ))}
+        
       </div>
 
 
