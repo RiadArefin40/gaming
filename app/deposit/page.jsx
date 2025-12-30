@@ -148,13 +148,13 @@ useEffect(() => {
       const res = await fetch(`https://api.bajiraj.cloud/users/phones/${currentUser.id}`);
       const data= await res.json();
       setPhones(data.map(p => p.phone));
-      setSenderNumber(currentUser.phone); // default to main phone
+      // setSenderNumber(currentUser.phone); // default to main phone
     } catch (err) {
       console.error(err);
     }
   };
   fetchPhones();
-}, [currentUser]);
+}, []);
 
   return (
     <div className="mt-24 bg-slate-900 flex justify-center">
@@ -367,7 +367,7 @@ useEffect(() => {
 
 <Select
   className="h-14 w-full"
-  value={senderNumber || currentUser.phone}
+  value={senderNumber}
   onValueChange={(value) => setSenderNumber(value)}
 >
   <SelectTrigger className="!h-14 !bg-slate-800 w-full text-white rounded-md pl-3">
@@ -383,7 +383,7 @@ useEffect(() => {
     ))} */}
 
     {/* User phones */}
-    {[currentUser.phone, ...(phones || [])].map((num) => (
+    {[ ...(phones || [])].map((num) => (
       <SelectItem key={num} value={num}>
         {num}
       </SelectItem>
