@@ -17,9 +17,7 @@ import Slider from "./Slider";
     slider_items: [
  
 
-  { id: 1, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_235581.jpg",  alt: "Slide 1", },
-  { id: 2, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_272517.jpg",alt: "Slide 1" },
-  { id: 3, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265553.jpg" ,alt: "Slide 1"},
+
   { id: 4, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265553.jpg" , alt: "Slide 1"},
 
 
@@ -156,7 +154,7 @@ export default function EventSlider() {
 
   return (
     <div className="my-4 px-4 z-50">
-     <div className="flex items-center justify-between">
+     <div className="flex items-center justify-between -mb-4">
   <p className="text-xl border-l-4 border-orange-400 pl-4">
     Event
   </p>

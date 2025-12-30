@@ -26,18 +26,23 @@ export default function Home() {
  console.log("user", user)
     const siteInfo = {
     slider_items: [
- 
+  { id: 1, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265867.jpg", alt: "Slide 1" },
+  { id: 2, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_272517.jpg", alt: "Slide 1" },
+  { id: 5, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_277174.jpg", alt: "Slide 1" },
+  { id: 6, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_280661.jpg", alt: "Slide 1" },
+  { id: 3, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265553.jpg", alt: "Slide 1" }
+]
+,
+  };
 
-  { id: 1, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_235581.jpg",  alt: "Slide 1", },
-  { id: 2, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_272517.jpg",alt: "Slide 1" },
-  { id: 3, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265553.jpg" ,alt: "Slide 1"},
-  { id: 4, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265553.jpg" , alt: "Slide 1"},
-  { id: 1, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_235581.jpg",  alt: "Slide 1", },
-  { id: 2, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_272517.jpg",alt: "Slide 1" },
-  { id: 3, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265553.jpg" ,alt: "Slide 1"},
-  { id: 4, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265553.jpg" , alt: "Slide 1"},
+      const siteInfo1 = {
+    slider_items: [
+  { id: 1, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265867.jpg", alt: "Slide 1" },
+  { id: 2, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_272517.jpg", alt: "Slide 1" },
+  { id: 5, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_277174.jpg", alt: "Slide 1" },
 
-    ],
+]
+,
   };
 
     const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
@@ -84,15 +89,15 @@ export default function Home() {
 
   return (
     <div className="">
-      <main className="mt-[50px] min-h-screen mb-[800px">
+      <main className="mt-[50px] min-h-screen bg-slate-800 mb-[800px">
 
          <Slider siteInfo={siteInfo}  autoPlay={true} interval={4000}  />
                 {/* Marquee Section */}
-              <div className="flex items-center gap-2  py-2 bg-gray-800 relative overflow-hidden mt-2">
+              <div className="flex items-center gap-2  py-2   bg-gradient-to-r from-gray-700 relative overflow-hidden mt-2">
          
-                <Volume  className="w-8 h-8 text-orange-400 bg-gray-800 z-10 pl-2" />
+                <Volume  className="w-8 h-8 text-orange-400 bg-gray-800 rounded-r-md z-10 pl-2" />
                 <div className="flex-1 absolute overflow-hidden">
-                  <span className="animate-marquee text-white text-lg inline-block whitespace-nowrap">
+                  <span className="animate-marquee text-orange-100 text-lg inline-block whitespace-nowrap">
     🎉 <span className="text-orange-400 font-bold">Bajiraj</span> অনলাইন ক্যাসিনো এখন লাইভ! সাইন আপ করুন এবং আপনার প্রথম ডিপোজিটে ৫০% বোনাস উপভোগ করুন! 🎰
 
                   </span>
@@ -132,10 +137,11 @@ export default function Home() {
 
 
                <ProviderCategory/>
-               <MatchSlider  />
+               {/* <MatchSlider  /> */}
+            
                <EventSlider/>
-                 <ProviderCategory/>
-                 <FeaturedSlider siteInfo={siteInfo}  autoPlay={true} interval={4000} />
+                 {/* <ProviderCategory/> */}
+                 <FeaturedSlider siteInfo={siteInfo1}  autoPlay={true} interval={4000} />
 
                  <div className="bg-grey-900">
                           <ul className="p-2 space-y-2 text-lg text-gray-800 ">

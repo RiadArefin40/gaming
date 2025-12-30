@@ -11,10 +11,12 @@ interface SliderProps {
   interval?: number;
 }
 
+
+
 export default function Slider({
   siteInfo,
   autoPlay = true,
-  interval = 3000,
+  interval = 5000,
 }: SliderProps) {
   const router = useRouter();
 
@@ -103,7 +105,7 @@ export default function Slider({
   return (
     <div
       dir="ltr"
-      className="mt-4 relative h-[200px] sm:h-[220px] md:h-[240px] w-full overflow-hidden rounded-lg"
+      className="mt-2  relative h-[200px] sm:h-[220px] md:h-[240px] w-full overflow-hidden rounded-lg"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       onTouchStart={handleTouchStart}
@@ -112,7 +114,7 @@ export default function Slider({
     >
       {/* track */}
       <div
-        className="flex h-full transition-transform duration-500 ease-out"
+        className="flex h-full  transition-transform duration-500 ease-out"
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {pages.map((page, pageIdx) => (
@@ -128,8 +130,8 @@ export default function Slider({
                 <img
                   src={item?.imageUrl}
                   alt={item?.alt || "Qatarat banner"}
-                  className="object-contain rounded-2xl"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-contain rounded-sm mt-4"
+                  // sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </button>
             ))}
@@ -156,14 +158,14 @@ export default function Slider({
       </button>
 
       {/* dots */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2 !mt-2">
+      <div className="absolute bottom-1 left-1/2 -translate-x-1/2 flex gap-2 !mt-2">
         {pages.map((_, idx) => (
           <button
             key={idx}
             type="button"
             onClick={() => goTo(idx)}
             className={`h-2 w-2 rounded-full transition-all ${
-              idx === current ? "w-6 bg-orange-600" : "bg-gray-300"
+              idx === current ? "w-8 bg-orange-600" : "bg-gray-100"
             }`}
             aria-label={`Go to slide ${idx + 1}`}
           />

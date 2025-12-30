@@ -220,7 +220,7 @@ export function ExclusiveGrid({ items }: ExclusiveGridProps) {
 
 
   return (
-    <>
+    <div className="">
 
     {loading && (
   <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 backdrop-blur-md">
@@ -313,25 +313,40 @@ export function ExclusiveGrid({ items }: ExclusiveGridProps) {
 
       {!showGame && (
         <>
-    <div className="grid grid-cols-3 gap-3 my-4 mt-8 px-4">
+    <div className="grid grid-cols-3 gap-3 my-4 mt-4 px-4">
       {items.map((game:any) => (
         <div
           key={game.id}
           onClick = {() => handleGameClick(game)}
           className="flex items-center justify-center rounded-xl"
         >
-          <img
-            src={game.image}
-            alt="exclusive-game"
-            className="w-full rounded-md h-auto object-contain"
-          />
+      {/* <div className="relative p-[1px] rounded-md bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 animate-gradient-x">
+  <img
+    src={game.image}
+    alt="exclusive-game"
+    className="w-full h-auto rounded-md object-contain bg-black"
+  />
+</div> */}
+<div className="relative rounded-lg p-[1px] bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 animate-gradient-glow">
+  <div className="rounded-md overflow-hidden">
+    <img
+      src={game.image}
+      alt="exclusive-game"
+      className="w-full h-auto object-contain"
+    />
+  </div>
+  {/* Optional: soft glow overlay */}
+  <div className="absolute inset-0 rounded-md  pointer-events-none animate-pulseGlow"></div>
+</div>
+
+
         </div>
       ))}
     </div>
       <div className="flex justify-center ">
      
       </div> </>)}
-    </>
+    </div>
 
   );
 }

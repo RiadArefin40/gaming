@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ExclusiveGrid } from "./ExclusiveGrid";
+import { ex } from "@/utils/exclusive";
 
 interface SliderProps {
   siteInfo: any;
@@ -140,7 +142,7 @@ export default function FeaturedSlider({
         onTouchEnd={handleTouchEnd}
       >
         {/* track */}
-        <div
+        {/* <div
           className="flex  transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${current * 100}%)` }}
         >
@@ -165,7 +167,9 @@ export default function FeaturedSlider({
               ))}
             </div>
           ))}
-        </div>
+        </div> */}
+
+        <ExclusiveGrid items={ex}/>
 
         {/* arrows */}
         <button

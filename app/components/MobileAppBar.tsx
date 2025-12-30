@@ -295,7 +295,7 @@ export default function MobileAppBar() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3 z-50">
+        <div className="flex items-center gap-1 z-50">
           {user && (
             <div className="flex items-center">
               <RefreshButton
@@ -352,19 +352,43 @@ export default function MobileAppBar() {
 
           {!user && pathname !== "/login" && (
             <>
-              <button
-                onClick={() => router.push("/login")}
-                className="px-3 w-[90px] py-[6px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
-              >
-                Login
-              </button>
+     <button
+  onClick={() => router.push("/login")}
+  className="
+    px-2 py-[6px] w-[70px]
+    text-sm font-bold text-white
+    rounded-lg
+    bg-gradient-to-r from-orange-400 to-orange-600
+    shadow-[0_8px_20px_rgba(255,140,0,0.25)]
+    hover:shadow-[0_10px_25px_rgba(255,140,0,0.35)]
+    hover:scale-[1.03]
+    active:scale-[0.97]
+    transition-all duration-200 ease-out
+    backdrop-blur-md
+    
+  "
+>
+  Login
+</button>
 
-              <button
-                onClick={() => router.push("/login")}
-                className="px-3 -ml-2 w-[90px] py-[6px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-green-600"
-              >
-                Sign Up
-              </button>
+<button
+  className="
+    px-1 py-[6px] w-[70px]
+    text-sm font-bold text-white
+    rounded-lg
+    bg-gradient-to-r from-orange-400 to-orange-700
+    shadow-[0_8px_20px_rgba(255,140,0,0.25)]
+    hover:shadow-[0_10px_25px_rgba(255,140,0,0.35)]
+    hover:scale-[1.03]
+    active:scale-[0.97]
+    transition-all duration-200 ease-out
+    backdrop-blur-md
+    mr-1
+  "
+>
+  Sign Up
+</button>
+
             </>
           )}
 
