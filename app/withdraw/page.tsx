@@ -147,7 +147,7 @@ const handleWithdraw = async () => {
       index === self.findIndex((o) => o.name === option.name)
   );
   return (
-    <div className="max-w-screen mx-auto mt-4">
+    <div className="max-w-screen mx-auto mt-4 mb-[200px]">
       <Card className="bg-slate-900 border-0 shadow-xl rounded-2xl">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl text-white">Withdraw</CardTitle>
