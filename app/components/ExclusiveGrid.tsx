@@ -129,7 +129,7 @@ export function ExclusiveGrid({ items }: ExclusiveGridProps) {
   const [providerDropdownOpen, setProviderDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredGames, setFilteredGames] = useState<Game[]>(gamesWithImages);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("Launching game...");
   const [sortAsc, setSortAsc] = useState(true);
   const [searchOpen, setSearchOpen] = useState(true);
@@ -147,7 +147,7 @@ export function ExclusiveGrid({ items }: ExclusiveGridProps) {
           : b.title.localeCompare(a.title)
       );
       setFilteredGames(filtered);
-      // setLoading(false);
+      setLoading(false);
     }, 500);
     return () => clearTimeout(timeout);
   }, [searchTerm, sortAsc]);
@@ -238,19 +238,6 @@ export function ExclusiveGrid({ items }: ExclusiveGridProps) {
         </span>
       </div>
 
-      {/* Floating dots around spinner */}
-      {/* <div className="absolute w-40 h-40 flex items-center justify-center">
-        {[...Array(12)].map((_, i) => (
-          <span
-            key={i}
-            className="absolute w-2 h-2 bg-gradient-to-tr from-purple-400 via-pink-500 to-orange-400 rounded-full animate-bounce"
-            style={{
-              transform: `rotate(${i * 30}deg) translateX(5rem)`,
-              animationDelay: `${i * 0.05}s`,
-            }}
-          />
-        ))}
-      </div> */}
 
       {/* Sparkling stars around */}
       <div className="absolute w-full h-full">

@@ -226,14 +226,14 @@ export function SportsGrid({ items }: SportsGridProps) {
     <>
       {/* 🔥 Loading Overlay */}
     {loading && (
-  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 backdrop-blur-md">
+  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 backdrop-blur-lg">
     <div className="relative flex flex-col items-center justify-center gap-4">
 
       {/* Rotating gradient rings with text inside */}
-      <div className="relative w-28 h-28 flex items-center justify-center">
-        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 opacity-40 blur-xl animate-spin-slow" />
-        <div className="absolute inset-0 rounded-full border-4 border-white border-t-transparent animate-spin shadow-lg" />
-        <div className="absolute inset-0 rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
+      <div className="relative w-28 m-1 h-28 flex items-center justify-center">
+        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-200 opacity-40 blur-xl animate-spin-slow" />
+        <div className="absolute inset-0 rounded-full border-3 border-white border-t-transparent animate-spin shadow-lg" />
+        <div className="absolute inset-0  rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
 
         {/* Center text */}
         <span className="relative text-white text-xl font-bold drop-shadow-lg">
@@ -241,33 +241,35 @@ export function SportsGrid({ items }: SportsGridProps) {
         </span>
       </div>
 
-      {/* Floating dots around spinner */}
-      <div className="absolute w-40 h-40 flex items-center justify-center">
-        {[...Array(12)].map((_, i) => (
-          <span
-            key={i}
-            className="absolute w-2 h-2 bg-gradient-to-tr from-purple-400 via-pink-500 to-orange-400 rounded-full animate-bounce"
-            style={{
-              transform: `rotate(${i * 30}deg) translateX(5rem)`,
-              animationDelay: `${i * 0.05}s`,
-            }}
-          />
-        ))}
-      </div>
 
       {/* Sparkling stars around */}
       <div className="absolute w-full h-full">
+        {[...Array(50)].map((_, i) => (
+          <span
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
+            style={{
+              top: `${-Math.random() * 250}%`,
+              left: `${Math.random() * 400}%`,
+              animationDuration: `${0.4 + Math.random()}s`,
+            }}
+          />
+        ))}
+        
+      </div>
+            <div className="absolute w-full h-full">
         {[...Array(20)].map((_, i) => (
           <span
             key={i}
             className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
             style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDuration: `${0.5 + Math.random()}s`,
+              top: `${Math.random() * 300}%`,
+              left: `${-Math.random() * 100}%`,
+              animationDuration: `${0.4 + Math.random()}s`,
             }}
           />
         ))}
+        
       </div>
 
 

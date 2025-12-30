@@ -38,16 +38,57 @@ const [loadingText, setLoadingText] = useState("Launching game...");
     <>
 
 
-      {loading && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-          <div className="flex flex-col items-center gap-4">
-            <div className="h-12 w-12 animate-spin rounded-full border-4 border-orange-400 border-t-transparent" />
-            <p className="text-lg text-gray-200 animate-pulse">
-              {loadingText}
-            </p>
-          </div>
-        </div>
-      )}
+       {loading && (
+  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 backdrop-blur-lg">
+    <div className="relative flex flex-col items-center justify-center gap-4">
+
+      {/* Rotating gradient rings with text inside */}
+      <div className="relative w-28 m-1 h-28 flex items-center justify-center">
+        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-200 opacity-40 blur-xl animate-spin-slow" />
+        <div className="absolute inset-0 rounded-full border-3 border-white border-t-transparent animate-spin shadow-lg" />
+        <div className="absolute inset-0  rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
+
+        {/* Center text */}
+        <span className="relative text-white text-xl font-bold drop-shadow-lg">
+          Bajiraj
+        </span>
+      </div>
+
+
+      {/* Sparkling stars around */}
+      <div className="absolute w-full h-full">
+        {[...Array(50)].map((_, i) => (
+          <span
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
+            style={{
+              top: `${-Math.random() * 250}%`,
+              left: `${Math.random() * 400}%`,
+              animationDuration: `${0.4 + Math.random()}s`,
+            }}
+          />
+        ))}
+        
+      </div>
+            <div className="absolute w-full h-full">
+        {[...Array(20)].map((_, i) => (
+          <span
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
+            style={{
+              top: `${Math.random() * 300}%`,
+              left: `${-Math.random() * 100}%`,
+              animationDuration: `${0.4 + Math.random()}s`,
+            }}
+          />
+        ))}
+        
+      </div>
+
+
+    </div>
+  </div>
+)}
 
         <div className="grid grid-cols-2 gap-2 p-4">
       {items.map((item) => (
