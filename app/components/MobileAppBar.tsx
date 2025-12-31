@@ -289,9 +289,21 @@ export default function MobileAppBar() {
                 `}</style>
               </SheetContent>
             </Sheet>
-              <p className="tracking-wider text-2xl -ml-4 font-bold text-yellow-300 select-none touch-none">
-              Bajiraj
-            </p>
+     
+            <p
+  className="tracking-wider -mt-2 text-2xl -ml-4 font-extrabold text-orange-500 select-none touch-none"
+  style={{
+    textShadow: `
+      1px 1px 0 #0e0d0cff,
+      2px 3px 0 #fafafaff,
+      3px 3px 0 #f0e7e2ff,
+      4px 4px 6px rgba(112, 76, 76, 0.35)
+    `
+  }}
+>
+  Bajiraj
+</p>
+
           </div>
         </div>
 
