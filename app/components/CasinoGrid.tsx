@@ -356,7 +356,7 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
             `}
           >
             <div className="flex items-center px-4 gap-2">
-              <img className="w-8" src={item.src} alt={item.src} />
+              <img className="h-8" src={item.src} alt={item.src} />
               <span className="text-lg font-medium text-slate-300">
                 {item.provider}
               </span> 
