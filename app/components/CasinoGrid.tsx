@@ -224,7 +224,7 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
     <div className="">
 
     {loading && (
-  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/90 ">
+  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 ">
     <div className="relative flex flex-col items-center justify-center gap-4">
 
       {/* Rotating gradient rings with text inside */}
