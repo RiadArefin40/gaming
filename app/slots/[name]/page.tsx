@@ -287,7 +287,7 @@ export default function Casino() {
     <button
       onClick={() => {
         setShowGame(false);
-        setGameUrl(null);
+        // setGameUrl(null);
         setLoading(false);
       }}
       className="flex items-center justify-center w-10 h-10 rounded-full bg-black/60 backdrop-blur-md text-white hover:bg-red-500 transition-all duration-200 hover:scale-110 shadow-lg"

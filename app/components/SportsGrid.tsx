@@ -226,7 +226,7 @@ export function SportsGrid({ items }: SportsGridProps) {
     <>
       {/* 🔥 Loading Overlay */}
     {loading && (
-  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 backdrop-blur-lg">
+  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70">
     <div className="relative flex flex-col items-center justify-center gap-4">
 
       {/* Rotating gradient rings with text inside */}
@@ -315,11 +315,11 @@ export function SportsGrid({ items }: SportsGridProps) {
 
       )}
       {!showGame && (
-      <div className="grid grid-cols-2 gap-2 p-4">
+      <div className="grid grid-cols-2 gap-2 p-2">
         {items.map((item) => (
+           <div         onClick={() => handleGameClick(item)}  key={item.id} className="relative rounded-lg p-[1px] bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 animate-gradient-glow">
           <div
-            key={item.id}
-            onClick={() => handleGameClick(item)}
+
             className={`
               pt-2 p-1 transition-all rounded-lg duration-300 ease-out border
               bg-gradient-to-br from-slate-800 to-slate-900
@@ -333,6 +333,7 @@ export function SportsGrid({ items }: SportsGridProps) {
                 {item.title}
               </span> 
             </div>
+          </div>
           </div>
         ))}
       </div>
