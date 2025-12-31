@@ -90,7 +90,7 @@ export const gameImages: any  = {
     {
     id: 3,
     title: 'All Game',
-    provider:"Ezugi",
+    provider:"Live",
     src: "https://games.evolution.com/wp-content/uploads/2022/11/ezugi_logo_evolution.svg",
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBVZt_5NBlqO9KmhLCVDxW-7GdjfeB_oxO_GrOs2i4lw&s=10',
     game_uid: 'd0e052b031dfcdb08d1803f4bcc618ef',
