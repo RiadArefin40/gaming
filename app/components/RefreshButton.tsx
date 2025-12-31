@@ -27,11 +27,11 @@ export default function RefreshButton({ balance, onRefresh, loading }: RefreshBu
       onClick={handleRefresh}       // Desktop click
       onTouchStart={handleRefresh}  // Mobile touch
       onPointerDown={handleRefresh} // Pointer devices
-      className="flex items-center gap-2 px-2 h-10 rounded-md bg-slate-800 hover:bg-slate-700 transition-colors duration-300 select-none"
+      className="flex items-center gap-2 px-2 h-9 rounded-md bg-slate-800 hover:bg-slate-700 transition-colors duration-300 select-none"
     >
       <div className="flex  items-center gap-4 pointer-events-auto">
         {/* Balance Icon */}
-        <div className="relative h-8 w-8 rounded-full bg-gradient-to-b from-orange-500 to-orange-800 shadow-[inset_0_2px_2px_rgba(255,255,255,0.35),_0_3px_6px_rgba(0,0,0,0.45)]">
+        <div className="relative h-7 w-7 rounded-full bg-gradient-to-b from-orange-500 to-orange-800 shadow-[inset_0_2px_2px_rgba(255,255,255,0.35),_0_3px_6px_rgba(0,0,0,0.45)]">
           <div
             className="absolute inset-1 rounded-full 
               bg-gradient-to-b from-orange-700 to-orange-400
@@ -44,12 +44,12 @@ export default function RefreshButton({ balance, onRefresh, loading }: RefreshBu
         </div>
 
         {/* Balance */}
-        <span className="text-xl -ml-3 font-medium"> {loading? " ----- " : balance}</span>
+        <span className="text-lg -ml-3 font-medium"> {loading? " ----- " : balance}</span>
 
         {/* Refresh Icon */}
         <RotateCw
           size={24}
-          className={`transition-transform mr-1 duration-500 ${loading? "animate-spin" : ""}`}
+          className={`transition-transform mr-1 -ml-2 duration-500 ${loading? "animate-spin" : ""}`}
         />
       </div>
     </button>

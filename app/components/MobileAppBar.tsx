@@ -308,9 +308,9 @@ export default function MobileAppBar() {
 
               <button
                 onClick={() => setIsOpen(true)}
-                className="w-9 h-[40px] flex -ml-2 items-center justify-center bg-orange-400 rounded-r-md"
+                className="w-9 h-[35px] flex -ml-2 items-center justify-center bg-orange-400 rounded-r-md"
               >
-                <Plus size={24} />
+                <Plus size={22} />
               </button>
 
               {/* Sheet */}
