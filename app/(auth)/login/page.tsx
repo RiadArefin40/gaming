@@ -160,7 +160,7 @@ const data = await res.json();
       className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
       placeholder="User Name Here"
       value={username}
-      onChange={(e) => setUsername(e.target.value)}
+      onChange={(e) => setUsername(e.target.value.toLowerCase())}
     />
   </div>
 
@@ -222,7 +222,7 @@ const data = await res.json();
               </label>
               <input
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setUsername(e.target.value.toLowerCase())}
                 className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
                 placeholder="User Name"
               />

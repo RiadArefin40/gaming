@@ -452,10 +452,10 @@ export default function MobileFooter() {
               <div className="p-4 flex justify-between">
                 <div></div>
                 <button
-                  className="bg-orange-400 px-4 py-1 rounded-lg flex items-center justify-center z-100"
+                  className="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 px-4 py-1 rounded-lg flex items-center justify-center z-100"
                   onClick={() => psetSheetOpen(false)} // This actually closes the sheet
                 >
-                  <X className="w-6 h-6 text-gray-700 hover:text-red-600" />
+                  <X className="w-6 h-6 text-gray-100 hover:text-red-600" />
                 </button>
               </div>
 
@@ -463,7 +463,7 @@ export default function MobileFooter() {
                 <div className="w-full max-w-md px-4 py-6 space-y-6">
                   {/* Header */}
                   <div className="flex items-center space-x-4">
-                    <div className="h-12 w-12 rounded-full bg-orange-500 flex items-center justify-center text-lg font-bold">
+                    <div className="h-12 w-12 rounded-full bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 flex items-center justify-center text-lg font-bold">
                       I
                     </div>
                     <div>
@@ -486,7 +486,7 @@ export default function MobileFooter() {
                     <DotLoadingButton
                       onClick={handleWithdrawl}
                       loading={isVLoading}
-                      className=" flex-1 bg-orange-400 text-slate-200 hover:bg-zinc-700"
+                      className=" flex-1 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-slate-200 hover:bg-zinc-700"
                     >
                       Deposit
                     </DotLoadingButton>
@@ -567,7 +567,7 @@ export default function MobileFooter() {
                   {user && (
                     <button
                       onClick={handleLogout}
-                      className="px-3 mb-[220px] mt-6 w-full py-[10px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
+                      className="px-3 mb-[220px] mt-6 w-full py-[10px] text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-blue-600"
                     >
                       Log Out
                     </button>

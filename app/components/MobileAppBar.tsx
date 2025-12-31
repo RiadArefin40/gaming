@@ -341,7 +341,7 @@ export default function MobileAppBar() {
 <p></p>
                 <button
                   className="bg-gray-300 px-2 py-1 rounded-lg flex items-center justify-center px-3 z-50 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-orange-600"
-                  onClick={() => setSheetOpen(false)}
+                  onClick={() => setIsOpen(false)}
                 >
                   <X className="w-6 h-6 text-gray-100 hover:text-red-600" />
                 </button>

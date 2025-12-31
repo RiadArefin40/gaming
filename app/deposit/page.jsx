@@ -65,7 +65,7 @@ export default function EWalletPage() {
       const promoData = await promoRes.json();
 
       const payRes = await fetch("https://api.bajiraj.cloud/payment-gateways/");
-      const payData = (await payRes.json()).filter((p) => p.is_active);
+      const payData = (await payRes.json());
 
       setPromotions(promoData);
 
@@ -76,7 +76,12 @@ export default function EWalletPage() {
 
       if (payData.length) {
         setSelectedChannel(payData[0].deposit_channel);
-        setSelectedPayment(payData[0].id);
+        const activePayment = payData.find(item => item.is_active === true);
+
+if (activePayment) {
+  setSelectedPayment(activePayment.id);
+}
+
         setReceiverNumber(payData[0].agent_number);
       }
     };
@@ -136,7 +141,7 @@ export default function EWalletPage() {
   };
   const uniquePaymentOptions = paymentOptions.filter(
     (option, index, self) =>
-      index === self.findIndex((o) => o.name === option.name)
+      index === self.findIndex((o) => o.name == option.name)
   );
 
   const [phones, setPhones] = useState([]);
@@ -157,7 +162,7 @@ useEffect(() => {
 }, []);
 
   return (
-    <div className="mt-24 bg-slate-900 flex justify-center">
+    <div className="mt-18 bg-slate-900 flex justify-center">
       <Card className="w-full max-w-screen rounded-2xl border bg-slate-900 border-0 shadow-xl">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl text-white">E-Wallet</CardTitle>
@@ -246,7 +251,7 @@ useEffect(() => {
                     </div>
 
                     <Button
-                      className="mt-4 w-full bg-orange-500 px-8 py-4"
+                      className="mt-4 w-full bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 px-8 py-6"
                       onClick={() => setPromotionSheetOpen(false)}
                     >
                       Confirm
@@ -265,15 +270,20 @@ useEffect(() => {
                         setSelectedPayment(p.id);
                         setReceiverNumber(p.agent_number);
                       }}
+                      disabled={p.is_active === false}
                       className={`w-full flex items-center gap-2 py-4 px-4 rounded-lg font-medium transition 
     ${
       selectedPayment === p.id
         ? "bg-slate-800 border-2  text-white border-orange-400"
         : "bg-slate-900 text-gray-100 border-gray-300"
     } 
-    border`}
+    border  ${
+      p.is_active === true
+        ? ""
+        : "!bg-slate-500 text-gray-100 !border-none"
+    } `}
                     >
-                      {p.name}
+                      {p.name} {p.is_active}
                       <img src={paymentImages[p.name]} className="h-8" />
                     </button>
                   ))}
@@ -285,10 +295,15 @@ useEffect(() => {
                   className={`w-full items-center justify-between flex gap-8 py-4 px-4 rounded-lg font-medium transition 
     border-2 border-orange-400 text-slate-100 text-lg`}
                 >
-               
+                  <div className="flex gap-2">
+                                   <img src={paymentImages[paymentOptions.find((p) => p.id === selectedPayment)?.name]} className="h-8" />
                   Selected{" "}
                   {paymentOptions.find((p) => p.id === selectedPayment)?.name ||
                     "None"}
+
+                  </div>
+ 
+                    
 
                        <div
                     className={`h-5 w-5 rounded-full border-2 flex-shrink-0 
@@ -322,7 +337,7 @@ useEffect(() => {
 
               <Button
                 disabled={!canStep1}
-                className="w-full h-14 text-lg mt-4 mb-[300px] bg-orange-400"
+                className="w-full h-14 text-lg mt-4 mb-[300px] bg-gradient-to-r from-orange-400 via-red-500 to-pink-500"
                 onClick={() => setStep(2)}
               >
                 Continue

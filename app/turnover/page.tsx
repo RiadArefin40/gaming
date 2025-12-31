@@ -48,7 +48,7 @@ export default function TurnoverPage() {
       </div>
 
       {/* Tabs */}
-      <Tabs defaultValue="completed" className="px-4 pt-8">
+      <Tabs defaultValue="active" className="px-4 pt-8">
         <TabsList className="bg-slate-500 mx-auto border-b border-neutral-800 rounded-none">
           <TabsTrigger value="active" className="data-[state=active]:text-orange-500">
             একটিভ
@@ -70,7 +70,7 @@ export default function TurnoverPage() {
               // optional dynamic color class
               const progressColor =
                 progress >= 90
-                  ? "bg-green-500"
+                  ? "bg--500"
                   : progress >= 50
                   ? "bg-yellow-500"
                   : "bg-orange-500";
