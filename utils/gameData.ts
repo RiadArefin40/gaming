@@ -155,71 +155,71 @@ export const gameImages: any  = {
 
   ],
   crash:[
-     {
-    id: 1,
-    title: "All",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-crash.png",
-  },
+  //    {
+  //   id: 1,
+  //   title: "All",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-crash.png",
+  // },
   {
     id: 2,
     title: "Spribe",
     src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-jdbaspribe.png",
   },
-  {
-    id: 3,
-    title: "SMARTSOFT",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-smartsoft.png",
-  },
+  // {
+  //   id: 3,
+  //   title: "SMARTSOFT",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-smartsoft.png",
+  // },
   {
     id: 4,
     title: "JILI",
     src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmjili.png",
   },
-  {
-    id: 5,
-    title: "Pragmatic Play",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png",
-  },
-  {
-    id: 6,
-    title: "JDB",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-jdb.png",
-  },
-  {
-    id: 7,
-    title: "Fa Chai",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmfc.png",
-  },
-  {
-    id: 8,
-    title: "KingMidas",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmkm.png",
-  },
-  {
-    id: 9,
-    title: "Rich88",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-rich88.png",
-  },
-  {
-    id: 10,
-    title: "CQ9",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-cq9.png",
-  },
-  {
-    id: 11,
-    title: "Hacksaw",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-hacksaw.png",
-  },
-  {
-    id: 12,
-    title: "You Lian",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmyl.png",
-  },
-  {
-    id: 13,
-    title: "Creative Gaming",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-cg.png",
-  },
+  // {
+  //   id: 5,
+  //   title: "Pragmatic Play",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png",
+  // },
+  // {
+  //   id: 6,
+  //   title: "JDB",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-jdb.png",
+  // },
+  // {
+  //   id: 7,
+  //   title: "Fa Chai",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmfc.png",
+  // },
+  // {
+  //   id: 8,
+  //   title: "KingMidas",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmkm.png",
+  // },
+  // {
+  //   id: 9,
+  //   title: "Rich88",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-rich88.png",
+  // },
+  // {
+  //   id: 10,
+  //   title: "CQ9",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-cq9.png",
+  // },
+  // {
+  //   id: 11,
+  //   title: "Hacksaw",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-hacksaw.png",
+  // },
+  // {
+  //   id: 12,
+  //   title: "You Lian",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmyl.png",
+  // },
+  // {
+  //   id: 13,
+  //   title: "Creative Gaming",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-cg.png",
+  // },
   ],
   fishing: [
     {

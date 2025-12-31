@@ -171,6 +171,13 @@ export default function CategorySlider() {
           }
         />
       )}
+            {selectedCategory === "crash" && (
+        <SlotGrid
+          items={
+            activeGamesMap[selectedCategory as keyof typeof activeGamesMap]
+          }
+        />
+      )}
 
       {/* {(selectedCategory !== "exclusive" && selectedCategory !== "sports")  && (
            <CasinoGrid items={activeGamesMap[selectedCategory as keyof typeof activeGamesMap]} />
