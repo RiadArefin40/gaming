@@ -90,11 +90,11 @@ export default function ProfilePage() {
           <MenuItem icon={Bell} label="Notifications" badge="8" />
           <MenuItem icon={User} label="Personal info" />
           <MenuItem icon={Lock} label="Login & Security" />
-          <MenuItem icon={ShieldCheck} label="Verification" />
+          {/* <MenuItem icon={ShieldCheck} label="Verification" /> */}
           <MenuItem icon={FileText} label="Transaction records" />
-          <MenuItem icon={TrendingUp} label="Betting records" />
+          {/* <MenuItem icon={TrendingUp} label="Betting records" /> */}
           <MenuItem icon={Wallet} label="Turnover" />
-          <MenuItem icon={Crown} label="My VIP" />
+          {/* <MenuItem icon={Crown} label="My VIP" /> */}
         </div>
 
       </div>

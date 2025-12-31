@@ -321,7 +321,7 @@ export default function MobileAppBar() {
 
               <button
                 onClick={() => setIsOpen(true)}
-                className="w-9 h-[35px] flex -ml-2 items-center justify-center bg-orange-400 rounded-r-md"
+                className="w-9 h-[35px] flex -ml-2 items-center justify-center bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 rounded-r-md"
               >
                 <Plus size={22} />
               </button>
@@ -395,6 +395,7 @@ export default function MobileAppBar() {
 </button>
 
 <button
+ onClick={() => router.push("/registration")}
   className="
     px-1 py-[6px] w-[70px]
     text-sm font-bold text-white
@@ -418,7 +419,7 @@ export default function MobileAppBar() {
           {/* Language Sheet */}
           <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <SheetTrigger asChild>
-              <button className="w-8 p-2 h-8 flex items-center justify-center border-2 border-orange-400 rounded-xl">
+              <button className="w-8 p-2 h-8 flex items-center justify-center border-2 border-orange-500 ml-2 rounded-xl">
                 <span className="text-md">
                   {languages.find((l) => l.code === selectedLang)?.flag}
                 </span>

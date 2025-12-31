@@ -24,8 +24,8 @@ export default function AuthModal() {
   const handleSignUp = ()=> {
     setIsLoading(true)
     closeModal()
-    router.push('/login')
-    setIsLoading(true)
+    router.push('/registration')
+    setIsLoading(false)
   }
   return (
     <Dialog open={open} onOpenChange={closeModal}>
@@ -44,19 +44,25 @@ export default function AuthModal() {
               <DialogTitle>Mobile Menu</DialogTitle>
             </VisuallyHidden>
         {/* Logo */}
-        <div className="flex justify-center mb-4">
-          <Image
-            src="/tlogo.png"
-            alt="JB Logo"
-            width={220}
-            height={50}
-            className="object-contain"
-          />
+        <div className="flex justify-center mb-1">
+              <p
+  className="tracking-wider italic -mt-2 text-4xl -ml-4 font-extrabold text-orange-500 select-none touch-none"
+  style={{
+    textShadow: `
+      1px 1px 0 #0e0d0cff,
+      2px 2px 0 #fafafaff,
+      3px 1px 0 #f0e7e2ff,
+      4px 4px 6px rgba(112, 76, 76, 0.35)
+    `
+  }}
+>
+  BajiRaj
+</p>
         </div>
 
         {/* Title */}
         <h2 className="text-xl font-semibold text-white mb-2">
-          Become a JB Member
+          Become a Bajiraj Member
         </h2>
 
         {/* Subtitle */}
@@ -69,9 +75,9 @@ export default function AuthModal() {
         <div className="space-y-3">
 
               <DotLoadingButton
-                onClick = {handleLogin}
+                onClick = {handleSignUp}
                 loading={isLoadinge}
-                className="w-full h-11 bg-orange-400 hover:bg-orange-600"
+                className="w-full h-11 bg-gradient-to-r from-orange-400 to-orange-700 hover:bg-orange-600"
               >
                 Sign up
               </DotLoadingButton>

@@ -395,7 +395,7 @@ export default function MobileFooter() {
 <div className="relative flex flex-col items-center gap-1">
   {/* Notification badge */}
   <span className="absolute -top-1.5 -right-[6px] bg-red-600 text-white text-xs z-50 font-bold px-2 py-[1px] rounded-full">
-    {unreadCount || 0}
+    {unreadCount}
   </span>
 
   <div
@@ -546,23 +546,23 @@ export default function MobileFooter() {
                       icon={Lock}
                       label="Login & Security"
                     />
-                    <MenuItem icon={ShieldCheck} label="Verification" />
+                    {/* <MenuItem icon={ShieldCheck} label="Verification" /> */}
                     <MenuItem
                       onClick={() => handleRoutechange("transactions")}
                       icon={FileText}
                       label="Transaction records"
                     />
-                    <MenuItem
+                    {/* <MenuItem
                       onClick={() => handleRoutechange("betting")}
                       icon={TrendingUp}
                       label="Betting records"
-                    />
+                    /> */}
                     <MenuItem
                       onClick={() => handleRoutechange("turnover")}
                       icon={Wallet}
                       label="Turnover"
                     />
-                    <MenuItem icon={Crown} label="My VIP" />
+                    {/* <MenuItem icon={Crown} label="My VIP" /> */}
                   </div>
                   {user && (
                     <button
@@ -615,7 +615,7 @@ function MenuItem({
 
       <div className="flex items-center gap-2">
         {badge && (
-          <span className="text-lg bg-red-500 px-2 py-0.5 rounded-full">
+          <span className="text-lg text-red-400 px-2 py-0.5 rounded-full">
             {badge}
           </span>
         )}

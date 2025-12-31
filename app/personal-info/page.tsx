@@ -132,7 +132,7 @@ useEffect(() => {
         <TabsList className="bg-slate-500 max-w-screen mx-auto mt-4 p-1">
           <TabsTrigger value="personal">Personal</TabsTrigger>
           <TabsTrigger value="login">Login & Security</TabsTrigger>
-          <TabsTrigger value="verification">Verification</TabsTrigger>
+          {/* <TabsTrigger value="verification">Verification</TabsTrigger> */}
         </TabsList>
 
         {/* PERSONAL INFO */}

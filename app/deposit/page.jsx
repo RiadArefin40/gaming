@@ -351,9 +351,9 @@ useEffect(() => {
 <button
   onClick={() => setStep(1)}
   className="
-    fixed top-[120px] left-6 z-50
+    fixed top-[90px] left-6 z-50
     h-12 w-12 rounded-full
-    bg-orange-500 text-white
+    bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white
     flex items-center justify-center
     shadow-lg shadow-orange-500/40
     hover:bg-red-600 hover:scale-110
@@ -452,7 +452,7 @@ useEffect(() => {
 
     <Button
       disabled={!canStep2 || Number(amount) < 200}
-      className="w-full mt-2 h-14 text-lg bg-orange-400 mb-[300px]"
+      className="w-full mt-2 h-14 text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 mb-[300px]"
       onClick={() => setStep(3)}
     >
       Next
@@ -466,9 +466,9 @@ useEffect(() => {
 <button
   onClick={() => setStep(1)}
   className="
-    fixed top-[120px] left-6 z-50
+    fixed top-[90px] left-6 z-50
     h-12 w-12 rounded-full
-    bg-orange-500 text-white
+    bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white
     flex items-center justify-center
     shadow-lg shadow-orange-500/40
     hover:bg-red-600 hover:scale-110
@@ -490,7 +490,7 @@ useEffect(() => {
 
               <Button
                 disabled={!canStep3 || isLoading}
-                className="w-full mt-4 h-14 bg-green-500"
+                className="w-full mt-4 h-14 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500"
                 onClick={handleDeposit}
               >
                 {isLoading ? "Processing..." : "Submit Deposit"}
