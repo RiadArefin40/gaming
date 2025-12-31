@@ -291,7 +291,7 @@ export default function MobileAppBar() {
             </Sheet>
      
             <p
-  className="tracking-wider -mt-2 text-2xl -ml-4 font-extrabold text-orange-500 select-none touch-none"
+  className="tracking-wider italic -mt-2 text-2xl -ml-4 font-extrabold text-orange-500 select-none touch-none"
   style={{
     textShadow: `
       1px 1px 0 #0e0d0cff,
@@ -301,7 +301,7 @@ export default function MobileAppBar() {
     `
   }}
 >
-  Bajiraj
+  BajiRaj
 </p>
 
           </div>
