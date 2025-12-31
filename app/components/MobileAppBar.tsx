@@ -295,8 +295,8 @@ export default function MobileAppBar() {
   style={{
     textShadow: `
       1px 1px 0 #0e0d0cff,
-      2px 3px 0 #fafafaff,
-      3px 3px 0 #f0e7e2ff,
+      2px 2px 0 #fafafaff,
+      3px 1px 0 #f0e7e2ff,
       4px 4px 6px rgba(112, 76, 76, 0.35)
     `
   }}
