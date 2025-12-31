@@ -26,18 +26,8 @@ export default function SafeImage({
   return (
 <div className={`relative overflow-hidden ${className}`} style={{ width, height }}>
   {/* Simple Loader */}
-  {loading && (
-    <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 backdrop-blur-sm rounded-md z-50">
-      
-      {/* Rotating neon ring */}
-      <div className="relative w-24 h-24 flex items-center justify-center">
-        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400 via-pink-500 to-orange-500 opacity-50 blur-md animate-spin-slow" />
-        <span className="relative text-white text-lg font-bold drop-shadow-md animate-pulse">
-          Bajiraj
-        </span>
-      </div>
-    </div>
-  )}
+
+
 
   {/* Image container */}
   <div className="relative ">
@@ -69,9 +59,22 @@ export default function SafeImage({
     /> */}
 
     {/* Bajiraj label */}
-    <div className="absolute top-0 right-0 px-2 py-1 bg-gradient-to-r from-cyan-500 via-pink-500 to-orange-400 text-white font-semibold text-sm rounded-lg shadow-lg drop-shadow-lg">
-      Bajiraj
-    </div>
+    {!loading && (
+    <div className="absolute top-0 right-0 backdrop-blur-md  bg-gradient-to-r from-cyan-500 via-pink-500 to-orange-400 text-white font-semibold text-sm rounded-lg shadow-lg drop-shadow-lg">
+     <p
+  className="tracking-wider italic -mt-2 text-lg  font-extrabold text-orange-500 select-none touch-none"
+  style={{
+    textShadow: `
+      1px 1px 0 #0e0d0cff,
+      2px 2px 0 #fafafaff,
+      3px 1px 0 #f0e7e2ff,
+      4px 4px 6px rgba(112, 76, 76, 0.35)
+    `
+  }}
+>
+  BajiRaj
+</p>
+    </div>)}
   </div>
 </div>
 

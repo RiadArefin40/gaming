@@ -163,6 +163,7 @@ export default function Casino() {
   };
   const [data, setData] = useState(null);
   const handleGameClick = async (item: any) => {
+    console.log('item', item);
     if (loading) return;
 
     setLoading(true);
@@ -219,15 +220,15 @@ export default function Casino() {
 
   return (
     <>
-{loading && (
-  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 backdrop-blur-md">
+    {loading && (
+  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70">
     <div className="relative flex flex-col items-center justify-center gap-4">
 
       {/* Rotating gradient rings with text inside */}
-      <div className="relative w-28 h-28 flex items-center justify-center">
-        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 opacity-40 blur-xl animate-spin-slow" />
-        <div className="absolute inset-0 rounded-full border-4 border-white border-t-transparent animate-spin shadow-lg" />
-        <div className="absolute inset-0 rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
+      <div className="relative w-28 m-1 h-28 flex items-center justify-center">
+        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-200 opacity-40 blur-xl animate-spin-slow" />
+        <div className="absolute inset-0 rounded-full border-3 border-white border-t-transparent animate-spin shadow-lg" />
+        <div className="absolute inset-0  rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
 
         {/* Center text */}
         <span className="relative text-white text-xl font-bold drop-shadow-lg">
@@ -235,33 +236,35 @@ export default function Casino() {
         </span>
       </div>
 
-      {/* Floating dots around spinner */}
-      <div className="absolute w-40 h-40 flex items-center justify-center">
-        {[...Array(12)].map((_, i) => (
-          <span
-            key={i}
-            className="absolute w-2 h-2 bg-gradient-to-tr from-purple-400 via-pink-500 to-orange-400 rounded-full animate-bounce"
-            style={{
-              transform: `rotate(${i * 30}deg) translateX(5rem)`,
-              animationDelay: `${i * 0.05}s`,
-            }}
-          />
-        ))}
-      </div>
 
       {/* Sparkling stars around */}
       <div className="absolute w-full h-full">
+        {[...Array(50)].map((_, i) => (
+          <span
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
+            style={{
+              top: `${-Math.random() * 250}%`,
+              left: `${Math.random() * 400}%`,
+              animationDuration: `${0.4 + Math.random()}s`,
+            }}
+          />
+        ))}
+        
+      </div>
+            <div className="absolute w-full h-full">
         {[...Array(20)].map((_, i) => (
           <span
             key={i}
             className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
             style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDuration: `${0.5 + Math.random()}s`,
+              top: `${Math.random() * 300}%`,
+              left: `${-Math.random() * 100}%`,
+              animationDuration: `${0.4 + Math.random()}s`,
             }}
           />
         ))}
+        
       </div>
 
 
@@ -270,17 +273,26 @@ export default function Casino() {
 )}
 
 
+
       {showGame && gameUrl && (
              <>
   {/* Top Bar */}
-  <div className="fixed top-0 left-0 w-full z-[1000] flex items-center justify-between bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 shadow-lg h-16 px-4">
+  <div className="fixed top-0 left-0 w-full z-[200] flex items-center bg-black/70  justify-between backdrop-blur-md shadow-lg h-16 px-4">
     {/* Logo / Text */}
     <div className="flex items-center gap-3">
-      {/* Optional Logo */}
-      <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
-        <span className="text-orange-500 font-bold text-lg">B</span>
-      </div>
-      <span className="text-white font-bold text-xl drop-shadow-lg">Bajiraj</span>
+            <p
+  className="tracking-wider italic -mt-2 text-3xl ml-4 font-extrabold text-orange-600 select-none touch-none"
+  style={{
+    textShadow: `
+      1px 1px 0 #0e0d0cff,
+      2px 2px 0 #fafafaff,
+      3px 1px 0 #f0e7e2ff,
+      4px 4px 6px rgba(112, 76, 76, 0.35)
+    `
+  }}
+>
+  BajiRaj
+</p>
     </div>
 
     {/* Close Button */}
