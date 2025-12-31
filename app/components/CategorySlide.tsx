@@ -17,6 +17,7 @@ import { ex } from "@/utils/exclusive";
 import { ExclusiveGrid } from "./ExclusiveGrid";
 import { SportsGrid } from "./SportsGrid";
 import { SlotGrid } from "./SlotGrid";
+import { CrashGrid } from "./CrashGrid";
 const categories = [
   { id: 1, name: "Exclusive", icon: <Star /> },
   { id: 2, name: "Sports", icon: <Trophy /> },
@@ -172,7 +173,7 @@ export default function CategorySlider() {
         />
       )}
             {selectedCategory === "crash" && (
-        <SlotGrid
+        <CrashGrid
           items={
             activeGamesMap[selectedCategory as keyof typeof activeGamesMap]
           }
