@@ -39,6 +39,7 @@ import {
   RefreshCcw,
   ChevronRight,
 } from "lucide-react";
+import { SportsGrid } from "./SportsGrid";
 
 interface BalanceData {
   balance: number;
@@ -74,7 +75,7 @@ export default function MobileAppBar() {
     {
       name: "Sports",
       icon: <Activity className="w-5 h-5 mr-[6px]" />,
-      children: <CasinoGrid items={gameImages.sports} />,
+      children: <SportsGrid items={gameImages.sports} />,
     },
     {
       name: "Casino",
@@ -207,7 +208,7 @@ export default function MobileAppBar() {
                     <p>Live Support</p>
                   </button>
                   <button
-                    className="bg-orange-400 px-4 py-1 rounded-lg flex items-center justify-center z-100"
+                    className="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 px-4 py-1 rounded-lg flex items-center justify-center z-100"
                     onClick={() => setSheetOpenS(false)} // This actually closes the sheet
                   >
                     <X className="w-6 h-6 text-gray-100 hover:text-red-600" />
@@ -271,7 +272,7 @@ export default function MobileAppBar() {
                   {user && (
                     <button
                       onClick={handleLogout}
-                      className="px-3 w-full mb-[220px] mt-6 w-full py-[8px] text-lg bg-orange-400 text-white font-medium rounded hover:bg-blue-600"
+                      className="px-3 w-full mb-[220px] mt-6 w-full py-[8px] text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-orange-600"
                     >
                       Log Out
                     </button>
@@ -329,12 +330,22 @@ export default function MobileAppBar() {
               <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetContent
                   side="top"
-                  className="fixed !top-[67px] bottom-0 max-h-[150px] left-0 right-0 bg-slate-900  p-6 flex flex-col gap-4 shadow-lg
+                  className="fixed !top-[55px] bottom-0 max-h-[200px] left-0 right-0 bg-slate-900  p-6 flex flex-col gap-4 shadow-lg
           transform transition-transform duration-300 border-b-0"
                 >
                   <VisuallyHidden>
                     <DialogTitle>Mobile Menu</DialogTitle>
                   </VisuallyHidden>
+
+                      <div className="flex -mt-2 -mr-3 justify-between items-center">
+<p></p>
+                <button
+                  className="bg-gray-300 px-2 py-1 rounded-lg flex items-center justify-center px-3 z-50 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-orange-600"
+                  onClick={() => setSheetOpen(false)}
+                >
+                  <X className="w-6 h-6 text-gray-100 hover:text-red-600" />
+                </button>
+              </div>
 
                   <div className="flex flex gap-4 mt-4">
                     <button
@@ -348,7 +359,7 @@ export default function MobileAppBar() {
                     </button>
 
                     <button
-                      className="w-full py-3 rounded-lg bg-gradient-to-r from-orange-500 to-orange-400 text-white font-semibold hover:scale-105 transition-transform"
+                      className="text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-orange-600 w-full py-3 rounded-lg bg-gradient-to-r from-orange-500 to-orange-400 text-white font-semibold hover:scale-105 transition-transform"
                       onClick={() => {
                         router.push("/deposit");
                         setIsOpen(false);
@@ -424,14 +435,14 @@ export default function MobileAppBar() {
               <div className="flex justify-between items-center mb-4">
                 <p className="text-xl text-white">Select Language</p>
                 <button
-                  className="bg-gray-300 px-2 py-1 rounded-lg flex items-center justify-center"
+                  className="bg-gray-300 px-2 py-1 rounded-lg flex items-center justify-center px-3 z-50 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-orange-600"
                   onClick={() => setSheetOpen(false)}
                 >
-                  <X className="w-6 h-6 text-gray-700 hover:text-red-600" />
+                  <X className="w-6 h-6 text-gray-100 hover:text-red-600" />
                 </button>
               </div>
 
-              <div className="flex gap-4 flex-wrap bg-gray-100 p-4 rounded w-[300px]">
+              <div className="flex gap-4 flex-wrap  p-4 rounded w-[300px]">
                 {languages.map((lang) => (
                   <button
                     key={lang.code}

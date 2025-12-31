@@ -106,16 +106,16 @@ const data = await res.json();
 
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white relative overflow-hidden mt-[80px]">
+    <div className="min-h-screen bg-slate-900 text-white relative overflow-hidden mt-[20px]">
       {/* Header */}
       <header className="h-14 px-4 flex items-center justify-between border-b border-white/10">
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <span className="text-green-400 font-bold text-lg">Baji</span>
           <span className="text-orange-500 font-bold text-lg">Raj</span>
         </div>
         <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">
           <span className="text-lg">🏠</span>
-        </div>
+        </div> */}
       </header>
 
       {/* Background */}
@@ -126,11 +126,11 @@ const data = await res.json();
         <div className="flex gap-8 text-lg mb-6">
           <button
             onClick={() => setTab("login")}
-            className={`relative pb-2 ${
+            className={`relative text-xl pb-2 ${
               tab === "login" ? "text-white" : "text-gray-400"
             }`}
           >
-            লগইন
+            Login
             {tab === "login" && (
               <span className="absolute left-0 -bottom-1 h-[2px] w-full bg-orange-500" />
             )}
@@ -138,11 +138,11 @@ const data = await res.json();
 
           <button
             onClick={() => setTab("signup")}
-            className={`relative pb-2 ${
+            className={`relative text-xl pb-2 ${
               tab === "signup" ? "text-white" : "text-gray-400"
             }`}
           >
-            সাইন আপ
+            Sign Up
             {tab === "signup" && (
               <span className="absolute left-0 -bottom-1 h-[2px] w-full bg-orange-500" />
             )}
@@ -154,11 +154,11 @@ const data = await res.json();
 <div>
   {/* Name */}
   <div className="mb-4">
-    <label className="text-lg text-gray-300 mb-2 block">ব্যবহারকারীর নাম</label>
+    <label className="text-lg text-gray-300 mb-2 block">User Name</label>
     <input
       type="text"
       className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
-      placeholder="আপনার ইউজার নেম লিখুন"
+      placeholder="User Name Here"
       value={username}
       onChange={(e) => setUsername(e.target.value)}
     />
@@ -166,11 +166,11 @@ const data = await res.json();
 
   {/* Phone */}
   <div className="mb-4">
-    <label className="text-lg text-gray-300 mb-2 block">মোবাইল নম্বর</label>
+    <label className="text-lg text-gray-300 mb-2 block">Mobile Number</label>
     <input
       type="text"
       className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
-      placeholder="+880 ---------"
+      placeholder="Write Mobile NumberHere"
       value={phone}
       onChange={(e) => setPhone(e.target.value)}
     />
@@ -182,7 +182,7 @@ const data = await res.json();
     <input
       type="password"
       className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
-      placeholder="আপনার পাসওয়ার্ড লিখুন"
+      placeholder="Write Password Here"
       value={password}
       onChange={(e) => setPassword(e.target.value)}
     />
@@ -204,7 +204,8 @@ const data = await res.json();
   <DotLoadingButton
     onClick={handleSignUp}
     loading={isLoadinge}
-    className="max-w-screen w-[80%] mx-auto left-12 h-11  bg-orange-400 hover:bg-orange-600"
+                         className="px-3 w-full mb-[220px] mt-6 w-full py-[8px] text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-orange-600"
+
   >
     Sign Up
   </DotLoadingButton>
@@ -217,26 +218,26 @@ const data = await res.json();
           <>
             <div className="mb-4">
               <label className="text-lg text-gray-300 mb-2 block">
-                ব্যবহারকারীর নাম
+                User Name
               </label>
               <input
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
-                placeholder="user name"
+                placeholder="User Name"
               />
             </div>
 
             <div className="mb-2">
               <label className="text-lg text-gray-300 mb-2 block">
-                পাসওয়ার্ড
+                Password
               </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
-                placeholder="XX"
+                placeholder="******"
               />
             </div>
 
@@ -246,7 +247,7 @@ const data = await res.json();
    <DotLoadingButton
    onClick = {handleLogin}
                 loading={isLoadinge}
-                className="max-w-screen w-[80%] mx-auto left-12  h-11 absolute top-[300px] bg-orange-400 hover:bg-orange-600"
+                      className="px-3 w-full mb-[220px] mt-6 w-full py-[8px] text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-orange-600"
               >
                 Log in
               </DotLoadingButton>
