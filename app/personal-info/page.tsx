@@ -6,7 +6,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getAuthUser } from "@/lib/auth";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Plus } from "lucide-react";
+import { format } from "date-fns";
+
+
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 /* ================= TYPES ================= */
 type Phone = {
@@ -38,7 +48,21 @@ export default function ProfilePage() {
   const [newPhone, setNewPhone] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
+  const handleAddPhone = async () => {
+    if (!newPhone) return;
+    setLoading(true);
+    try {
+       await addPhone(); // pass newPhone to parent function
+      setNewPhone("");
+      setDialogOpen(false);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
 useEffect(() => {
   const u = getAuthUser() as User | null; // cast to your User type
@@ -137,19 +161,99 @@ useEffect(() => {
 
         {/* PERSONAL INFO */}
         <TabsContent value="personal" className="space-y-4 mt-4 bg-slate-800 p-4 rounded-xl">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center bg-slate-900 p-3 rounded-lg">
             <span className="text-gray-300">Username</span>
             <span className="font-medium">{user.name}</span>
           </div>
-          <div className="flex justify-between items-center">
-            <span className="text-gray-300">Phone</span>
-            <span className="font-medium">{user.phone}</span>
+            <div className="flex justify-between items-center bg-slate-900 p-3 px-4 rounded-lg">
+            <p className="text-gray-300">Registration Date</p>
+            <p className="font-medium">{  format(new Date( user.created_at), "PPpp")}</p>
+          </div>
+        
+          {/* <div className="flex justify-between items-center">
+            <p>    <span className="text-gray-300">Phone</span> <span className="bg-green-400 text-bold rounded-full px-2 py-1">Primary</span></p>
+        
+           <span className="font-medium">{phones?.[0].phone} &gt;</span>
+              <p className={`text-lg ${phones?.[0].is_verified ? "text-green-400" : "text-orange-400"}`}>
+                    {phones?.[0].is_verified ? "Verified" : "Not verified"}
+                  </p>
+
+          </div> */}
+                    <div className="space-y-3 mt-3">
+      <div className="space-y-3 mt-3 bg-slate-900 p-2 rounded-lg">
+      {/* Add Phone Button */}
+      <div className="flex items-center justify-between mx-2">
+
+           <p>Add New Number</p>
+      <Button className="bg-green-500 !w-12 ml-2" onClick={() => setDialogOpen(true)}><Plus size={25} /></Button>
+
+      </div>
+   
+      {/* Phones List */}
+      {phones.map((p, i) => (
+        <div
+          key={p.id}
+          className="flex items-center justify-between bg-slate-800 p-3 rounded-lg"
+        >
+          <div>
+            <p className="font-medium">
+              {i === 0 && (
+                <span className="text-xs bg-green-500 rounded-lg text-white p-1 mr-2">
+                  Primary
+                </span>
+              )}
+              Number: {p.phone}
+            </p>
+            <p className={`text-lg ${p.is_verified ? "text-green-400" : "text-orange-400"}`}>
+              {p.is_verified ? "Verified" : "Not verified"}
+            </p>
+          </div>
+          <div className="flex gap-2">
+            {!p.is_verified && (
+              <Button className="!bg-slate-800" size="sm" onClick={() => verifyPhone(p.phone)}>
+                Verify
+              </Button>
+            )}
+          </div>
+        </div>
+      ))}
+
+      {/* Add Phone Dialog */}
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="sm:max-w-md bg-slate-700">
+          <DialogHeader>
+            <DialogTitle>Add New Phone</DialogTitle>
+          </DialogHeader>
+
+          <div className="space-y-4 mt-2">
+            <Input
+              value={newPhone}
+              onChange={(e) => setNewPhone(e.target.value)}
+              className="bg-slate-800 !h-12"
+              placeholder="Enter phone number"
+            />
           </div>
 
-          <div className="flex justify-between items-center">
-            <span className="text-gray-300">Wallet</span>
-            <span className="font-medium">{user.wallet}</span>
+          <DialogFooter>
+            <Button className="!bg-orange-500" variant="outline" onClick={() => setDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleAddPhone} disabled={loading}>
+              {loading ? "Adding..." : "Add"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+                    
+        
+
           </div>
+
+          {/* <div className="flex justify-between items-center">
+            <span className="text-gray-300">Mobile</span>
+            <span className="font-medium">{user.phone}</span>
+          </div> */}
         </TabsContent>
 
         {/* LOGIN & SECURITY */}
@@ -184,7 +288,7 @@ useEffect(() => {
           </div>
         </TabsContent>
 
-        {/* VERIFICATION */}
+
         <TabsContent value="verification" className="space-y-4 mt-4 bg-slate-800 p-4 rounded-xl">
           <div className="flex gap-2">
             <Input

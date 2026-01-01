@@ -102,34 +102,29 @@ export default function MobileFooter() {
   };
   const [unreadCount, setUnread] = useState(null);
   const [notifications, setNotifications] = useState(null);
-  useEffect(() => {
-    if (!user || typeof window === "undefined") return;
 
-    const fetchNotification = async () => {
-      try {
-        const res = await fetch(
-          `https://api.bajiraj.cloud/notifications/user/${user.id}`
-        );
 
-        if (!res.ok) {
-          console.error("Failed to fetch balance:", res.status);
-          return;
-        }
+ 
+useEffect(() => {
+  if (!user) return; // safety check
 
-        const data = await res.json();
-        setUnread(data.unread_count);
-        setNotifications(data.notifications);
-        console.log("notofication", data);
-      } catch (err) {
-        console.error("Error fetching balance:", err);
-      }
-    };
+  const fetchNotifications = async () => {
+    try {
+      const res = await fetch(`https://api.bajiraj.cloud/notifications/user/${user.id}`);
+      const data = await res.json();
+      setUnread(data.unread_count);
+      // setNotifications(data.notifications);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-    fetchNotification();
-    const interval = setInterval(fetchNotification, 500000);
+  fetchNotifications(); // fetch immediately
+  const interval = setInterval(fetchNotifications, 10000); // fetch every 10s
 
-    return () => clearInterval(interval);
-  }, []);
+  return () => clearInterval(interval); // cleanup on unmount
+}, [user?.id]); // minimal dependency just to get user.id
+
   const menuItems: MenuItem[] = [
     { name: "Favourite", icon: <span>⭐</span>, link: "#" },
     {
@@ -546,7 +541,7 @@ export default function MobileFooter() {
                       icon={Lock}
                       label="Login & Security"
                     />
-                    {/* <MenuItem icon={ShieldCheck} label="Verification" /> */}
+                    <MenuItem icon={ShieldCheck} label="Verification" />
                     <MenuItem
                       onClick={() => handleRoutechange("transactions")}
                       icon={FileText}

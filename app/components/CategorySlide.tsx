@@ -79,10 +79,10 @@ export default function CategorySlider() {
           const isActive = idx === selected;
 
           return (
-            <div className="relative rounded-xl max-w-screen -mt-2  pb-[0px] bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 animate-gradient-glow">
+            <div    key={idx} className="relative rounded-xl max-w-screen -mt-2  pb-[0px] bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 animate-gradient-glow">
               <div className="rounded-md overflow-hidden">
                 <div
-                  key={item.name}
+               
                   onClick={() => handleSelect(idx)}
                   className={`
                 snap-center

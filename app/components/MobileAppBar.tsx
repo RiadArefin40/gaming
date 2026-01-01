@@ -130,7 +130,7 @@ export default function MobileAppBar() {
     // localStorage.removeItem("token");
 
     // redirect after logout
-    window.location.href = "/login";
+    // window.location.href = "/login";
   };
   return (
     <>
@@ -383,13 +383,7 @@ export default function MobileAppBar() {
     text-sm font-bold text-white
     rounded-lg
     bg-gradient-to-r from-orange-400 to-orange-600
-    shadow-[0_8px_20px_rgba(255,140,0,0.25)]
-    hover:shadow-[0_10px_25px_rgba(255,140,0,0.35)]
-    hover:scale-[1.03]
-    active:scale-[0.97]
-    transition-all duration-200 ease-out
     backdrop-blur-md
-    
   "
 >
   Login
@@ -398,15 +392,10 @@ export default function MobileAppBar() {
 <button
  onClick={() => router.push("/registration")}
   className="
-    px-1 py-[6px] w-[70px]
+    px-2 py-[6px] w-[70px]
     text-sm font-bold text-white
     rounded-lg
-    bg-gradient-to-r from-orange-400 to-orange-700
-    shadow-[0_8px_20px_rgba(255,140,0,0.25)]
-    hover:shadow-[0_10px_25px_rgba(255,140,0,0.35)]
-    hover:scale-[1.03]
-    active:scale-[0.97]
-    transition-all duration-200 ease-out
+    bg-gradient-to-r from-orange-400 to-orange-600
     backdrop-blur-md
     mr-1
   "

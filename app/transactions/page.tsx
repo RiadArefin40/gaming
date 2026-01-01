@@ -124,6 +124,7 @@ const TransactionRecordPage = () => {
 export default TransactionRecordPage;
 
 /* ---------------- COMPONENT ---------------- */
+"use client";
 
 const TransactionList = ({
   data,

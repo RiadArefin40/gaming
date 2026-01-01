@@ -67,32 +67,51 @@ function groupNotificationsByDate(data: ApiNotification[]): NotificationGroup[] 
     items,
   }));
 }
-
+ 
 useEffect(() => {
-  if (!user || typeof window === "undefined") return;
+  if (!user) return; // safety check
 
-  const fetchNotification = async () => {
+  const fetchNotifications = async () => {
     try {
-      const res = await fetch(
-        `https://api.bajiraj.cloud/notifications/user/${user.id}`
-      );
-
-      if (!res.ok) return;
-
+      const res = await fetch(`https://api.bajiraj.cloud/notifications/user/${user.id}`);
       const data = await res.json();
-
       setUnread(data.unread_count);
       setNotifications(groupNotificationsByDate(data.notifications));
     } catch (err) {
-      console.error("Error fetching notifications:", err);
+      console.error(err);
     }
   };
 
-  fetchNotification();
-  const interval = setInterval(fetchNotification, 500);
+  fetchNotifications(); // fetch immediately
+  const interval = setInterval(fetchNotifications, 5000); // fetch every 10s
 
-  return () => clearInterval(interval);
-}, []);
+  return () => clearInterval(interval); // cleanup on unmount
+}, [user?.id]);
+// useEffect(() => {
+//   if (!user || typeof window === "undefined") return;
+
+//   const fetchNotification = async () => {
+//     try {
+//       const res = await fetch(
+//         `https://api.bajiraj.cloud/notifications/user/${user.id}`
+//       );
+
+//       if (!res.ok) return;
+
+//       const data = await res.json();
+
+//       setUnread(data.unread_count);
+//       setNotifications(groupNotificationsByDate(data.notifications));
+//     } catch (err) {
+//       console.error("Error fetching notifications:", err);
+//     }
+//   };
+
+//   fetchNotification();
+//   const interval = setInterval(fetchNotification, 1000);
+
+//   return () => clearInterval(interval);
+// }, [user?.id]);
 const markAsRead = async (id: number) => {
   await fetch(`https://api.bajiraj.cloud/notifications/${id}/read`, {
     method: "PATCH",
