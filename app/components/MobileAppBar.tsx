@@ -139,7 +139,7 @@ export default function MobileAppBar() {
         <div className="fixed max-w-screen inset-0 bg-black/30 backdrop-blur-sm z-40 transition-opacity" />
       )}
 
-      <div className="flex fixed top-0 w-full items-center justify-between px-4 py-1 shadow-md z-50 bg-gray-900">
+      <div className="flex fixed top-0 w-full items-center justify-between px-4 py-1 !max-h-[70px] shadow-md z-50 bg-gray-900">
         <div className="flex items-center gap-3">
           <SidebarTrigger className="hidden md:block" />
           <div onClick={() => router.push("/")} className="flex items-center gap-2">
@@ -291,7 +291,7 @@ export default function MobileAppBar() {
               </SheetContent>
             </Sheet>
      
-            <p
+            {/* <p
   className="tracking-wider italic -mt-2 text-2xl -ml-4 font-extrabold text-orange-500 select-none touch-none"
   style={{
     textShadow: `
@@ -303,7 +303,8 @@ export default function MobileAppBar() {
   }}
 >
   BajiRaj
-</p>
+</p> */}
+<img src="/oie_119753jyAZNTiD.png" className="w-[110px] -ml-8" alt="" />
 
           </div>
         </div>
