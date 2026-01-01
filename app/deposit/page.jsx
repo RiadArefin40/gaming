@@ -101,7 +101,7 @@ if (activePayment) {
     receiverNumber &&
     senderNumber.trim().length >= 6 &&
     amount &&
-    Number(amount) >= 200;
+    Number(amount) >= 100;
   const canStep3 = transactionId;
 
   const maskNumber = (number) => {
@@ -131,11 +131,17 @@ if (activePayment) {
         }),
       });
 
-      setSuccessModalOpen(true);
+      // setSuccessModalOpen(true);
+      alert("Deposit Succes. Please wait 30 second to for auto approve.");
       setStep(1);
       setSenderNumber("");
       setTransactionId("");
-    } finally {
+    } 
+    catch(error) {
+      console.error("Deposit failed:", error);
+      alert("Deposit failed. Please try again.", error);
+    }
+    finally {
       setIsLoading(false);
     }
   };
@@ -423,11 +429,11 @@ useEffect(() => {
       </Button>
     </div>
 
-    <Label className="mb-1 block text-slate-200 text-lg">Amount (Min 200)</Label>
+    <Label className="mb-1 block text-slate-200 text-lg">Amount (Min 100)</Label>
     <Input
       type="number"
       value={amount}
-      min={200}
+      min={100}
       onChange={(e) => setAmount(e.target.value)}
       className="mb-3 bg-slate-900 h-14 text-slate-100 text-lg"
     />
@@ -446,12 +452,12 @@ useEffect(() => {
       ))}
     </div>
 
-    {Number(amount) < 200 && amount !== "" && (
-      <p className="text-lg text-red-500 mb-2">Minimum amount is 200</p>
+    {Number(amount) < 100 && amount !== "" && (
+      <p className="text-lg text-red-500 mb-2">Minimum amount is 100</p>
     )}
 
     <Button
-      disabled={!canStep2 || Number(amount) < 200}
+      disabled={!canStep2 || Number(amount) < 100}
       className="w-full mt-2 h-14 text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 mb-[300px]"
       onClick={() => setStep(3)}
     >
