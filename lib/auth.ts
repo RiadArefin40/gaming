@@ -4,17 +4,15 @@ export interface User {
   username: string;
   password?: string;
   name: string;
-  id:number;
-  wallet:number;
-
+  id: number;
+  wallet: number;
 }
 
-
-
 /**
- * Logs in a user and saves it in localStorage
+ * Save user to localStorage
  */
 export function loginUser(user: User | null) {
+  if (typeof window === "undefined") return null;
 
   if (user) {
     localStorage.setItem("auth_user", JSON.stringify(user));
@@ -24,16 +22,24 @@ export function loginUser(user: User | null) {
 }
 
 /**
- * Logs out the user
+ * Remove user
  */
 export function logoutUser() {
+  if (typeof window === "undefined") return;
   localStorage.removeItem("auth_user");
 }
 
 /**
- * Gets the currently logged in user from localStorage
+ * Get user safely (CLIENT ONLY)
  */
 export function getAuthUser(): User | null {
-  const data = localStorage.getItem("auth_user");
-  return data ? (JSON.parse(data) as User) : null;
+  if (typeof window === "undefined") return null;
+
+  try {
+    const data = localStorage.getItem("auth_user");
+    return data ? (JSON.parse(data) as User) : null;
+  } catch (err) {
+    console.error("Invalid auth_user data", err);
+    return null;
+  }
 }
