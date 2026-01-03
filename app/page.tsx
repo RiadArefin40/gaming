@@ -26,10 +26,9 @@ export default function Home() {
  console.log("user", user)
     const siteInfo = {
     slider_items: [
-  { id: 1, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265867.jpg", alt: "Slide 1" },
+
   { id: 2, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_272517.jpg", alt: "Slide 1" },
   { id: 5, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_277174.jpg", alt: "Slide 1" },
-  { id: 6, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_280661.jpg", alt: "Slide 1" },
   { id: 3, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265553.jpg", alt: "Slide 1" }
 ]
 ,
@@ -37,9 +36,9 @@ export default function Home() {
 
       const siteInfo1 = {
     slider_items: [
-  { id: 1, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265867.jpg", alt: "Slide 1" },
   { id: 2, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_272517.jpg", alt: "Slide 1" },
   { id: 5, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_277174.jpg", alt: "Slide 1" },
+  { id: 3, imageUrl: "https://img.j189eb.com/upload/h5Announcement/image_265553.jpg", alt: "Slide 1" }
 
 ]
 ,
