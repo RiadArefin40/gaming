@@ -60,7 +60,7 @@ export default function ProfilePage() {
     } catch (err) {
       console.error(err);
     } finally {
-      setLoading(false);
+    //  setLoading(false);
     }
   };
 
@@ -104,7 +104,7 @@ useEffect(() => {
     } catch (err) {
       console.error(err);
     } finally {
-      setLoading(false);
+    //  setLoading(false);
     }
   };
 

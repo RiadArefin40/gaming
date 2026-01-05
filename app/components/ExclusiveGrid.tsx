@@ -266,7 +266,7 @@ console.log("Using cached game URL");
       alert("Something went wrong");
       setShowGame(false);
     } finally {
-      setLoading(false);
+    //  setLoading(false);
     }
   };
 
@@ -353,9 +353,9 @@ console.log("Using cached game URL");
       {!showGame && (
         <>
     <div className="grid grid-cols-3 gap-3 my-4 mt-4 px-4">
-      {items.map((game:any) => (
+      {items.map((game:any,i:any) => (
         <div
-          key={game.id}
+          key={i}
           onClick = {() => handleGameClick(game)}
           className="flex items-center justify-center rounded-xl"
         >
@@ -366,17 +366,25 @@ console.log("Using cached game URL");
     className="w-full h-auto rounded-md object-contain bg-black"
   />
 </div> */}
-<div className="relative rounded-lg p-[1px] bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 animate-gradient-glow">
-  <div className="rounded-md overflow-hidden">
-    <img
-      src={game.image}
-      alt="exclusive-game"
-      className="w-full h-auto object-contain"
-    />
-  </div>
-  {/* Optional: soft glow overlay */}
-  <div className="absolute inset-0 rounded-md  pointer-events-none animate-pulseGlow"></div>
-</div>
+        <div
+                        key={i}
+                        onClick={() => handleGameClick(game)}
+                        className="relative rounded-lg overflow-hidden cursor-pointer hover:scale-105 transform transition duration-200"
+                      >
+                        <SafeImage
+                          src={game.image}
+                          width={130}
+                          height={170}
+                          className="rounded-[10px]"
+                        />
+                        {/* <div className="-mt-6 bg-slate-800 h-8 text-slate-200 text-white text-center py-1 text-lg sm:text-base">
+                        <span className="pb-1">
+                          {game.title.length > 10
+                            ? `${game.title.slice(0, 10)}..`
+                            : game.title}
+                        </span>
+                      </div> */}
+                      </div>
 
 
         </div>

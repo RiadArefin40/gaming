@@ -239,7 +239,7 @@ console.log("Using cached game URL");
       alert("Something went wrong");
       setShowGame(false);
     } finally {
-      setLoading(false);
+    //  setLoading(false);
     }
   };
 
