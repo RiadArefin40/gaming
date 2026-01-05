@@ -30,19 +30,27 @@ import { ArrowLeft } from "lucide-react";
 
 
 
-const user = (() => {
-  const stored = localStorage.getItem("auth_user");
-  return stored ? JSON.parse(stored)  : null;
-})();
+// const user = (() => {
+//   const stored = localStorage.getItem("auth_user");
+//   return stored ? JSON.parse(stored)  : null;
+// })();
 
 
 export default function EWalletPage() {
   const router = useRouter();
 
-const currentUser = (() => {
-  const stored = localStorage.getItem("auth_user");
-  return stored ? JSON.parse(stored)  : null;
-})();
+
+    const [currentUser, setUser] = useState<AuthUser | null>(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("auth_user");
+    if (stored) setUser(JSON.parse(stored));
+  }, []);
+
+// const currentUser = (() => {
+//   const stored = localStorage.getItem("auth_user");
+//   return stored ? JSON.parse(stored)  : null;
+// })();
   // const currentUser = getAuthUser();
   const [promotionSheetOpen, setPromotionSheetOpen] = useState(false);
   const [promotions, setPromotions] = useState([]);

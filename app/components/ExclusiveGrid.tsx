@@ -34,10 +34,10 @@ interface AuthUser {
   wallet: number;
 }
 
-const user: AuthUser | null = (() => {
-  const stored = localStorage.getItem("auth_user");
-  return stored ? JSON.parse(stored) as AuthUser : null;
-})();
+// const user: AuthUser | null = (() => {
+//   const stored = localStorage.getItem("auth_user");
+//   return stored ? JSON.parse(stored) as AuthUser : null;
+// })();
 
 interface Category {
   name: string;
@@ -65,7 +65,12 @@ function slugify(text: string) {
 export function ExclusiveGrid({ items }: ExclusiveGridProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const [user, setUser] = useState<AuthUser | null>(null);
 
+  useEffect(() => {
+    const stored = localStorage.getItem("auth_user");
+    if (stored) setUser(JSON.parse(stored) as AuthUser);
+  }, []);
   const segments = pathname.split("/").filter(Boolean);
   const firstSegment = segments[0] || "";
   const lastSegment = segments.pop() || "";

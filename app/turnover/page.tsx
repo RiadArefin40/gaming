@@ -4,6 +4,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import TurnoverCard from "../components/turnover-card";
 import { useAutoFetch } from "@/hooks/use-auto-fetch";
 import { getAuthUser } from "@/lib/auth";
+import { useEffect, useState } from "react";
 
 interface Turnover {
   id: number;
@@ -31,10 +32,16 @@ export default function TurnoverPage() {
   wallet: number;
 }
 
-const user: AuthUser | null = (() => {
-  const stored = localStorage.getItem("auth_user");
-  return stored ? JSON.parse(stored) as AuthUser : null;
-})();
+// const user: AuthUser | null = (() => {
+//   const stored = localStorage.getItem("auth_user");
+//   return stored ? JSON.parse(stored) as AuthUser : null;
+// })();
+  const [user, setUser] = useState<AuthUser | null>(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("auth_user");
+    if (stored) setUser(JSON.parse(stored) as AuthUser);
+  }, []);
 
   const { data, error } = useAutoFetch<BalanceData | undefined>(
     user ? `https://api.bajiraj.cloud/users/${user.id}/balance` : "",
