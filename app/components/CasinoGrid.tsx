@@ -305,7 +305,7 @@ const [iframeLoaded, setIframeLoaded] = useState(false);
 
 <>
 
-
+{showGame && gameUrl && (
   <iframe
   key={gameUrl}               // 🔥 force remount
   src={gameUrl || ""}
@@ -318,6 +318,8 @@ const [iframeLoaded, setIframeLoaded] = useState(false);
     setLoading(false); // ✅ hide loader ONLY now
   }}
 />
+
+)}
 </>
 
 
