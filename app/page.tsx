@@ -35,12 +35,12 @@ export default function Home() {
 //   return stored ? JSON.parse(stored) as AuthUser : null;
 // })();
 //  console.log("user", user)
-  const [user, setUser] = useState<AuthUser | null>(null);
+  // const [user, setUser] = useState<AuthUser | null>(null);
 
-  useEffect(() => {
-    const stored = localStorage.getItem("auth_user");
-    if (stored) setUser(JSON.parse(stored) as AuthUser);
-  }, []);
+  // useEffect(() => {
+  //   const stored = localStorage.getItem("auth_user");
+  //   if (stored) setUser(JSON.parse(stored) as AuthUser);
+  // }, []);
     const siteInfo = {
     slider_items: [
 
