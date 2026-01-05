@@ -43,7 +43,7 @@ const handleLogin = async () => {
     }
 
     // ✅ Successful login
-    loginUser(data.user);
+    // loginUser(data.user);
     setIsLoading(false);
     router.push("/");
   } catch (err) {

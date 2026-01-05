@@ -44,10 +44,12 @@ export default function NotificationsPage() {
   wallet: number;
 }
 
-const user: AuthUser | null = (() => {
-  const stored = localStorage.getItem("auth_user");
-  return stored ? JSON.parse(stored) as AuthUser : null;
-})();
+  const [user, setUser] = useState<AuthUser | null>(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("auth_user");
+    if (stored) setUser(JSON.parse(stored) as AuthUser);
+  }, []);
     
 const [unreadCount, setUnread] = useState<number>(0);
 const [notifications, setNotifications] = useState<NotificationGroup[]>([]);

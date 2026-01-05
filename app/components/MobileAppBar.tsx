@@ -3,7 +3,7 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Plus, RotateCw, X } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { getAuthUser } from "@/lib/auth";
@@ -64,10 +64,12 @@ export default function MobileAppBar() {
   wallet: number;
 }
 
-const user: AuthUser | null = (() => {
-  const stored = localStorage.getItem("auth_user");
-  return stored ? JSON.parse(stored) as AuthUser : null;
-})();
+  const [user, setUser] = useState<AuthUser | null>(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("auth_user");
+    if (stored) setUser(JSON.parse(stored) as AuthUser);
+  }, []);
   const router = useRouter();
   const pathname = usePathname();
   const languages = [

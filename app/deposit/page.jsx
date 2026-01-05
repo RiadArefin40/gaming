@@ -40,7 +40,7 @@ export default function EWalletPage() {
   const router = useRouter();
 
 
-    const [currentUser, setUser] = useState<AuthUser | null>(null);
+    const [currentUser, setUser] = useState(null);
 
   useEffect(() => {
     const stored = localStorage.getItem("auth_user");

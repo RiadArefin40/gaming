@@ -9,7 +9,7 @@ import { useVerifyModal } from "@/store/VerifyModalState";
 import { useRouter } from "next/navigation";
 import { getAuthUser } from "@/lib/auth";
 import { DotLoadingButton,  } from "./DotLoadingButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { DialogTitle } from "@radix-ui/react-dialog";
 
@@ -24,10 +24,12 @@ export default function VerificationModal() {
   wallet: number;
 }
 
-const user: AuthUser | null = (() => {
-  const stored = localStorage.getItem("auth_user");
-  return stored ? JSON.parse(stored) as AuthUser : null;
-})();
+  const [user, setUser] = useState<AuthUser | null>(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("auth_user");
+    if (stored) setUser(JSON.parse(stored) as AuthUser);
+  }, []);
   const { open, closeModal } = useVerifyModal();
   const handleLogin = ()=> {
     if(!user){
