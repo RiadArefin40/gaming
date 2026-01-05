@@ -189,6 +189,7 @@ useEffect(() => {
     if (showGame) {
       event.preventDefault();
       setShowGame(false);
+      setLoading(false);
     }
   };
 
@@ -317,7 +318,7 @@ useEffect(() => {
   {/* Game Frame */}
   <iframe
     src={gameUrl || ''}
-    className="fixed inset-0 top-16 w-full h-[calc(100%-4rem)] border-0 z-[998]"
+    className="fixed inset-0 top-0 w-full h-full border-0 z-[998]"
     allow="fullscreen"
      style={{ display: showGame ? "block" : "none" }}
       loading="eager"
