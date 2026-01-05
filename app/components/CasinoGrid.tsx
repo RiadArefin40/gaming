@@ -238,7 +238,7 @@ useEffect(() => {
              setTimeout(() => {
             setShowGame(true);
              window.history.pushState({ gameOpen: true }, "");
-          }, 3000);
+          }, 30);
       } else {
         alert(data.error || "Failed to launch game");
         setShowGame(false);
