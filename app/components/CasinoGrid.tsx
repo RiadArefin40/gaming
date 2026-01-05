@@ -183,7 +183,7 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
       if (showGame) {
         setShowGame(false);
         setLoading(false);
-        window.history.pushState(null, ""); // remove extra history entry
+       // window.history.pushState(null, ""); // remove extra history entry
       }
     };
     window.addEventListener("popstate", handleBack);
@@ -197,20 +197,16 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
       alert("User not authenticated");
       return;
     }
-
     setLoading(true);
-    setLoadingText("Preparing game session...");
-
     // 1️⃣ Check cache first
     const cachedUrl = getCachedGameUrl(user, item.game_uid);
 if (cachedUrl) {
-
+console.log("Using cached game URL");
   setShowGame(false);
     setIframeLoaded(false);
     setGameUrl(cachedUrl);
     setShowGame(true);
     setLoading(true);
-    setLoadingText("Opening game…");
     window.history.pushState({ gameOpen: true }, "");
     return;
 }
