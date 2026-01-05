@@ -35,12 +35,19 @@ export default function Home() {
 //   return stored ? JSON.parse(stored) as AuthUser : null;
 // })();
 //  console.log("user", user)
-  // const [user, setUser] = useState<AuthUser | null>(null);
+  const [headline, setHeadLine] = useState(null);
 
-  // useEffect(() => {
-  //   const stored = localStorage.getItem("auth_user");
-  //   if (stored) setUser(JSON.parse(stored) as AuthUser);
-  // }, []);
+  useEffect(() => {
+
+        const load = async () => {
+      const promoRes = await fetch("https://api.bajiraj.cloud/users/headline");
+      const promoData = await promoRes.json();
+      console.log("Promos data:", promoData.title);
+      setHeadLine(promoData.title)
+    }
+    load()
+
+  }, []);
     const siteInfo = {
     slider_items: [
 
@@ -114,7 +121,7 @@ export default function Home() {
                 <Volume  className="w-8 h-8 text-orange-400 bg-gray-800 rounded-r-md z-10 pl-2" />
                 <div className="flex-1 absolute overflow-hidden">
                   <span className="animate-marquee text-orange-100 text-lg inline-block whitespace-nowrap">
-    🎉 <span className="text-orange-400 font-bold">Bajiraj</span> অনলাইন ক্যাসিনো এখন লাইভ! সাইন আপ করুন এবং আপনার প্রথম ডিপোজিটে ৫০% বোনাস উপভোগ করুন! 🎰
+    🎉 <span className="text-orange-400 font-bold">Bajiraj</span> {headline}  🎰
 
                   </span>
                 </div>

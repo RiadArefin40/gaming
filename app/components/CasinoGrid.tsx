@@ -203,7 +203,6 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
 if (cachedUrl) {
 console.log("Using cached game URL");
   setShowGame(false);
-    setIframeLoaded(false);
     setGameUrl(cachedUrl);
     setShowGame(true);
     setLoading(true);
@@ -225,7 +224,7 @@ console.log("Using cached game URL");
       });
 
       const data = await res.json();
-
+      console.log("Launch game response:", data);
       if (res.ok && data.success && data.gameUrl) {
         setGameUrl(data.gameUrl);
         setCachedGameUrl(user, item.game_uid, data.gameUrl); // cache it
@@ -244,7 +243,6 @@ console.log("Using cached game URL");
     }
   };
 
-const [iframeLoaded, setIframeLoaded] = useState(false);
 
   return (
     <div className="">
@@ -314,7 +312,7 @@ const [iframeLoaded, setIframeLoaded] = useState(false);
   style={{ display: showGame ? "block" : "none" }}
   loading="eager"
     onLoad={() => {
-    setIframeLoaded(true);
+
     setLoading(false); // ✅ hide loader ONLY now
   }}
 />

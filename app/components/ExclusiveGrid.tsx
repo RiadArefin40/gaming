@@ -1,12 +1,12 @@
 "use client";
 interface GameItem {
-  id: number | string;
-  title: number | string;
-  image:number | string;
-  game_uid:number | string;
-  src: string;
+  id: any;
+  title: any;
+  image:any;
+  game_uid:any;
+  src: any;
+  type: any;
 }
-
 interface ExclusiveGridProps {
   items: any;
 }
@@ -184,25 +184,64 @@ export function ExclusiveGrid({ items }: ExclusiveGridProps) {
   const [data, setData] = useState(null);
 
 
- const handleGameClick = async (item: any) => {
-    if (loading) return;
-
-    setLoading(true);
-    setLoadingText("Preparing game session...");
-
+  // Cache helpers
+  const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
     try {
-      if (!user) {
-        alert("User not authenticated");
-        setLoading(false);
-        return;
-      }
+      const cache = JSON.parse(localStorage.getItem("game_url_cache") || "{}");
+      const key = `${user.id}_${gameUid}_${user.wallet}`; // include wallet
+      return cache[key] || null;
+    } catch {
+      return null;
+    }
+  };
 
+  const setCachedGameUrl = (user: AuthUser, gameUid: string, url: string) => {
+    try {
+      const cache = JSON.parse(localStorage.getItem("game_url_cache") || "{}");
+      const key = `${user.id}_${gameUid}_${user.wallet}`;
+      cache[key] = url;
+      localStorage.setItem("game_url_cache", JSON.stringify(cache));
+    } catch {}
+  };
+
+  // Handle mobile back button
+  useEffect(() => {
+    const handleBack = () => {
+      if (showGame) {
+        setShowGame(false);
+        setLoading(false);
+        window.history.pushState(null, ""); // remove extra history entry
+      }
+    };
+    window.addEventListener("popstate", handleBack);
+    return () => window.removeEventListener("popstate", handleBack);
+  }, [showGame]);
+
+  // Launch or load cached game
+  const handleGameClick = async (item: GameItem) => {
+    if (loading) return;
+    if (!user) {
+      alert("User not authenticated");
+      return;
+    }
+    setLoading(true);
+    // 1️⃣ Check cache first
+    const cachedUrl = getCachedGameUrl(user, item.game_uid);
+if (cachedUrl) {
+console.log("Using cached game URL");
+  setShowGame(false);
+    setGameUrl(cachedUrl);
+    setShowGame(true);
+    setLoading(true);
+    window.history.pushState({ gameOpen: true }, "");
+    return;
+}
+
+    // 2️⃣ Fetch new game URL
+    try {
       const res = await fetch("https://api.bajiraj.cloud/launch_game", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "*/*",
-        },
+        headers: { "Content-Type": "application/json", Accept: "*/*" },
         body: JSON.stringify({
           userName: user.name,
           game_uid: item.game_uid,
@@ -212,26 +251,22 @@ export function ExclusiveGrid({ items }: ExclusiveGridProps) {
       });
 
       const data = await res.json();
-
+      console.log("Launch game response:", data);
       if (res.ok && data.success && data.gameUrl) {
- // 1000ms = 1 second
-        setData(data.gameUrl);
         setGameUrl(data.gameUrl);
-        setLoadingText("Opening game…");
-             setTimeout(() => {
-            setShowGame(true);
-          }, 3000);
+        setCachedGameUrl(user, item.game_uid, data.gameUrl); // cache it
+        setShowGame(true);
+        window.history.pushState({ gameOpen: true }, "");
       } else {
         alert(data.error || "Failed to launch game");
         setShowGame(false);
-        setLoading(false);
       }
-    } catch (error) {
-      console.error("Error launching game:", error);
-      setShowGame(false);
+    } catch (err) {
+      console.error(err);
       alert("Something went wrong");
+      setShowGame(false);
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -295,29 +330,21 @@ export function ExclusiveGrid({ items }: ExclusiveGridProps) {
       {showGame && gameUrl && (
 <>
   {/* Top Bar */}
-   <div className="absolute top-0 left-0  z-[100] flex items-center bg-black/70  justify-between backdrop-blur-md shadow-lg  px-4">
 
-
-    {/* Close Button */}
-    {/* <button
-      onClick={() => {
-        setShowGame(false);
-        // setGameUrl(null);
-        setLoading(false);
-      }}
-      className="flex z-101 items-center justify-center w-10 h-10 rounded-full bg-black/60 backdrop-blur-md text-white hover:bg-red-500 transition-all duration-200 hover:scale-110 shadow-lg"
-      aria-label="Close Game"
-    >
-      ✕
-    </button> */}
-  </div>
 
   {/* Game Frame */}
   <iframe
-    src={gameUrl}
-    className="fixed inset-0 top-16 w-full h-[calc(100%-4rem)] border-0 z-[998]"
-    allow="fullscreen"
-  />
+  key={gameUrl}               // 🔥 force remount
+  src={gameUrl || ""}
+  className="fixed inset-0 w-full h-full border-0 z-[300]"
+  allow="fullscreen"
+  style={{ display: showGame ? "block" : "none" }}
+  loading="eager"
+    onLoad={() => {
+
+    setLoading(false); // ✅ hide loader ONLY now
+  }}
+/>
 </>
 
       )}

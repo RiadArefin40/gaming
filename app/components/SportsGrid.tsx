@@ -1,11 +1,12 @@
 "use client";
 
 interface GameItem {
-  id: number | string;
-  title: number | string;
-  image:number | string;
-  game_uid:number | string;
-  src: string;
+  id: any;
+  title: any;
+  image:any;
+  uid:any;
+  src: any;
+  type: any;
 }
 
 interface ExclusiveGridProps {
@@ -173,71 +174,93 @@ export function SportsGrid({ items }: SportsGridProps) {
 }
 
  
-   const handleCategorySelect = (catName: string) => {
-     setSelectedCategory(catName);
-     setDropdownOpen(false);
-     const slug = slugify(catName);
-     console.log("slug", slug);
-     router.push(`/${slug}/all`); // Uncomment if needed
-   };
- 
-   const handleProviderSelect = (provider: string) => {
-     setSelectedProvider(provider);
-     setProviderDropdownOpen(false);
-     router.push(`/${firstSegment}/${provider}`);
-   };
+
    const [data, setData] = useState(null);
  
  
-  const handleGameClick = async (item: any) => {
-     if (loading) return;
- 
-     setLoading(true);
-     setLoadingText("Preparing game session...");
- 
-     try {
-       if (!user) {
-         alert("User not authenticated");
-         setLoading(false);
-         return;
-       }
- 
-       const res = await fetch("https://api.bajiraj.cloud/launch_game", {
-         method: "POST",
-         headers: {
-           "Content-Type": "application/json",
-           Accept: "*/*",
-         },
-         body: JSON.stringify({
-           userName: user.name,
-           game_uid: item.uid,
-           credit_amount: user.wallet,
-           game_type: 'sports',
-         }),
-       });
- 
-       const data = await res.json();
- 
-       if (res.ok && data.success && data.gameUrl) {
-  // 1000ms = 1 second
-         setData(data.gameUrl);
-         setGameUrl(data.gameUrl);
-         setLoadingText("Opening game…");
-              setTimeout(() => {
-             setShowGame(true);
-           }, 3000);
-       } else {
-         alert(data.error || "Failed to launch game");
-         setShowGame(false);
-       }
-     } catch (error) {
-       console.error("Error launching game:", error);
-       setShowGame(false);
-       alert("Something went wrong");
-     } finally {
-       // setLoading(false);
-     }
-   };
+  // Cache helpers
+  const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
+    try {
+      const cache = JSON.parse(localStorage.getItem("game_url_cache") || "{}");
+      const key = `${user.id}_${gameUid}_${user.wallet}`; // include wallet
+      return cache[key] || null;
+    } catch {
+      return null;
+    }
+  };
+
+  const setCachedGameUrl = (user: AuthUser, gameUid: string, url: string) => {
+    try {
+      const cache = JSON.parse(localStorage.getItem("game_url_cache") || "{}");
+      const key = `${user.id}_${gameUid}_${user.wallet}`;
+      cache[key] = url;
+      localStorage.setItem("game_url_cache", JSON.stringify(cache));
+    } catch {}
+  };
+
+  // Handle mobile back button
+  useEffect(() => {
+    const handleBack = () => {
+      if (showGame) {
+        setShowGame(false);
+        setLoading(false);
+        window.history.pushState(null, ""); // remove extra history entry
+      }
+    };
+    window.addEventListener("popstate", handleBack);
+    return () => window.removeEventListener("popstate", handleBack);
+  }, [showGame]);
+
+  // Launch or load cached game
+  const handleGameClick = async (item: GameItem) => {
+    if (loading) return;
+    if (!user) {
+      alert("User not authenticated");
+      return;
+    }
+    setLoading(true);
+    // 1️⃣ Check cache first
+    const cachedUrl = getCachedGameUrl(user, item.uid);
+if (cachedUrl) {
+console.log("Using cached game URL");
+  setShowGame(false);
+    setGameUrl(cachedUrl);
+    setShowGame(true);
+    setLoading(true);
+    window.history.pushState({ gameOpen: true }, "");
+    return;
+}
+
+    try {
+      const res = await fetch("https://api.bajiraj.cloud/launch_game", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "*/*" },
+        body: JSON.stringify({
+          userName: user.name,
+          game_uid: item.uid,
+          credit_amount: user.wallet,
+          game_type: 'sports',
+        }),
+      });
+
+      const data = await res.json();
+      console.log("Launch game response:", data);
+      if (res.ok && data.success && data.gameUrl) {
+        setGameUrl(data.gameUrl);
+        setCachedGameUrl(user, item.uid, data.gameUrl); // cache it
+        setShowGame(true);
+        window.history.pushState({ gameOpen: true }, "");
+      } else {
+        alert(data.error || "Failed to launch game");
+        setShowGame(false);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong");
+      setShowGame(false);
+    } 
+  };
+
 
   return (
     <>
@@ -295,50 +318,23 @@ export function SportsGrid({ items }: SportsGridProps) {
 )}
 
 
+
+
       {showGame && gameUrl && (
-<>
-  {/* Top Bar */}
-  <div className="fixed top-0 left-0 w-full z-[200] flex items-center bg-black/70  justify-between backdrop-blur-md shadow-lg h-16 px-4">
-    {/* Logo / Text */}
-    <div className="flex items-center gap-3">
-            <p
-  className="tracking-wider italic -mt-2 text-3xl ml-4 font-extrabold text-orange-600 select-none touch-none"
-  style={{
-    textShadow: `
-      1px 1px 0 #0e0d0cff,
-      2px 2px 0 #fafafaff,
-      3px 1px 0 #f0e7e2ff,
-      4px 4px 6px rgba(112, 76, 76, 0.35)
-    `
-  }}
->
-  BajiRaj
-</p>
-    </div>
-
-    {/* Close Button */}
-    <button
-      onClick={() => {
-        setShowGame(false);
-        // setGameUrl(null);
-        setLoading(false);
-      }}
-      className="flex items-center justify-center w-10 h-10 rounded-full bg-black/60 backdrop-blur-md text-white hover:bg-red-500 transition-all duration-200 hover:scale-110 shadow-lg"
-      aria-label="Close Game"
-    >
-      ✕
-    </button>
-  </div>
-
-  {/* Game Frame */}
   <iframe
-    src={gameUrl}
-    className="fixed inset-0 top-16 w-full h-[calc(100%-4rem)] border-0 z-[998]"
-    allow="fullscreen"
-  />
-</>
+  key={gameUrl}               // 🔥 force remount
+  src={gameUrl || ""}
+  className="fixed inset-0 w-full h-full border-0 z-[300]"
+  allow="fullscreen"
+  style={{ display: showGame ? "block" : "none" }}
+  loading="eager"
+    onLoad={() => {
 
-      )}
+    setLoading(false); // ✅ hide loader ONLY now
+  }}
+/>
+
+)}
       {!showGame && (
       <div className="grid grid-cols-2 gap-2 p-2">
         {items.map((item) => (
