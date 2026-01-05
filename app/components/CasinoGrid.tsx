@@ -313,7 +313,7 @@ const [iframeLoaded, setIframeLoaded] = useState(false);
   <iframe
   key={gameUrl}               // 🔥 force remount
   src={gameUrl || ""}
-  className="fixed inset-0 w-full h-full border-0 z-[998]"
+  className="fixed inset-0 w-full h-full border-0 z-[300]"
   allow="fullscreen"
   style={{ display: showGame ? "block" : "none" }}
   loading="eager"
