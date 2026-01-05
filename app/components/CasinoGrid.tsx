@@ -203,17 +203,17 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
 
     // 1️⃣ Check cache first
     const cachedUrl = getCachedGameUrl(user, item.game_uid);
-    if (cachedUrl) {
+if (cachedUrl) {
 
-       setTimeout(() => {
-      setShowGame(true);
-       setLoading(false);
-  }, 1000)
-      setGameUrl(cachedUrl);
-  
-       window.history.pushState({ gameOpen: true }, "");
-      return;
-    }
+  setShowGame(false);
+    setIframeLoaded(false);
+    setGameUrl(cachedUrl);
+    setShowGame(true);
+    setLoading(true);
+    setLoadingText("Opening game…");
+    window.history.pushState({ gameOpen: true }, "");
+    return;
+}
 
     // 2️⃣ Fetch new game URL
     try {
@@ -248,12 +248,12 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
     }
   };
 
-
+const [iframeLoaded, setIframeLoaded] = useState(false);
 
   return (
     <div className="">
 
-    {loading && (
+    {loading  &&(
   <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 ">
     <div className="relative flex flex-col items-center justify-center gap-4">
 
@@ -309,13 +309,19 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
 
 <>
 
+
   <iframe
-    src={gameUrl || ''}
-    className="fixed inset-0 top-0 w-full h-full border-0 z-[998]"
-    allow="fullscreen"
-     style={{ display: showGame && !loading ? "block" : "none" }}
-      loading="eager"
-  />
+  key={gameUrl}               // 🔥 force remount
+  src={gameUrl || ""}
+  className="fixed inset-0 w-full h-full border-0 z-[998]"
+  allow="fullscreen"
+  style={{ display: showGame ? "block" : "none" }}
+  loading="eager"
+    onLoad={() => {
+    setIframeLoaded(true);
+    setLoading(false); // ✅ hide loader ONLY now
+  }}
+/>
 </>
 
 
