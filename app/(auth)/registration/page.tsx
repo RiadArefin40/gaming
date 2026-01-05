@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { loginUser, getAuthUser } from "@/lib/auth";
+import { loginUser } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import { DotLoadingButton } from "@/app/components/DotLoadingButton";
 
