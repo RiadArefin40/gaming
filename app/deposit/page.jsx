@@ -98,7 +98,7 @@ export default function EWalletPage() {
       if (payData.length) {
         
         const activePayData = payData.filter((p) => p.is_active);
-        setSelectedChannel(activePayData[0].deposit_channel);
+        setSelectedChannel(activePayData[0]?.deposit_channel);
         const activePayment = payData.find(item => item.is_active === true);
 
 if (activePayment) {
