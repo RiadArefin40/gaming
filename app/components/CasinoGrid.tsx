@@ -1,10 +1,11 @@
 "use client";
 interface GameItem {
-  id: number | string;
-  title: number | string;
-  image:number | string;
-  game_uid:number | string;
-  src: string;
+  id: any;
+  title: any;
+  image:any;
+  game_uid:any;
+  src: any;
+  type: any;
 }
 
 interface ExclusiveGridProps {
@@ -15,14 +16,9 @@ interface ExclusiveGridProps {
 
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { allGames } from "@/utils/allGames";
 import { jilliSlotArray } from "@/utils/jilliSlots";
-import { JdbSlotArray } from "@/utils/JdbSlots";
 import { PgSlotArray } from "@/utils/pgSlots";
-import SafeImage from "@/app/components/SafeImageProps";
-import { getAuthUser } from "@/lib/auth";
 import { ppAsia } from "@/utils/liveCasinoGames/ppAsia";
-import { evo } from "@/utils/liveCasinoGames/evo";
 import { pt } from "@/utils/liveCasinoGames/pt";
 import { evolive } from "@/utils/liveCasinoGames/evolive";
 
@@ -33,11 +29,6 @@ interface AuthUser {
   id: number;
   wallet: number;
 }
-
-// const user: AuthUser | null = (() => {
-//   const stored = localStorage.getItem("auth_user");
-//   return stored ? JSON.parse(stored) as AuthUser : null;
-// })();
 
 interface Category {
   name: string;
@@ -51,6 +42,9 @@ interface Game {
   image: string;
   game_uid: string;
 }
+type GameCache = {
+  [key: string]: string; // key: `${user.id}_${game_uid}`, value: gameUrl
+};
 
 // Slugify helper
 function slugify(text: string) {
@@ -127,28 +121,16 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
     })
   );
 
-  const [selectedCategory, setSelectedCategory] = useState(() => {
-    const matchedCategory = categories.find(
-      (cat) => cat.name.toLowerCase() === firstSegment.toLowerCase()
-    );
-    return matchedCategory ? matchedCategory.label : categories[0].name;
-  });
+ 
 
-  const [selectedProvider, setSelectedProvider] = useState(() => {
-    const matchedProvider = providers.find(
-      (p) => p.name.toLowerCase() === lastSegment.toLowerCase()
-    );
-    return matchedProvider ? matchedProvider.label : providers[0].name;
-  });
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [providerDropdownOpen, setProviderDropdownOpen] = useState(false);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredGames, setFilteredGames] = useState<Game[]>(gamesWithImages);
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("Launching game...");
   const [sortAsc, setSortAsc] = useState(true);
-  const [searchOpen, setSearchOpen] = useState(true);
+
 
   // Filter & sort games
   useEffect(() => {
@@ -168,58 +150,71 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
     return () => clearTimeout(timeout);
   }, [searchTerm, sortAsc]);
 
-  const handleCategorySelect = (catName: string) => {
-    setSelectedCategory(catName);
-    setDropdownOpen(false);
-    const slug = slugify(catName);
-    console.log("slug", slug);
-    router.push(`/${slug}/all`); // Uncomment if needed
-  };
 
-  const handleProviderSelect = (provider: string) => {
-    setSelectedProvider(provider);
-    setProviderDropdownOpen(false);
-    router.push(`/${firstSegment}/${provider}`);
-  };
-  const [data, setData] = useState(null);
+  // Load user from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem("auth_user");
+    if (stored) setUser(JSON.parse(stored) as AuthUser);
+  }, []);
 
-
-useEffect(() => {
-  const handleBack = (event: PopStateEvent) => {
-    if (showGame) {
-      event.preventDefault();
-      setShowGame(false);
-      setLoading(false);
+  // Cache helpers
+  const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
+    try {
+      const cache = JSON.parse(localStorage.getItem("game_url_cache") || "{}");
+      const key = `${user.id}_${gameUid}_${user.wallet}`; // include wallet
+      return cache[key] || null;
+    } catch {
+      return null;
     }
   };
 
-  window.addEventListener("popstate", handleBack);
-
-  return () => {
-    window.removeEventListener("popstate", handleBack);
+  const setCachedGameUrl = (user: AuthUser, gameUid: string, url: string) => {
+    try {
+      const cache = JSON.parse(localStorage.getItem("game_url_cache") || "{}");
+      const key = `${user.id}_${gameUid}_${user.wallet}`;
+      cache[key] = url;
+      localStorage.setItem("game_url_cache", JSON.stringify(cache));
+    } catch {}
   };
-}, [showGame]);
 
+  // Handle mobile back button
+  useEffect(() => {
+    const handleBack = () => {
+      if (showGame) {
+        setShowGame(false);
+        setLoading(false);
+        window.history.pushState(null, ""); // remove extra history entry
+      }
+    };
+    window.addEventListener("popstate", handleBack);
+    return () => window.removeEventListener("popstate", handleBack);
+  }, [showGame]);
 
- const handleGameClick = async (item: any) => {
+  // Launch or load cached game
+  const handleGameClick = async (item: GameItem) => {
     if (loading) return;
+    if (!user) {
+      alert("User not authenticated");
+      return;
+    }
 
     setLoading(true);
     setLoadingText("Preparing game session...");
 
-    try {
-      if (!user) {
-        alert("User not authenticated");
-        setLoading(false);
-        return;
-      }
+    // 1️⃣ Check cache first
+    const cachedUrl = getCachedGameUrl(user, item.game_uid);
+    if (cachedUrl) {
+      setGameUrl(cachedUrl);
+      setShowGame(true);
+      setLoading(false);
+      return;
+    }
 
+    // 2️⃣ Fetch new game URL
+    try {
       const res = await fetch("https://api.bajiraj.cloud/launch_game", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "*/*",
-        },
+        headers: { "Content-Type": "application/json", Accept: "*/*" },
         body: JSON.stringify({
           userName: user.name,
           game_uid: item.game_uid,
@@ -229,29 +224,25 @@ useEffect(() => {
       });
 
       const data = await res.json();
-      console.log("Launch game response:", data);
+
       if (res.ok && data.success && data.gameUrl) {
- // 1000ms = 1 second
-        setData(data.gameUrl);
         setGameUrl(data.gameUrl);
-        setLoadingText("Opening game…");
-             setTimeout(() => {
-            setShowGame(true);
-             window.history.pushState({ gameOpen: true }, "");
-          }, 30);
+        setCachedGameUrl(user, item.game_uid, data.gameUrl); // cache it
+        setShowGame(true);
+        window.history.pushState({ gameOpen: true }, "");
       } else {
         alert(data.error || "Failed to launch game");
         setShowGame(false);
-        setLoading(false);
       }
-    } catch (error) {
-      console.error("Error launching game:", error);
-      setShowGame(false);
+    } catch (err) {
+      console.error(err);
       alert("Something went wrong");
+      setShowGame(false);
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
   };
+
 
 
   return (
@@ -312,15 +303,12 @@ useEffect(() => {
 
 
 <>
-  {/* Top Bar */}
 
-
-  {/* Game Frame */}
   <iframe
     src={gameUrl || ''}
     className="fixed inset-0 top-0 w-full h-full border-0 z-[998]"
     allow="fullscreen"
-     style={{ display: showGame ? "block" : "none" }}
+     style={{ display: showGame && !loading ? "block" : "none" }}
       loading="eager"
   />
 </>
@@ -329,34 +317,7 @@ useEffect(() => {
 
 
       {!showGame && (
-//         <>
-//     <div className="grid grid-cols-2 gap-2 my-4 mt-4 px-4">
-//       {items.map((game:any) => (
-//         <div
-//           key={game.id}
-//           onClick = {() => handleGameClick(game)}
-//           className="flex items-center justify-center rounded-xl"
-//         >
 
-// <div className="relative rounded-lg p-[1px] bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 animate-gradient-glow">
-//   <div className="rounded-md flex items-center min-w-[180px] bg-slate-900 overflow-hidden">
-//     <img
-//       src={game.src}
-//       alt="exclusive-game"
-//       className="w-14 h-14 h-auto object-contain"
-//     />
-//     <p className="text-slate-100 text-lg">{game.provider}</p>
-//   </div>
-
-// </div>
-
-
-//         </div>
-//       ))}
-//     </div>
-//       <div className="flex justify-center ">
-     
-//       </div> </>
 
       <div className="grid grid-cols-2 gap-2 p-2">
         {items.map((item:any) => (
