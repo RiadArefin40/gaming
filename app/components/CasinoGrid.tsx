@@ -183,7 +183,7 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
       if (showGame) {
         setShowGame(false);
         setLoading(false);
-       // window.history.pushState(null, ""); // remove extra history entry
+        window.history.pushState(null, ""); // remove extra history entry
       }
     };
     window.addEventListener("popstate", handleBack);
