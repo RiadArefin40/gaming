@@ -43,9 +43,14 @@ const handleLogin = async () => {
     }
 
     // ✅ Successful login
-    // loginUser(data.user);
-    setIsLoading(false);
-    router.push("/");
+    loginUser(data.user);
+ window.location.href = "/";
+   // window.location.reload();
+ 
+   setTimeout(() => {
+     setIsLoading(false);
+
+}, 1000);
   } catch (err) {
     console.error("Login Error:", err);
     let errorMsg = "Unknown error";
