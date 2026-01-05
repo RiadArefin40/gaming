@@ -44,7 +44,7 @@ const handleLogin = async () => {
 
     // ✅ Successful login
     loginUser(data.user);
- window.location.href = "/";
+    window.location.href = "/";
    // window.location.reload();
  
    setTimeout(() => {
