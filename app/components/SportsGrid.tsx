@@ -26,7 +26,19 @@ import { ppAsia } from "@/utils/liveCasinoGames/ppAsia";
 import { evo } from "@/utils/liveCasinoGames/evo";
 import { pt } from "@/utils/liveCasinoGames/pt";
 import { evolive } from "@/utils/liveCasinoGames/evolive";
-const user = getAuthUser()
+interface AuthUser {
+  username: string;
+  password?: string;
+  name: string;
+  id: number;
+  wallet: number;
+}
+
+const user: AuthUser | null = (() => {
+  const stored = localStorage.getItem("auth_user");
+  return stored ? JSON.parse(stored) as AuthUser : null;
+})();
+
 
 
 interface SportsGridProps {

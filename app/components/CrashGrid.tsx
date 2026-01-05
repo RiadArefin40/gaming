@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { getAuthUser } from "@/lib/auth";
-const user = getAuthUser()
+// const user = getAuthUser()
 interface GameItem {
   id: number | string;
   title: string;

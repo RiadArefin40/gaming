@@ -28,9 +28,22 @@ import {
 } from "@/components/ui/dialog";
 import { ArrowLeft } from "lucide-react";
 
+
+
+const user = (() => {
+  const stored = localStorage.getItem("auth_user");
+  return stored ? JSON.parse(stored)  : null;
+})();
+
+
 export default function EWalletPage() {
   const router = useRouter();
-  const currentUser = getAuthUser();
+
+const currentUser = (() => {
+  const stored = localStorage.getItem("auth_user");
+  return stored ? JSON.parse(stored)  : null;
+})();
+  // const currentUser = getAuthUser();
   const [promotionSheetOpen, setPromotionSheetOpen] = useState(false);
   const [promotions, setPromotions] = useState([]);
   const [paymentOptions, setPaymentOptions] = useState([]);
