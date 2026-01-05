@@ -204,9 +204,14 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
     // 1️⃣ Check cache first
     const cachedUrl = getCachedGameUrl(user, item.game_uid);
     if (cachedUrl) {
-      setGameUrl(cachedUrl);
+
+       setTimeout(() => {
       setShowGame(true);
-      setLoading(false);
+       setLoading(false);
+  }, 1000)
+      setGameUrl(cachedUrl);
+  
+       window.history.pushState({ gameOpen: true }, "");
       return;
     }
 
