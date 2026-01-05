@@ -56,7 +56,18 @@ export default function MobileAppBar() {
   const [selectedLang, setSelectedLang] = useState("EN");
   const [sheetOpen, setSheetOpen] = useState(false);
   const [sheetOpenS, setSheetOpenS] = useState(false);
-  const user = getAuthUser();
+  interface AuthUser {
+  username: string;
+  password?: string;
+  name: string;
+  id: number;
+  wallet: number;
+}
+
+const user: AuthUser | null = (() => {
+  const stored = localStorage.getItem("auth_user");
+  return stored ? JSON.parse(stored) as AuthUser : null;
+})();
   const router = useRouter();
   const pathname = usePathname();
   const languages = [

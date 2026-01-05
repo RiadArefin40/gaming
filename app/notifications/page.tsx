@@ -36,7 +36,18 @@ import { useState,useEffect } from "react";
 
 export default function NotificationsPage() {
 
-    const user = getAuthUser();
+    interface AuthUser {
+  username: string;
+  password?: string;
+  name: string;
+  id: number;
+  wallet: number;
+}
+
+const user: AuthUser | null = (() => {
+  const stored = localStorage.getItem("auth_user");
+  return stored ? JSON.parse(stored) as AuthUser : null;
+})();
     
 const [unreadCount, setUnread] = useState<number>(0);
 const [notifications, setNotifications] = useState<NotificationGroup[]>([]);

@@ -22,7 +22,18 @@ interface MenuItem {
 }
 
 export default function Home() {
- const user = getAuthUser();
+ interface AuthUser {
+  username: string;
+  password?: string;
+  name: string;
+  id: number;
+  wallet: number;
+}
+
+const user: AuthUser | null = (() => {
+  const stored = localStorage.getItem("auth_user");
+  return stored ? JSON.parse(stored) as AuthUser : null;
+})();
  console.log("user", user)
     const siteInfo = {
     slider_items: [

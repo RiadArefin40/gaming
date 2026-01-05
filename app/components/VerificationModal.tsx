@@ -16,7 +16,18 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 export default function VerificationModal() {
   const [isLoadinge,setIsLoading] = useState(false);
     const router = useRouter();
-     const user = getAuthUser();
+     interface AuthUser {
+  username: string;
+  password?: string;
+  name: string;
+  id: number;
+  wallet: number;
+}
+
+const user: AuthUser | null = (() => {
+  const stored = localStorage.getItem("auth_user");
+  return stored ? JSON.parse(stored) as AuthUser : null;
+})();
   const { open, closeModal } = useVerifyModal();
   const handleLogin = ()=> {
     if(!user){

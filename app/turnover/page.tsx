@@ -23,7 +23,18 @@ interface BalanceData {
 }
 
 export default function TurnoverPage() {
-  const user = getAuthUser();
+  interface AuthUser {
+  username: string;
+  password?: string;
+  name: string;
+  id: number;
+  wallet: number;
+}
+
+const user: AuthUser | null = (() => {
+  const stored = localStorage.getItem("auth_user");
+  return stored ? JSON.parse(stored) as AuthUser : null;
+})();
 
   const { data, error } = useAutoFetch<BalanceData | undefined>(
     user ? `https://api.bajiraj.cloud/users/${user.id}/balance` : "",

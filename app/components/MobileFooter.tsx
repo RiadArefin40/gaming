@@ -74,7 +74,18 @@ export default function MobileFooter() {
   const { openModal: openVerifyModal, closeModal } = useVerifyModal();
   // Controlled sheet state
   const { openModal } = useAuthModal();
-  const user = getAuthUser();
+  interface AuthUser {
+  username: string;
+  password?: string;
+  name: string;
+  id: number;
+  wallet: number;
+}
+
+const user: AuthUser | null = (() => {
+  const stored = localStorage.getItem("auth_user");
+  return stored ? JSON.parse(stored) as AuthUser : null;
+})();
   const pathname = usePathname();
   const router = useRouter();
   const toggleSection = (section: string) => {

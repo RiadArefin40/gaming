@@ -18,7 +18,18 @@ import { fa } from "@/utils/slots/fa";
 import { cq9 } from "@/utils/slots/cq9";
 import { redTiger } from "@/utils/slots/redTiger";
 
-const user = getAuthUser();
+interface AuthUser {
+  username: string;
+  password?: string;
+  name: string;
+  id: number;
+  wallet: number;
+}
+
+const user: AuthUser | null = (() => {
+  const stored = localStorage.getItem("auth_user");
+  return stored ? JSON.parse(stored) as AuthUser : null;
+})();
 
 interface Category {
   name: string;

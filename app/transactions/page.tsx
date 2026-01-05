@@ -21,7 +21,18 @@ import { getAuthUser } from "@/lib/auth";
 const TransactionRecordPage = () => {
   const [timeRange, setTimeRange] = useState("Last 7 days");
   const [transactions, setTransactions] = useState<any[]>([]);
-  const user = getAuthUser();
+  interface AuthUser {
+  username: string;
+  password?: string;
+  name: string;
+  id: number;
+  wallet: number;
+}
+
+const user: AuthUser | null = (() => {
+  const stored = localStorage.getItem("auth_user");
+  return stored ? JSON.parse(stored) as AuthUser : null;
+})();
   const userId = user?.id;
 
   // ✅ Fetch deposits + withdrawals

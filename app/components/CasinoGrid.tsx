@@ -26,7 +26,18 @@ import { evo } from "@/utils/liveCasinoGames/evo";
 import { pt } from "@/utils/liveCasinoGames/pt";
 import { evolive } from "@/utils/liveCasinoGames/evolive";
 
-const user = getAuthUser();
+interface AuthUser {
+  username: string;
+  password?: string;
+  name: string;
+  id: number;
+  wallet: number;
+}
+
+const user: AuthUser | null = (() => {
+  const stored = localStorage.getItem("auth_user");
+  return stored ? JSON.parse(stored) as AuthUser : null;
+})();
 
 interface Category {
   name: string;
@@ -167,6 +178,22 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
   };
   const [data, setData] = useState(null);
 
+  
+useEffect(() => {
+  const handleBack = (event: PopStateEvent) => {
+    if (showGame) {
+      event.preventDefault();
+      setShowGame(false);
+    }
+  };
+
+  window.addEventListener("popstate", handleBack);
+
+  return () => {
+    window.removeEventListener("popstate", handleBack);
+  };
+}, [showGame]);
+
 
  const handleGameClick = async (item: any) => {
     if (loading) return;
@@ -196,7 +223,7 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
       });
 
       const data = await res.json();
-
+      console.log("Launch game response:", data);
       if (res.ok && data.success && data.gameUrl) {
  // 1000ms = 1 second
         setData(data.gameUrl);
@@ -204,6 +231,7 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
         setLoadingText("Opening game…");
              setTimeout(() => {
             setShowGame(true);
+             window.history.pushState({ gameOpen: true }, "");
           }, 3000);
       } else {
         alert(data.error || "Failed to launch game");
@@ -276,50 +304,22 @@ export function CasinoGrid({ items }: ExclusiveGridProps) {
 )}
 
 
-      {showGame && gameUrl && (
+
 <>
   {/* Top Bar */}
-  <div className="fixed top-0 left-0 w-full z-[200] flex items-center bg-black/70  justify-between backdrop-blur-md shadow-lg h-16 px-4">
-    {/* Logo / Text */}
-    <div className="flex items-center gap-3">
-            <p
-  className="tracking-wider italic -mt-2 text-3xl ml-4 font-extrabold text-orange-600 select-none touch-none"
-  style={{
-    textShadow: `
-      1px 1px 0 #0e0d0cff,
-      2px 2px 0 #fafafaff,
-      3px 1px 0 #f0e7e2ff,
-      4px 4px 6px rgba(112, 76, 76, 0.35)
-    `
-  }}
->
-  BajiRaj
-</p>
-    </div>
 
-    {/* Close Button */}
-    <button
-      onClick={() => {
-        setShowGame(false);
-        // setGameUrl(null);
-        setLoading(false);
-      }}
-      className="flex items-center justify-center w-10 h-10 rounded-full bg-black/60 backdrop-blur-md text-white hover:bg-red-500 transition-all duration-200 hover:scale-110 shadow-lg"
-      aria-label="Close Game"
-    >
-      ✕
-    </button>
-  </div>
 
   {/* Game Frame */}
   <iframe
-    src={gameUrl}
+    src={gameUrl || ''}
     className="fixed inset-0 top-16 w-full h-[calc(100%-4rem)] border-0 z-[998]"
     allow="fullscreen"
+     style={{ display: showGame ? "block" : "none" }}
+      loading="eager"
   />
 </>
 
-      )}
+
 
 
       {!showGame && (
