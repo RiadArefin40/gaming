@@ -96,7 +96,9 @@ export default function EWalletPage() {
       setPaymentOptions(payData);
 
       if (payData.length) {
-        setSelectedChannel(payData[0].deposit_channel);
+        
+        const activePayData = payData.filter((p) => p.is_active);
+        setSelectedChannel(activePayData[0].deposit_channel);
         const activePayment = payData.find(item => item.is_active === true);
 
 if (activePayment) {
@@ -166,10 +168,10 @@ if (activePayment) {
       setIsLoading(false);
     }
   };
-  const uniquePaymentOptions = paymentOptions.filter(
-    (option, index, self) =>
-      index === self.findIndex((o) => o.name == option.name)
-  );
+
+
+
+
 
   const [phones, setPhones] = useState([]);
 
@@ -187,6 +189,44 @@ useEffect(() => {
   };
   fetchPhones();
 }, []);
+
+const uniquePaymentOptions = Object.values(
+  paymentOptions.reduce((acc, curr) => {
+    if (!acc[curr.name]) {
+      acc[curr.name] = curr; // just keep one for UI
+    }
+    return acc;
+  }, {})
+);
+
+
+const handlePaymentSelect = (paymentName) => {
+  if (!selectedChannel) return;
+
+  const matched = paymentOptions.find(
+    (p) =>
+      p.name == paymentName &&
+      p.deposit_channel.toLowerCase().trim() ==
+        selectedChannel.toLowerCase().trim() &&
+      p.is_active
+  );
+
+  if (!matched) {
+    alert("This payment method is not available for selected channel");
+    return;
+  }
+
+  setSelectedPayment(matched.id);
+  setReceiverNumber(matched.agent_number);
+};
+
+useEffect(() => {
+  if (selectedPayment) {
+    setSelectedPayment(null);
+    setReceiverNumber("");
+  }
+}, [selectedChannel]);
+
 
   return (
     <div className="mt-18 bg-slate-900 flex justify-center">
@@ -287,33 +327,33 @@ useEffect(() => {
                 </Sheet>
               </div>
               <Label className="text-slate-200 text-lg">Payment Method</Label>
+          
               <div className="grid grid-cols-2 gap-3">
-                {uniquePaymentOptions
-                  // .filter(p => p.deposit_channel === selectedChannel)
-                  .map((p) => (
-                    <button
-                      key={p.id}
-                      onClick={() => {
-                        setSelectedPayment(p.id);
-                        setReceiverNumber(p.agent_number);
-                      }}
-                      disabled={p.is_active === false}
-                      className={`w-full flex items-center gap-2 py-4 px-4 rounded-lg font-medium transition 
-    ${
-      selectedPayment === p.id
-        ? "bg-slate-800 border-2  text-white border-orange-400"
-        : "bg-slate-900 text-gray-100 border-gray-300"
-    } 
-    border  ${
-      p.is_active === true
-        ? ""
-        : "!bg-slate-500 text-gray-100 !border-none"
-    } `}
-                    >
-                      {p.name} {p.is_active}
-                      <img src={paymentImages[p.name]} className="h-8" />
-                    </button>
-                  ))}
+  {uniquePaymentOptions.map((p) => (
+    <button
+      key={p.name}
+      onClick={() => handlePaymentSelect(p.name)}
+        // disabled={p.is_active === false}
+      className={`w-full flex items-center gap-2 py-4 px-4 rounded-lg font-medium transition 
+        ${
+          selectedPayment && p.name == paymentOptions.find(
+            x => x.id == selectedPayment
+          )?.name
+            ? "bg-slate-800 border-2 text-white border-orange-400"
+            : "bg-slate-900 text-gray-100 border-gray-300"
+        } 
+        border
+  
+        `
+      
+      }
+    >
+      {p.name} {p.is_active}
+      <img src={paymentImages[p.name]} className="h-8" />
+    </button>
+  ))}
+
+
               </div>
 
               <Label className="text-slate-200 text-lg">Payment Method</Label>
@@ -344,7 +384,7 @@ useEffect(() => {
               <Label className="mt-4 text-slate-200 text-lg">
                 Deposit Channel
               </Label>
-          <Select
+          {/* <Select
           className="h-14"
   value={selectedChannel || ""}
   onValueChange={(value) => setSelectedChannel(value)}
@@ -360,7 +400,29 @@ useEffect(() => {
       </SelectItem>
     ))}
   </SelectContent>
+</Select> */}
+<Select
+  className="h-14"
+  value={selectedChannel || ""}
+  onValueChange={(value) => setSelectedChannel(value)}
+>
+  <SelectTrigger className="!h-14 !bg-slate-800 w-full text-white rounded-md pl-10">
+    <SelectValue placeholder="Select channel" />
+  </SelectTrigger>
+
+  <SelectContent className="bg-slate-800 text-white rounded-md">
+    {[...new Set(
+      paymentOptions
+        .filter((p) => p.is_active) // ✅ only active payments
+        .map((p) => p.deposit_channel)
+    )].map((c) => (
+      <SelectItem key={c} value={c}>
+        {c}
+      </SelectItem>
+    ))}
+  </SelectContent>
 </Select>
+
 
               <Button
                 disabled={!canStep1}
