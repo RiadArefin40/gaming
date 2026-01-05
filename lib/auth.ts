@@ -12,12 +12,12 @@ export interface User {
  * Save user to localStorage
  */
 export function loginUser(user: User | null) {
-  if (typeof window === "undefined") return null;
+  // if (typeof window === "undefined") return null;
 
-  if (user) {
-    localStorage.setItem("auth_user", JSON.stringify(user));
-    return user;
-  }
+  // if (user) {
+  //   localStorage.setItem("auth_user", JSON.stringify(user));
+  //   return user;
+  // }
   return null;
 }
 
@@ -33,13 +33,13 @@ export function logoutUser() {
  * Get user safely (CLIENT ONLY)
  */
 export function getAuthUser(): User | null {
-  if (typeof window === "undefined") return null;
+  // if (typeof window === "undefined") return null;
 
-  try {
-    const data = localStorage.getItem("auth_user");
-    return data ? (JSON.parse(data) as User) : null;
-  } catch (err) {
-    console.error("Invalid auth_user data", err);
+  // try {
+  //   const data = localStorage.getItem("auth_user");
+  //   return data ? (JSON.parse(data) as User) : null;
+  // } catch (err) {
+  //   console.error("Invalid auth_user data", err);
     return null;
-  }
+  
 }
