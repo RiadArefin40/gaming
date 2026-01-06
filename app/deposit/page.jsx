@@ -188,7 +188,7 @@ useEffect(() => {
     }
   };
   fetchPhones();
-}, []);
+}, [currentUser]);
 
 const uniquePaymentOptions = Object.values(
   paymentOptions.reduce((acc, curr) => {
