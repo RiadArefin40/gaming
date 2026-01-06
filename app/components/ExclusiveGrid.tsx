@@ -359,19 +359,19 @@ console.log("Using cached game URL");
           onClick = {() => handleGameClick(game)}
           className="flex items-center justify-center rounded-xl"
         >
-      {/* <div className="relative p-[1px] rounded-md bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 animate-gradient-x">
+      <div className="relative p-[1px] rounded-md bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 animate-gradient-x">
   <img
     src={game.image}
     alt="exclusive-game"
     className="w-full h-auto rounded-md object-contain bg-black"
   />
-</div> */}
-             <SafeImage
+</div>
+             {/* <SafeImage
                           src={game.image}
                           width={130}
                           height={170}
                           className="rounded-[10px]"
-                        />
+                        /> */}
 
 
         </div>
