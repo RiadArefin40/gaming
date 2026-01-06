@@ -198,6 +198,7 @@ const uniquePaymentOptions = Object.values(
     return acc;
   }, {})
 );
+console.log("Unique Payment Options:", uniquePaymentOptions);
 
 
 const handlePaymentSelect = (paymentName) => {
@@ -343,6 +344,7 @@ useEffect(() => {
             : "bg-slate-900 text-gray-100 border-gray-300"
         } 
         border
+        ${!p.is_active ? "opacity-50 cursor-not-allowed !bg-slate-600" : "hover:border-orange-400"}
   
         `
       
