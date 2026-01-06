@@ -82,7 +82,7 @@ export default function WithdrawPage() {
     const loadPaymentOptions = async () => {
       try {
         const res = await fetch("https://api.bajiraj.cloud/payment-gateways/");
-        const data: PaymentOption[] = (await res.json()).filter((p:any) => p.is_active);
+        const data: PaymentOption[] = (await res.json());
         setPaymentOptions(data);
 
         if (data.length) {
