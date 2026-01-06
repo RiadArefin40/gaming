@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ExclusiveGrid } from "./ExclusiveGrid";
 import { ex } from "@/utils/exclusive";
+import { featured } from "@/utils/featured";
 
 interface SliderProps {
   siteInfo: any;
@@ -105,7 +106,7 @@ export default function FeaturedSlider({
   }
 
   return (
-    <div className="p-4">
+    <div className="p-0">
          <div className="mb-4 flex items-center justify-between">
   <p className="text-xl border-l-4 border-orange-400 pl-4">
     Featured
@@ -169,7 +170,7 @@ export default function FeaturedSlider({
           ))}
         </div> */}
 
-        <ExclusiveGrid items={ex}/>
+        <ExclusiveGrid items={featured}/>
 
         {/* arrows */}
         <button
