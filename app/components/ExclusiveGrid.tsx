@@ -185,15 +185,20 @@ export function ExclusiveGrid({ items }: ExclusiveGridProps) {
 
 
   // Cache helpers
-  const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
-    try {
-      const cache = JSON.parse(localStorage.getItem("game_url_cache") || "{}");
-      const key = `${user.id}_${gameUid}_${user.wallet}`; // include wallet
-      return cache[key] || null;
-    } catch {
-      return null;
-    }
-  };
+const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
+  try {
+    const authUser = JSON.parse(localStorage.getItem("auth_user") || "{}");
+    const wallet = authUser.wallet ?? user.wallet ?? 0;
+
+    const cache = JSON.parse(localStorage.getItem("game_url_cache") || "{}");
+    const key = `${user.id}_${gameUid}_${wallet}`;
+
+    return cache[key] || null;
+  } catch (err) {
+    console.error("Cache read failed", err);
+    return null;
+  }
+};
 
   const setCachedGameUrl = (user: AuthUser, gameUid: string, url: string) => {
     try {
@@ -258,8 +263,9 @@ console.log("Using cached game URL");
         setShowGame(true);
         window.history.pushState({ gameOpen: true }, "");
       } else {
-        alert(data.error || "Failed to launch game");
+             alert(data.error || "Failed to launch game");
         setShowGame(false);
+setLoading(false);
       }
     } catch (err) {
       console.error(err);

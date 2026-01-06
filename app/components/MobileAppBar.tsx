@@ -120,14 +120,30 @@ export default function MobileAppBar() {
 
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
   const balance = data?.balance ?? 0;
+  
+
   const turnover = data?.turnover ?? 0;
   const [isLoading, setIsloading] = useState(false);
   const fetchBalance = () => {
     setIsloading(true);
     setTimeout(async () => {
       setIsloading(false);
-    }, 1500); // 1.5 seconds delay
+    }, 50); // 1.5 seconds delay
   };
+useEffect(() => {
+  if (!user) return; // no user, skip
+
+  const updatedUser = {
+    ...user,
+    wallet: balance, // update balance
+  };
+
+  localStorage.setItem("auth_user", JSON.stringify(updatedUser));
+
+  const stored = localStorage.getItem("auth_user");
+  console.log("Updated User in localStorage:", stored);
+}, [user, balance]);
+
   const [isOpen, setIsOpen] = useState(false);
   const toggleSection = (section: string) => {
     setOpenSections((prev) => ({
