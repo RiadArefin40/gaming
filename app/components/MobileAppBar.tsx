@@ -128,7 +128,7 @@ export default function MobileAppBar() {
     setIsloading(true);
     setTimeout(async () => {
       setIsloading(false);
-    }, 50); // 1.5 seconds delay
+    }, 1000); // 1.5 seconds delay
   };
 useEffect(() => {
   if (!user) return; // no user, skip

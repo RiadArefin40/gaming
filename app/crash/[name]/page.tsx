@@ -19,6 +19,7 @@ import { playtech } from "@/utils/slots/playtech";
 import { fa } from "@/utils/slots/fa";
 import { cq9 } from "@/utils/slots/cq9";
 import { redTiger } from "@/utils/slots/redTiger";
+import { jdbCrash } from "@/utils/jdbCrash";
 
 interface AuthUser {
   username: string;
@@ -85,6 +86,7 @@ export default function Casino() {
     { name: "all", label: "All", icon: <span>🌐</span> },
     { name: "jilli", label: "Jili", icon: <span>♠️</span> },
     { name: "spribe", label: "Spribe", icon: <span>🎰</span> },
+      { name: "jdb", label: "Jdb", icon: <span>🃏</span>  },
 
   ];
 
@@ -103,7 +105,8 @@ export default function Casino() {
       ? jiliCrash
       : lastSegment === "spribe"
       ? spribeCrash
- 
+    : lastSegment === "jdb"
+      ? jdbCrash
 
       : spribeCrash
   ).map(
@@ -319,34 +322,12 @@ setLoading(false);
       {showGame && gameUrl && (
              <>
   {/* Top Bar */}
-  <div className="fixed top-0 left-0 w-full z-[1000] flex items-center justify-between bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 shadow-lg h-16 px-4">
-    {/* Logo / Text */}
-    <div className="flex items-center gap-3">
-      {/* Optional Logo */}
-      <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
-        <span className="text-orange-500 font-bold text-lg">B</span>
-      </div>
-      <span className="text-white font-bold text-xl drop-shadow-lg">Bajiraj</span>
-    </div>
 
-    {/* Close Button */}
-    <button
-      onClick={() => {
-        setShowGame(false);
-        // setGameUrl(null);
-        setLoading(false);
-      }}
-      className="flex items-center justify-center w-10 h-10 rounded-full bg-black/60 backdrop-blur-md text-white hover:bg-red-500 transition-all duration-200 hover:scale-110 shadow-lg"
-      aria-label="Close GameItem"
-    >
-      ✕
-    </button>
-  </div>
 
   {/* GameItem Frame */}
   <iframe
     src={gameUrl}
-    className="fixed inset-0 top-16 w-full h-[calc(100%-4rem)] border-0 z-[998]"
+    className="fixed inset-0 top-0 w-full h-full border-0 z-[998]"
     allow="fullscreen"
   />
 </>
