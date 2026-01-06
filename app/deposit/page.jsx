@@ -82,10 +82,10 @@ export default function EWalletPage() {
 
   useEffect(() => {
     const load = async () => {
-      const promoRes = await fetch("https://api.bajiraj.cloud/promos");
+      const promoRes = await fetch("https://stage.api.bajiraj.com/promos");
       const promoData = await promoRes.json();
 
-      const payRes = await fetch("https://api.bajiraj.cloud/payment-gateways/");
+      const payRes = await fetch("https://stage.api.bajiraj.com/payment-gateways/");
       const payData = (await payRes.json());
 
       setPromotions(promoData);
@@ -140,7 +140,7 @@ if (activePayment) {
       const gateway = paymentOptions.find((p) => p.id === selectedPayment);
       const promo = promotions.find((p) => p.id === selectedPromotion);
 
-      await fetch("https://api.bajiraj.cloud/deposit", {
+      await fetch("https://stage.api.bajiraj.com/deposit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -179,7 +179,7 @@ useEffect(() => {
   if (!currentUser) return;
   const fetchPhones = async () => {
     try {
-      const res = await fetch(`https://api.bajiraj.cloud/users/phones/${currentUser.id}`);
+      const res = await fetch(`https://stage.api.bajiraj.com/users/phones/${currentUser.id}`);
       const data= await res.json();
       setPhones(data.map(p => p.phone));
       // setSenderNumber(currentUser.phone); // default to main phone

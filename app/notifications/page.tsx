@@ -86,7 +86,7 @@ useEffect(() => {
 
   const fetchNotifications = async () => {
     try {
-      const res = await fetch(`https://api.bajiraj.cloud/notifications/user/${user.id}`);
+      const res = await fetch(`https://stage.api.bajiraj.com/notifications/user/${user.id}`);
       const data = await res.json();
       setUnread(data.unread_count);
       setNotifications(groupNotificationsByDate(data.notifications));
@@ -106,7 +106,7 @@ useEffect(() => {
 //   const fetchNotification = async () => {
 //     try {
 //       const res = await fetch(
-//         `https://api.bajiraj.cloud/notifications/user/${user.id}`
+//         `https://stage.api.bajiraj.com/notifications/user/${user.id}`
 //       );
 
 //       if (!res.ok) return;
@@ -126,7 +126,7 @@ useEffect(() => {
 //   return () => clearInterval(interval);
 // }, [user?.id]);
 const markAsRead = async (id: number) => {
-  await fetch(`https://api.bajiraj.cloud/notifications/${id}/read`, {
+  await fetch(`https://stage.api.bajiraj.com/notifications/${id}/read`, {
     method: "PATCH",
   });
 };

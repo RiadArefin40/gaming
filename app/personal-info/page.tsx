@@ -74,7 +74,7 @@ useEffect(() => {
 
   const fetchPhones = async (userId: number) => {
     try {
-      const res = await fetch(`https://api.bajiraj.cloud/users/phones/${userId}`);
+      const res = await fetch(`https://stage.api.bajiraj.com/users/phones/${userId}`);
       const data: Phone[] = await res.json();
       setPhones(data);
     } catch (error) {
@@ -87,7 +87,7 @@ useEffect(() => {
 
     setLoading(true);
     try {
-      const res = await fetch("https://api.bajiraj.cloud/users/phone", {
+      const res = await fetch("https://stage.api.bajiraj.com/users/phone", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: user.id, phone: newPhone.trim() }),
@@ -111,7 +111,7 @@ useEffect(() => {
   const verifyPhone = async (phone: string) => {
     if (!user) return;
     try {
-      const res = await fetch("https://api.bajiraj.cloud/users/phone/verify", {
+      const res = await fetch("https://stage.api.bajiraj.com/users/phone/verify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: user.id, phone }),
@@ -130,7 +130,7 @@ useEffect(() => {
   const deletePhone = async (phone: string) => {
     if (!user) return;
     try {
-      const res = await fetch("https://api.bajiraj.cloud/users/phone", {
+      const res = await fetch("https://stage.api.bajiraj.com/users/phone", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: user.id, phone }),

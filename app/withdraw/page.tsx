@@ -71,7 +71,7 @@ export default function WithdrawPage() {
     const loadPhones = async () => {
       if (!u) return;
       try {
-        const res = await fetch(`https://api.bajiraj.cloud/users/phones/${u.id}`);
+        const res = await fetch(`https://stage.api.bajiraj.com/users/phones/${u.id}`);
         const data: Phone[] = await res.json();
         setPhones(data);
       } catch (err) {
@@ -81,7 +81,7 @@ export default function WithdrawPage() {
 
     const loadPaymentOptions = async () => {
       try {
-        const res = await fetch("https://api.bajiraj.cloud/payment-gateways/");
+        const res = await fetch("https://stage.api.bajiraj.com/payment-gateways/");
         const data: PaymentOption[] = (await res.json()).filter((p:any) => p.is_active);
         setPaymentOptions(data);
 
@@ -109,7 +109,7 @@ const handleWithdraw = async () => {
   try {
     const gateway = paymentOptions.find((p) => p.id === selectedPayment);
 
-    const res = await fetch("https://api.bajiraj.cloud/withdrawals", {
+    const res = await fetch("https://stage.api.bajiraj.com/withdrawals", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

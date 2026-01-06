@@ -98,7 +98,7 @@ export default function MobileFooter() {
   };
 
   const { data, error } = useAutoFetch<BalanceData | undefined>(
-    user ? `https://api.bajiraj.cloud/users/${user.id}/balance` : "",
+    user ? `https://stage.api.bajiraj.com/users/${user.id}/balance` : "",
     10000
   );
   const balance = data?.balance ?? 0;
@@ -123,7 +123,7 @@ useEffect(() => {
 
   const fetchNotifications = async () => {
     try {
-      const res = await fetch(`https://api.bajiraj.cloud/notifications/user/${user.id}`);
+      const res = await fetch(`https://stage.api.bajiraj.com/notifications/user/${user.id}`);
       const data = await res.json();
       setUnread(data.unread_count);
       // setNotifications(data.notifications);

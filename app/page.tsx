@@ -40,7 +40,7 @@ export default function Home() {
   useEffect(() => {
 
         const load = async () => {
-      const promoRes = await fetch("https://api.bajiraj.cloud/users/headline");
+      const promoRes = await fetch("https://stage.api.bajiraj.com/users/headline");
       const promoData = await promoRes.json();
       console.log("Promos data:", promoData.title);
       setHeadLine(promoData.title)
