@@ -54,7 +54,7 @@ export default function WithdrawPage() {
   const [selectedChannel, setSelectedChannel] = useState<string | null>(null);
   const [receiverNumber, setReceiverNumber] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const [widthraw, setWidthraw] = useState<boolean>(false);
     const paymentImages = {
     Bkash:
       "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/bkash.png",
@@ -82,7 +82,7 @@ export default function WithdrawPage() {
     const loadPaymentOptions = async () => {
       try {
         const res = await fetch("https://stage.api.bajiraj.com/payment-gateways/");
-        const data: PaymentOption[] = (await res.json()).filter((p:any) => p.is_active);
+        const data: PaymentOption[] = (await res.json());
         setPaymentOptions(data);
 
         if (data.length) {
@@ -95,6 +95,19 @@ export default function WithdrawPage() {
       }
     };
 
+
+        const loadWidthraw = async () => {
+      if (!u) return;
+      try {
+        const res = await fetch(`https://stage.api.bajiraj.com/payment-gateways/widthraw`);
+        const data = await res.json();
+         console.log("Widthraw status:", data);
+        setWidthraw(data.widthraw);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+loadWidthraw()
     loadPhones();
     loadPaymentOptions();
   }, []);
@@ -156,10 +169,14 @@ const handleWithdraw = async () => {
 
           {/* Payment Method */}
           <Label className="text-slate-200 text-2xl">Payment Method</Label>
+          {!widthraw && (
+            <p className="text-red-400">Widthraw is Disabled till morning 7AM</p>
+          )}
           <div className="grid grid-cols-2 gap-3">
             {uniquePaymentOptions.map((p) => (
               <button
                 key={p.id}
+                disabled={!widthraw}
                 onClick={() => {
                   setSelectedPayment(p.id);
                   setReceiverNumber(p.agent_number);
@@ -167,10 +184,17 @@ const handleWithdraw = async () => {
                 }}
                 className={`w-full flex items-center gap-2 py-4 px-4 rounded-lg font-medium transition 
                 ${
-                  selectedPayment === p.id
+                  (selectedPayment === p.id && widthraw)
                     ? "bg-slate-800 border-2 text-white border-orange-500"
-                    : "bg-slate-900 text-gray-100 border-gray-300"
-                } border`}
+                    : "bg-slate-900 text-gray-100 border-gray-400"
+                } border
+                  ${
+                  widthraw
+                    ? "bg-slate-800 border-2 text-white "
+                    : "bg-slate-900 text-gray-100 !border-red-400"
+                } border
+                
+                `}
               >
                 {p.name}
                 <img

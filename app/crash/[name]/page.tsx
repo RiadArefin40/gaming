@@ -19,6 +19,7 @@ import { playtech } from "@/utils/slots/playtech";
 import { fa } from "@/utils/slots/fa";
 import { cq9 } from "@/utils/slots/cq9";
 import { redTiger } from "@/utils/slots/redTiger";
+import { jdbCrash } from "@/utils/jdbCrash";
 
 interface AuthUser {
   username: string;
@@ -27,7 +28,14 @@ interface AuthUser {
   id: number;
   wallet: number;
 }
-
+interface GameItem {
+  id: any;
+  title: any;
+  image:any;
+  game_uid:any;
+  src: any;
+  type: any;
+}
 // const user: AuthUser | null = (() => {
 //   const stored = localStorage.getItem("auth_user");
 //   return stored ? JSON.parse(stored) as AuthUser : null;
@@ -39,12 +47,7 @@ interface Category {
   label: string;
 }
 
-interface Game {
-  serial: number;
-  title: string;
-  image: string;
-  game_uid: string;
-}
+
 
 // Slugify helper
 function slugify(text: string) {
@@ -83,6 +86,7 @@ export default function Casino() {
     { name: "all", label: "All", icon: <span>🌐</span> },
     { name: "jilli", label: "Jili", icon: <span>♠️</span> },
     { name: "spribe", label: "Spribe", icon: <span>🎰</span> },
+      { name: "jdb", label: "Jdb", icon: <span>🃏</span>  },
 
   ];
 
@@ -96,16 +100,17 @@ export default function Casino() {
     ...(Array.isArray(cq9) ? cq9 : []),
     ...(Array.isArray(redTiger) ? redTiger : []),
   ];
-  const gamesWithImages: Game[] = (
+  const gamesWithImages: GameItem[] = (
     lastSegment === "jilli"
       ? jiliCrash
       : lastSegment === "spribe"
       ? spribeCrash
- 
+    : lastSegment === "jdb"
+      ? jdbCrash
 
       : spribeCrash
   ).map(
-    (item: any): Game => ({
+    (item: any): GameItem => ({
       ...item,
     })
   );
@@ -127,7 +132,7 @@ export default function Casino() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [providerDropdownOpen, setProviderDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredGames, setFilteredGames] = useState<Game[]>(gamesWithImages);
+  const [filteredGames, setFilteredGames] = useState<GameItem[]>(gamesWithImages);
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("Launching game...");
   const [sortAsc, setSortAsc] = useState(true);
@@ -137,7 +142,7 @@ export default function Casino() {
   useEffect(() => {
     setLoading(true);
     const timeout = setTimeout(() => {
-      let filtered = gamesWithImages.filter((game: Game) =>
+      let filtered = gamesWithImages.filter((game: GameItem) =>
         game.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
       filtered.sort((a, b) =>
@@ -165,59 +170,100 @@ export default function Casino() {
     router.push(`/${firstSegment}/${provider}`);
   };
   const [data, setData] = useState(null);
-  const handleGameClick = async (item: any) => {
-    if (loading) return;
 
-    setLoading(true);
-    setLoadingText("Preparing game session...");
 
+
+  // Cache helpers
+const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
+  try {
+    const authUser = JSON.parse(localStorage.getItem("auth_user") || "{}");
+    const wallet = authUser.wallet ?? user.wallet ?? 0;
+
+    const cache = JSON.parse(localStorage.getItem("game_url_cache") || "{}");
+    const key = `${user.id}_${gameUid}_${wallet}`;
+
+    return cache[key] || null;
+  } catch (err) {
+    console.error("Cache read failed", err);
+    return null;
+  }
+};
+
+  const setCachedGameUrl = (user: AuthUser, gameUid: string, url: string) => {
     try {
-      if (!user) {
-        alert("User not authenticated");
-        setLoading(false);
-        return;
-      }
+      const cache = JSON.parse(localStorage.getItem("game_url_cache") || "{}");
+      const key = `${user.id}_${gameUid}_${user.wallet}`;
+      cache[key] = url;
+      localStorage.setItem("game_url_cache", JSON.stringify(cache));
+    } catch {}
+  };
 
+  // Handle mobile back button
+  useEffect(() => {
+    const handleBack = () => {
+      if (showGame) {
+        setShowGame(false);
+        setLoading(false);
+        window.history.pushState(null, ""); // remove extra history entry
+      }
+    };
+    window.addEventListener("popstate", handleBack);
+    return () => window.removeEventListener("popstate", handleBack);
+  }, [showGame]);
+
+  // Launch or load cached game
+  const handleGameClick = async (item: GameItem) => {
+    if (loading) return;
+    if (!user) {
+      alert("User not authenticated");
+      return;
+    }
+    setLoading(true);
+    // 1️⃣ Check cache first
+    const cachedUrl = getCachedGameUrl(user, item.game_uid);
+if (cachedUrl) {
+console.log("Using cached game URL");
+  setShowGame(false);
+    setGameUrl(cachedUrl);
+    setShowGame(true);
+    setLoading(true);
+    window.history.pushState({ gameOpen: true }, "");
+    return;
+}
+
+    // 2️⃣ Fetch new game URL
+    try {
       const res = await fetch("https://stage.api.bajiraj.com/launch_game", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "*/*",
-        },
+        headers: { "Content-Type": "application/json", Accept: "*/*" },
         body: JSON.stringify({
           userName: user.name,
           game_uid: item.game_uid,
           credit_amount: user.wallet,
-          game_type: "slot",
+          game_type: 'slot',
         }),
       });
 
       const data = await res.json();
-
+      console.log("Launch game response:", data);
       if (res.ok && data.success && data.gameUrl) {
-
-
-        setData(data.gameUrl);
         setGameUrl(data.gameUrl);
-        setLoadingText("Opening game…");
-               setTimeout(() => {
-  setShowGame(true);
-}, 3000); // 1000ms = 1 second
-        // window.open(data.gameUrl, "_blank", "noopener,noreferrer");
+        setCachedGameUrl(user, item.game_uid, data.gameUrl); // cache it
+        setShowGame(true);
+        window.history.pushState({ gameOpen: true }, "");
       } else {
-        alert(data.error || "Failed to launch game");
+             alert(data.error || "Failed to launch game");
         setShowGame(false);
-           setLoading(false);
+setLoading(false);
       }
-    } catch (error) {
-      console.error("Error launching game:", error);
-      setShowGame(false);
+    } catch (err) {
+      console.error(err);
       alert("Something went wrong");
+      setShowGame(false);
     } finally {
-      // setLoading(false);
+    //  setLoading(false);
     }
   };
-
   console.log(evoLive);
 
   return (
@@ -276,34 +322,12 @@ export default function Casino() {
       {showGame && gameUrl && (
              <>
   {/* Top Bar */}
-  <div className="fixed top-0 left-0 w-full z-[1000] flex items-center justify-between bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 shadow-lg h-16 px-4">
-    {/* Logo / Text */}
-    <div className="flex items-center gap-3">
-      {/* Optional Logo */}
-      <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md">
-        <span className="text-orange-500 font-bold text-lg">B</span>
-      </div>
-      <span className="text-white font-bold text-xl drop-shadow-lg">Bajiraj</span>
-    </div>
 
-    {/* Close Button */}
-    <button
-      onClick={() => {
-        setShowGame(false);
-        // setGameUrl(null);
-        setLoading(false);
-      }}
-      className="flex items-center justify-center w-10 h-10 rounded-full bg-black/60 backdrop-blur-md text-white hover:bg-red-500 transition-all duration-200 hover:scale-110 shadow-lg"
-      aria-label="Close Game"
-    >
-      ✕
-    </button>
-  </div>
 
-  {/* Game Frame */}
+  {/* GameItem Frame */}
   <iframe
     src={gameUrl}
-    className="fixed inset-0 top-16 w-full h-[calc(100%-4rem)] border-0 z-[998]"
+    className="fixed inset-0 top-0 w-full h-full border-0 z-[998]"
     allow="fullscreen"
   />
 </>

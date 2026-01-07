@@ -44,12 +44,13 @@ const handleLogin = async () => {
 
     // ✅ Successful login
     loginUser(data.user);
-       setTimeout(() => {
+     window.location.href = "/";
+   // window.location.reload();
+ 
+   setTimeout(() => {
      setIsLoading(false);
 
 }, 1000);
-
-    window.location.href = "/";
   } catch (err) {
     console.error("Login Error:", err);
     let errorMsg = "Unknown error";

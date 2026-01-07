@@ -200,8 +200,9 @@ export default function Casino() {
 }, 3000);
         // window.open(data.gameUrl, "_blank", "noopener,noreferrer");
       } else {
-        alert(data.error || "Failed to launch game");
+             alert(data.error || "Failed to launch game");
         setShowGame(false);
+setLoading(false);
            setLoading(false);
       }
     } catch (error) {

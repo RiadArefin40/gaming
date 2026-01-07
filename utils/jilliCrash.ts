@@ -15,7 +15,25 @@ export const jiliCrash = [
    
     image: "https://img.j189eb.com/upload/game/AWCV2_JILI/BDT/JILI-TABLE-047.png?v=1759135160150&quot",
   },
-     
+             {
+    id: 3,
+    game_uid: 'eabf08253165b6bb2646e403de625d1a',
+    title: "Limbo",
+   
+    image: "https://img.j189eb.com/upload/game/AWCV2_JILI/BDT/JILI-TABLE-035.png?v=1759135082951",
+  },        {
+    id: 4,
+    game_uid: 'a8a5f7f458c8507c311ed7e396fdddd8',
+    title: "Crash Goal",
+   
+    image: "https://img.j189eb.com/upload/game/AWCV2_JILI/BDT/JILI-TABLE-055.png?v=1751264870200",
+  },        {
+    id: 5,
+    game_uid: '2b3e6d31620ceabbe44d3edb6fd10af3',
+    title: "Crash cricket",
+   
+    image: "https://img.j189eb.com/upload/game/AWCV2_JILI/BDT/JILI-TABLE-058.png?v=1751264879675",
+  },
      
 
 ]
