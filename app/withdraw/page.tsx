@@ -7,6 +7,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getAuthUser } from "@/lib/auth";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { CheckCircle2, Loader2 } from "lucide-react";
+
+import { useRouter } from "next/navigation";
 
 type User = {
   id: number;
@@ -55,6 +66,33 @@ export default function WithdrawPage() {
   const [receiverNumber, setReceiverNumber] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [widthraw, setWidthraw] = useState<boolean>(false);
+  const [depositAlert, setDepositAlert] = useState('')
+  const [successModalOpen, setSuccessModalOpen] = useState(false);
+  const [error, setError] = useState(false)
+   const router = useRouter();
+const [delay, setDelay] = useState(10)
+
+
+
+  useEffect(() => {
+  if (!successModalOpen) return;
+
+  setIsLoading(true);
+  setDelay(10);
+
+  const interval = setInterval(() => {
+    setDelay((prev) => {
+      if (prev <= 1) {
+        clearInterval(interval);
+        setIsLoading(false);
+        return 0;
+      }
+      return prev - 1;
+    });
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, [successModalOpen]);
     const paymentImages = {
     Bkash:
       "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/bkash.png",
@@ -63,7 +101,7 @@ export default function WithdrawPage() {
     Upai: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/upay.png",
     Rocket:"https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/rocket.png?v=1766500192641&quot"
   };
-
+ 
   useEffect(() => {
     const u = getAuthUser() as User | null;
     setUser(u);
@@ -74,6 +112,7 @@ export default function WithdrawPage() {
         const res = await fetch(`https://stage.api.bajiraj.com/users/phones/${u.id}`);
         const data: Phone[] = await res.json();
         setPhones(data);
+       setSelectedPhone(data?.[0]?.phone) 
       } catch (err) {
         console.error(err);
       }
@@ -135,30 +174,43 @@ const handleWithdraw = async () => {
     });
 
     const data = await res.json(); // 🔥 IMPORTANT
-
+    setDepositAlert(`Widthrawal of ${amount} Succes. Please wait 30 second to for auto approve.`);
     if (!res.ok) {
+      setSuccessModalOpen(true);
       // show backend error message
-      alert(data.error || "Something went wrong");
+      setDepositAlert(data.error || "Something went wrong");
+      setError(true);
+   //   alert(data.error || "Something went wrong");
       return;
     }
 
     // Success
-    alert(data.message || "Withdrawal request submitted successfully");
+   // alert(data.message || "Withdrawal request submitted successfully");
 
-    setAmount("");
-    setSelectedPhone("");
+    // setAmount("");
+    // setSelectedPhone("");
   } catch (err) {
     console.error(err);
-    alert("Network error. Please try again.");
+    setIsLoading(false)
+    setDepositAlert("Widthraw failed. Please try again.");
+    // alert("Network error. Please try again.");
   } finally {
-    setIsLoading(false);
+          setTimeout(() => {
+            setSuccessModalOpen(true);
+            setIsLoading(false);
+
+        }, 500);
   }
 };
+
+
 
   const uniquePaymentOptions = paymentOptions.filter(
     (option, index, self) =>
       index === self.findIndex((o) => o.name === option.name)
   );
+
+
   return (
     <div className="max-w-screen mx-auto mt-2 mb-[200px]">
       <Card className="bg-slate-900 border-0 shadow-xl rounded-2xl">
@@ -249,14 +301,15 @@ const handleWithdraw = async () => {
 <Input
   type="number"
   value={amount}
-  min={200}
+  min={100}
+  max={25000}
   onChange={(e) => setAmount(e.target.value)}
   className="mb-3 bg-slate-900 h-14 text-slate-100 text-lg"
   placeholder="Enter amount"
 />
 
 <div className="grid grid-cols-3 gap-2 mb-3 mt-3">
-  {[200, 500, 1000].map((value) => (
+  {[ 500, 1000, 10000, 25000].map((value) => (
     <Button
       key={value}
       variant="outline"
@@ -270,9 +323,14 @@ const handleWithdraw = async () => {
   ))}
 </div>
 
-{Number(amount) < 200 && amount !== "" && (
+{Number(amount) < 100 && amount !== "" && (
   <p className="text-lg text-red-500 mb-2">
-    Minimum amount is 200
+    Minimum amount is 100
+  </p>
+)}
+{Number(amount) > 25000 && amount !== "" && (
+  <p className="text-lg text-red-500 mb-2">
+    Maximum amount is 25000
   </p>
 )}
 
@@ -280,12 +338,72 @@ const handleWithdraw = async () => {
           <Button
             className="w-full h-14 mt-4 bg-orange-400 text-lg"
             onClick={handleWithdraw}
-            disabled={isLoading || !selectedPhone || !amount || !selectedPayment || !selectedChannel}
+            disabled={isLoading || !selectedPhone ||  Number(amount)  < 100 ||
+ Number(amount) > 2500  || !selectedPayment || !selectedChannel}
           >
             {isLoading ? "Processing..." : "Submit Withdraw"}
           </Button>
         </CardContent>
       </Card>
+      <Dialog open={successModalOpen} onOpenChange={setSuccessModalOpen}>
+        <DialogContent className="max-w-md rounded-2xl p-8 text-center">
+          
+          {/* Success Icon */}
+          <div className="flex justify-center mb-4">
+            {!isLoading  ?(
+            <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center">
+              {!error ? (
+  <CheckCircle2 className="h-10 w-10 text-green-600" />
+
+              ):
+              (  <CheckCircle2 className="h-10 w-10 text-red-600" />)
+              }
+            
+            </div>):null}
+          </div>
+      
+          <DialogHeader>
+            {!isLoading ?(
+              
+                 <DialogTitle className="text-3xl font-bold ">
+                  {!error?(
+                    <span className="text-green-700">  Widthraw Successful</span>
+                  ) :(
+                    <span className="text-red-600">  Widthraw Failed</span>
+                  ) }
+            
+            </DialogTitle>
+            ) :
+            (           <DialogTitle className="text-3xl font-bold text-orange-700">
+              Wait! Widthraw is Processing ...
+            </DialogTitle>)}
+         
+      {!isLoading ?(
+            <DialogDescription className="mt-2 text-gray-600">
+              🎉 {depositAlert}
+            </DialogDescription>)
+            : null}
+          </DialogHeader>
+      
+          {/* Loading / Footer */}
+          <DialogFooter className="mt-6 flex flex-col items-center gap-4">
+            {isLoading ? (
+               <div className="flex flex-col items-center gap-2 text-sm text-gray-500">
+                <Loader2 className="h-8 w-8 text-orange-700 animate-spin" />
+                <span>Processing... {delay}s remaining</span>
+              </div>
+            ) : (
+              <button
+                className="w-full py-3 bg-orange-400 text-xl text-slate-100 rounded-xl"
+                onClick={() => router.push("/")}
+              >
+                
+                Home
+              </button>
+            )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

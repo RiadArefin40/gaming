@@ -160,25 +160,34 @@ const data = await res.json();
   {/* Name */}
   <div className="mb-4">
     <label className="text-lg text-gray-300 mb-2 block">User Name</label>
-    <input
-      type="text"
-      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
-      placeholder="User Name Here"
-      value={username}
-      onChange={(e) => setUsername(e.target.value.toLowerCase())}
-    />
+<input
+  type="text"
+  className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
+  placeholder="User Name Here"
+  value={username}
+  onChange={(e) => {
+    const value = e.target.value
+      .toLowerCase()
+      .replace(/\s+/g, ""); // remove all spaces
+
+    setUsername(value);
+  }}
+/>
   </div>
 
   {/* Phone */}
   <div className="mb-4">
     <label className="text-lg text-gray-300 mb-2 block">Mobile Number</label>
-    <input
-      type="text"
-      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
-      placeholder="Write Mobile NumberHere"
-      value={phone}
-      onChange={(e) => setPhone(e.target.value)}
-    />
+<input
+  type="text"
+  maxLength={11}
+  className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
+  placeholder="Write Mobile Number Here"
+  value={phone}
+  onChange={(e) => {
+    setPhone(e.target.value.replace(/\D/g, ""));
+  }}
+/>
   </div>
 
   {/* Password */}

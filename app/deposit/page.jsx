@@ -26,7 +26,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Loader2 } from "lucide-react";
 
 
 
@@ -79,7 +79,7 @@ export default function EWalletPage() {
     Upai: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/upay.png",
     Rocket:"https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/rocket.png?v=1766500192641&quot"
   };
-
+      const [infoModal, setInfoModal] = useState(false);
   useEffect(() => {
     const load = async () => {
       const promoRes = await fetch("https://stage.api.bajiraj.com/promos");
@@ -131,7 +131,7 @@ if (activePayment) {
     if (!number || number.length < 6) return number;
     return `${number.slice(0, 3)}****${number.slice(-3)}`;
   };
-
+const [depositAlert, setDepositAlert] = useState('')
   const handleDeposit = async () => {
     if (!canStep3) return;
 
@@ -153,19 +153,25 @@ if (activePayment) {
           promo_code: promo?.code,
         }),
       });
-
-      // setSuccessModalOpen(true);
-      alert("Deposit Succes. Please wait 30 second to for auto approve.");
-      setStep(1);
+      
+    
+      setDepositAlert(`Deposit of ${amount} Succes. Please wait 30 second to for auto approve.`);
+     // setStep(1);
       setSenderNumber("");
       setTransactionId("");
     } 
     catch(error) {
       console.error("Deposit failed:", error);
-      alert("Deposit failed. Please try again.", error);
+
+      setDepositAlert("Deposit failed. Please try again.");
     }
     finally {
-      setIsLoading(false);
+         setTimeout(() => {
+            setSuccessModalOpen(true);
+            setIsLoading(false);
+
+        }, 500);
+  
     }
   };
 
@@ -229,6 +235,28 @@ useEffect(() => {
     setReceiverNumber("");
   }
 }, [selectedChannel]);
+
+const [delay, setDelay] = useState(10)
+useEffect(() => {
+  if (!successModalOpen) return;
+
+  setIsLoading(true);
+  setDelay(10);
+
+  const interval = setInterval(() => {
+    setDelay((prev) => {
+      if (prev <= 1) {
+        clearInterval(interval);
+        setIsLoading(false);
+        return 0;
+      }
+      return prev - 1;
+    });
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, [successModalOpen]);
+
 
 
   return (
@@ -431,7 +459,11 @@ useEffect(() => {
               <Button
                 disabled={!canStep1}
                 className="w-full h-14 text-lg mt-4 mb-[300px] bg-gradient-to-r from-orange-400 via-red-500 to-pink-500"
-                onClick={() => setStep(2)}
+             onClick={() => {
+               setInfoModal(true);
+               setStep(2);
+ 
+}}
               >
                 Continue
               </Button>
@@ -512,7 +544,7 @@ useEffect(() => {
         onClick={() => copyText(receiverNumber)}
         disabled={!receiverNumber}
       >
-        <span className="text-3xl">{copied ? "✔" : "📋"}</span>
+        <span className="text-xl text-slate-100">{copied ? "✔" : "Copy"}</span>
       </Button>
     </div>
 
@@ -521,12 +553,13 @@ useEffect(() => {
       type="number"
       value={amount}
       min={100}
+      max={25000}
       onChange={(e) => setAmount(e.target.value)}
       className="mb-3 bg-slate-900 h-14 text-slate-100 text-lg"
     />
 
     <div className="grid grid-cols-3 gap-2 mb-3">
-      {[200, 500, 1000].map((value) => (
+      {[500, 1000, 10000, 25000].map((value) => (
         <Button
           key={value}
           variant="outline"
@@ -542,9 +575,14 @@ useEffect(() => {
     {Number(amount) < 100 && amount !== "" && (
       <p className="text-lg text-red-500 mb-2">Minimum amount is 100</p>
     )}
+    {Number(amount) > 25000 && amount !== "" && (
+  <p className="text-lg text-red-500 mb-2">
+    Maximum amount is 25000
+  </p>
+)}
 
     <Button
-      disabled={!canStep2 || Number(amount) < 100}
+      disabled={!canStep2 || Number(amount) < 100 || Number(amount)>25000}
       className="w-full mt-2 h-14 text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 mb-[300px]"
       onClick={() => setStep(3)}
     >
@@ -593,19 +631,86 @@ useEffect(() => {
         </CardContent>
       </Card>
 
-      <Dialog open={successModalOpen} onOpenChange={setSuccessModalOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Deposit Successful</DialogTitle>
-            <DialogDescription className="text-center">
-              🎉 Your deposit has been submitted!
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button onClick={() => router.push("/")}>Close</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+<Dialog open={successModalOpen} onOpenChange={setSuccessModalOpen}>
+  <DialogContent className="max-w-md rounded-2xl p-8 text-center">
+    
+    {/* Success Icon */}
+    <div className="flex justify-center mb-4">
+      {!isLoading ?(
+      <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center">
+        <CheckCircle2 className="h-10 w-10 text-green-600" />
+      </div>):null}
+    </div>
+
+    <DialogHeader>
+      {!isLoading ?(
+           <DialogTitle className="text-3xl font-bold text-green-700">
+        Deposit Successful
+      </DialogTitle>
+      ) :
+      (           <DialogTitle className="text-3xl font-bold text-orange-700">
+        Wait! Deposit is Processing ...
+      </DialogTitle>)}
+   
+{!isLoading ?(
+      <DialogDescription className="mt-2 text-gray-600">
+        🎉 {depositAlert}
+      </DialogDescription>)
+      : null}
+    </DialogHeader>
+
+    {/* Loading / Footer */}
+    <DialogFooter className="mt-6 flex flex-col items-center gap-4">
+      {isLoading ? (
+         <div className="flex flex-col items-center gap-2 text-sm text-gray-500">
+          <Loader2 className="h-8 w-8 text-orange-700 animate-spin" />
+          <span>Processing... {delay}s remaining</span>
+        </div>
+      ) : (
+        <button
+          className="w-full py-3 bg-orange-400 text-xl text-slate-100 rounded-xl"
+          onClick={() => router.push("/")}
+        >
+          
+          Home
+        </button>
+      )}
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+
+<Dialog open={infoModal} onOpenChange={setInfoModal}>
+  <DialogContent className="max-w-md rounded-2xl p-8 text-center">
+    
+
+
+    <DialogHeader>
+    
+           <DialogTitle className="text-2xl font-bold text-green-700">
+       🎉 ডিপোজিট সংক্রান্ত তথ্য
+
+      </DialogTitle>
+     
+
+      <DialogDescription className="mt-2 text-gray-600">
+       আমাদের সাইটে দেখানো নামবারে টাকা পাঠাবেন, এই নামবার কেউ সেভ করে রাখবেননা। আমাদের নামবার পরিবর্তনশীল |
+      </DialogDescription>
+    </DialogHeader>
+
+    {/* Loading / Footer */}
+    <DialogFooter className="mt-6 flex flex-col items-center gap-4">
+     
+        <button
+          className="w-full py-3 bg-orange-400 text-xl text-slate-100 rounded-xl"
+          onClick={() => setInfoModal(false)}
+        >
+          
+         Close
+        </button>
+      
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
     </div>
   );
 }
