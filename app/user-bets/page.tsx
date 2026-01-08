@@ -33,7 +33,7 @@ const UserBetsPage = () => {
   useEffect(() => {
     if (!userId) return;
 
-    fetch(`https://stage.api.bajiraj.com/users/userbet/${userId}`)
+    fetch(`https://api.bajiraj.cloud/users/userbet/${userId}`)
       .then((res) => res.json())
       .then(setBets)
       .catch(console.error);

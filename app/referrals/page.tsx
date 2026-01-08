@@ -21,7 +21,7 @@ const ReferralPage = () => {
   useEffect(() => {
     const fetchReferrals = async () => {
       try {
-        const res = await fetch(`https://stage.api.bajiraj.com/users/${myreferral}/referrals`);
+        const res = await fetch(`https://api.bajiraj.cloud/users/${myreferral}/referrals`);
         const data = await res.json();
         setReferralData(data || []);
       } catch (error) {
@@ -126,7 +126,7 @@ const ReferralList = ({
 
   const handleClaim = async (bonusId: number, userId: number) => {
     try {
-      const res = await fetch(`https://stage.api.bajiraj.com/users/${bonusId}/claim`, { method: "POST" });
+      const res = await fetch(`https://api.bajiraj.cloud/users/${bonusId}/claim`, { method: "POST" });
       const result = await res.json();
 
       if (res.ok) {

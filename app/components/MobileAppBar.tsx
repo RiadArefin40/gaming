@@ -114,7 +114,7 @@ export default function MobileAppBar() {
   ];
 
   const { data, error } = useAutoFetch<BalanceData | undefined>(
-    user ? `https://stage.api.bajiraj.com/users/${user.id}/balance` : "",
+    user ? `https://api.bajiraj.cloud/users/${user.id}/balance` : "",
     10000
   );
 
