@@ -182,7 +182,9 @@ useEffect(() => {
       const res = await fetch(`https://stage.api.bajiraj.com/users/phones/${currentUser.id}`);
       const data= await res.json();
       setPhones(data.map(p => p.phone));
-      // setSenderNumber(currentUser.phone); // default to main phone
+      // senderNumber(data?.[0] || '');
+      console.log('num',data?.[0]?.phone)
+      setSenderNumber(data?.[0]?.phone); // default to main phone
     } catch (err) {
       console.error(err);
     }
