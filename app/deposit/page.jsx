@@ -589,7 +589,7 @@ useEffect(() => {
       Next
     </Button>
 
-            <div className="border-3 border-red-500 rounded-xl p-2 bg-slate-300">
+            <div className="border-3 border-red-500 rounded-xl p-2 bg-slate-300 mb-[150px]">
             <h2 className="text-2xl font-bold text-green-700">
        🎉 ডিপোজিট সংক্রান্ত তথ্য
 

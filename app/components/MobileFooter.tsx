@@ -570,6 +570,8 @@ useEffect(() => {
                       icon={Wallet}
                       label="Turnover"
                     />
+                    <MenuItem icon={User} label="Referrals"  onClick={() => handleRoutechange("referrals")} />
+                     <MenuItem icon={Wallet} label="Total bets"  onClick={() => handleRoutechange("user-bets")} />
                     {/* <MenuItem icon={Crown} label="My VIP" /> */}
                   </div>
                   {user && (

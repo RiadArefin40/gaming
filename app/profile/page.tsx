@@ -93,6 +93,7 @@ export default function ProfilePage() {
           {/* <MenuItem icon={ShieldCheck} label="Verification" /> */}
           <MenuItem icon={FileText} label="Transaction records" />
           {/* <MenuItem icon={TrendingUp} label="Betting records" /> */}
+             <MenuItem icon={Wallet} label="user-bets" />
           <MenuItem icon={Wallet} label="Turnover" />
           {/* <MenuItem icon={Crown} label="My VIP" /> */}
         </div>
