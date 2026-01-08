@@ -90,7 +90,7 @@ const TransactionRecordPage = () => {
     <div className="p-4 max-w-4xl mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between mb-6 mt-20">
-        <h1 className="text-lg font-semibold">Transaction Records</h1>
+       
 
         <Select onValueChange={setTimeRange} defaultValue="Last 7 days">
           <SelectTrigger className="w-36">
@@ -103,9 +103,9 @@ const TransactionRecordPage = () => {
           </SelectContent>
         </Select>
 
-        <Button variant="outline" size="icon">
+        {/* <Button variant="outline" size="icon">
           <List className="w-5 h-5" />
-        </Button>
+        </Button> */}
       </div>
 
       <Tabs defaultValue="all">

@@ -14,7 +14,7 @@ const TransactionRecordPage = () => {
     <div className="p-4 max-w-4xl mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between mb-6 mt-20">
-        <h1 className="text-lg font-semibold">Transaction records</h1>
+
 
         {/* Date Filter */}
         <Select onValueChange={(value) => setTimeRange(value)} defaultValue="Last 7 days">

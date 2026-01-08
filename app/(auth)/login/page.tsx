@@ -97,7 +97,7 @@ const data = await res.json();
       if (res.ok) {
       loginUser(data.user);
       setIsLoading(false);
-      router.push("/");
+       window.location.href = "/";
       } else {
         alert(data.error || "Signup failed!");
       }
