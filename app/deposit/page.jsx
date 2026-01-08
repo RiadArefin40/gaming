@@ -583,11 +583,20 @@ useEffect(() => {
 
     <Button
       disabled={!canStep2 || Number(amount) < 100 || Number(amount)>25000}
-      className="w-full mt-2 h-14 text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 mb-[300px]"
+      className="w-full mt-2 h-14 text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 "
       onClick={() => setStep(3)}
     >
       Next
     </Button>
+
+            <div className="border-3 border-red-500 rounded-xl p-2 bg-slate-300">
+            <h2 className="text-2xl font-bold text-green-700">
+       🎉 ডিপোজিট সংক্রান্ত তথ্য
+
+      </h2>
+      <p> আমাদের সাইটে দেখানো নামবারে টাকা পাঠাবেন, এই নামবার কেউ সেভ করে রাখবেননা। আমাদের নামবার পরিবর্তনশীল |</p>
+
+</div>
   </>
 )}
 
@@ -629,6 +638,8 @@ useEffect(() => {
             </>
           )}
         </CardContent>
+
+
       </Card>
 
 <Dialog open={successModalOpen} onOpenChange={setSuccessModalOpen}>
@@ -679,38 +690,16 @@ useEffect(() => {
   </DialogContent>
 </Dialog>
 
-<Dialog open={infoModal} onOpenChange={setInfoModal}>
-  <DialogContent className="max-w-md rounded-2xl p-8 text-center">
+
     
 
 
-    <DialogHeader>
+
     
-           <DialogTitle className="text-2xl font-bold text-green-700">
-       🎉 ডিপোজিট সংক্রান্ত তথ্য
-
-      </DialogTitle>
+ 
      
 
-      <DialogDescription className="mt-2 text-gray-600">
-       আমাদের সাইটে দেখানো নামবারে টাকা পাঠাবেন, এই নামবার কেউ সেভ করে রাখবেননা। আমাদের নামবার পরিবর্তনশীল |
-      </DialogDescription>
-    </DialogHeader>
 
-    {/* Loading / Footer */}
-    <DialogFooter className="mt-6 flex flex-col items-center gap-4">
-     
-        <button
-          className="w-full py-3 bg-orange-400 text-xl text-slate-100 rounded-xl"
-          onClick={() => setInfoModal(false)}
-        >
-          
-         Close
-        </button>
-      
-    </DialogFooter>
-  </DialogContent>
-</Dialog>
     </div>
   );
 }

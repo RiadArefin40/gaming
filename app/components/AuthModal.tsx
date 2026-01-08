@@ -44,22 +44,10 @@ export default function AuthModal() {
               <DialogTitle>Mobile Menu</DialogTitle>
             </VisuallyHidden>
         {/* Logo */}
-        <div className="flex justify-center mb-1">
-              <p
-  className="tracking-wider italic -mt-2 text-4xl -ml-4 font-extrabold text-orange-500 select-none touch-none"
-  style={{
-    textShadow: `
-      1px 1px 0 #0e0d0cff,
-      2px 2px 0 #fafafaff,
-      3px 1px 0 #f0e7e2ff,
-      4px 4px 6px rgba(112, 76, 76, 0.35)
-    `
-  }}
->
-  BajiRaj
-</p>
+        <div className="flex justify-center -mb-8">
+            {/* <img src="/oie_119753jyAZNTiD.png" className="w-[160px] -ml-8" alt="" /> */}
         </div>
-
+ <span className="text-4xl"><span className="text-orange-400">Baji</span>raj</span>
         {/* Title */}
         <h2 className="text-xl font-semibold text-white mb-2">
           Become a Bajiraj Member
