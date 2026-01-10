@@ -410,7 +410,7 @@ const [loading, setLoading] = useState(true);
 
       {/* Contact List */}
       <div
-        className={`fixed bottom-36 right-6 flex flex-col gap-3 transition-all duration-300 ${
+        className={`fixed bottom-36 right-6 flex flex gap-1 bg-white p-1 rounded-lg transition-all duration-300 ${
           open ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
@@ -423,12 +423,12 @@ const [loading, setLoading] = useState(true);
               href={links[key] || "#"}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center gap-2 p-2 rounded-lg shadow-md bg-white border ${
-                active ? "opacity-100 hover:bg-gray-100" : "opacity-40 pointer-events-none"
+              className={`flex items-center gap-2 rounded-lg shadow-md  ${
+                active ? "opacity-100 hover:bg-gray-100" : "opacity-20 pointer-events-none"
               }`}
             >
-              <img src={icons[key]} alt={key} width={28} height={28} />
-              <span className="capitalize">{key}</span>
+              <img src={icons[key]} alt={key} width={44} height={44} />
+              {/* <span className="capitalize">{key}</span> */}
             </a>
           );
         })}
