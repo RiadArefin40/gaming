@@ -170,7 +170,7 @@ export default function FeaturedSlider({
           ))}
         </div> */}
 
-        <ExclusiveGrid items={featured}/>
+        <ExclusiveGrid items={ex}/>
 
         {/* arrows */}
         <button

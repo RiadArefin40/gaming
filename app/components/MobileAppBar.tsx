@@ -40,7 +40,16 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { SportsGrid } from "./SportsGrid";
+import { ex } from "@/utils/exclusive";
+interface SocialLink {
+  platform: "telegram" | "whatsapp" | "messenger";
+  group_link: string;
+  is_active: boolean;
+}
 
+type SocialLinksMap = {
+  [key in SocialLink["platform"]]: string | null;
+};
 interface BalanceData {
   balance: number;
   turnover: number;
@@ -78,11 +87,11 @@ export default function MobileAppBar() {
   ];
 
   const menuItems: MenuItem[] = [
-    { name: "Favourite", icon: <span>⭐</span>, link: "#" },
+   // { name: "Favourite", icon: <span>⭐</span>, link: "#" },
     {
       name: "Exclusive",
       icon: <Crown className="w-5 h-5 mr-1" />,
-      children: <ExclusiveGrid items={gameImages.exclusive} />,
+      children: <ExclusiveGrid items={ex} />,
     },
 
     {
@@ -120,7 +129,7 @@ export default function MobileAppBar() {
 
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
   const balance = data?.balance ?? 0;
-  
+    const [open, setOpen] = useState(false);
 
   const turnover = data?.turnover ?? 0;
   const [isLoading, setIsloading] = useState(false);
@@ -160,6 +169,45 @@ useEffect(() => {
 
     // redirect after logout
     // window.location.href = "/login";
+  };
+
+  
+ const [links, setLinks] = useState<SocialLinksMap>({
+    telegram: null,
+    whatsapp: null,
+    messenger: null,
+  });
+
+  useEffect(() => {
+    const fetchSocialLinks = async () => {
+      try {
+        const res = await fetch("https://api.bajiraj.cloud/users/social-link");
+        const data: { data: SocialLink[] } = await res.json();
+
+        const formatted: SocialLinksMap = {
+          telegram: null,
+          whatsapp: null,
+          messenger: null,
+        };
+
+        data.data.forEach((item) => {
+          formatted[item.platform] = item.is_active ? item.group_link : null;
+        });
+
+        setLinks(formatted);
+      } catch (err) {
+        console.error("Failed to fetch social links:", err);
+      }
+    };
+
+    fetchSocialLinks();
+  }, []);
+
+  // Icon mapping
+  const icons: Record<SocialLink["platform"], string> = {
+    telegram: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-telegram-channel.svg",
+    whatsapp: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-whatsapp.svg",
+    messenger: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-facebook.svg",
   };
   return (
     <>
@@ -232,12 +280,35 @@ useEffect(() => {
 
                 {/* Custom Close Button */}
                 <div className="p-4 flex justify-between">
-                  <button className="bg-gray-900 px-4 py-1 flex items-center gap-2 rounded-lg">
+                  <div>
+
+                            <button className="bg-gray-900 px-4 py-1 flex items-center gap-2 rounded-lg">
                     <MessageCircle className="w-5 h-5" />
                     <p>Live Support</p>
                   </button>
+
+                   <div className="border-t border-gray-800 pt-4 flex justify-center gap-2">
+      {Object.keys(icons).map((platform) => {
+        const key = platform as SocialLink["platform"];
+        return (
+          <a
+            key={key}
+            href={links[key] || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={links[key] ? "" : "opacity-30 pointer-events-none"}
+          >
+            <img src={icons[key]} alt={key} width={44} height={44} />
+          </a>
+        );
+      })}
+    </div>
+
+                    
+                  </div>
+          
                   <button
-                    className="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 px-4 py-1 rounded-lg flex items-center justify-center z-100"
+                    className="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 px-4 py-1 rounded-lg flex items-center justify-center h-10 z-100"
                     onClick={() => setSheetOpenS(false)} // This actually closes the sheet
                   >
                     <X className="w-6 h-6 text-gray-100 hover:text-red-600" />
@@ -246,7 +317,8 @@ useEffect(() => {
 
                 {/* Menu Items */}
                 <ul className="p-4 space-y-2 text-lg text-gray-300">
-                  <img src="/b-1.jpg" alt="Logo" className="-mt-4 mb-2" />
+                  <img src="/oie_119753jyAZNTiD.png" className="w-[200px] -ml-6 -mt-20 -mb-14" alt="" />
+           
                   {menuItems.map((item, idx) => (
                     <li key={idx}>
                       <button

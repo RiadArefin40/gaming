@@ -29,6 +29,16 @@ export default function Home() {
   id: number;
   wallet: number;
 }
+interface SocialLink {
+  platform: "telegram" | "whatsapp" | "messenger";
+  group_link: string;
+  is_active: boolean;
+}
+
+type SocialLinksMap = {
+  [key in SocialLink["platform"]]: string | null;
+};
+
 
 // const user: AuthUser | null = (() => {
 //   const stored = localStorage.getItem("auth_user");
@@ -36,6 +46,34 @@ export default function Home() {
 // })();
 //  console.log("user", user)
   const [headline, setHeadLine] = useState(null);
+
+    const [heroSlides, setHeroSlides] = useState([]);
+  const [eventSlides, setEventSlides] = useState([]);
+
+const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSliders = async () => {
+      try {
+        const [heroRes, eventRes] = await Promise.all([
+          fetch("https://api.bajiraj.cloud/users/hero-slider"),
+          fetch("https://api.bajiraj.cloud/users/event-slider"),
+        ]);
+
+        const heroData = await heroRes.json();
+        const eventData = await eventRes.json();
+
+        setHeroSlides(heroData.data || []);
+        setEventSlides(eventData.data || []);
+      } catch (err) {
+        console.error("Failed to fetch sliders:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSliders();
+  }, []);
 
   useEffect(() => {
 
@@ -70,6 +108,18 @@ export default function Home() {
 
     const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
     const [sheetOpen, setSheetOpen] = useState(false); // Controlled sheet state
+      // Sample T&C content
+  const termsContent = `
+  Welcome to our online casino. By accessing and using this site, you agree to comply with the following Terms & Conditions:
+  
+  1. You must be 18 years or older to play.
+  2. Gambling is prohibited in certain jurisdictions. Please ensure it is legal in your region.
+  3. Users are responsible for maintaining account security.
+  4. All bets are final and non-refundable.
+  5. We reserve the right to suspend or terminate accounts suspected of fraudulent activity.
+  6. Please gamble responsibly. 
+  7. By using this site, you agree to our Privacy Policy and Rules.
+  `;
 
   const toggleSection = (section: string) => {
     setOpenSections((prev) => ({
@@ -87,7 +137,7 @@ export default function Home() {
   { 
     name: "Help", 
     icon: <Gamepad2 className="w-5 h-5" />, 
-    children: ["Live Chat Support", "FAQ", "Terms & Conditions", "Deposit & Withdrawal Guide"] 
+    children: ["Live Chat Support",  ] 
   },
 
   ];
@@ -95,7 +145,7 @@ export default function Home() {
 
   const [gameList, setGameList] = useState<any[]>([]); // store gamelist here
 
-
+  const [open, setOpen] = useState(false);
 
 
 
@@ -105,7 +155,43 @@ export default function Home() {
 
 
 
+ const [links, setLinks] = useState<SocialLinksMap>({
+    telegram: null,
+    whatsapp: null,
+    messenger: null,
+  });
 
+  useEffect(() => {
+    const fetchSocialLinks = async () => {
+      try {
+        const res = await fetch("https://api.bajiraj.cloud/users/social-link");
+        const data: { data: SocialLink[] } = await res.json();
+
+        const formatted: SocialLinksMap = {
+          telegram: null,
+          whatsapp: null,
+          messenger: null,
+        };
+
+        data.data.forEach((item) => {
+          formatted[item.platform] = item.is_active ? item.group_link : null;
+        });
+
+        setLinks(formatted);
+      } catch (err) {
+        console.error("Failed to fetch social links:", err);
+      }
+    };
+
+    fetchSocialLinks();
+  }, []);
+
+  // Icon mapping
+  const icons: Record<SocialLink["platform"], string> = {
+    telegram: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-telegram-channel.svg",
+    whatsapp: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-whatsapp.svg",
+    messenger: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-facebook.svg",
+  };
 
 
 
@@ -114,7 +200,7 @@ export default function Home() {
     <div className="">
       <main className="mt-[50px] min-h-screen bg-slate-800 mb-[800px">
 
-         <Slider siteInfo={siteInfo}  autoPlay={true} interval={4000}  />
+         <Slider siteInfo={heroSlides || siteInfo}  autoPlay={true} interval={4000}  />
                 {/* Marquee Section */}
               <div className="flex items-center gap-2  py-2   bg-gradient-to-r from-gray-700 relative overflow-hidden mt-2">
          
@@ -162,7 +248,7 @@ export default function Home() {
                <ProviderCategory/>
                {/* <MatchSlider  /> */}
             
-               <EventSlider/>
+               <EventSlider siteInfo={eventSlides}/>
                  {/* <ProviderCategory/> */}
                  <FeaturedSlider siteInfo={siteInfo1}  autoPlay={true} interval={4000} />
 
@@ -172,31 +258,61 @@ export default function Home() {
         <img src="/banner/Screenshot 2025-12-12 161900.png" alt="Logo" className="text-center" />
                       </div> */}
        
-              {menuItems.map((item, idx) => (
-                <li key={idx}>
-                  <button
-                    onClick={() => item.children && toggleSection(item.name)}
-                    className="flex items-center justify-between w-full py-2 px-3 rounded text-slate-400 hover:bg-gray-100 hover:text-gray-500"
+         
+
+      {menuItems.map((item, idx) => (
+        <li key={idx}>
+          <button
+            onClick={() => item.children && toggleSection(item.name)}
+            className="flex items-center justify-between w-full py-2 px-3 rounded text-slate-400 hover:bg-gray-100 hover:text-gray-500"
+          >
+            <div className="flex font-medium items-center gap-2 ">
+              <span>{item.name}</span>
+            </div>
+            {item.children && <span>{openSections[item.name] ? "▲" : "▼"}</span>}
+          </button>
+
+          {item.children && openSections[item.name] && (
+            <ul className="pl-8 mt-1 space-y-1">
+              {item.children.map((child, cidx) => (
+                <li key={cidx} className="flex flex-col gap-1">
+                  <a
+                    href="#"
+                    className="block py-1 text-gray-300 hover:text-purple-700"
                   >
-                    <div className="flex font-medium items-center gap-2 ">
-       
-                      <span>{item.name}</span>
-                    </div>
-                    {item.children && <span>{openSections[item.name] ? "▲" : "▼"}</span>}
-                  </button>
-                  {item.children && openSections[item.name] && (
-                    <ul className="pl-8 mt-1 space-y-1">
-                      {item.children.map((child, cidx) => (
-                        <li key={cidx}>
-                          <a href="#" className="block py-1 text-gray-300 hover:text-purple-700">
-                            {child}
+                    {child}
+                  </a>
+
+                  {/* Show social icons if child === "Live Chat Support" */}
+                  {child === "Live Chat Support" && (
+                    <div className="flex gap-1 mt-1">
+                      {Object.keys(icons).map((platform) => {
+                        const key = platform as SocialLink["platform"];
+                        const active = Boolean(links[key]);
+                        return (
+                          <a
+                            key={key}
+                            href={links[key] || "#"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`flex items-center justify-center p-1 rounded hover:bg-gray-100 transition ${
+                              active ? "opacity-100" : "opacity-30 pointer-events-none"
+                            }`}
+                          >
+                            <img src={icons[key]} alt={key} width={44} height={44} />
                           </a>
-                        </li>
-                      ))}
-                    </ul>
+                        );
+                      })}
+                    </div>
                   )}
                 </li>
               ))}
+            </ul>
+          )}
+        </li>
+      ))}
+      
+  
                          </ul>
                          <section className=" text-gray-300 px-4 py-6 space-y-6">
 {/* Sponsorship */}
@@ -272,7 +388,7 @@ export default function Home() {
 
 
 {/* Social Icons */}
-<div className="border-t border-gray-800 pt-4 flex justify-center gap-4">
+{/* <div className="border-t border-gray-800 pt-4 flex justify-center gap-4">
 <img src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-facebook.svg?v=1765526091482&source=drccdnsrc" alt="Facebook" width={28} height={28} />
 <img src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-instagram.svg?v=1765526091482&source=drccdnsrc" alt="Instagram" width={28} height={28} />
 <img src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-twitter.svg?v=1765526091482&source=drccdnsrc" alt="X" width={28} height={28} />
@@ -280,7 +396,64 @@ export default function Home() {
 <img src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-youtube.svg?v=1765526091482&source=drccdnsrc" alt="YouTube" width={28} height={28} />
 <img src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-telegram-channel.svg?v=1765526091482&source=drccdnsrc" alt="Telegram" width={28} height={28} />
 
+</div> */}
+
+<>
+      {/* Floating Button */}
+      <button
+        onClick={() => setOpen(!open)}
+        className="fixed bottom-20 right-6 bg-gradient-to-tr from-yellow-200 to-orange-300 text-white p-4 rounded-full shadow-lg flex items-center justify-center z-50 hover:scale-110 transition-transform"
+        aria-label="Contact"
+      >
+        📞
+      </button>
+
+      {/* Contact List */}
+      <div
+        className={`fixed bottom-36 right-6 flex flex-col gap-3 transition-all duration-300 ${
+          open ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+      >
+        {Object.keys(icons).map((platform) => {
+          const key = platform as SocialLink["platform"];
+          const active = Boolean(links[key]);
+          return (
+            <a
+              key={key}
+              href={links[key] || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center gap-2 p-2 rounded-lg shadow-md bg-white border ${
+                active ? "opacity-100 hover:bg-gray-100" : "opacity-40 pointer-events-none"
+              }`}
+            >
+              <img src={icons[key]} alt={key} width={28} height={28} />
+              <span className="capitalize">{key}</span>
+            </a>
+          );
+        })}
+      </div>
+    </>
+<div className="text-center">
+  <h1 className="text-center text-2xl text-yellow-500 font-medium">Contact Us</h1>
 </div>
+
+ <div className="border-t border-gray-800  flex justify-center gap-2 mb-[200px]">
+      {Object.keys(icons).map((platform) => {
+        const key = platform as SocialLink["platform"];
+        return (
+          <a
+            key={key}
+            href={links[key] || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={links[key] ? "" : "opacity-30 pointer-events-none"}
+          >
+            <img src={icons[key]} alt={key} width={44} height={44} />
+          </a>
+        );
+      })}
+    </div>
 
 
 
@@ -299,3 +472,6 @@ export default function Home() {
     </div>
   );
 }
+
+
+

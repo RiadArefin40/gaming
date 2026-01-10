@@ -12,7 +12,11 @@ import {
 } from "lucide-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Slider from "./Slider";
-
+interface SliderProps {
+  siteInfo: any;
+  autoPlay?: boolean;
+  interval?: number;
+}
     const siteInfo = {
     slider_items: [
  
@@ -116,7 +120,11 @@ gameImages.fishing = gameImages.casino;
 gameImages.arcade = gameImages.casino;
 gameImages.lottery = gameImages.casino;
 
-export default function EventSlider() {
+export default function EventSlider({
+  siteInfo,
+  autoPlay = true,
+  interval = 5000,
+}: SliderProps) {
   const [selected, setSelected] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 

@@ -6,8 +6,6 @@ import { allGames } from "@/utils/allGames";
 import { jilliSlotArray } from "@/utils/jilliSlots";
 import { JdbSlotArray } from "@/utils/JdbSlots";
 import { PgSlotArray } from "@/utils/pgSlots";
-import { spribeCrash } from "@/utils/spribeCrash";
-import { jiliCrash } from "@/utils/jilliCrash";
 import SafeImage from "@/app/components/SafeImageProps";
 import { getAuthUser } from "@/lib/auth";
 import { evoLive } from "@/utils/evoLive";
@@ -19,15 +17,7 @@ import { playtech } from "@/utils/slots/playtech";
 import { fa } from "@/utils/slots/fa";
 import { cq9 } from "@/utils/slots/cq9";
 import { redTiger } from "@/utils/slots/redTiger";
-import { jdbCrash } from "@/utils/jdbCrash";
 
-interface AuthUser {
-  username: string;
-  password?: string;
-  name: string;
-  id: number;
-  wallet: number;
-}
 interface GameItem {
   id: any;
   title: any;
@@ -36,6 +26,15 @@ interface GameItem {
   src: any;
   type: any;
 }
+
+interface AuthUser {
+  username: string;
+  password?: string;
+  name: string;
+  id: number;
+  wallet: number;
+}
+
 // const user: AuthUser | null = (() => {
 //   const stored = localStorage.getItem("auth_user");
 //   return stored ? JSON.parse(stored) as AuthUser : null;
@@ -47,7 +46,12 @@ interface Category {
   label: string;
 }
 
-
+// interface GameItem {
+//   serial: number;
+//   title: string;
+//   image: string;
+//   game_uid: string;
+// }
 
 // Slugify helper
 function slugify(text: string) {
@@ -84,26 +88,43 @@ export default function Casino() {
 
   const providers = [
     { name: "all", label: "All", icon: <span>🌐</span> },
-    { name: "jilli", label: "Jili", icon: <span>♠️</span> },
-    { name: "spribe", label: "Spribe", icon: <span>🎰</span> },
-      { name: "jdb", label: "Jdb", icon: <span>🃏</span>  },
-
+    { name: "jili", label: "Jili", icon: <span>♠️</span> },
+    { name: "pg-soft", label: "PG Soft", icon: <span>🎰</span> },
+    { name: "Jdb", label: "JDB", icon: <span>💥</span> },
+    { name: "netent", label: "NetEnt", icon: <span>🎲</span> },
+    { name: "playtech", label: "Playtech", icon: <span>🃏</span> },
+    { name: "fa", label: "FA Chai", icon: <span>🔥</span> },
+    { name: "cq", label: "CQ", icon: <span>🎯</span> },
+    { name: "redtiger", label: "Red Tiger", icon: <span>🐯</span> },
   ];
 
   const all = [
-    ...(Array.isArray(jiliCrash) ? jiliCrash : []),
-    ...(Array.isArray(spribeCrash) ? spribeCrash : []),
-    ...(Array.isArray(jdbCrash) ? jdbCrash : []),
-
+    ...(Array.isArray(jilli) ? jilli : []),
+    ...(Array.isArray(pg) ? pg : []),
+    ...(Array.isArray(jdb) ? jdb : []),
+    ...(Array.isArray(netent) ? netent : []),
+    ...(Array.isArray(playtech) ? playtech : []),
+    ...(Array.isArray(fa) ? fa : []),
+    ...(Array.isArray(cq9) ? cq9 : []),
+    ...(Array.isArray(redTiger) ? redTiger : []),
   ];
   const gamesWithImages: GameItem[] = (
     lastSegment === "jilli"
-      ? jiliCrash
-      : lastSegment === "spribe"
-      ? spribeCrash
-    : lastSegment === "jdb"
-      ? jdbCrash
-
+      ? jilli
+      : lastSegment === "pg-soft"
+      ? pg
+      : lastSegment === "Jdb"
+      ? jdb
+      : lastSegment === "netent"
+      ? netent
+      : lastSegment === "playtech"
+      ? playtech
+      : lastSegment === "fa"
+      ? fa
+      : lastSegment === "cq"
+      ? cq9
+      : lastSegment === "redtiger"
+      ? redTiger
       : all
   ).map(
     (item: any): GameItem => ({
@@ -120,7 +141,7 @@ export default function Casino() {
 
   const [selectedProvider, setSelectedProvider] = useState(() => {
     const matchedProvider = providers.find(
-      (p) => p.name.toLowerCase() === lastSegment.toLowerCase()
+      (p) => p.name.toLowerCase() == lastSegment.toLowerCase()
     );
     return matchedProvider ? matchedProvider.label : providers[0].name;
   });
@@ -166,7 +187,6 @@ export default function Casino() {
     router.push(`/${firstSegment}/${provider}`);
   };
   const [data, setData] = useState(null);
-
 
 
   // Cache helpers
@@ -260,19 +280,20 @@ setLoading(false);
     //  setLoading(false);
     }
   };
+
   console.log(evoLive);
 
   return (
     <>
-{loading && (
-  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 backdrop-blur-md">
+    {loading && (
+  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/90">
     <div className="relative flex flex-col items-center justify-center gap-4">
 
       {/* Rotating gradient rings with text inside */}
-      <div className="relative w-28 h-28 flex items-center justify-center">
-        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 opacity-40 blur-xl animate-spin-slow" />
-        <div className="absolute inset-0 rounded-full border-4 border-white border-t-transparent animate-spin shadow-lg" />
-        <div className="absolute inset-0 rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
+      <div className="relative w-28 m-1 h-28 flex items-center justify-center">
+        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-200 opacity-40 blur-xl animate-spin-slow" />
+        <div className="absolute inset-0 rounded-full border-3 border-white border-t-transparent animate-spin shadow-lg" />
+        <div className="absolute inset-0  rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
 
         {/* Center text */}
         <span className="relative text-white text-xl font-bold drop-shadow-lg">
@@ -280,39 +301,42 @@ setLoading(false);
         </span>
       </div>
 
-      {/* Floating dots around spinner */}
-      <div className="absolute w-40 h-40 flex items-center justify-center">
-        {[...Array(12)].map((_, i) => (
-          <span
-            key={i}
-            className="absolute w-2 h-2 bg-gradient-to-tr from-purple-400 via-pink-500 to-orange-400 rounded-full animate-bounce"
-            style={{
-              transform: `rotate(${i * 30}deg) translateX(5rem)`,
-              animationDelay: `${i * 0.05}s`,
-            }}
-          />
-        ))}
-      </div>
 
       {/* Sparkling stars around */}
       <div className="absolute w-full h-full">
+        {[...Array(50)].map((_, i) => (
+          <span
+            key={i}
+            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
+            style={{
+              top: `${-Math.random() * 250}%`,
+              left: `${Math.random() * 400}%`,
+              animationDuration: `${0.4 + Math.random()}s`,
+            }}
+          />
+        ))}
+        
+      </div>
+            <div className="absolute w-full h-full">
         {[...Array(20)].map((_, i) => (
           <span
             key={i}
             className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
             style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDuration: `${0.5 + Math.random()}s`,
+              top: `${Math.random() * 300}%`,
+              left: `${-Math.random() * 100}%`,
+              animationDuration: `${0.4 + Math.random()}s`,
             }}
           />
         ))}
+        
       </div>
 
 
     </div>
   </div>
 )}
+
 
 
       {showGame && gameUrl && (
@@ -334,48 +358,7 @@ setLoading(false);
           <div className="sticky bg-slate-900 h-[60px] top-2 z-50">
             <div className="flex items-center gap-2 justify-between">
               {/* Provider Dropdown */}
-              <div className="relative mt-[8px]">
-            <button
-  onClick={() => setProviderDropdownOpen(!providerDropdownOpen)}
-  className="flex w-full -ml-1 min-w-[180px]  h-10 items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
->
-  <div className="flex items-center space-x-2">
-    {/* Provider icon */}
-    {providers.find((p) => p.label == selectedProvider)?.icon}
-
-    {/* Provider label */}
-
-    <span>
-  {(() => {
-    const label =
-      providers.find((p) => p.name === selectedProvider)?.label ||
-      selectedProvider;
-    return label.length > 9 ? label.slice(0, 9) + " .." : label;
-  })()}
-</span>
-
-  </div>
-
-  {/* Dropdown arrow */}
-  <span className="pl-2">{providerDropdownOpen ? "▲" : "▼"}</span>
-</button>
-
-                {providerDropdownOpen && (
-                  <div className="absolute w-full bg-gray-700 rounded-md shadow-lg z-10">
-                    {providers.map((p, i) => (
-                      <div
-                        key={i}
-                        onClick={() => handleProviderSelect(p.name)}
-                        className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
-                          selectedProvider === p.label ? "bg-slate-400" : ""
-                        }`}
-                      >
-                        {p.icon} <span>{p.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+            
                                        <div className="flex  h-10 flex-col sm:flex-row items-start sm:items-center justify-between text-white py-2 rounded-md -mt-[8px]">
   <div className="relative flex items-center">
     {searchOpen && (

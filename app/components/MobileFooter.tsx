@@ -39,6 +39,7 @@ import { CasinoGrid } from "./CasinoGrid";
 import { useAuthModal } from "@/store/useAuthModal";
 import { DotLoadingButton } from "./DotLoadingButton";
 import { useAutoFetch } from "@/hooks/use-auto-fetch";
+import { ex } from "@/utils/exclusive";
 
 interface BalanceData {
   balance: number;
@@ -139,11 +140,11 @@ useEffect(() => {
 }, [user?.id]); // minimal dependency just to get user.id
 
   const menuItems: MenuItem[] = [
-    { name: "Favourite", icon: <span>⭐</span>, link: "#" },
+    // { name: "Favourite", icon: <span>⭐</span>, link: "#" },
     {
       name: "Exclusive",
       icon: <Crown className="w-5 h-5 mr-1" />,
-      children: <ExclusiveGrid items={gameImages.exclusive} />,
+      children: <ExclusiveGrid items={ex} />,
     },
 
     {
@@ -176,11 +177,11 @@ useEffect(() => {
 
   const goToCasino = () => {
     setSheetOpen(false);
-    router.push("/casino/all");
+    router.push("/all-casino");
   };
   const goToSlots = () => {
     setSheetOpen(false)
-    router.push("/slots/all");
+    router.push("/all-slot");
   };
  const goToHome  = () => {
     setSheetOpen(false)
@@ -272,14 +273,14 @@ useEffect(() => {
     <div
       className={`absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 
         blur-3xl opacity-70 scale-110 
-        ${isActive("/casino") ? "animate-spin-slow" : ""}`}
+        ${isActive("/all-casino") ? "animate-spin-slow" : ""}`}
     />
 
     {/* Floating Star icon with tilt + shadow */}
     <Star
       className={`absolute bottom-4 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
-        ${isActive("/casino") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
+        ${isActive("/all-casino") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
         drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
     />
 
@@ -287,12 +288,12 @@ useEffect(() => {
     <div
       className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
         transition-all duration-500 ease-out
-        ${isActive("/casino") ? "w-10 h-10 scale-115" : "w-10 h-10"}`}
+        ${isActive("/all-casino") ? "w-10 h-10 scale-115" : "w-10 h-10"}`}
     />
     <div
       className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
         transition-all duration-500 ease-out
-        ${isActive("/casino") ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
+        ${isActive("/all-casino") ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
     />
   </div>
 
@@ -302,7 +303,7 @@ useEffect(() => {
   {/* Label */}
   <span
     className={`-mt-2 text-white text-md font-medium drop-shadow-lg
-      ${isActive("/casino") ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
+      ${isActive("/all-casino") ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
   >
     Casino
   </span>
@@ -320,14 +321,14 @@ useEffect(() => {
     <div
       className={`absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 
         blur-3xl opacity-70 scale-110 
-        ${isActive("/slots") ? "animate-spin-slow" : ""}`}
+        ${isActive("/all-slot") ? "animate-spin-slow" : ""}`}
     />
 
     {/* Floating Dice6 icon with tilt + shadow */}
     <Dice6
       className={`absolute bottom-4 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
-        ${isActive("/slots") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
+        ${isActive("/all-slot") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
         drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
     />
 
@@ -335,19 +336,19 @@ useEffect(() => {
     <div
       className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
         transition-all duration-500 ease-out
-        ${isActive("/slots") ? "w-10 h-10 scale-115" : "w-10 h-10"}`}
+        ${isActive("/all-slot") ? "w-10 h-10 scale-115" : "w-10 h-10"}`}
     />
     <div
       className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
         transition-all duration-500 ease-out
-        ${isActive("/slots") ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
+        ${isActive("/all-slot") ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
     />
   </div>
 
   {/* Label */}
   <span
     className={`-mt-2 text-white text-md font-medium drop-shadow-lg
-      ${isActive("/slots") ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
+      ${isActive("/all-slot") ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
   >
     Slots
   </span>

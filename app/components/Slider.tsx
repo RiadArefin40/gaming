@@ -20,25 +20,23 @@ export default function Slider({
 }: SliderProps) {
   const router = useRouter();
 
-  const sliderItems: any[] = Array.isArray(siteInfo?.slider_items)
-    ? [
-        ...siteInfo.slider_items,
-        ...siteInfo.slider_items,
-        ...siteInfo.slider_items,
-      ]
-    : [];
-
+  // const siteInfo: any[] = Array.isArray(siteInfo)
+  //   ? [
+  //    siteInfo
+  //     ]
+  //   : [];
+  console.log('slider',siteInfo)
   const pages = useMemo(() => {
-    if (!sliderItems.length) return [];
+    if (!siteInfo.length) return [];
     const res: any[][] = [];
-    const len = sliderItems.length;
+    const len = siteInfo.length;
     for (let i = 0; i < len; i += 2) {
-      const first = sliderItems[i];
-      const second = sliderItems[i + 1] ?? sliderItems[(i + 1) % len];
+      const first = siteInfo[i];
+      const second = siteInfo[i + 1] ?? siteInfo[(i + 1) % len];
       res.push([first, second]);
     }
     return res;
-  }, [sliderItems]);
+  }, [siteInfo]);
 
   const total = pages.length;
   const [current, setCurrent] = useState(0);
@@ -128,7 +126,7 @@ export default function Slider({
                 }`}
               >
                 <img
-                  src={item?.imageUrl}
+                  src={item?.image_url}
                   alt={item?.alt || "Qatarat banner"}
                   className="object-contain rounded-sm mt-4"
                   // sizes="(max-width: 768px) 100vw, 50vw"
