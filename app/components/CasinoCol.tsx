@@ -56,7 +56,7 @@ function slugify(text: string) {
 
 
 
-export function CasinoGrid({ items }: ExclusiveGridProps) {
+export function CasinoCol({ items }: ExclusiveGridProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [user, setUser] = useState<AuthUser | null>(null);
@@ -332,17 +332,17 @@ setLoading(false);
       {!showGame && (
 
 
-      <div className="grid grid-cols-4 gap-2 p-2">
+      <div className="p-2">
         {items.map((item:any) => (
-          <div         onClick={() => handleGameClick(item)}  key={item.id} className="relative rounded-lg p-[1px] bg-gradient-to-r from-pink-500 via-yellow-300 to-blue-500 animate-gradient-glow">
-         <div className="relative p-[1px] pt-2 flex-col rounded-sm spribe-card !w-auto bg-yellow-300">
+          <div         onClick={() => handleGameClick(item)}  key={item.id} className="relative rounded-lg p-[1px] ">
+         <div className="relative mb-4 p-[1px] pt-2 flex-col rounded-sm bg-transparent !w-auto ">
   <img
     src={item.src}
     alt="exclusive-game"
-    className="w-[55px] h-[45px] rounded-sm "
+    className="w-[65px]  rounded-sm "
   />
  <div>
- <p className="text- font-medium">{item?.title}</p>
+ <p className="text- font-medium">{item?.provider}</p>
  </div>
   
 </div>

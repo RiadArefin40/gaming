@@ -200,3 +200,67 @@
 } */
 
 }
+.spribe-card {
+  position: relative;
+  width: 140px;
+  height: 80px;
+  background: #313131;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Yellow corner triangle */
+.spribe-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 0;
+  height: 0;
+
+  border-top: 22px solid #dbbb3a;
+  border-left: 22px solid transparent;
+  z-index: 2;
+}
+
+/* Small white triangle in front */
+.spribe-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 0;
+  height: 0;
+
+  border-top: 12px solid white;
+  border-left: 13px solid transparent;  /* triangle width */
+  transform: translateX(-8px);        /* position before yellow */
+  z-index: 3;
+}
+.bg-black-800{
+  background-color: #161616;
+}
+.bg-slate{
+  background-color: rgb(33, 33, 33);
+}
+.card-bg{
+  background-color: rgb(51, 51, 51);
+}
+.bg-black-700{
+  background-color: #252525;
+}
+.bg-black-600{
+  background-color: #414141;
+}
+.primary-bg{
+  background-color: #ffe400;
+}
+.secondary-bg{
+  background-color: #6d622b 
+}

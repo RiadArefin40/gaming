@@ -200,7 +200,7 @@ export default function CategorySelectionSlider({
       <div
         // Force this component to layout in LTR so translateX logic is stable
         dir="ltr"
-        className="mt-4 relative  max-w-screen overflow-hidden rounded-lg px-4"
+        className="mt-4 relative  max-w-screen  rounded-lg px-4"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >

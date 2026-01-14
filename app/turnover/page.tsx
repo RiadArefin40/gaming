@@ -90,7 +90,7 @@ export default function TurnoverPage() {
                 progress >= 90
                   ? "bg--500"
                   : progress >= 50
-                  ? "bg-yellow-500"
+                  ? "bg-yellow-400"
                   : "bg-orange-500";
 
               return (

@@ -358,35 +358,24 @@ setLoading(false);
 
       {!showGame && (
         <>
-    <div className="grid grid-cols-3 gap-3 my-4 mt-4 px-4">
+    <div className="grid grid-cols-4 gap-1 my-4 mt-4 px-2">
       {items.map((game:any,i:any) => (
-        <div
+        <div key={i}className="bg-gradient-to-r from-pink-500 via-yellow-300 to-blue-500 animate-gradient-glow rounded-md ">
+  <div
           key={i}
           onClick = {() => handleGameClick(game)}
-          className="flex items-center justify-center rounded-xl"
+          className="flex items-center justify-center rounded-sm"
         >
-      <div className="relative p-[1px] rounded-md bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 animate-gradient-x">
+      <div className="relative p-[1px] pt-2 flex-col rounded-sm spribe-card bg-yellow-300">
   <img
     src={game.image}
     alt="exclusive-game"
-    className="w-full h-auto rounded-md object-contain bg-black"
+    className="w-[55px] h-[45px] rounded-sm "
   />
- 
-    <div className="absolute top-0 right-0 backdrop-blur-md  bg-gradient-to-r from-cyan-500 via-pink-500 to-orange-400 text-white font-semibold text-sm rounded-lg shadow-lg drop-shadow-lg">
-     <p
-  className="tracking-wider italic -mt-2 text-lg  font-extrabold text-orange-500 select-none touch-none"
-  style={{
-    textShadow: `
-      1px 1px 0 #0e0d0cff,
-      2px 2px 0 #fafafaff,
-      3px 1px 0 #f0e7e2ff,
-      4px 4px 6px rgba(112, 76, 76, 0.35)
-    `
-  }}
->
-  BajiRaj
-</p>
-    </div>
+ <div>
+ <p className="text- font-medium">{game?.title}</p>
+ </div>
+  
 </div>
              {/* <SafeImage
                           src={game.image}
@@ -397,6 +386,8 @@ setLoading(false);
 
 
         </div>
+        </div>
+      
       ))}
     </div>
       <div className="flex justify-center ">

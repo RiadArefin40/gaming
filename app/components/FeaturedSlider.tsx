@@ -135,7 +135,7 @@ export default function FeaturedSlider({
 
       <div
         dir="ltr"
-        className="relative mt-4  w-full overflow-hidden rounded-lg"
+        className="relative mt-4  w-full  rounded-lg"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
         onTouchStart={handleTouchStart}

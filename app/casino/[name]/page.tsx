@@ -415,7 +415,7 @@ setLoading(false);
                   <div
                     key={i}
                     onClick={() => handleGameClick(game)}
-                    className="relative rounded-lg overflow-hidden cursor-pointer hover:scale-105 transform transition duration-200"
+                    className="relative rounded-lg  cursor-pointer hover:scale-105 transform transition duration-200"
                   >
                     <SafeImage
                       src={game.image}

@@ -342,25 +342,20 @@ setLoading(false);
 
 )}
       {!showGame && (
-      <div className="grid grid-cols-2 gap-2 p-2">
+      <div className="grid grid-cols-4 gap-2 p-2">
         {items.map((item) => (
-           <div         onClick={() => handleGameClick(item)}  key={item.id} className="relative rounded-lg p-[1px] bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 animate-gradient-glow">
-          <div
-
-            className={`
-              pt-2 p-1 transition-all rounded-lg duration-300 ease-out border
-              bg-gradient-to-br from-slate-800 to-slate-900
-              border-slate-700 cursor-pointer hover:scale-105
-              ${loading ? "pointer-events-none opacity-50" : ""}
-            `}
-          >
-            <div className="flex items-center px-4 gap-2">
-              <img className="w-8" src={item.src} alt={item.src} />
-              <span className="text-lg font-medium text-slate-300">
-                {item.title}
-              </span> 
-            </div>
-          </div>
+           <div         onClick={() => handleGameClick(item)}  key={item.id} className="relative  rounded-lg p-[1px] bg-gradient-to-r from-pink-500 via-yellow-300 to-blue-500 animate-gradient-glow">
+        <div className="relative p-[1px] pt-2  flex-col rounded-sm spribe-card bg-yellow-300 !w-auto">
+  <img
+    src={item.src}
+    alt="exclusive-game"
+    className="w-[40px] h-[45px] rounded-sm "
+  />
+ <div>
+ <p className="text- font-medium">{item?.title}</p>
+ </div>
+  
+</div>
           </div>
         ))}
       </div>

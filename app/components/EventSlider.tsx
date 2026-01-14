@@ -161,10 +161,10 @@ export default function EventSlider({
 
 
   return (
-    <div className="my-4 px-4 z-50">
-     <div className="flex items-center justify-between -mb-4">
-  <p className="text-xl border-l-4 border-orange-400 pl-4">
-    Event
+    <div className="my-4 px-2 z-50">
+     <div className="flex items-center justify-between -mb-2">
+  <p className="text-lg border-l-4 border-yellow-300 pl-3">
+    Favourite
   </p>
 
   {/* <div className="flex gap-2">

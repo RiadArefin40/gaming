@@ -103,7 +103,7 @@ export default function Slider({
   return (
     <div
       dir="ltr"
-      className="mt-2  relative h-[200px] sm:h-[220px] md:h-[240px] w-full overflow-hidden rounded-lg"
+      className="mt-1  relative h-[190px] sm:h-[220px] md:h-[240px] w-full overflow-hidden rounded-lg"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       onTouchStart={handleTouchStart}
@@ -128,7 +128,7 @@ export default function Slider({
                 <img
                   src={item?.image_url}
                   alt={item?.alt || "Qatarat banner"}
-                  className="object-contain rounded-sm mt-4"
+                  className="object-contain  mt-4"
                   // sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </button>
@@ -163,7 +163,7 @@ export default function Slider({
             type="button"
             onClick={() => goTo(idx)}
             className={`h-2 w-2 rounded-full transition-all ${
-              idx === current ? "w-8 bg-orange-600" : "bg-gray-100"
+              idx === current ? "w-8 bg-yellow-600" : "bg-gray-100"
             }`}
             aria-label={`Go to slide ${idx + 1}`}
           />

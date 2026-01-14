@@ -173,7 +173,7 @@ const TransactionList = ({
               tx.status === "approved"
                 ? "text-green-400"
                 : tx.status === "pending"
-                ? "text-yellow-400"
+                ? "text-yellow-300"
                 : "text-red-400"
             }
           >

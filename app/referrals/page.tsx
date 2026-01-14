@@ -92,7 +92,7 @@ const ReferralPage = () => {
         </div>
         <div className="bg-gray-800 rounded-lg p-4 text-center">
           <p className="text-gray-100">Unclaimed Bonus</p>
-          <p className="text-2xl font-bold text-yellow-400">{unclaimedBonus}</p>
+          <p className="text-2xl font-bold text-yellow-300">{unclaimedBonus}</p>
         </div>
       </div>
 
@@ -168,7 +168,7 @@ const ReferralList = ({
           </div>
           <div className="flex flex-col items-end gap-1">
             <span className="text-blue-400">Claimed: {r.claimed_bonus}</span>
-            <span className="text-yellow-400">Unclaimed: {r.unclaimed_bonus}</span>
+            <span className="text-yellow-300">Unclaimed: {r.unclaimed_bonus}</span>
 
             {/* Render a claim button for each unclaimed bonus */}
             {r.bonuses

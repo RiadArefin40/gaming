@@ -21,14 +21,14 @@ function slugify(text: string) {
     .replace(/^-+|-+$/g, "");    // remove leading/trailing hyphens
 }
 
-export function SlotGrid({ items }: GameGridProps) {
+export function CrashCol({ items }: GameGridProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
 const [loadingText, setLoadingText] = useState("Launching game...");
     const handleClick = async (item: any) => {
     const slug = slugify(item.title);
-    router.push(`/slots/${slug}`);
+    router.push(`/crash/${slug}`);
     
 
     
@@ -90,37 +90,25 @@ const [loadingText, setLoadingText] = useState("Launching game...");
   </div>
 )}
 
-        <div className="grid grid-cols-4 gap-2 p-4">
+        <div className="grid grid-cols-1">
       {items.map((item) => (
-        <div className="rounded-lg  bg-gradient-to-r from-pink-500 via-yellow-300 to-blue-500 animate-gradient-glow">
-            <div
+        <div
           data-card
           key={item.id}
           onClick={() => handleClick(item)}
           className="
-            
+            pt-2 p-1
             rounded-lg
-            transition-all duration-300 ease-out border
-            bg-gradient-to-br from-slate-800 to-slate-900 text-slate-300
-            border-slate-700
+            transition-all duration-300 ease-out 
+            bg-transparent
             cursor-pointer hover:scale-105
           "
         >
-            <div className="relative p-[1px] pt-2 flex-col rounded-sm spribe-card !w-auto bg-yellow-300">
-  <img
-    src={item.src}
-    alt="exclusive-game"
-    className="w-[55px] h-[45px] rounded-sm "
-  />
- <div>
- <p className="text- font-medium">{item?.title}</p>
- </div>
-  
-</div>
+          <div className="flex flex-col items-center  gap-2">
+            <img className="w-14" src={item.src} alt={item.title} />
+            <p className="text-lg font-medium">{item.title}</p>
+          </div>
         </div>
-
-        </div>
-      
       ))}
     </div>
     

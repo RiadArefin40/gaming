@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ChevronDown, X } from "lucide-react";
 import { loginUser } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import { DotLoadingButton } from "@/app/components/DotLoadingButton";
@@ -109,60 +109,55 @@ const data = await res.json();
     }
   };
 
-
+const [isVisible, setIsVisible] = useState(false);
+const backToHome = () =>{
+  router.push('/')
+  console.log('okkk')
+}
+useEffect(() => {
+  setIsVisible(true);
+}, []);
   return (
-    <div className="min-h-screen bg-slate-900 text-white relative overflow-hidden mt-[20px]">
+    <div  className={`
+    min-h-screen
+    bg-black-800
+    text-white
+    relative
+    overflow-hidden
+    mt-[20px]
+    transition-all
+    duration-900
+    ease-out
+    ${
+      isVisible
+        ? "opacity-100 translate-y-0"
+        : "opacity-0 translate-y-4"
+    }
+  `}>
       {/* Header */}
-      <header className="h-14 px-4 flex items-center justify-between border-b border-white/10">
-        {/* <div className="flex items-center gap-2">
-          <span className="text-green-400 font-bold text-lg">Baji</span>
-          <span className="text-orange-500 font-bold text-lg">Raj</span>
-        </div>
-        <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">
-          <span className="text-lg">🏠</span>
-        </div> */}
+     <header className="h-14 px-4 flex items-center justify-end">
+        <button
+                  className=" px-2 py-1 rounded-lg flex items-center justify-center px-3 z-50  "
+                  onClick={() => backToHome()}
+                >
+                  <X className="w-9 h-9 text-gray-100 hover:text-red-600" />
+                </button>
       </header>
 
       {/* Background */}
-      <div className="absolute bg-slate-900" />
+      <div className="absolute " />
 
       <div className="relative z-10 px-4 pt-6 max-w-md mx-auto">
-        {/* Tabs */}
-        <div className="flex gap-8 text-lg mb-6">
-          <button
-            onClick={() => setTab("login")}
-            className={`relative text-xl pb-2 ${
-              tab === "login" ? "text-white" : "text-gray-400"
-            }`}
-          >
-            Login
-            {tab === "login" && (
-              <span className="absolute left-0 -bottom-1 h-[2px] w-full bg-orange-500" />
-            )}
-          </button>
+  
 
-          <button
-            onClick={() => setTab("signup")}
-            className={`relative text-xl pb-2 ${
-              tab === "signup" ? "text-white" : "text-gray-400"
-            }`}
-          >
-            Sign Up
-            {tab === "signup" && (
-              <span className="absolute left-0 -bottom-1 h-[2px] w-full bg-orange-500" />
-            )}
-          </button>
-        </div>
 
-        {/* SIGNUP (UI only for now) */}
-        {tab === "signup" && (
-<div>
+<div className="px-4 pt-6 max-w-md bg-black-600  rounded-md">
   {/* Name */}
-  <div className="mb-4">
+  <div className="mb-4 ">
     <label className="text-lg text-gray-300 mb-2 block">User Name</label>
 <input
   type="text"
-  className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
+  className="w-full h-12 bg-gray-600 rounded-md px-4 text-lg"
   placeholder="User Name Here"
   value={username}
   onChange={(e) => {
@@ -181,7 +176,7 @@ const data = await res.json();
 <input
   type="text"
   maxLength={11}
-  className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
+  className="w-full h-12 bg-gray-600  rounded-md px-4 text-lg"
   placeholder="Write Mobile Number Here"
   value={phone}
   onChange={(e) => {
@@ -195,7 +190,7 @@ const data = await res.json();
     <label className="text-lg text-gray-300 mb-2 block">Password</label>
     <input
       type="password"
-      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
+      className="w-full h-12 bg-gray-600  rounded-md px-4 text-lg"
       placeholder="Write Password Here"
       value={password}
       onChange={(e) => setPassword(e.target.value)}
@@ -207,7 +202,7 @@ const data = await res.json();
     <label className="text-lg text-gray-300 mb-2 block">Referral</label>
     <input
       type="text"
-      className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
+      className="w-full h-12 bg-gray-600  rounded-md px-4 text-lg"
       placeholder="Referral Code (optional)"
       value={referral}
       onChange={(e) => setReferral(e.target.value)}
@@ -218,56 +213,15 @@ const data = await res.json();
   <DotLoadingButton
     onClick={handleSignUp}
     loading={isLoadinge}
-                         className="px-3 w-full mb-[220px] mt-6 w-full py-[8px] text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-orange-600"
+                         className="px-3 w-full mb-[220px] mt-6 w-full py-[8px] text-lg text-slate-900 primary-bg font-medium rounded hover:bg-orange-600"
 
   >
     Sign Up
   </DotLoadingButton>
 </div>
 
-        )}
-
-        {/* LOGIN */}
-        {tab === "login" && (
-          <>
-            <div className="mb-4">
-              <label className="text-lg text-gray-300 mb-2 block">
-                User Name
-              </label>
-              <input
-                value={username}
-                onChange={(e) => setUsername(e.target.value.toLowerCase())}
-                className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
-                placeholder="User Name"
-              />
-            </div>
-
-            <div className="mb-2">
-              <label className="text-lg text-gray-300 mb-2 block">
-                Password
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full h-12 bg-gray-700/60 rounded-md px-4 text-lg"
-                placeholder="******"
-              />
-            </div>
-
-            {error && (
-              <p className="text-red-500 text-lg mb-4">{error}</p>
-            )}
-   <DotLoadingButton
-   onClick = {handleLogin}
-                loading={isLoadinge}
-                      className="px-3 w-full mb-[220px] mt-6 w-full py-[8px] text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-orange-600"
-              >
-                Log in
-              </DotLoadingButton>
      
-          </>
-        )}
+
       </div>
     </div>
   );

@@ -218,46 +218,52 @@ useEffect(() => {
   };
 
   return (
-    <div className="fixed min-w-screen bottom-0 left-0 right-0 md:hidden z-200">
-      <div className="flex items-center justify-between px-6  gap-2  border-t border-slate-800 text-gray-400 w-full  bg-gray-900">
+  
+<>
+  {user && (
+
+     <div className="fixed min-w-screen bottom-0 left-0 right-0 md:hidden z-50 !bg-black-800">
+      <div className="flex items-center justify-between px-6  gap-2   border-t border-slate-800 text-gray-400 w-full  bg-black-700">
      
 <button
   onClick={goToHome}
-  className="flex flex-col w-[70px] items-center gap-1 px-2 py-1 -ml-[20px] relative"
+  className="flex flex-col w-[70px] items-center gap-1 px-2  -ml-[20px] relative"
 >
-  <div className="relative w-14 h-14 flex flex-col items-center justify-center">
+
+     <div className={`relative w-14 h-12 flex flex-col items-center justify-center    rounded-full  ${isActive("/") ? "bottom-6 bg-yellow-600": " "}`}>
     {/* Glowing animated 3D background */}
     <div
-      className={`absolute inset-0 rounded-full bg-gradient-to-tr from-blue-400 via-cyan-500 to-purple-500
-        blur-3xl opacity-70 scale-110 
-        ${isActive("/") ? "animate-spin-slow" : ""}`}
+      className={`absolute 
+        scale-110 
+        ${isActive("/") ? "animate-spin-slow primary-bg p-[15px] rounded-full z-4" : ""}`}
+    />
+        <div
+      className={`absolute 
+        scale-110 
+        ${isActive("/") ? "animate-spin-slow secondary-bg p-5 rounded-full z-3" : ""}`}
+    />
+        <div
+      className={`absolute 
+        scale-110 
+        ${isActive("/") ? "animate-spin-slow bg-black-700 p-6 rounded-full w-16 h-16" : ""}`}
     />
 
-    {/* Floating Home icon with tilt + shadow */}
+    {/* Floating Star icon with tilt + shadow */}
     <HomeIcon
-      className={`absolute bottom-4 left-1/2 -translate-x-1/2 
+      className={`absolute bottom-3 left-1/2 -translate-x-1/2 z-5
         transition-all duration-500 ease-out transform 
-        ${isActive("/") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
+        ${isActive("/") ? "text-slate-900 w-6 h-6 scale-100 " : "text-white w-6 h-6 scale-100"} 
         drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
     />
 
-    {/* Floating rings */}
-    <div
-      className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
-        transition-all duration-500 ease-out
-        ${isActive("/") ? "w-10 h-10 scale-115" : "w-10 h-10"}`}
-    />
-    <div
-      className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
-        transition-all duration-500 ease-out
-        ${isActive("/") ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
-    />
+  
   </div>
+
 
   {/* Label */}
   <span
-    className={`-mt-2 text-white text-md font-medium drop-shadow-lg
-      ${isActive("/") ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
+    className={`-mt-4 text-white text-md font-medium drop-shadow-lg
+      ${isActive("/") ? "!font-bold -mt-[34px] -mb-2 text-slate-100 font-bold" : "text-white font-normal"}`}
   >
     Home
   </span>
@@ -268,42 +274,47 @@ useEffect(() => {
   onClick={goToCasino}
   className="flex flex-col w-[70px] items-center gap-1 px-2 py-1  relative"
 >
-  <div className="relative w-14 h-14 flex flex-col items-center justify-center">
+
+
+      <div className={`relative w-14 h-12 flex flex-col items-center justify-center    rounded-full  ${isActive("/all-casino") ? "bottom-6 bg-yellow-600": " "}`}>
     {/* Glowing animated 3D background */}
     <div
-      className={`absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 
-        blur-3xl opacity-70 scale-110 
-        ${isActive("/all-casino") ? "animate-spin-slow" : ""}`}
+      className={`absolute 
+        scale-110 
+        ${isActive("/all-casino") ? "animate-spin-slow primary-bg p-[15px] rounded-full z-4" : ""}`}
+    />
+        <div
+      className={`absolute 
+        scale-110 
+        ${isActive("/all-casino") ? "animate-spin-slow secondary-bg p-5 rounded-full z-3" : ""}`}
+    />
+        <div
+      className={`absolute 
+        scale-110 
+        ${isActive("/all-casino") ? "animate-spin-slow bg-black-700 p-6 rounded-full w-16 h-16" : ""}`}
     />
 
     {/* Floating Star icon with tilt + shadow */}
     <Star
-      className={`absolute bottom-4 left-1/2 -translate-x-1/2 
+      className={`absolute bottom-3 left-1/2 -translate-x-1/2 z-5
         transition-all duration-500 ease-out transform 
-        ${isActive("/all-casino") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
+        ${isActive("/all-casino") ? "text-slate-900 w-6 h-6 scale-100 " : "text-white w-6 h-6 scale-100"} 
         drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
     />
 
-    {/* Floating rings */}
-    <div
-      className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
-        transition-all duration-500 ease-out
-        ${isActive("/all-casino") ? "w-10 h-10 scale-115" : "w-10 h-10"}`}
-    />
-    <div
-      className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
-        transition-all duration-500 ease-out
-        ${isActive("/all-casino") ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
-    />
+  
   </div>
+
+
+
 
 
 
 
   {/* Label */}
   <span
-    className={`-mt-2 text-white text-md font-medium drop-shadow-lg
-      ${isActive("/all-casino") ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
+    className={`-mt-4 text-white text-md font-medium drop-shadow-lg
+      ${isActive("/all-casino") ? "!font-bold -mt-[34px] text-slate-100" : "text-white font-normal"}`}
   >
     Casino
   </span>
@@ -316,38 +327,27 @@ useEffect(() => {
   onClick={goToSlots}
   className="flex flex-col w-[70px] items-center gap-1 px-4 py-1 z-300  relative"
 >
-  <div className="relative w-14 h-14 flex flex-col items-center justify-center">
+  <div className="relative w-14 h-12 flex flex-col items-center justify-center">
     {/* Glowing animated 3D background */}
     <div
-      className={`absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 
+      className={`absolute 
         blur-3xl opacity-70 scale-110 
         ${isActive("/all-slot") ? "animate-spin-slow" : ""}`}
     />
 
     {/* Floating Dice6 icon with tilt + shadow */}
     <Dice6
-      className={`absolute bottom-4 left-1/2 -translate-x-1/2 
+      className={`absolute bottom-3 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
         ${isActive("/all-slot") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
         drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
     />
 
-    {/* Floating rings */}
-    <div
-      className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
-        transition-all duration-500 ease-out
-        ${isActive("/all-slot") ? "w-10 h-10 scale-115" : "w-10 h-10"}`}
-    />
-    <div
-      className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
-        transition-all duration-500 ease-out
-        ${isActive("/all-slot") ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
-    />
-  </div>
+ </div>
 
   {/* Label */}
   <span
-    className={`-mt-2 text-white text-md font-medium drop-shadow-lg
+    className={`-mt-4 text-white text-md font-medium drop-shadow-lg
       ${isActive("/all-slot") ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
   >
     Slots
@@ -359,38 +359,27 @@ useEffect(() => {
   onClick={handleDeposit}
   className="flex w-[70px] flex-col items-center gap-1  px-4 py-1 relative"
 >
-  <div className="relative w-14 h-14 flex flex-col items-center justify-center">
+  <div className="relative w-14 h-12 flex flex-col items-center justify-center">
     {/* Glowing animated 3D background */}
     <div
-      className={`absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 
+      className={`absolute 
         blur-3xl opacity-70 scale-110 
         ${isActive("/deposit") ? "animate-spin-slow" : ""}`}
     />
 
     {/* Floating Wallet icon with tilt + shadow */}
     <Wallet
-      className={`absolute bottom-4 left-1/2 -translate-x-1/2 
+      className={`absolute bottom-3 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
         ${isActive("/deposit") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
         drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
     />
 
-    {/* Floating rings */}
-       <div
-      className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
-        transition-all duration-500 ease-out
-        ${isActive("/deposit") ? "w-10 h-10 scale-115" : "w-10 h-10"}`}
-    />
-    <div
-      className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
-        transition-all duration-500 ease-out
-        ${isActive("/deposit") ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
-    />
   </div>
 
   {/* Label */}
   <span
-    className={`-mt-2 text-white text-md font-medium drop-shadow-lg
+    className={`-mt-4 text-white text-md font-medium drop-shadow-lg
       ${isActive("/deposit") ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
   >
     Deposit
@@ -408,39 +397,29 @@ useEffect(() => {
   </span>
 
   <div
-    className={`relative w-14 h-14 flex flex-col items-center justify-center`}
+    className={`relative w-14 h-12 flex flex-col items-center justify-center`}
   >
     {/* Glowing animated 3D background */}
     <div
-      className={`absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 
+      className={`absolute 
         blur-3xl opacity-70 scale-110 
         ${psheetOpen ? "animate-spin-slow" : ""}`}
     />
 
     {/* Floating User icon with tilt + shadow */}
     <User
-      className={`absolute bottom-4 left-1/2 -translate-x-1/2 
+      className={`absolute bottom-3 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
         ${psheetOpen ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
         drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
     />
 
-    {/* Floating rings */}
-    <div
-      className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
-        transition-all duration-500 ease-out
-        ${psheetOpen ? "w-10 h-10 scale-115" : "w-10 h-10"}`}
-    />
-    <div
-      className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
-        transition-all duration-500 ease-out
-        ${psheetOpen ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
-    />
+
   </div>
 
   {/* Label */}
   <span
-    className={`text-white -mt-2 text-md font-medium drop-shadow-lg
+    className={`text-white -mt-4 text-md font-medium drop-shadow-lg
       ${psheetOpen ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
   >
     Profile
@@ -521,7 +500,7 @@ useEffect(() => {
                         <div>
                           <p className="text-lg ">VIP Points</p>
                           <p className="flex items-center gap-2 font-medium">
-                            <Crown className="h-4 w-4 text-yellow-500" />0
+                            <Crown className="h-4 w-4 text-yellow-400" />0
                           </p>
                         </div>
 
@@ -600,6 +579,9 @@ useEffect(() => {
         )}
       </div>
     </div>
+  )}
+</>
+   
   );
 }
 

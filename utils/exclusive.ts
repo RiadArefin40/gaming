@@ -28,7 +28,7 @@ export const ex = [
 
       {
     id: 4,
-    title: 'All Game',
+    title: 'Crazy Time',
     provider:"Pragmatic Play",
     image: 'https://img.j189eb.com/upload/game/AWCV2_PP/BDT/PP-LIVE-188.png?v=1761618162271&quot',
     game_uid: '042f275d795c467244dd0014618ccc76',

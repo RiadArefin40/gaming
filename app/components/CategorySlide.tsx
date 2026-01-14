@@ -18,15 +18,17 @@ import { ExclusiveGrid } from "./ExclusiveGrid";
 import { SportsGrid } from "./SportsGrid";
 import { SlotGrid } from "./SlotGrid";
 import { CrashGrid } from "./CrashGrid";
+
+
 const categories = [
-  { id: 1, name: "Exclusive", icon: <Star /> },
-  { id: 2, name: "Sports", icon: <Trophy /> },
-  { id: 3, name: "Casino", icon: <Coins /> },
-  { id: 4, name: "Slot", icon: <Dice6 /> },
-  { id: 5, name: "Crash", icon: <Plane /> },
-  { id: 6, name: "Fishing", icon: <Fish /> },
-  { id: 7, name: "Arcade", icon: <Joystick /> },
-  { id: 8, name: "Lottery", icon: <Ticket /> },
+  { id: 1, name: "Exclusive", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-hotgame.svg?v=1767782599110&quot" },
+  { id: 2, name: "Sports", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-sport.svg?v=1767782599110&quot"  },
+  { id: 3, name: "Casino", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-casino.svg?v=1767782599110&quot"  },
+  { id: 4, name: "Slot", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-slot.svg?v=1767782599110&quot"  },
+  { id: 5, name: "Crash", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-crash.svg?v=1767782599110&quot"  },
+  { id: 6, name: "Fishing", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-hotgame.svg?v=1767782599110&quot"  },
+  { id: 7, name: "Arcade", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-arcade.svg?v=1767782599110&quot"  },
+  { id: 8, name: "Lottery", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-lottery.svg?v=1767782599110&quot"  },
 ];
 const activeGamesMap = {
   sports: gameImages.sports,
@@ -56,8 +58,8 @@ export default function CategorySlider() {
 
   return (
     <div
-      className="py-4 px-0 max-w-screen                                                      bg-gradient-to-r from-gray-700 to-slate-900
-    shadow-[0_8px_80px_rgba(255,140,0,0.25)]  z-50"
+      className="py-4 px-0 max-w-screen                                                 
+     z-50 -mt-4"
     >
       <div
         ref={containerRef}
@@ -70,79 +72,96 @@ export default function CategorySlider() {
         overscroll-x-contain
         max-w-screen
         px-1
-
+bg-yellow-300 rounded-sm bg-gradient-to-t from-black/20 to-transparent
         no-scrollbar
-      py-2
+      pt-3
+      pb-1
+     
         "
       >
         {categories.map((item, idx) => {
           const isActive = idx === selected;
 
           return (
-            <div    key={idx} className="relative rounded-xl max-w-screen -mt-2  pb-[0px] bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 animate-gradient-glow">
-              <div className="rounded-md overflow-hidden">
+            <div    key={idx} className="relative rounded-xl max-w-screen -mt-2  pb-[0px]  animate-gradient-glow">
+              <div className="rounded-sm overflow-hidden    ">
                 <div
                
                   onClick={() => handleSelect(idx)}
                   className={`
                 snap-center
-                flex-shrink-0 w-28  pt-2 p-1
-                rounded-2xl
+                flex-shrink-0 w-28 pt-[6px]
+                w-[85px]
                 flex flex-col items-center justify-center
-                cursor-pointer select-none
-                transition-all duration-300 ease-out
-                border
-                ${
-                  isActive
-                    ? `
-                      text-white 
-                      border-orange-300
-                      hight-[88px]
-                        bg-gradient-to-r from-orange-400 to-orange-700
-    shadow-[0_8px_20px_rgba(255,140,0,0.25)]
-                    `
-                    : `
-                      bg-gradient-to-br from-slate-800 to-slate-900
-                      text-slate-300
-                      h-[80px]
-                      border-slate-700
-                    
-
-                
-                    `
-                }
+                cursor-pointer select-none py-1
+               
+                  ${
+                                isActive
+                                  ? `
+                         bg-slate-800 rounded-sm
+                              
+                                  `
+                                  : `
+                                  
+                                  `
+                              }
+              
               `}
                 >
                   <div
                     className={`
-                              flex items-center justify-center mb-1
+                              flex items-center justify-center mb-1 
                               rounded-full transition-all duration-300
                               ${
                                 isActive
                                   ? `
-                                    w-9 h-9
-                                    bg-white
-                                  scale-120
-                                    text-slate-900
+                              
+                             
+                                   
+                              
+                                    text-yellow-300
                                     hover:translate-y-[-2px]
-                                    bg-slate-white
+                                 
                               
                                   `
                                   : `
-                                    w-8 h-8
-                                                     bg-gradient-to-r from-orange-400 to-orange-700
-    shadow-[0_8px_20px_rgba(255,140,0,0.25)]
-                         
-                                    text-white
+                                  
+                                                    
+                                 
+                                    text-slate-900
                                     shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]
                                   `
                               }
                             `}
                   >
-                    {item.icon}
+                   <img    className={`
+                        
+                              ${
+                                isActive
+                                  ? `
+                              
+                             bg-yellow-300
+                                rounded-full
+                                p-[1px]
+                              
+                                  `
+                                  : `
+                         
+                                  `
+                              }
+                            `}  src={item.icon || ''} alt="" />
                   </div>
 
-                  <span className="text-lg font-medium">{item.name}</span>
+                  <span className={`text-xs uppercase font-medium    ${
+                                isActive
+                                  ? `
+                           text-yellow-300
+                              
+                                  `
+                                  : `
+                           text-slate-900
+                                  `
+                              }` } >{item.name}</span>
                 </div>
               </div>
             </div>

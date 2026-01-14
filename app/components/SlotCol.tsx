@@ -21,7 +21,7 @@ function slugify(text: string) {
     .replace(/^-+|-+$/g, "");    // remove leading/trailing hyphens
 }
 
-export function SlotGrid({ items }: GameGridProps) {
+export function SlotCol({ items }: GameGridProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -90,9 +90,9 @@ const [loadingText, setLoadingText] = useState("Launching game...");
   </div>
 )}
 
-        <div className="grid grid-cols-4 gap-2 p-4">
+        <div className="glex fl3ex-col items-center">
       {items.map((item) => (
-        <div className="rounded-lg  bg-gradient-to-r from-pink-500 via-yellow-300 to-blue-500 animate-gradient-glow">
+        <div className="rounded-lg  ">
             <div
           data-card
           key={item.id}
@@ -100,20 +100,20 @@ const [loadingText, setLoadingText] = useState("Launching game...");
           className="
             
             rounded-lg
-            transition-all duration-300 ease-out border
-            bg-gradient-to-br from-slate-800 to-slate-900 text-slate-300
-            border-slate-700
+            transition-all duration-300 ease-out 
+           text-slate-300
+       
             cursor-pointer hover:scale-105
           "
         >
-            <div className="relative p-[1px] pt-2 flex-col rounded-sm spribe-card !w-auto bg-yellow-300">
+            <div className="relative p-[1px] pt-2 flex-col rounded-sm bg-transparent !w-auto ">
   <img
     src={item.src}
     alt="exclusive-game"
-    className="w-[55px] h-[45px] rounded-sm "
+    className="w-[65px] mx-auto rounded-sm "
   />
  <div>
- <p className="text- font-medium">{item?.title}</p>
+ <p className="text-center font-medium">{item?.title}</p>
  </div>
   
 </div>

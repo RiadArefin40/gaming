@@ -152,7 +152,7 @@ export default function Casino() {
               <div
                 key={game.uid}
                 onClick={() => handleGameClick(game.name)}
-                className="relative rounded-lg overflow-hidden cursor-pointer hover:scale-105 transform transition duration-200"
+                className="relative rounded-lg  cursor-pointer hover:scale-105 transform transition duration-200"
               >
                 <img
                   src={game.image}

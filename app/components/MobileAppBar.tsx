@@ -1,7 +1,7 @@
 "use client";
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Plus, RotateCw, X } from "lucide-react";
+import { LogIn, Plus, RotateCw, UserPlus, X } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useEffect, useState } from "react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
@@ -10,12 +10,18 @@ import { getAuthUser } from "@/lib/auth";
 import { useRouter, usePathname } from "next/navigation";
 import { useAutoFetch } from "@/hooks/use-auto-fetch";
 import RefreshButton from "./RefreshButton";
+import { ex } from "@/utils/exclusive";
 
 import { gameImages } from "@/utils/gameData";
-import { ExclusiveGrid } from "./ExclusiveGrid";
-import { CasinoGrid } from "./CasinoGrid";
+
 import { useAuthModal } from "@/store/useAuthModal";
 import { DotLoadingButton } from "./DotLoadingButton";
+import { CasinoGrid } from "./CasinoGrid";
+
+import { ExclusiveGrid } from "./ExclusiveGrid";
+
+import { SlotGrid } from "./SlotGrid";
+import { CrashGrid } from "./CrashGrid";
 
 import {
   Menu,
@@ -40,7 +46,11 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { SportsGrid } from "./SportsGrid";
-import { ex } from "@/utils/exclusive";
+
+import { Button } from "@/components/ui/button";
+import { CasinoCol } from "./CasinoCol";
+import { SlotCol } from "./SlotCol";
+import { CrashCol } from "./CrashCol";
 interface SocialLink {
   platform: "telegram" | "whatsapp" | "messenger";
   group_link: string;
@@ -60,6 +70,24 @@ interface MenuItem {
   link?: string;
   children?: string[] | React.ReactNode;
 }
+
+const category = [
+   { id: 1, name: "Exclusive", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-hotgame.svg?v=1767782599110&quot" },
+  { id: 2, name: "Sports", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-sport.svg?v=1767782599110&quot"  },
+  { id: 3, name: "Casino", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-casino.svg?v=1767782599110&quot"  },
+  { id: 4, name: "Slot", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-slot.svg?v=1767782599110&quot"  },
+  { id: 5, name: "Crash", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-crash.svg?v=1767782599110&quot"  },
+  { id: 6, name: "Fishing", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-hotgame.svg?v=1767782599110&quot"  },
+  { id: 7, name: "Arcade", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-arcade.svg?v=1767782599110&quot"  },
+  { id: 8, name: "Lottery", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-lottery.svg?v=1767782599110&quot"  },
+]
+
+const features = [
+  { id: 1, name: "Promotions", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-promotion.svg?v=1767782599110" },
+  { id: 2, name: "Downloads", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-download.svg?v=1767782599110" },
+  
+  { id: 4, name: "Ambassador", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-ambassador.svg?v=1767782599110" },
+];
 
 export default function MobileAppBar() {
   const [selectedLang, setSelectedLang] = useState("EN");
@@ -121,7 +149,7 @@ export default function MobileAppBar() {
       children: <CasinoGrid items={gameImages.fishing} />,
     },
   ];
-
+ const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
   const { data, error } = useAutoFetch<BalanceData | undefined>(
     user ? `https://api.bajiraj.cloud/users/${user.id}/balance` : "",
     10000
@@ -171,7 +199,7 @@ useEffect(() => {
     // window.location.href = "/login";
   };
 
-  
+
  const [links, setLinks] = useState<SocialLinksMap>({
     telegram: null,
     whatsapp: null,
@@ -202,21 +230,57 @@ useEffect(() => {
 
     fetchSocialLinks();
   }, []);
+const handleLogin = () =>{
+  console.log('okkk');
+  setSheetOpenS(false);
+  setTimeout(()=>{
+router.push('/login')
+  }, 100)
 
+}
+const [isSwitching, setIsSwitching] = useState(false);
+const [subMenu, setSubMenu] = useState("")
+const handleSubmenuOpen = (name: any) => {
+  if (subMenu === name) return;
+
+  // trigger slide-out
+  setIsSwitching(true);
+   setSubMenu(name);   
+  setTimeout(() => {
+         // change submenu
+    setIsSubmenuOpen(true);
+    setIsSwitching(false);      // slide back in
+  }, 200); // must match transition duration
+};
+
+ 
   // Icon mapping
   const icons: Record<SocialLink["platform"], string> = {
     telegram: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-telegram-channel.svg",
     whatsapp: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-whatsapp.svg",
     messenger: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-facebook.svg",
   };
+                      const translateClass = !isSubmenuOpen
+  ? "-translate-x-150"
+  : subMenu
+  ? "translate-x-0"
+  : "-translate-x-100";
+
+    const isActive = (path: string) => pathname === path || pathname.startsWith(path + "/");
   return (
+
+
     <>
-      {/* Blur overlay */}
-      {sheetOpen && (
+      {!isActive("/login") && !isActive("/registration")   &&
+      
+      (
+
+        <>
+               {sheetOpen && (
         <div className="fixed max-w-screen inset-0 bg-black/30 backdrop-blur-sm z-40 transition-opacity" />
       )}
 
-      <div className="flex fixed top-0 w-full items-center justify-between px-4 py-1 !max-h-[70px] shadow-md z-50 bg-gray-900">
+      <div className="flex fixed top-0 w-full items-center justify-between px-4 py-3 !h-[60px] shadow-md z-50 bg-slate">
         <div className="flex items-center gap-3">
           <SidebarTrigger className="hidden md:block" />
           <div onClick={() => router.push("/")} className="flex items-center gap-2">
@@ -235,34 +299,20 @@ useEffect(() => {
                       <div className="relative w-14 h-14 flex flex-col items-center justify-center">
                         {/* Glowing animated 3D background */}
                         <div
-                          className={`absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 
+                          className={`absolute inset-0 rounded-full from-orange-300 
         blur-3xl opacity-70 scale-110 
         ${sheetOpenS ? "animate-spin-slow" : ""}`}
                         />
 
                         {/* Floating Menu icon with tilt + shadow */}
                         <Menu
-                          className={`absolute bottom-4 left-1/2 -translate-x-1/2 
+                          className={`absolute  text-yellow-300 bottom-3 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
-        ${
-          sheetOpenS
-            ? "text-orange-400 w-7 h-7 scale-100"
-            : "text-white w-6 h-6 scale-100"
-        } 
-        drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
+  `}
+  style={{ width: "60px", height: "32px" }} 
                         />
 
-                        {/* Floating rings for 3D effect */}
-                        <div
-                          className={`absolute rounded-full border-2 border-orange-400 opacity-30 animate-spin-slow
-        transition-all duration-500 ease-out
-        ${sheetOpenS ? "w-12 h-12" : "w-10 h-10"}`}
-                        />
-                        <div
-                          className={`absolute rounded-full border-2 border-pink-400 opacity-20 animate-spin-slower
-        transition-all duration-500 ease-out
-        ${sheetOpenS ? "w-13 h-13 scale-115 border-white" : "w-0 h-0"}`}
-                        />
+
                       </div>
 
                     </div>
@@ -272,7 +322,7 @@ useEffect(() => {
 
               <SheetContent
                 side="left"
-                className="w-full max-h-screen h-[90%] p-0 bg-slate-800 overflow-y-auto"
+                className="w-full max-h-screen  h-full z-400 p-0 bg-transparent backdrop-blur-md overflow-y-auto"
               >
                 <VisuallyHidden>
                   <DialogTitle>Mobile Menu</DialogTitle>
@@ -282,103 +332,221 @@ useEffect(() => {
                 <div className="p-4 flex justify-between">
                   <div>
 
-                            <button className="bg-gray-900 px-4 py-1 flex items-center gap-2 rounded-lg">
-                    <MessageCircle className="w-5 h-5" />
-                    <p>Live Support</p>
-                  </button>
-
-                   <div className="border-t border-gray-800 pt-4 flex justify-center gap-2">
-      {Object.keys(icons).map((platform) => {
-        const key = platform as SocialLink["platform"];
-        return (
-          <a
-            key={key}
-            href={links[key] || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={links[key] ? "" : "opacity-30 pointer-events-none"}
-          >
-            <img src={icons[key]} alt={key} width={44} height={44} />
-          </a>
-        );
-      })}
-    </div>
 
                     
                   </div>
           
                   <button
-                    className="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 px-4 py-1 rounded-lg flex items-center justify-center h-10 z-100"
+                    className=" px-4 py-1 rounded-lg -mr-6 -mt-3  flex items-center justify-center h-10 z-100"
                     onClick={() => setSheetOpenS(false)} // This actually closes the sheet
                   >
-                    <X className="w-6 h-6 text-gray-100 hover:text-red-600" />
+                    <X className="w-9 h-9  text-gray-100 hover:text-red-600" />
                   </button>
                 </div>
+<div className="flex gap-4">
+    {/* Menu Items */}
+                <div className="w-2/3 ml-2 -mt-8">
+                <div className="bg-black-700 rounded-t-md flex items-center">
+                <img className="w-[120px]" src="https://img.m156b.com/mb/h5/assets/images/dark/animation/head-coin.png?v=1767782599110" alt="" />
+                <p className="text-yellow-400 font-medium">Hi! Welcome</p>
+                </div>
 
-                {/* Menu Items */}
-                <ul className="p-4 space-y-2 text-lg text-gray-300">
-                  <img src="/oie_119753jyAZNTiD.png" className="w-[200px] -ml-6 -mt-20 -mb-14" alt="" />
-           
-                  {menuItems.map((item, idx) => (
-                    <li key={idx}>
-                      <button
-                        onClick={() =>
-                          item.children && toggleSection(item.name)
-                        }
-                        className={`flex items-center justify-between w-full py-2 px-3 rounded transition-colors
-    ${
-      openSections[item.name]
-        ? "text-orange-400 bg-slate-800 font-semibold"
-        : "text-gray-200 bg-transparent"
+                {!user ? (
+                  <div className="bg-yellow-300 flex gap-10 justify-center py-4 rounded-b-md flex items-center">
+               
+               <Button  className="text-slate-900 bg-transparent z-100"  onClick={() => handleLogin()}>
+                <LogIn/>
+<span>Login</span>
+               </Button>
+                              <Button  className="text-slate-900 bg-transparent z-100"  onClick={() => handleLogin()}>
+                <UserPlus/>
+<span>Sign Up</span>
+               </Button>
+                </div>
+                ):(
+
+                                    <div className="bg-yellow-300 flex gap-10 justify-center py-4 rounded-b-md flex items-center">
+                                      <p className="text-slate-900 font-medium">                      Main Wallet</p>
+                                      {/* <RefreshButton/> */}
+
+                              <img src="https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-bonuses.svg?v=1768297086272&quot" alt="" />
+                </div>
+                )}
+
+             <div className="grid grid-cols-3 gap-2 mt-2">
+      {category.map((item) => (
+        <div key={item.id} className="bg-black-700 px-5 py-3 rounded-md flex flex-col items-center">
+          <img
+            className="bg-yellow-300 p-[1px] rounded-full mb-2"
+            src={item.icon}
+            alt={item.name}
+          />
+          <span    onClick={() => handleSubmenuOpen(item.name)} className="text-slate-200 text-sm font-medium">{item.name}</span>
+        </div>
+      ))}
+    </div>
+    <div className="grid grid-cols-3 md:grid-cols-4 gap-1 mt-2 bg-black-700 p-2 rounded-md">
+      {features.map((item) => (
+        <div
+          key={item.id}
+          className=" p-5 rounded-md flex flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[1px] rounded-full mb-2 "
+            src={item.icon}
+            alt={item.name}
+          />
+          <span className="text-slate-200 text-sm font-medium">{item.name}</span>
+        </div>
+      ))}
+    </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-1 mt-2 bg-black-700 p-2 rounded-md">
+
+        <div
+        
+          className=" p-2 -ml-12 rounded-md flex flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[1px] rounded-full mb-2 "
+            src="https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-referral-program.svg?v=1767782599110&quot"
+            alt="reffer"
+          />
+          <span className="text-slate-200 text-sm font-medium ml-2">Reffer Program</span>
+        </div>
+ 
+    </div>
+        <div className="grid grid-cols-2  gap-1 mt-2 bg-black-700 p-2 rounded-md">
+
+        <div
+        
+          className=" rounded-md flex -ml-12 flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[1px] rounded-full mb-2 "
+            src="  https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-customer.svg?v=1767782599110&quot"
+            alt="reffer"
+          />
+          <span className="text-slate-200 text-sm font-medium ml-2">Live Chat</span>
+        </div>
+ 
+    </div>
+
+            <div className="grid grid-cols-2 p-2  gap-1 mt-2 bg-black-700 pt-4 rounded-md">
+
+        <div
+        
+          className=" rounded-md flex   items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[1px] rounded-full mb-2 "
+            src="https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-login.svg?v=1767782599110&quot"
+            alt="reffer"
+          />
+         <Button  onClick={() => handleLogin()} className="bg-transparent -mt-2 z-100">    <span className="text-slate-200 text-sm font-medium -ml-1">Login</span></Button>
+        </div>
+              <div
+        
+          className="flex rounded-md flex  items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[1px] rounded-full mb-2 "
+            src="https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-home.svg?v=1767782599110&quot"
+            alt="reffer"
+          />
+         <Button onClick={() => handleLogin()} className="bg-transparent  -mt-2 z-100">    <span className="text-slate-200 text-sm font-medium -ml-1">Login</span></Button>
+        </div>
+ 
+    </div>
+  
+
+                </div>
+
+                {/* submenu */}
+               
+                  {/* <div className="inset-0 bg-white/30 rounded-lg backdrop-blur-sm -mt-8" >
+                                 <div className="gap-2  mt-2">
+      {category.map((item) => (
+        <div key={item.id} className=" px-5 py-3  mb-2  rounded-md flex flex-col items-center">
+          <img
+            className="bg-yellow-300 p-[1px] rounded-full mb-2"
+            src={item.icon}
+            alt={item.name}
+          />
+          <span className="text-slate-200 text-sm font-medium">{item.name}</span>
+        </div>
+      ))}
+    </div>
+
+                  </div> */}
+
+                    <div
+        className={`
+      fixed top-12 left-[70%] h-[86%] w-[120px] 
+    rounded-lg p-4
+    bg-white/20 backdrop-blur-xs shadow-lg
+    overflow-y-auto
+    transition-transform ease-in-out
+${
+      !isSubmenuOpen
+        ? "-translate-x-150 duration-300 "
+        : isSwitching
+        ? "-translate-x-20 duration-100 "
+        : "translate-x-0"
     }
-    hover:bg-gray-100 focus:outline-none focus:bg-slate-800`}
-                        style={{
-                          WebkitTapHighlightColor: "transparent", // removes default mobile highlight
-                          touchAction: "manipulation", // helps mobile taps behave properly
-                        }}
-                      >
-                        <div className="flex items-center gap-2">
-                          {item.icon}
-                          <span>{item.name}</span>
-                        </div>
-                        {item.children && (
-                          <span>{openSections[item.name] ? "▲" : "▼"}</span>
-                        )}
-                      </button>
+        `}
+      >
+        {/* <button
+          className="text-black mb-4"
+          onClick={() => setIsSubmenuOpen(false)}
+        >
+       
+        </button> */}
 
-                      {item.children && openSections[item.name] && (
-                        <>
-                          {Array.isArray(item.children) ? (
-                            <ul className="pl-8 mt-1 space-y-1">
-                              {item.children.map((child, cidx) => (
-                                <li key={cidx}>
-                                  <a
-                                    href="#"
-                                    className="block py-1 text-gray-700 hover:text-purple-700"
-                                  >
-                                    {child}
-                                  </a>
-                                </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <div onClick={() => setSheetOpen(false)}>
-                              {item.children}
-                            </div>
-                          )}
-                        </>
-                      )}
-                    </li>
-                  ))}
-                  {user && (
-                    <button
-                      onClick={handleLogout}
-                      className="px-3 w-full mb-[220px] mt-6 w-full py-[8px] text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-orange-600"
-                    >
-                      Log Out
-                    </button>
-                  )}
-                </ul>
+        <div className="mb-2  ">
+          {subMenu == 'Exclusive'&& ex.map((item) => (
+            <div
+              key={item.id}
+              className="flex flex-col mb-2 items-center py-3 rounded-md hover:scale-105 transition-transform"
+            >
+              <img
+                className="bg-yellow-300 p-[1px]  mb-2 w-16 h-14"
+                src={item.image}
+                alt={item.title}
+              />
+              <span className="text-slate-200 text-sm font-medium">{item.title}</span>
+            </div>
+          ))}
+                {subMenu == 'Sports'&& gameImages.sports.map((item:any) => (
+            <div
+              key={item.id}
+              className="flex flex-col  items-center py-3 rounded-md hover:scale-105 transition-transform"
+            >
+              <img
+                className=" rounded-full mb-2 w-18 p-2"
+                src={item.src}
+                alt={item.title}
+              />
+              <span className="text-slate-200 text-sm -mt-2 font-medium">{item.title}</span>
+            </div>
+          ))}
+                     {subMenu == 'Casino'&& (
+                      <CasinoCol items={gameImages.casino}/>
+                     )}
+                        {subMenu == 'Slot'&& (
+                      <SlotCol items={gameImages.slot}/>
+                     )}
+                            {subMenu == 'Crash'&& (
+                      <CrashCol items={gameImages.crash}/>
+                     )}
+
+
+        </div>
+      </div>
+              
+
+</div>
+              
+      
 
                 <style jsx global>{`
                   [data-slot="sheet-overlay"] {
@@ -442,7 +610,7 @@ useEffect(() => {
                       <div className="flex -mt-2 -mr-3 justify-between items-center">
 <p></p>
                 <button
-                  className="bg-gray-300 px-2 py-1 rounded-lg flex items-center justify-center px-3 z-50 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-orange-600"
+                  className="bg-gray-300 px-2 py-1 rounded-lg flex items-center justify-center px-3 z-50 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-yellow-600"
                   onClick={() => setIsOpen(false)}
                 >
                   <X className="w-6 h-6 text-gray-100 hover:text-red-600" />
@@ -461,7 +629,7 @@ useEffect(() => {
                     </button>
 
                     <button
-                      className="text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-orange-600 w-full py-3 rounded-lg bg-gradient-to-r from-orange-500 to-orange-400 text-white font-semibold hover:scale-105 transition-transform"
+                      className="text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-yellow-600 w-full py-3 rounded-lg bg-gradient-to-r from-orange-500 to-orange-400 text-white font-semibold hover:scale-105 transition-transform"
                       onClick={() => {
                         router.push("/deposit");
                         setIsOpen(false);
@@ -480,10 +648,11 @@ useEffect(() => {
      <button
   onClick={() => router.push("/login")}
   className="
-    px-2 py-[6px] w-[70px]
-    text-sm font-bold text-white
-    rounded-lg
-    bg-gradient-to-r from-orange-400 to-orange-600
+    px-2 py-[2px] w-[70px]
+    text-sm font-bold 
+    rounded-md
+    text-slate-900
+    bg-yellow-300
     backdrop-blur-md
   "
 >
@@ -493,10 +662,10 @@ useEffect(() => {
 <button
  onClick={() => router.push("/registration")}
   className="
-    px-2 py-[6px] w-[70px]
-    text-sm font-bold text-white
-    rounded-lg
-    bg-gradient-to-r from-orange-400 to-orange-600
+    px-2 py-[2px] w-[70px]
+    text-sm font-bold 
+    rounded-md
+    bg-white  text-slate-900
     backdrop-blur-md
     mr-1
   "
@@ -510,7 +679,7 @@ useEffect(() => {
           {/* Language Sheet */}
           <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <SheetTrigger asChild>
-              <button className="w-8 p-2 h-8 flex items-center justify-center border-2 border-orange-500 ml-2 rounded-xl">
+              <button className="w-8 p-2 h-8 flex items-center justify-center border-2 border-yellow-400 ml-2 rounded-xl">
                 <span className="text-md">
                   {languages.find((l) => l.code === selectedLang)?.flag}
                 </span>
@@ -527,7 +696,7 @@ useEffect(() => {
               <div className="flex justify-between items-center mb-4">
                 <p className="text-xl text-white">Select Language</p>
                 <button
-                  className="bg-gray-300 px-2 py-1 rounded-lg flex items-center justify-center px-3 z-50 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-orange-600"
+                  className="bg-gray-300 px-2 py-1 rounded-lg flex items-center justify-center px-3 z-50 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-yellow-600"
                   onClick={() => setSheetOpen(false)}
                 >
                   <X className="w-6 h-6 text-gray-100 hover:text-red-600" />
@@ -540,7 +709,7 @@ useEffect(() => {
                     key={lang.code}
                     className={`px-4 py-2 w-[120px] font-medium rounded ${
                       selectedLang === lang.code
-                        ? "bg-orange-500 text-white"
+                        ? "bg-yellow-400 text-white"
                         : "bg-gray-700 text-orange-500"
                     }`}
                     onClick={() => setSelectedLang(lang.code)}
@@ -553,6 +722,11 @@ useEffect(() => {
           </Sheet>
         </div>
       </div>
+        </>
+      )
+      }
+      {/* Blur overlay */}
+ 
     </>
   );
 }

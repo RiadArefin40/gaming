@@ -71,7 +71,7 @@ export default function ProfilePage() {
               <div>
                 <p className="text-lg ">VIP Points</p>
                 <p className="flex items-center gap-2 font-medium">
-                  <Crown className="h-4 w-4 text-yellow-500" />
+                  <Crown className="h-4 w-4 text-yellow-400" />
                   0
                 </p>
               </div>

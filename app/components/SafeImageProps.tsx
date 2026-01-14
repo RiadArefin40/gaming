@@ -24,7 +24,7 @@ export default function SafeImage({
   const [loading, setLoading] = useState(true);
 
   return (
-<div className={`relative overflow-hidden ${className}`} style={{ width, height }}>
+<div className={`relative  ${className}`} style={{ width, height }}>
   {/* Simple Loader */}
 
 
