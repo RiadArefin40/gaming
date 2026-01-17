@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ChevronDown, X } from "lucide-react";
+import { CheckCircle, ChevronDown, Eye, EyeClosed, X } from "lucide-react";
 import { loginUser } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import { DotLoadingButton } from "@/app/components/DotLoadingButton";
@@ -64,7 +64,7 @@ const handleLogin = async () => {
   }
 };
 
-
+  const [showPassword, setShowPassword] = useState(false);
 const handleSignUp = async () => {
  if (!username || !phone) {
       alert("Name and Phone are required!");
@@ -149,20 +149,22 @@ useEffect(() => {
 
       {/* Background */}
       <div className="absolute " />
-  <div className="text-center py-4">
-        <span className="text-yellow-300 text-5xl  ">Jili</span> <span className="text-5xl">Win</span>
+      <div className="text-center py-4">
+        {isVisible&&(
+<img src="/oie_119753jyAZNTiD.png" className="w-[70%] -mt-28 mx-auto -mb-32 " alt="" />
+        )}
       </div>
       <div className="relative z-10 px-4 pt-6 max-w-md mx-auto">
   
 
 
-<div className="px-4 pt-6 max-w-md bg-black-600  rounded-md">
+<div className="px-4 pt-6 max-w-md bg-white/10  rounded-md">
   {/* Name */}
   <div className="mb-4 ">
     <label className="text-lg text-gray-300 mb-2 block">User Name</label>
 <input
   type="text"
-  className="w-full h-12 bg-gray-600 rounded-md px-4 text-lg"
+  className="w-full h-12 bg-white/10 rounded-md px-4 text-lg"
   placeholder="User Name Here"
   value={username}
   onChange={(e) => {
@@ -181,7 +183,7 @@ useEffect(() => {
 <input
   type="text"
   maxLength={11}
-  className="w-full h-12 bg-gray-600  rounded-md px-4 text-lg"
+  className="w-full h-12 bg-white/10  rounded-md px-4 text-lg"
   placeholder="Write Mobile Number Here"
   value={phone}
   onChange={(e) => {
@@ -191,23 +193,46 @@ useEffect(() => {
   </div>
 
   {/* Password */}
-  <div className="mb-4">
-    <label className="text-lg text-gray-300 mb-2 block">Password</label>
-    <input
-      type="password"
-      className="w-full h-12 bg-gray-600  rounded-md px-4 text-lg"
-      placeholder="Write Password Here"
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-    />
-  </div>
+<div className="mb-4 relative">
+      <label className="text-lg text-gray-300 mb-2 block">
+        Password
+      </label>
+      <input
+        type={showPassword ? "text" : "password"}
+        className="w-full h-12 bg-white/10 rounded-md px-4 pr-12 text-lg placeholder-gray-400"
+        placeholder="Write Password Here"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button
+        type="button"
+        onClick={() => setShowPassword(!showPassword)}
+        className="absolute right-3 bottom-1 transform -translate-y-1/2 text-gray-800 hover:text-gray-200"
+      >
+        {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
+      </button>
+<div className="flex font-bold  items-center text-gray-400 mt-4">
+  <CheckCircle size={18}/>
+     <p className="ml-1">Between 6-20 Character</p>
+</div>
+<div className="flex font-bold items-center text-gray-400 mt-2">
+  <CheckCircle size={18}/>
+     <p className="ml-1">At least one alphabet.</p>
+</div>
+<div className="flex font-bold items-center text-gray-400 mt-2">
+  <CheckCircle size={18}/>
+     <p className="ml-2">At least one number.
+(Special character, symbols are allowed)</p>
+</div>
+   
+    </div>
 
   {/* Referral (optional) */}
   <div className="mb-6">
     <label className="text-lg text-gray-300 mb-2 block">Referral</label>
     <input
       type="text"
-      className="w-full h-12 bg-gray-600  rounded-md px-4 text-lg"
+      className="w-full h-12 bg-white/10  rounded-md px-4 text-lg"
       placeholder="Referral Code (optional)"
       value={referral}
       onChange={(e) => setReferral(e.target.value)}
@@ -218,15 +243,15 @@ useEffect(() => {
   <DotLoadingButton
     onClick={handleSignUp}
     loading={isLoadinge}
-                         className="px-3 w-full mb-[20px] mt-6 w-full py-[8px] text-lg text-slate-900 primary-bg font-medium rounded hover:bg-orange-600"
+                         className="px-3 w-full mb-[20px] mt-6 w-full py-[10px] text-xl text-slate-900 bg-yellow-300/90 font-medium rounded hover:bg-orange-600"
 
   >
-    Sign Up
+    Submit
   </DotLoadingButton>
 </div>
-<div className="text-center text-slate-300 my-2">
+<div className="text-center text-white/60 font-medium my-3">
 <p><span>Are You already a member?</span> <span onClick={() => router.push("/login")} className="text-yellow-300" >Login</span></p>
-<p className="-mt-2"> Registering means you are over 18 years old </p>
+<p className="-mt-1"> Registering means you are over 18 years old </p>
 </div>
 
      

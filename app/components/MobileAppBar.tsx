@@ -197,7 +197,14 @@ useEffect(() => {
     whatsapp: null,
     messenger: null,
   });
-
+const [isVisible, setIsVisible] = useState(false);
+const backToHome = () =>{
+  router.push('/')
+  console.log('okkk')
+}
+useEffect(() => {
+  setIsVisible(true);
+}, []);
   useEffect(() => {
     const fetchSocialLinks = async () => {
       try {
@@ -318,16 +325,16 @@ psetSheetOpen(false)
 
 
     <>
-      {!isActive("/login") && !isActive("/registration") && !isActive("/profile") &&
+      {!isActive("/login") && !isActive("/registration") && !isActive("/profile") && !isActive("/deposit") && !isActive("/user-bets") && !isActive("/turnover") && !isActive("/transactions") && isVisible &&
       
       (
 
         <>
                {sheetOpen && (
-        <div className="fixed max-w-screen inset-0 bg-black/30 backdrop-blur-sm z-40 transition-opacity" />
+        <div className="fixed max-w-screen inset-0 bg-black/30  z-40 transition-opacity" />
       )}
 
-      <div className="flex fixed top-0 w-full items-center justify-between px-4 py-3 !h-[60px] shadow-md z-50 bg-slate">
+      <div className="flex fixed top-0 w-full items-center justify-between px-4 py-3 !h-[60px] shadow-md z-50 bg-black-700">
         <div className="flex items-center gap-3">
           <SidebarTrigger className="hidden md:block" />
           <div onClick={() => router.push("/")} className="flex items-center gap-2">
@@ -354,12 +361,12 @@ psetSheetOpen(false)
 
 
 <button
-  className="flex bg-transparent flex-col justify-between w-7 h-[19px] focus:outline-none"
+  className="flex bg-transparent flex-col justify-between w-[25px] h-[18px] focus:outline-none"
  // your function
 >
-  <span className="block h-0.5 !bg-yellow-300  rounded"></span>
-  <span className="block h-0.5 bg-yellow-300  rounded"></span>
-  <span className="block h-1 bg-yellow-300 rounded"></span>
+  <span className="block h-0.5 !bg-yellow-300/90  rounded"></span>
+  <span className="block h-0.5 bg-yellow-300/90  rounded"></span>
+  <span className="block h-1 bg-yellow-300/90 rounded"></span>
 </button>
                       </div>
 
@@ -398,17 +405,20 @@ setIsSubmenuOpen(false)
 <div className="flex gap-4">
     {/* Menu Items */}
                 <div className="w-2/3 ml-2 -mt-8">
-                <div className="bg-black-700 rounded-t-md flex items-center">
+                <div className="bg-black-700 rounded-t-md flex  items-center">
                 <img className="w-[120px]" src="https://img.m156b.com/mb/h5/assets/images/dark/animation/head-coin.png?v=1767782599110" alt="" />
                 {!user?  <p className="text-yellow-300 text-lg font-medium">Hi! Welcome</p> :(
-                  <div className="relative flex items-center">
+                  <div className="relative flex  items-center">
+<div>
+    <p className="text-yellow-300 text-lg font-medium">{user?.name}</p>
+                   <p className="text-yellow-300 text-lg font-medium">Profile</p>
 
-                        <p className="text-yellow-300 text-lg font-medium">{user?.name}</p>
-                   
+</div>
+                      
                           {user && (
                               <Sheet open={psheetOpen} onOpenChange={handlePSheet}>
                                 <SheetTrigger>
-             <ArrowRight  className="absolute -right-24" size={26} color="yellow" /> 
+             <ArrowRight  className="absolute left-20 top-4" size={26} color="yellow" /> 
                                 </SheetTrigger>
                     
                            <Profile onAction={handleModal}/>
@@ -555,7 +565,7 @@ setIsSubmenuOpen(false)
 
                 {/* submenu */}
                
-                  {/* <div className="inset-0 bg-white/30 rounded-lg backdrop-blur-sm -mt-8" >
+                  {/* <div className="inset-0 bg-white/30 rounded-lg  -mt-8" >
                                  <div className="gap-2  mt-2">
       {category.map((item) => (
         <div key={item.id} className=" px-5 py-3  mb-2  rounded-md flex flex-col items-center">
@@ -582,8 +592,8 @@ ${
       !isSubmenuOpen
         ? "-translate-x-150 transition-transform ease-in-out duration-50 "
         : isSwitching
-        ? "-translate-x-20 transition-transform duration-50 ease-linear "
-        : "translate-x-0"
+        ? "-translate-x-26 opacity-20 transition-transform duration-50 ease-linear "
+        : "translate-x-0 transition-transform ease-in-out duration-600"
     }
         `}
       >
@@ -665,7 +675,10 @@ ${
 >
   BajiRaj
 </p> */}
-<img src="/oie_119753jyAZNTiD.png" className="w-[110px] -ml-8" alt="" />
+
+        {isVisible&&(
+<img src="/oie_119753jyAZNTiD.png" className="w-[110px] -ml-8 " alt="" />
+        )}
 
           </div>
         </div>

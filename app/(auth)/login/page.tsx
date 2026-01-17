@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown, Eye, EyeClosed, Icon, X } from "lucide-react";
 import { loginUser } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import { DotLoadingButton } from "@/app/components/DotLoadingButton";
@@ -11,13 +11,14 @@ export default function AuthPage() {
   const [isLoadinge,setIsLoading] = useState(false);
   const router = useRouter();
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+
   const [error, setError] = useState("");
     const [phone, setPhone] = useState("");
   const [referral, setReferral] = useState("");
   const [currency, setCurrency] = useState("BDT");
 
-
+ const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
 const handleLogin = async () => {
   setIsLoading(true);
@@ -138,7 +139,7 @@ useEffect(() => {
   `}>
       {/* Header */}
   
-      <header className="h-14 px-4 py-2  relative bg-black-700 ">
+      <header className="h-14 px-4 py-2  relative bg-black-600 ">
         <h1 className="text-center mx-auto mt-2 font-bold text-xl">Login</h1>
         <button
                   className=" px-2 py-1 rounded-lg absolute right-2 top-1 px-3 z-50  "
@@ -152,7 +153,10 @@ useEffect(() => {
       <div className="absolute bg-slate-900" />
 
       <div className="text-center py-4">
-        <span className="text-yellow-300 text-5xl  ">Jili</span> <span className="text-5xl">Win</span>
+        {isVisible&&(
+<img src="/oie_119753jyAZNTiD.png" className="w-[70%] -mt-28 mx-auto -mb-32 " alt="" />
+        )}
+
       </div>
 
       <div className="relative z-10 px-4 pt-6 max-w-md bg-black-600 m-4 rounded-md">
@@ -165,29 +169,36 @@ useEffect(() => {
 
           <>
             <div className="mb-4 ">
-              <label className="text-lg text-gray-300 mb-2 block">
+              <label className="text-lg text-gray-300 mb-2 -mt-2 block">
                 User Name
               </label>
               <input
                 value={username}
                 onChange={(e) => setUsername(e.target.value.toLowerCase())}
-                className="w-full h-12 bg-gray-600 rounded-md px-4 text-lg"
+                className="w-full h-12 bg-white/10 rounded-md px-4 text-lg"
                 placeholder="User Name"
               />
             </div>
 
-            <div className="mb-2">
-              <label className="text-lg text-gray-300 mb-2 block">
-                Password
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full h-12 bg-gray-600 rounded-md px-4 text-lg"
-                placeholder="******"
-              />
-            </div>
+       <div className="mb-2 relative">
+      <label className="text-lg text-gray-300 mb-2 block">
+        Password
+      </label>
+      <input
+        type={showPassword ? "text" : "password"}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="w-full h-12 bg-white/10 rounded-md px-4 pr-12 text-lg placeholder-gray-400"
+        placeholder="******"
+      />
+      <button
+        type="button"
+        onClick={() => setShowPassword(!showPassword)}
+        className="absolute right-3 bottom-1 transform -translate-y-1/2 text-gray-800 hover:text-gray-200"
+      >
+        {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
+      </button>
+    </div>
 
             {error && (
               <p className="text-red-500 text-lg mb-4">{error}</p>
@@ -195,7 +206,7 @@ useEffect(() => {
    <DotLoadingButton
    onClick = {handleLogin}
                 loading={isLoadinge}
-                      className="px-3 w-full text-slate-900 mb-[20px] mt-6 w-full py-[8px] text-lg primary-bg font-medium rounded hover:bg-orange-600"
+                      className="px-3 w-full text-slate-900 mb-[20px] mt-6 w-full py-[12px] font-bold text-xl bg-yellow-300/90 font-medium rounded hover:bg-orange-600"
               >
                 Log in
               </DotLoadingButton>

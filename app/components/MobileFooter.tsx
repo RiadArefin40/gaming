@@ -178,25 +178,39 @@ useEffect(() => {
   ];
 
   const goToCasino = () => {
+         setLink("/all-casino")
     setSheetOpen(false);
+  
     router.push("/all-casino");
   };
   const goToSlots = () => {
+       setLink("/all-slot")
     setSheetOpen(false)
+ 
     router.push("/all-slot");
   };
  const goToHome  = () => {
+    setLink("/")
     setSheetOpen(false)
+  
     router.push("/");
   };
   const goToPromotions = () => router.push("/promos");
-
+ const [link, setLink] = useState("")
   // Helper to highlight active button
-  const isActive = (path: string) => pathname === path || pathname.startsWith(path + "/");
+  // const isActive = (path: string) => pathname === path || pathname.startsWith(path + "/") || link === path;
+ const isActive = (path: string) => {
+  if (link) return link === path;
+
+  return pathname === path || pathname.startsWith(path + "/");
+};
+
+
+
 
   const handleDeposit = () => {
 
-      setTimeout(()=>{
+      setTimeout(()=>{setLink("/deposit")
         psetSheetOpen(false)
         router.push("/deposit");
       }, 100)
@@ -338,19 +352,19 @@ const features = [
 
 
         {/* Slots */}
-    <button
+    {/* <button
   onClick={goToSlots}
   className="flex flex-col w-[70px] items-center gap-1 px-4 py-1 z-300  relative"
 >
   <div className="relative w-14 h-12 flex flex-col items-center justify-center">
-    {/* Glowing animated 3D background */}
+ 
     <div
       className={`absolute 
         blur-3xl opacity-70 scale-110 
         ${isActive("/all-slot") ? "animate-spin-slow" : ""}`}
     />
 
-    {/* Floating Dice6 icon with tilt + shadow */}
+
     <Dice6
       className={`absolute bottom-3 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
@@ -360,29 +374,29 @@ const features = [
 
  </div>
 
-  {/* Label */}
+
   <span
     className={`-mt-4 text-white text-md font-medium drop-shadow-lg
       ${isActive("/all-slot") ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
   >
     Slots
   </span>
-</button>
+</button> */}
 
-
+{/* 
  <button
   onClick={handleDeposit}
   className="flex w-[70px] flex-col items-center gap-1  px-4 py-1 relative"
 >
   <div className="relative w-14 h-12 flex flex-col items-center justify-center">
-    {/* Glowing animated 3D background */}
+ 
     <div
       className={`absolute 
         blur-3xl opacity-70 scale-110 
         ${isActive("/deposit") ? "animate-spin-slow" : ""}`}
     />
 
-    {/* Floating Wallet icon with tilt + shadow */}
+
     <Wallet
       className={`absolute bottom-3 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
@@ -392,12 +406,61 @@ const features = [
 
   </div>
 
-  {/* Label */}
+
   <span
     className={`-mt-4 text-white text-md font-medium drop-shadow-lg
       ${isActive("/deposit") ? "!text-orange-400 font-bold" : "text-white font-normal"}`}
   >
     Deposit
+  </span>
+</button> */}
+<button
+  onClick={handleDeposit}
+  className="flex flex-col w-[70px] items-center gap-1 px-2 py-1  relative"
+>
+
+
+      <div className={`relative w-14 h-12 flex flex-col items-center justify-center    rounded-full  ${isActive("/deposit") ? "bottom-6 bg-yellow-600": " "}`}>
+    {/* Glowing animated 3D background */}
+    <div
+      className={`absolute 
+        scale-110 
+        ${isActive("/deposit") ? "animate-spin-slow primary-bg p-[15px] rounded-full z-4" : ""}`}
+    />
+        <div
+      className={`absolute 
+        scale-110 
+        ${isActive("/deposit") ? "animate-spin-slow secondary-bg p-5 rounded-full z-3" : ""}`}
+    />
+        <div
+      className={`absolute 
+        scale-110 
+        ${isActive("/deposit") ? "animate-spin-slow bg-black-700 p-6 rounded-full w-16 h-16" : ""}`}
+    />
+
+    {/* Floating Star icon with tilt + shadow */}
+    <Wallet
+      className={`absolute bottom-3 left-1/2 -translate-x-1/2 z-5
+        transition-all duration-500 ease-out transform 
+        ${isActive("/deposit") ? "text-slate-900 w-6 h-6 scale-100 " : "text-white w-6 h-6 scale-100"} 
+        drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
+    />
+
+  
+  </div>
+
+
+
+
+
+
+
+  {/* Label */}
+  <span
+    className={`-mt-4 text-white text-md font-medium drop-shadow-lg
+      ${isActive("/deposit") ? "!font-bold -mt-[34px] text-slate-100" : "text-white font-normal"}`}
+  >
+  Deposit
   </span>
 </button>
 

@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -256,7 +257,7 @@
   background-color: #252525;
 }
 .bg-black-600{
-  background-color: #414141;
+  background-color: rgb(51, 51, 51);
 }
 .primary-bg{
   background-color: #ffe400;
@@ -266,4 +267,10 @@
 }
 .secondary-bg-1{
   background-color: #a59440 
+}
+.bg-select{
+  background-color: rgb(74, 66, 2);
+}
+.bg-unselect{
+  background-color: rgb(72, 72, 72);
 }

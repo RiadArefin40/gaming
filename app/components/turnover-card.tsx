@@ -25,10 +25,10 @@ export default function TurnoverCard({
       {/* Title */}
       <div className="flex justify-between">
               <div className="w-2/3">
-         <div className="text-md text-slate-100 font-bold border-l-4 border-yellow-400 pl-4 ">{title}</div>
+         <div className="text-sm text-slate-100 font-bold border-l-4 border-yellow-400 pl-4 ">{title}</div>
 
       {/* Amount */}
-      <div className="mt-1 text-xl font-semibold">{amount}</div>
+      <div className="mt-1 text-yellow-300/90 text-2xl font-bold">{amount}</div>
 
       {/* Progress */}
       <div className="mt-3 space-y-1">
@@ -46,7 +46,7 @@ export default function TurnoverCard({
                     <div className="mb-2 border-l border-gray-500 mt-4 pl-4 ml-6 w-1/3 flex-col items-center gap-1 text-yellow-500 text-lg">
 
           <CheckCircle size={28} className="ml-6 text-green-500" />
-         <p className="text-green-500 text-lg font-bold">Completed</p>
+         <p className="text-green-500 !text-md font-bold">Completed</p>
         </div>
 
           

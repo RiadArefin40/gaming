@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { List } from "lucide-react";
+import { Filter, List, X } from "lucide-react";
 import { getAuthUser } from "@/lib/auth";
 
 const TransactionRecordPage = () => {
@@ -85,35 +85,50 @@ const TransactionRecordPage = () => {
   const filteredTransactions = filterTransactionsByDate(transactions);
   const deposits = filteredTransactions.filter(t => t.type === "deposit");
   const withdrawals = filteredTransactions.filter(t => t.type === "withdraw");
-
+const router = useRouter();
+  useEffect(() => {
+    const stored = localStorage.getItem("auth_user");
+    if (stored) setUser(JSON.parse(stored) as AuthUser);
+  }, []);
+  const backToHome = () =>{
+  router.push('/')
+  console.log('okkk')
+}
   return (
-    <div className="p-4 max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6 mt-20">
-       
+    <div className=" max-w-4xl mx-auto">
+    <header className="h-16 px-4 py-2  relative bg-black-700 ">
+        <h1 className="text-center mx-auto mt-2 font-bold text-white/70 text-xl">Betting Records</h1>
+        <button
+                  className=" px-2 py-1 rounded-lg absolute right-2 top-1 px-3 z-50  "
+                  onClick={() => backToHome()}
+                >
+                  <X className="w-9 h-9 mt-1 text-white/70 hover:text-red-600" />
+                </button>
+      </header>
+     <div className="flex relative flex-row bg-black-600 mt-2 py-3 px-3 mx-2  rounded-sm  justify-between sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+      
 
         <Select onValueChange={setTimeRange} defaultValue="Last 7 days">
-          <SelectTrigger className="w-36">
-            <SelectValue placeholder="Select range" />
+          <SelectTrigger className="w-40 bg-yellow-300/90 text-slate-800 font-medium border-yellow-300/90">
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="Last 7 days">Last 7 days</SelectItem>
             <SelectItem value="Last 30 days">Last 30 days</SelectItem>
-            <SelectItem value="Last 90 days">Last 90 days</SelectItem>
           </SelectContent>
         </Select>
-
-        {/* <Button variant="outline" size="icon">
-          <List className="w-5 h-5" />
-        </Button> */}
+        <div className="bg-yellow-300/90 rounded-r-sm absolute top-0 z-300 right-0 h-[59px] w-14 text-slate-800">
+         <Filter className="ml-5 mt-4"/>
+        </div>
+     
       </div>
 
       <Tabs defaultValue="all">
-        <TabsList className="mb-4 bg-slate-500 mx-auto">
+        {/* <TabsList className="mb-4 bg-slate-500 mx-auto">
           <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="income">Deposit</TabsTrigger>
           <TabsTrigger value="expense">Withdraw</TabsTrigger>
-        </TabsList>
+        </TabsList> */}
 
         {/* ALL */}
         <TabsContent value="all">
@@ -153,15 +168,39 @@ const TransactionList = ({
       </div>
     );
   }
-
+console.log("data", data)
   return (
     <div className="space-y-2">
+          <div className="flex bg-black-600 justify-between items-center px-4 py-2 bg-gray-600 rounded-t-sm -mt-1"> 
+            <p className="border-r flex-1 border-dashed  text-yellow-300/90 text-lg font-bold">Type </p>
+                                 <p className="border-r flex-1 pl-4 border-dashed  text-yellow-300/90 text-lg font-bold">Amount</p>
+                     <p className="border-r flex-1 border-dashed pl-4 text-yellow-300/90 text-lg font-bold">Status </p>
+             <p className=" text-yellow-300/90 flex-1 pl-4 text-lg font-bold"> <span className="pl-8">Total</span>  </p>
+          </div>
       {data.map((tx) => (
+        
         <div
           key={`${tx.type}-${tx.id}`}
-          className="flex justify-between p-4 bg-gray-800 rounded-md"
+       
         >
-          <div>
+                        <div className="bg-yellow-300/90 -mt-2 py-2 flex justify-between px-2">
+              <div className="flex-1 flex gap-1 ">
+                                <img className="bg-white rounded-full p-1" src="https://img.m156b.com/mb/h5/assets/images/icon-set/icon-calendar-type02.svg?v=1768297086272&quot" alt="" />
+             <span className="text-md font-bold text-gray-700">
+              {new Date(tx.created_at).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+})}
+            </span>
+
+              </div>
+              <div className="border border-slate-900 rounded-md px-1 text-slate-900">
+                <p>GMT +8</p>
+              </div>
+
+        </div>
+          {/* <div>
             <p className="font-medium">{tx.payment_gateway}</p>
             <p className="text-sm text-gray-400">
               {new Date(tx.created_at).toLocaleString()}
@@ -178,7 +217,39 @@ const TransactionList = ({
             }
           >
             {tx.amount} ({tx.status})
-          </span>
+          </span> */}
+                 <div className="flex justify-between items-center  py-2 bg-white/30">
+    
+          <div className="flex-1">
+            <p className="font-medium capitalize pl-4 border-r border-dashed  text-white/70">{tx.type}</p>
+         
+          </div>
+          <div className="flex-1">
+            <p className="font-medium capitalize border-r border-dashed pl-6 text-white/70">{tx.amount}</p>
+         
+          </div >
+               <div className="flex-1">
+            <p className="font-medium capitalize border-r border-dashed pl-4 text-white/70">
+            
+            {tx.status == 'processing' ? (
+<span className="bg-yellow-300/80 p-[2px] !w-[150px] text-slate-800 rounded-sm">{tx.status}</span>
+            ) : null}
+                        {tx.status == 'pending' ? (
+<span className="bg-green-200/50 p-[2px] !w-[150px] px-3 text-slate-800 rounded-sm">{tx.status}</span>
+            ) : null}
+                                    {tx.status == 'success' ? (
+<span className="bg-green-600/50 p-[2px] w-[120px] text-slate-800 rounded-sm">{tx.status}</span>
+            ) : null}
+            </p>
+   
+          </div>
+
+          <div className=" flex-1 pr-4">
+            <p className="text-white/70 pl-8 font-bold ">
+              ৳ {tx.amount}
+            </p>
+          </div>
+          </div>
         </div>
       ))}
     </div>

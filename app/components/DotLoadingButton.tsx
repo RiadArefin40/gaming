@@ -19,7 +19,7 @@ export function DotLoadingButton({
       {...props}
       disabled={loading || props.disabled}
       className={clsx(
-        "relative w-full h-11 ",
+        "relative w-full h-12 ",
         loading && "cursor-not-allowed",
         className
       )}

@@ -48,6 +48,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { ArrowLeft, CheckCircle2, Loader2 } from "lucide-react";
+import { X } from "lucide-react";
 
 // const user = (() => {
 //   const stored = localStorage.getItem("auth_user");
@@ -188,7 +189,10 @@ export default function EWalletPage() {
       }, 500);
     }
   };
-
+const backToHome = () =>{
+  router.push('/')
+  console.log('okkk')
+}
   const [phones, setPhones] = useState([]);
 
   useEffect(() => {
@@ -268,40 +272,74 @@ export default function EWalletPage() {
     return () => clearInterval(interval);
   }, [successModalOpen]);
   const [tab, setTab] = useState("deposit");
+const [isVisible, setIsVisible] = useState(false);
 
+useEffect(() => {
+  setIsVisible(true);
+}, []);
 
   return (
-    <div className="mt-18 bg-black-800 flex justify-center">
-      <Card className="w-full max-w-screen rounded-2xl border bg-black-800 border-0 shadow-xl">
-        <h3 className="text-2xl text-center text-slate-200 -mb-4 -mt-6">My wallet</h3>
-        <Tabs value={tab} onValueChange={setTab}>
+    <div className={`
+    min-h-screen
+    bg-black-800
+    text-white
+    relative
+    overflow-hidden
+    mt-[0px]
+    transform-gpu
+    transition-all
+    duration-900
+    ease-[cubic-bezier(0.22,1,0.36,1)]
+    ${
+      isVisible
+        ? "opacity-100 translate-y-0"
+        : "opacity-0 -translate-y-full"
+    }
+  `}>
+    
+      <Card className="w-full max-w-screen rounded-2xl border bg-black-800 border-0 shadow-xl py-0">
+              <header className="h-14 px-4 py-2  relative bg-black-700 ">
+            <h1 className="text-center mx-auto mt-2 text-slate-200 font-bold text-xl">My wallet</h1>
+            <button
+                      className=" px-2 py-1 rounded-lg absolute right-2 top-1 px-2 z-50  "
+                      onClick={() => backToHome()}
+                    >
+                      <X className="w-9 h-9 text-gray-100 hover:text-red-600" />
+                    </button>
+          </header>
+        <Tabs value={tab} onValueChange={setTab} className={" bg-black-700 -mt-6  "}>
           {/* Tabs Header */}
-          <TabsList className="grid grid-cols-2  bg-white/10 rounded-sm mb-6 h-12 w-[94%] mx-3">
+          <div className="pt-6 pb-4">
+
+                      <TabsList className="grid grid-cols-2 mb-8  bg-white/20 rounded-sm mb-6 h-11 w-[94%] mx-3 -mt-5">
             <TabsTrigger
               value="deposit"
-              className="data-[state=active]:bg-yellow-500 text-slate-200 data-[state=active]:text-slate-800 py-1"
+              className="data-[state=active]:bg-yellow-300 text-slate-200 data-[state=active]:text-slate-800 h-9 !data-[state=active]:rounded-sm"
             >
               Deposit
             </TabsTrigger>
             <TabsTrigger
               value="withdraw"
-              className="data-[state=active]:bg-yellow-500 text-slate-200 py-1 data-[state=active]:text-slate-800"
+ className="data-[state=active]:bg-yellow-300 text-slate-200 data-[state=active]:text-slate-800 h-9"
             >
               Withdraw
             </TabsTrigger>
           </TabsList>
 
+          </div>
+
+
            {tab === "deposit" && (
 
-                    <CardContent className="space-y-3 px-3 -mt-8">
+                    <CardContent className="space-y-3 px-2 bg-black-800 -mt-8">
           {/* STEP 1 */}
           {step === 1 && (
             <>
-              <div className="relative bg-black-700 mt-2">
+              <div className="relative bg-black-600 mt-1">
                 {/* Promotion selection */}
-                <div className="flex left-2 absolute text-slate-200 top-[18px] text-lg items-center gap-2">
+                <div className="flex left-2  absolute text-slate-200 top-[18px] text-lg items-center !rounded-md gap-2">
               
-                  <Label className="text-lg text-lg border-l-4 border-yellow-400 pl-4 bg-black-700 mb-4">Promotion</Label>
+                  <Label className="text-lg text-lg border-l-4 border-yellow-400 pl-4 bg-black-600 mb-4 ">Promotion</Label>
                 </div>
 
                 <Sheet
@@ -311,7 +349,7 @@ export default function EWalletPage() {
                   <SheetTrigger asChild>
                     <Button
                       variant="outline"
-                      className="w-full text-orange-400 bg-black-700 border-0 !rounded-lg h-16 text-lg pl-32 text-left"
+                      className="w-full text-slate-200 bg-black-600 border-0 !rounded-md h-16 text-md pl-34 text-left rounded-md"
                     >
                       {selectedPromotion
                         ? (() => {
@@ -328,7 +366,7 @@ export default function EWalletPage() {
 
                   <SheetContent
                     side="top"
-                    className="!top-[60px] p-4 h-screen bg-black-800  rounded-lg overflow-y-auto border-b-0"
+                    className="!top-[60px] p-4 h-screen bg-black-700  rounded-lg overflow-y-auto border-b-0"
                   >
                     <VisuallyHidden>
                       <DialogTitle>Mobile Menu</DialogTitle>
@@ -384,42 +422,47 @@ export default function EWalletPage() {
                   </SheetContent>
                 </Sheet>
               </div>
-              <div className="bg-black-700 p-4 rounded-md">
-                <Label className="text-slate-200 text-lg border-l-4 border-yellow-400 pl-4 bg-black-700 mb-4">
+              <div className="bg-black-600 p-2  -mt-1 rounded-md pt-3">
+                <Label className="text-slate-200 text-lg border-l-4 border-yellow-400 pl-4 bg-black-600 mb-1">
                   Payment Method
                 </Label>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-3 gap-3 pt-1">
                   {uniquePaymentOptions.map((p) => (
                     <button
                       key={p.name}
                       onClick={() => handlePaymentSelect(p.name)}
                       // disabled={p.is_active === false}
-                      className={`w-full flex justify-center items-center gap-2 py-4 px-2 rounded-lg font-medium transition 
+                      className={`w-full flex flex-col justify-center relative items-center gap-2 py-[10px] px-2 rounded-lg font-medium transition 
         ${
           selectedPayment &&
           p.name == paymentOptions.find((x) => x.id == selectedPayment)?.name
-            ? "bg-yellow-800 border-2 text-white border-yellow-400"
-            : "bbg-slate-500 text-gray-100 border-gray-300"
+            ? "bg-select  border-1 text-white border-yellow-400"
+            : "bg-unselect border-0 text-gray-100 border-gray-300"
         } 
         border
         ${!p.is_active ? "opacity-50 cursor-not-allowed !bg-yellow-200" : "hover:border-yellow-400"}
   
         `}
                     >
+                       <img src={paymentImages[p.name]} className="h-[29px]  rounded-md" />
                       {p.name} {p.is_active}
-                      <img src={paymentImages[p.name]} className="h-8" />
+                     <div class="absolute top-[10px] -right-[8px] rounded-sm inline-block bg-red-500 text-white font-bold px-[10px] py-[1px] text-sm">
+  +5%
+  <span class="absolute left-0 top-0 w-0 h-0 border-t-[16px] border-t-transparent border-b-[16px] border-b-transparent border-l-[8px] border-l-red-500"></span>
+</div>
+
                     </button>
                   ))}
                 </div>
 
                 <div className="border-yellow-400">
-                <div className="mt-4 w-full border-t-2 border-dashed border-slate-300 mt-6 mb-6" />
+                <div className="mt-4 w-full border-t-1 border-dashed border-slate-300 mt-6 mb-6" />
 
 
                   <div
-                    className={`w-[240px] items-center justify-between flex gap-8 py-3 bg-yellow-700 px-2 rounded-xl font-medium transition 
-    border-2 border-yellow-400 text-slate-100 text-lg`}
+                    className={`w-[170px] items-center justify-between flex gap-8 py-1 bg-select px-2 rounded-lg font-medium transition 
+    border-1 border-yellow-400 text-slate-100 text-lg mb-4`}
                   >
                     <div className="text-center">
                       {/* <img
@@ -432,7 +475,7 @@ export default function EWalletPage() {
                         className="h-8"
                       /> */}
                      
-                      <span className="text-center !text-xl !font-medium ml-6">  {paymentOptions.find((p) => p.id === selectedPayment)
+                      <span className="text-center !text-sm !font-medium ml-6">  {paymentOptions.find((p) => p.id === selectedPayment)
                         ?.name || "None"} Payment</span>
                     
                     </div>
@@ -460,8 +503,8 @@ export default function EWalletPage() {
     ))}
   </SelectContent>
 </Select> */}
-<div className="bg-black-700 p-5">
-     <Label className="-mt-1 text-lg border-l-4 border-yellow-400 pl-4 text-slate-200 mb-2">
+<div className="bg-black-600 rounded-sm p-2 pb-4 -mt-1">
+     <Label className="-mt-1 text-lg border-l-4 border-yellow-400 pl-4 text-slate-200 mb-1">
                 Deposit Channel
               </Label>
   <ToggleGroup
@@ -470,7 +513,7 @@ export default function EWalletPage() {
   onValueChange={(value) => {
     if (value) setSelectedChannel(value)
   }}
-  className="flex gap-3"
+  className="flex gap-3 py-2"
 >
   {[...new Set(
     paymentOptions
@@ -481,12 +524,12 @@ export default function EWalletPage() {
       key={c}
       value={c}
       className="
-        h-10 flex-1 w-[180px] !rounded-md border
-        bg-slate-600 text-slate-300 border-slate-700
+        h-[38px] flex-1 w-[180px] !rounded-lg border
+        bg-white/10 text-slate-300 border-transparent
         transition-all duration-200
-        data-[state=on]:bg-yellow-700
+        data-[state=on]:bg-yellow-500/30 
         data-[state=on]:text-white
-        data-[state=on]:border-yellow-200
+        data-[state=on]:border-yellow-400
       "
     >
       {c}
@@ -495,7 +538,7 @@ export default function EWalletPage() {
 </ToggleGroup>
 
 </div>
-<div className="bg-black-700 p-5 rounded-md">
+<div className="bg-black-600 p-5 rounded-sm  -mt-1">
           <Label className="mb-1  block text-slate-200 text-lg text-lg border-l-4 border-yellow-400 pl-4 !text-slate-200 mb-2">
             <div className="flex justify-between">
     <p> Deposit Amount </p> <p>৳ 200 - ৳ 30,000</p>
@@ -505,12 +548,12 @@ export default function EWalletPage() {
               </Label>
     
 
-              <div className="grid grid-cols-3 gap-2 mb-3">
+              <div className="grid grid-cols-4 gap-2 mb-3">
                 {[500, 1000, 2000, 5000, 10000, 25000].map((value) => (
                   <Button
                     key={value}
                     variant="outline"
-                    className={"bg-gray-700 !text-slate-200 text-lg !h-12 !rounded-xl !font-bold border-0"}
+                    className={"bg-white/10 !text-slate-200 text-md !h-[44px] !rounded-lg !font-bold border-0"}
                     onClick={() =>
                       setAmount((prev) =>
                         (Number(prev || 0) + value).toString(),
@@ -538,7 +581,7 @@ export default function EWalletPage() {
                 min={100}
                 max={25000}
                 onChange={(e) => setAmount(e.target.value)}
-                className="mb-3 bg-gray-500 border-0 h-14 text-slate-100 text-2xl font-bold"
+                className="mb-3 bg-white/10 border-0 h-14 text-slate-100 text-2xl font-bold"
               />
 </div>
 
@@ -546,7 +589,7 @@ export default function EWalletPage() {
   type="single"
   collapsible
    defaultValue="deposit-info"
-  className="w-full rounded-md border border-slate-700 bg-black-700"
+  className="w-full rounded-md border border-0 bg-black-600"
 >
   <AccordionItem value="deposit-info" className="border-b border-slate-700">
     <AccordionTrigger className="px-4 py-3 text-left text-white hover:no-underline">
@@ -554,7 +597,7 @@ export default function EWalletPage() {
     </AccordionTrigger>
 
     <AccordionContent className="px-4 pb-4 text-sm text-slate-300 leading-relaxed">
-       <div className="mt w-full border-t-2 border-dashed border-slate-300  my-3" />
+       <div className="mt w-full border-t-1 border-dashed border-slate-300  my-3" />
       <p className="space-y-2">
         ১. ক্যাশ আউট বা সেন্ডমানি করার আগে ‘ব্যক্তিগত তথ্য’ অংশে সর্বোচ্চ ৩টি মোবাইল
         নম্বর যোগ করে ভেরিফাই করুন।
@@ -593,15 +636,15 @@ export default function EWalletPage() {
 
           {/* STEP 2 */}
           {step === 2 && (
-            <div className="bg-black-700 p-5 rounded-md">
+            <div className="bg-black-600 p-5 mt-14 rounded-md">
               <button
                 onClick={() => setStep(1)}
                 className="
-    fixed top-[68px] left-4 z-50
+    fixed top-[128px] left-2 z-50
     h-10 w-10 rounded-full
-    bg-gradient-to-r from-orange-400 via-yellow-500 to-slate-600 text-white
+    bg-yellow-400 text-white
     flex items-center justify-center
-    shadow-lg shadow-orange-500/40
+    
     hover:bg-red-600 hover:scale-110
     active:scale-95
     transition-all duration-200
@@ -615,7 +658,7 @@ export default function EWalletPage() {
 
               <Label className="text-slate-200 text-lg mb-2">Your Number</Label>
               {/* <select
-      className="w-full p-2 h-14 rounded-md bg-slate-700 text-white text-lg"
+      className="w-full p-2 h-14 rounded-md bg-white/10 text-white text-lg"
       value={senderNumber || currentUser.phone} // default to main phone
       onChange={(e) => setSenderNumber(e.target.value)}
     >
@@ -631,11 +674,11 @@ export default function EWalletPage() {
                 value={senderNumber}
                 onValueChange={(value) => setSenderNumber(value)}
               >
-                <SelectTrigger className="!h-14 !bg-slate-700 w-full text-white rounded-md pl-3 border-0">
+                <SelectTrigger className="!h-14 !bg-white/10 w-full text-white rounded-md pl-3 border-0">
                   <SelectValue placeholder="Select channel or phone" />
                 </SelectTrigger>
 
-                <SelectContent className="bg-slate-700 text-white rounded-md">
+                <SelectContent className="bg-white/10 text-white rounded-md">
                   {/* Payment channels */}
                   {/* {[...new Set(paymentOptions.map((p) => p.deposit_channel))].map((c) => (
       <SelectItem key={c} value={c}>
@@ -659,11 +702,11 @@ export default function EWalletPage() {
                 <Input
                   value={receiverNumber}
                   readOnly
-                  className="bg-slate-700 border-0 h-14 text-white text-lg font-medium tracking-wider cursor-not-allowed"
+                  className="bg-white/10 border-0 h-14 text-white text-lg font-medium tracking-wider cursor-not-allowed"
                 />
                 <Button
                   variant="outline"
-                  className="bg-slate-700 h-14"
+                  className="bg-white/10 h-14"
                   onClick={() => copyText(receiverNumber)}
                   disabled={!receiverNumber}
                 >
@@ -700,15 +743,15 @@ export default function EWalletPage() {
 
           {/* STEP 3 */}
           {step === 3 && (
-            <div className="bg-black-700 p-5 rounded-md">
+            <div className="bg-black-600 p-5  mt-14 rounded-md">
               <button
                 onClick={() => setStep(1)}
                 className="
-    fixed top-[68px] left-6 z-50
+    fixed top-[128px] left-2 z-50
     h-10 w-10 rounded-full
-    bg-gradient-to-r from-orange-400 via-yellow-500 to-slate-600 text-white
+    bg-yellow-400 text-white
     flex items-center justify-center
-    shadow-lg shadow-orange-500/40
+
     hover:bg-red-600 hover:scale-110
     active:scale-95
     transition-all duration-200
@@ -721,7 +764,7 @@ export default function EWalletPage() {
 
               <Label className="text-slate-200 text-lg">Transaction ID</Label>
               <Input
-                className="text-slate-200 text-2xl font-bold border-0 text-lg bg-slate-600 mt-2 h-14"
+                className="text-slate-200 text-2xl font-bold border-0 text-lg bg-white/10 mt-2 h-14"
                 value={transactionId}
                 onChange={(e) => setTransactionId(e.target.value)}
               />

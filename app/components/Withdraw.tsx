@@ -222,13 +222,14 @@ const handleWithdraw = async () => {
 
 
   return (
-    <div className="max-w-screen mx-3 mt-2 mb-[200px]">
-        <div className="-mt-4 mb-3  flex justify-between items-center text-slate-200">
+    <div className="max-w-screen bg-black-800 px-3 -mt-8 mb-[200px]">
+      <p className="text-slate-200 pl-2 pt-1">Withdrawable Amount</p>
+        <div className="-mt-4 mb-3 pt-2 flex justify-between items-center text-slate-200">
           <p className="text-5xl text-white font-bold ml-2">৳</p>
 
           <p className="text-2xl mt-2 font-bold">{balance}</p>
         </div>
-      <Card className="bg-black-700 border-0 shadow-xl rounded-md">
+      <Card className="bg-black-600 border-0 shadow-xl rounded-md">
 
         <CardContent className="space-y-4">
 
@@ -250,12 +251,12 @@ const handleWithdraw = async () => {
                 className={`w-full flex items-center gap-2 py-4 px-4 rounded-lg font-medium transition 
                 ${
                   (selectedPayment === p.id && widthraw)
-                    ? "bg-yellow-800 border-2 text-white border-yellow-400"
-                    : "!bg-slate-600 text-gray-100 !border-0"
+                    ? "bg-select border text-white border-yellow-400"
+                    : "!bg-white/10 text-gray-100 !border-0"
                 } border
                   ${
                   widthraw
-                    ? "bg-slate-800 border-2 text-white "
+                    ? "bg-slate-800 border-1 text-white "
                     : "bg-slate-900 text-gray-100 !border-red-400"
                 } border
                 
@@ -292,7 +293,7 @@ const handleWithdraw = async () => {
       
         </CardContent>
       </Card>
-      <Card className="bg-black-700 border-0 shadow-xl rounded-md my-2 p-4">
+      <Card className="bg-black-600 border-0 shadow-xl rounded-md my-2 p-4">
 
     
                            <Label className="mb-1  block text-slate-200 text-lg text-lg border-l-4 border-yellow-400 pl-4 !text-slate-200 mb-2">
@@ -309,7 +310,7 @@ const handleWithdraw = async () => {
                   <Button
                     key={value}
                     variant="outline"
-                    className={"bg-gray-700 !text-slate-200 text-lg !h-12 !rounded-xl !font-bold border-0"}
+                    className={"bg-white/10 !text-slate-200 text-lg !h-12 !rounded-xl !font-bold border-0"}
                     onClick={() =>
                       setAmount((prev) =>
                         (Number(prev || 0) + value).toString(),
@@ -328,21 +329,22 @@ const handleWithdraw = async () => {
   min={100}
   max={25000}
   onChange={(e) => setAmount(e.target.value)}
-  className="mb-3 bg-slate-900 h-14 -mt-6  border-0 text-slate-200 text-lg font-bold"
+  className="mb-3 bg-white/10 h-14 -mt-6 border-0 text-slate-200 text-lg font-bold placeholder-slate-400"
   placeholder="Enter amount"
 />
 
-      </Card>
-      <Card className="bg-black-700 border-0 shadow-xl rounded-md my-2 p-4">
 
-                  <Label className="mt-0 -mb-3 text-slate-200 text-lg border-l-4 border-yellow-400 pl-4 bg-black-700 ">Please Select Your Number</Label>
+      </Card>
+      <Card className="bg-black-600 border-0 shadow-xl rounded-md my-2 p-4">
+
+                  <Label className="mt-0 -mb-3 text-slate-200 text-lg border-l-4 border-yellow-400 pl-4 bg-black-600 ">Please Select Your Number</Label>
 
 
                     <Select
             value={selectedPhone || ""}
             onValueChange={(value) => setSelectedPhone(value)}
           >
-            <SelectTrigger className="!h-14 bg-slate-900 w-full border-yellow-500  text-white rounded-md pl-4">
+            <SelectTrigger className="!h-14 bg-white/10  w-full border-yellow-500  text-white rounded-md pl-4">
             
               <SelectValue placeholder="Select channel" />
             </SelectTrigger>

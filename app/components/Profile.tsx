@@ -41,6 +41,7 @@ import { DotLoadingButton } from "./DotLoadingButton";
 import { useAutoFetch } from "@/hooks/use-auto-fetch";
 import { ex } from "@/utils/exclusive";
 import RefreshButton from "./RefreshButton";
+import { link } from "fs";
 
 interface BalanceData {
   balance: number;
@@ -65,6 +66,15 @@ type User = {
   role: string;
   is_block_user: boolean;
   turnover: string;
+};
+interface SocialLink {
+  platform: "telegram" | "whatsapp" | "messenger";
+  group_link: string;
+  is_active: boolean;
+}
+
+type SocialLinksMap = {
+  [key in SocialLink["platform"]]: string | null;
 };
 interface ProfileProps {
   onAction: () => void; // your callback
@@ -268,6 +278,43 @@ const features = [
   
   { id: 4, name: "Ambassador", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-ambassador.svg?v=1767782599110" },
 ];
+ const [links, setLinks] = useState<SocialLinksMap>({
+    telegram: null,
+    whatsapp: null,
+    messenger: null,
+  });
+
+  useEffect(() => {
+    const fetchSocialLinks = async () => {
+      try {
+        const res = await fetch("https://api.bajiraj.cloud/users/social-link");
+        const data: { data: SocialLink[] } = await res.json();
+
+        const formatted: SocialLinksMap = {
+          telegram: null,
+          whatsapp: null,
+          messenger: null,
+        };
+
+        data.data.forEach((item) => {
+          formatted[item.platform] = item.is_active ? item.group_link : null;
+        });
+
+        setLinks(formatted);
+      } catch (err) {
+        console.error("Failed to fetch social links:", err);
+      }
+    };
+
+    fetchSocialLinks();
+  }, []);
+
+  // Icon mapping
+  const icons: Record<SocialLink["platform"], string> = {
+    telegram: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-telegram-channel.svg",
+    whatsapp: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-whatsapp.svg",
+    messenger: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-facebook.svg",
+  };
   return (
   
 <>
@@ -306,7 +353,7 @@ const features = [
               
                 </div>
            
-                                    <div className="bg-yellow-300 flex px-4 justify-between py-4  flex items-center">
+                                    <div className="bg-yellow-300/90 flex px-4 justify-between py-[8px]  flex items-center">
                                       <div>
 
                                                                             <p className="text-slate-900 font-medium">                      Main Wallet</p>
@@ -325,8 +372,8 @@ const features = [
 </div>
                               
                 </div>
-<div className="mt-2 card-bg p-2 rounded-md mx-2 my-2">
- <p>Funds</p>
+<div className="mt-2 bg-black-600 px-2 pt-2 text-md font-medium rounded-md mx-2 my-2">
+ <p className="font-medium pl-2">Funds</p>
                  <div className="grid grid-cols-4 md:grid-cols-4 gap-1 z-200">
                
    
@@ -350,7 +397,7 @@ const features = [
             src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-withdrawal.svg?v=1768297086272&quot"}
             alt={""}
           />
-          <span className="text-slate-200 text-slate-200 text-md font-bold">Withdraw</span>
+          <span className="text-slate-200  text-slate-200 text-md font-bold">Withdraw</span>
         </div>
            <div
     onClick={()=> handleReferral()}
@@ -361,15 +408,15 @@ const features = [
             src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-referral.svg?v=1768297086272&quot"}
             alt={""}
           />
-          <span className="text-slate-200 text-md font-bold">Referral Bonus</span>
+          <span className="text-slate-200 text-md font-bold">Referrals</span>
         </div>
     
     </div>
 
 </div>
 
-<div className="mt-2 card-bg p-2 rounded-md mx-2 my-2">
- <p>History</p>
+<div className="mt-2 bg-black-600 p-2 rounded-md mx-2 my-2">
+ <p className="font-medium  pl-2">History</p>
                  <div className="grid grid-cols-4 md:grid-cols-4 gap-1 ">
                
     
@@ -411,8 +458,8 @@ const features = [
     </div>
 
 </div>
-<div className="mt-2 card-bg p-2 rounded-md mx-2 my-2">
- <p>My</p>
+<div className="mt-2 bg-black-600 p-2 rounded-md mx-2 my-2">
+ <p className="font-medium pl-2">My</p>
                  <div className="grid grid-cols-4 md:grid-cols-4 gap-1 ">
                
    
@@ -430,7 +477,7 @@ const features = [
 
                <div
     
-          className=" p-5 rounded-md flex flex-col items-center"
+          className=" p-5 relative rounded-md flex flex-col items-center"
         >
           <img
             className="bg-yellow-300 p-[2px] rounded-full mb-2 "
@@ -438,27 +485,59 @@ const features = [
             alt={""}
           />
           <span className="text-slate-200 text-md font-bold">Notification</span>
+            <span className="absolute right-6 bg-red-600 px-[4px] rounded-full top-3 text-sm">{unreadCount}</span> 
         </div>
     
-      {unreadCount}
+   
     </div>
 
 </div>
-<div className="mt-2 card-bg p-2 rounded-md mx-2 my-2">
- <p className="mb-2">Contact Us</p>
-                 <div className="grid grid-cols-3 md:grid-cols-4 gap-1 ">
+<div className="mt-2 bg-black-600 p-2 rounded-md mx-2 my-2">
+ <p className="mb-2 font-medium pl-2">Contact Us</p>
+                 <div className=" ">
                
-        <div
+
+        <div className="grid grid-cols-6 mt-4 md:grid-cols-4 gap-1 ">
+            <div
         
-          className=" rounded-md flex -ml-12 flex-col items-center"
+          className=" rounded-md flex mr-4 flex-col items-center"
         >
           <img
-            className="bg-yellow-300 p-[1px] rounded-full mb-2 "
+            className="bg-yellow-300 h-10 p-[1px] rounded-full mb-2 "
             src="  https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-customer.svg?v=1767782599110&quot"
             alt="reffer"
           />
-          <span className="text-slate-200 text-md font-bold font-medium ml-2">Live Chat</span>
+<span>Live Chat</span>
         </div>
+                   {Object.keys(icons).map((platform) => {
+        const key = platform as SocialLink["platform"];
+        return (
+          <>
+               <a
+            key={key}
+            href={links[key] || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={links[key] ? "-mr-6" : "opacity-30 -mr-3 pointer-events-none"}
+          >
+            <img src={icons[key]} alt={key} width={38} height={38} />
+          </a>
+          {/* <p>{key}</p> */}
+          </>
+     
+        );
+      })}
+  
+
+        </div>
+     
+        <div className="border-t border-gray-800 card-bg text-white rounded-md p-3 pt-4">
+
+
+
+
+
+</div>
     </div>
 
 </div>
@@ -484,7 +563,7 @@ const features = [
      {user && (
                     <button
                       onClick={handleLogout}
-                      className="px-3 mb-[220px] mt-6 w-full py-[10px] text-2xl bg-yellow-300 text-slate-900 font-medium rounded hover:bg-blue-600"
+                      className="px-3 mx-3 mb-[220px] mt-6 w-[94%] py-[12px] text-2xl bg-yellow-300/90 text-slate-900 font-medium rounded hover:bg-blue-600"
                     >
                       Log Out
                     </button>

@@ -39,7 +39,7 @@ const [loadingText, setLoadingText] = useState("Launching game...");
 
 
        {loading && (
-  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 ">
     <div className="relative flex flex-col items-center justify-center gap-4">
 
       {/* Rotating gradient rings with text inside */}
