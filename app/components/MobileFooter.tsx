@@ -310,7 +310,7 @@ const features = [
       className={`absolute bottom-3 left-1/2 -translate-x-1/2 z-5
         transition-all duration-500 ease-out transform 
         ${isActive("/") ? "text-slate-900 w-6 h-6 scale-100 " : "text-white w-6 h-6 scale-100"} 
-        drop-shadow-2xl hover:scale-130  cursor-pointer`}
+        drop-shadow-2xl   cursor-pointer`}
     />
 
   
@@ -356,7 +356,7 @@ const features = [
       className={`absolute bottom-3 left-1/2 -translate-x-1/2 z-5
         transition-all duration-500 ease-out transform 
         ${isActive("/all-casino") ? "text-slate-900 w-6 h-6 scale-100 " : "text-white w-6 h-6 scale-100"} 
-        drop-shadow-2xl hover:scale-130  cursor-pointer`}
+        drop-shadow-2xl   cursor-pointer`}
     />
 
   
@@ -397,7 +397,7 @@ const features = [
       className={`absolute bottom-3 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
         ${isActive("/all-slot") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
-        drop-shadow-2xl hover:scale-130  cursor-pointer`}
+        drop-shadow-2xl   cursor-pointer`}
     />
 
  </div>
@@ -429,7 +429,7 @@ const features = [
       className={`absolute bottom-3 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
         ${isActive("/deposit") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
-        drop-shadow-2xl hover:scale-130  cursor-pointer`}
+        drop-shadow-2xl   cursor-pointer`}
     />
 
   </div>
@@ -471,7 +471,7 @@ const features = [
       className={`absolute bottom-3 left-1/2 -translate-x-1/2 z-5
         transition-all duration-500 ease-out transform 
         ${isActive("/deposit") ? "text-slate-900 w-6 h-6 scale-100 " : "text-white w-6 h-6 scale-100"} 
-        drop-shadow-2xl hover:scale-130  cursor-pointer`}
+        drop-shadow-2xl   cursor-pointer`}
     />
 
   
@@ -517,7 +517,7 @@ const features = [
       className={`absolute bottom-3 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
         ${psheetOpen ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
-        drop-shadow-2xl hover:scale-130  cursor-pointer`}
+        drop-shadow-2xl   cursor-pointer`}
     />
 
 
