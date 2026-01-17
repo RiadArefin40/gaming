@@ -275,7 +275,7 @@ setLoading(false);
         <div className="absolute inset-0 rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
 
         {/* Center text */}
-        <span className="relative text-white text-xl font-bold drop-shadow-lg">
+       <span className="relative text-yellow-400 text-md font-bold drop-shadow-lg">
           Bajiraj
         </span>
       </div>

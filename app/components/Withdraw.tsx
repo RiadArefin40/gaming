@@ -18,7 +18,11 @@ import {
 import { CheckCircle2, Loader2 } from "lucide-react";
 
 import { useRouter } from "next/navigation";
-
+import { useAutoFetch } from "@/hooks/use-auto-fetch";
+interface BalanceData {
+  balance: number;
+  turnover: number;
+}
 type User = {
   id: number;
   email: string | null;
@@ -55,7 +59,7 @@ type  paymentImages = {
     Upai: string;
 }
 
-export default function WithdrawPage() {
+export default function Withdraw() {
   const [user, setUser] = useState<User | null>(null);
   const [phones, setPhones] = useState<Phone[]>([]);
   const [selectedPhone, setSelectedPhone] = useState<string>("");
@@ -101,7 +105,13 @@ const [delay, setDelay] = useState(10)
     Upai: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/upay.png",
     Rocket:"https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/rocket.png?v=1766500192641&quot"
   };
+   const { data } = useAutoFetch<BalanceData | undefined>(
+     user ? `https://api.bajiraj.cloud/users/${user.id}/balance` : "",
+     10000
+   );
  
+   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+   const balance = data?.balance ?? 0;
   useEffect(() => {
     const u = getAuthUser() as User | null;
     setUser(u);
@@ -212,15 +222,18 @@ const handleWithdraw = async () => {
 
 
   return (
-    <div className="max-w-screen mx-auto mt-2 mb-[200px]">
-      <Card className="bg-black-800 border-0 shadow-xl rounded-2xl">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl text-white">Withdraw</CardTitle>
-        </CardHeader>
+    <div className="max-w-screen mx-3 mt-2 mb-[200px]">
+        <div className="-mt-4 mb-3  flex justify-between items-center text-slate-200">
+          <p className="text-5xl text-white font-bold ml-2">৳</p>
+
+          <p className="text-2xl mt-2 font-bold">{balance}</p>
+        </div>
+      <Card className="bg-black-700 border-0 shadow-xl rounded-md">
+
         <CardContent className="space-y-4">
 
           {/* Payment Method */}
-          <Label className="text-slate-200 text-2xl">Payment Method</Label>
+          <Label className="text-slate-200 text-lg -mt-4">Payment Method</Label>
           {!widthraw && (
             <p className="text-red-400">Widthraw is Disabled till morning 7AM</p>
           )}
@@ -237,8 +250,8 @@ const handleWithdraw = async () => {
                 className={`w-full flex items-center gap-2 py-4 px-4 rounded-lg font-medium transition 
                 ${
                   (selectedPayment === p.id && widthraw)
-                    ? "bg-slate-800 border-2 text-white border-orange-500"
-                    : "bg-slate-900 text-gray-100 border-gray-400"
+                    ? "bg-yellow-800 border-2 text-white border-yellow-400"
+                    : "!bg-slate-600 text-gray-100 !border-0"
                 } border
                   ${
                   widthraw
@@ -259,69 +272,10 @@ const handleWithdraw = async () => {
 
 
 
-          {/* Phone Selection */}
-          <Label className="mt-4 text-slate-200 text-lg">Your Number</Label>
-          {/* <select
-            className="w-full p-2 h-14 rounded-md bg-slate-700 text-white"
-            value={selectedPhone}
-            onChange={(e) => setSelectedPhone(e.target.value)}
-          >
-            <option value="">Select number</option>
-            {[user.phone, ...phones.map(p => p.phone)].map((n) => (
-              <option key={n} value={n}>{n}</option>
-            ))}
-          </select> */}
+     
 
-                    <Select
-            value={selectedPhone || ""}
-            onValueChange={(value) => setSelectedPhone(value)}
-          >
-            <SelectTrigger className="!h-14 bg-slate-900 w-full  text-white rounded-md pl-4">
-            
-              <SelectValue placeholder="Select channel" />
-            </SelectTrigger>
-            <SelectContent className="bg-slate-700 text-white rounded-md">
-              {[...new Set(phones.map((p) => p.phone))].map((c) => (
-                <SelectItem key={c} value={c}>
-                  {c}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
 
-          {/* Amount */}
-          {/* <Label className="mt-4 text-slate-200 text-lg">Amount</Label>
-          <Input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className="mb-3 bg-slate-700 h-14 text-slate-100 text-lg"
-            placeholder="Enter amount"
-          /> */}
-<Input
-  type="number"
-  value={amount}
-  min={100}
-  max={25000}
-  onChange={(e) => setAmount(e.target.value)}
-  className="mb-3 bg-slate-900 h-14 text-slate-100 text-lg"
-  placeholder="Enter amount"
-/>
 
-<div className="grid grid-cols-3 gap-2 mb-3 mt-3">
-  {[ 500, 1000, 10000, 25000].map((value) => (
-    <Button
-      key={value}
-      variant="outline"
-      onClick={() => setAmount((prev) => {
-        const current = Number(prev) || 0;
-        return (current + value).toString();
-      })}
-    >
-      +{value}
-    </Button>
-  ))}
-</div>
 
 {Number(amount) < 100 && amount !== "" && (
   <p className="text-lg text-red-500 mb-2">
@@ -335,16 +289,80 @@ const handleWithdraw = async () => {
 )}
 
 
+      
+        </CardContent>
+      </Card>
+      <Card className="bg-black-700 border-0 shadow-xl rounded-md my-2 p-4">
+
+    
+                           <Label className="mb-1  block text-slate-200 text-lg text-lg border-l-4 border-yellow-400 pl-4 !text-slate-200 mb-2">
+            <div className="flex justify-between">
+    <p>Amount </p> <p>৳ 200 - ৳ 30,000</p>
+            </div>
+        
+              
+              </Label>
+
+  
+            <div className="grid grid-cols-3 gap-2 mb-3 -mt-4">
+                {[500, 1000, 2000, 5000, 10000, 25000].map((value) => (
+                  <Button
+                    key={value}
+                    variant="outline"
+                    className={"bg-gray-700 !text-slate-200 text-lg !h-12 !rounded-xl !font-bold border-0"}
+                    onClick={() =>
+                      setAmount((prev) =>
+                        (Number(prev || 0) + value).toString(),
+                      )
+                    }
+                  >
+                    {value}
+                  </Button>
+                ))}
+              </div>
+
+
+<Input
+  type="number"
+  value={amount}
+  min={100}
+  max={25000}
+  onChange={(e) => setAmount(e.target.value)}
+  className="mb-3 bg-slate-900 h-14 -mt-6  border-0 text-slate-200 text-lg font-bold"
+  placeholder="Enter amount"
+/>
+
+      </Card>
+      <Card className="bg-black-700 border-0 shadow-xl rounded-md my-2 p-4">
+
+                  <Label className="mt-0 -mb-3 text-slate-200 text-lg border-l-4 border-yellow-400 pl-4 bg-black-700 ">Please Select Your Number</Label>
+
+
+                    <Select
+            value={selectedPhone || ""}
+            onValueChange={(value) => setSelectedPhone(value)}
+          >
+            <SelectTrigger className="!h-14 bg-slate-900 w-full border-yellow-500  text-white rounded-md pl-4">
+            
+              <SelectValue placeholder="Select channel" />
+            </SelectTrigger>
+            <SelectContent className="bg-slate-700 text-white rounded-md">
+              {[...new Set(phones.map((p) => p.phone))].map((c) => (
+                <SelectItem key={c} value={c}>
+                  {c}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+      </Card>
           <Button
-            className="w-full h-14 mt-4 bg-orange-400 text-lg"
+            className="w-full h-14 mt-4 bg-yellow-300 text-xl text-slaye-800 font-bold"
             onClick={handleWithdraw}
             disabled={isLoading || !selectedPhone ||  Number(amount)  < 100 ||
  Number(amount) > 2500  || !selectedPayment || !selectedChannel}
           >
             {isLoading ? "Processing..." : "Submit Withdraw"}
           </Button>
-        </CardContent>
-      </Card>
       <Dialog open={successModalOpen} onOpenChange={setSuccessModalOpen}>
         <DialogContent className="max-w-md rounded-2xl p-8 text-center">
           

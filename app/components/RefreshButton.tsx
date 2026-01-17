@@ -31,14 +31,14 @@ export default function RefreshButton({ balance, onRefresh, loading }: RefreshBu
     >
       <div className="flex  items-center gap-4 pointer-events-auto">
         {/* Balance Icon */}
-        <div className="relative h-7 w-7 rounded-full bg-gradient-to-b from-orange-500 to-orange-800 shadow-[inset_0_2px_2px_rgba(255,255,255,0.35),_0_3px_6px_rgba(0,0,0,0.45)]">
+        <div className="relative h-7 w-7 rounded-full bg-gradient-to-b from-yellow-500 to-yellow-800 shadow-[inset_0_2px_2px_rgba(255,255,255,0.35),_0_3px_6px_rgba(0,0,0,0.45)]">
           <div
             className="absolute inset-1 rounded-full 
-              bg-gradient-to-b from-orange-700 to-orange-400
+              bg-gradient-to-b from-yellow-700 to-yellow-400
               shadow-[inset_0_3px_4px_rgba(0,0,0,0.55),inset_0_-1px_1px_rgba(255,255,255,0.25)]
               flex items-center justify-center"
           >
-            <span className="text-sm -ml-1 font-bold drop-shadow-lg">৳</span>
+            <span className="!text-2xl -mt-2 text-slate-700 font-bold drop-shadow-lg">৳</span>
           </div>
           <div className="absolute top-[6px] left-[7px] h-[2px] w-4 rounded-full bg-white/25 blur-[1px]" />
         </div>

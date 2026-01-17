@@ -51,8 +51,11 @@ const ReferralPage = () => {
       {/* Referral Code + Time Range */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
-          <p className="text-gray-100 text-xl mb-2">Your Referral Code</p>
-          <div className="flex items-center gap-2 bg-gray-800 rounded-lg px-4 py-2 w-fit">
+          <img _ngcontent-serverapp-c2798261857="" className="ng-tns-c2798261857-25" alt="referral-invite-banner-en" src="https://img.m156b.com/mb/h5/assets/images/player/referral/referral-invite-banner-en.png?v=1768297086272&amp;source=mcdsrc" loading="lazy"></img>
+        </div>
+        <div className="bg-black-700 p-4 rounded-md">
+          <p className="text-gray-100 text-xl mb-2 border-l-4 border-yellow-400 pl-4 bg-black-700 mb-4">Invitation Code</p>
+          <div className="flex items-center gap-2 bg-gray-600 rounded-lg pl-4 w-fit">
             <span className="font-mono font-semibold text-lg text-white">{myreferral || "N/A"}</span>
             <button
               onClick={() => {
@@ -61,13 +64,13 @@ const ReferralPage = () => {
                   alert("Referral code copied!");
                 }
               }}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded-md text-sm transition"
+              className="bg-yellow-500 hover:bg-yellow-600  px-2 py-3 rounded-md text-lg text-slate-900 font-bold transition"
             >
               Copy
             </button>
           </div>
         </div>
-
+{/* 
         <Select onValueChange={setTimeRange} defaultValue="Last 7 days">
           <SelectTrigger className="w-36">
             <SelectValue placeholder="Select range" />
@@ -77,11 +80,14 @@ const ReferralPage = () => {
             <SelectItem value="Last 30 days">Last 30 days</SelectItem>
             <SelectItem value="Last 90 days">Last 90 days</SelectItem>
           </SelectContent>
-        </Select>
+        </Select> */}
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="bg-black-700 p-4 rounded-md">
+
+          <p className="text-gray-100 text-xl mb-2 border-l-4 border-yellow-400 pl-4 bg-black-700 mb-4">Invitation Code</p>
+                <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="bg-gray-800 rounded-lg p-4 text-center">
           <p className="text-gray-100">Total Referrals</p>
           <p className="text-2xl font-bold text-green-400">{totalValid}</p>
@@ -97,8 +103,9 @@ const ReferralPage = () => {
       </div>
 
       {/* Tabs */}
+      <img className="mb-4" src="https://img.m156b.com/mb/h5/assets/images/player/referral/receive-betting-bonus-banner-en.png?v=1768297086272&source=mcdsrc" alt="" />
       <Tabs defaultValue="all">
-        <TabsList className="mb-4 bg-slate-500 mx-auto">
+        <TabsList className="mb-4 bg-yellow-500 mx-auto">
           <TabsTrigger value="all">All Referrals</TabsTrigger>
         </TabsList>
 
@@ -106,6 +113,8 @@ const ReferralPage = () => {
           <ReferralList data={filteredReferrals} setData={setReferralData} />
         </TabsContent>
       </Tabs>
+      </div>
+
     </div>
   );
 };

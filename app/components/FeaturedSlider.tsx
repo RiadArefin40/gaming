@@ -108,7 +108,7 @@ export default function FeaturedSlider({
   return (
     <div className="p-0">
          <div className="mb-4 flex items-center justify-between">
-  <p className="text-xl border-l-4 border-orange-400 pl-4">
+  <p className="text-xl border-l-4 border-yellow-400 pl-4">
     Featured
   </p>
 

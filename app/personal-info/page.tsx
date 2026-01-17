@@ -171,7 +171,7 @@ useEffect(() => {
           </div>
         
           {/* <div className="flex justify-between items-center">
-            <p>    <span className="text-gray-300">Phone</span> <span className="bg-green-400 text-bold rounded-full px-2 py-1">Primary</span></p>
+            <p>    <span className="text-gray-300">Phone</span> <span className="bg-yellow-300 text-bold rounded-full px-2 py-1">Primary</span></p>
         
            <span className="font-medium">{phones?.[0].phone} &gt;</span>
               <p className={`text-lg ${phones?.[0].is_verified ? "text-green-400" : "text-orange-400"}`}>

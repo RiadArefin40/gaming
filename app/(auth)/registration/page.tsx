@@ -124,20 +124,23 @@ useEffect(() => {
     text-white
     relative
     overflow-hidden
-    mt-[20px]
+    mt-[0px]
+    transform-gpu
     transition-all
     duration-900
-    ease-out
+    ease-[cubic-bezier(0.22,1,0.36,1)]
     ${
       isVisible
         ? "opacity-100 translate-y-0"
-        : "opacity-0 translate-y-4"
+        : "opacity-0 -translate-y-full"
     }
   `}>
       {/* Header */}
-     <header className="h-14 px-4 flex items-center justify-end">
+  
+      <header className="h-14 px-4 py-2  relative bg-black-700 ">
+        <h1 className="text-center mx-auto mt-2 !font-bold text-xl">Sign Up</h1>
         <button
-                  className=" px-2 py-1 rounded-lg flex items-center justify-center px-3 z-50  "
+                  className=" px-2 py-1 rounded-lg absolute right-2 top-1 px-3 z-50  "
                   onClick={() => backToHome()}
                 >
                   <X className="w-9 h-9 text-gray-100 hover:text-red-600" />
@@ -146,7 +149,9 @@ useEffect(() => {
 
       {/* Background */}
       <div className="absolute " />
-
+  <div className="text-center py-4">
+        <span className="text-yellow-300 text-5xl  ">Jili</span> <span className="text-5xl">Win</span>
+      </div>
       <div className="relative z-10 px-4 pt-6 max-w-md mx-auto">
   
 
@@ -213,11 +218,15 @@ useEffect(() => {
   <DotLoadingButton
     onClick={handleSignUp}
     loading={isLoadinge}
-                         className="px-3 w-full mb-[220px] mt-6 w-full py-[8px] text-lg text-slate-900 primary-bg font-medium rounded hover:bg-orange-600"
+                         className="px-3 w-full mb-[20px] mt-6 w-full py-[8px] text-lg text-slate-900 primary-bg font-medium rounded hover:bg-orange-600"
 
   >
     Sign Up
   </DotLoadingButton>
+</div>
+<div className="text-center text-slate-300 my-2">
+<p><span>Are You already a member?</span> <span onClick={() => router.push("/login")} className="text-yellow-300" >Login</span></p>
+<p className="-mt-2"> Registering means you are over 18 years old </p>
 </div>
 
      

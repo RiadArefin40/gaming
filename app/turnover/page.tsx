@@ -58,23 +58,46 @@ export default function TurnoverPage() {
   const completedTurnover = data.turnover.filter(t => t.complete);
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white">
+    <div className="min-h-screen bg-black-800 text-white">
       {/* Header */}
-      <div className="border-b border-neutral-800 px-4 py-3">
+      <div className=" border-neutral-800 px-4 py-3">
         <h1 className="text-lg font-semibold">টার্নওভার</h1>
         <p className="text-sm text-neutral-400 mt-1">Balance: ৳ {data.balance}</p>
       </div>
 
       {/* Tabs */}
-      <Tabs defaultValue="active" className="px-4 pt-8">
-        <TabsList className="bg-slate-500 mx-auto border-b border-neutral-800 rounded-none">
-          <TabsTrigger value="active" className="data-[state=active]:text-orange-500">
-            একটিভ
-          </TabsTrigger>
-          <TabsTrigger value="completed" className="data-[state=active]:text-orange-500">
-            সম্পূর্ণ হয়েছে
-          </TabsTrigger>
-        </TabsList>
+      <Tabs defaultValue="active" className="px-4 w-full pt-8">
+ <TabsList className="flex bg-black-800 w-full">
+    <TabsTrigger
+      value="active"
+      className="
+        relative flex-1 pb-4 bg-black-800 text-white text-center 
+        data-[state=active]:text-yellow-500
+        after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2
+        after:w-8 after:h-1 after:bg-yellow-500 
+        after:opacity-100
+        data-[state=inactive]:after:opacity-0
+        after:transition-opacity after:duration-200
+      "
+    >
+      Active
+    </TabsTrigger>
+
+    <TabsTrigger
+      value="completed"
+      className="
+        relative pb-4 flex-1 bg-black-800 text-white text-center 
+        data-[state=active]:text-yellow-500
+        after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2
+        after:w-8 after:h-1 after:bg-yellow-500 
+        after:opacity-100
+        data-[state=inactive]:after:opacity-0
+        after:transition-opacity after:duration-200
+      "
+    >
+      Completed
+    </TabsTrigger>
+  </TabsList>
 
         {/* Active */}
         <TabsContent value="active" className="mt-4 space-y-3 text-neutral-400">
@@ -90,8 +113,8 @@ export default function TurnoverPage() {
                 progress >= 90
                   ? "bg--500"
                   : progress >= 50
-                  ? "bg-yellow-400"
-                  : "bg-orange-500";
+                  ? "bg-yellow-300"
+                  : "bg-yellow-500";
 
               return (
                 <TurnoverCard
@@ -106,7 +129,29 @@ export default function TurnoverPage() {
               );
             })
           ) : (
-            <div>কোনো একটিভ টার্নওভার নেই</div>
+            <div className="mx-auto bg-black-600 rounded-md p-4">
+<h1 className="text-center text-2xl">No Data Found</h1>
+            <video
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="auto"
+      className="ml-10"
+   
+    >
+      <source
+        src="https://img.m156b.com/mb/h5/assets/images/animation/no-data.mov?v=1768297086272"
+        type="video/quicktime"
+      />
+      <source
+        src="https://img.m156b.com/mb/h5/assets/images/animation/no-data.webm?v=1768297086272"
+        type="video/webm"
+      />
+      {/* Fallback text */}
+      Your browser does not support the video tag.
+    </video>
+            </div>
           )}
         </TabsContent>
 
@@ -121,7 +166,7 @@ export default function TurnoverPage() {
                 progress={100}
                 progressText={`${t.amount || "0"} / ${t.amount || "0"}`}
                 status="completed"
-                progressClassName="bg-green-500"
+                progressClassName="bg-yellow-500"
               />
             ))
           ) : (

@@ -8,6 +8,7 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Gift } from "lucide-react";
 import { getAuthUser } from "@/lib/auth";
 import { useRouter } from "next/navigation";
@@ -17,7 +18,27 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"; // if you use radix or ui kit
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import Withdraw from "../components/Withdraw"
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+
+import {
+  ToggleGroup,
+  ToggleGroupItem,
+} from "@/components/ui/toggle-group"
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -28,29 +49,25 @@ import {
 } from "@/components/ui/dialog";
 import { ArrowLeft, CheckCircle2, Loader2 } from "lucide-react";
 
-
-
 // const user = (() => {
 //   const stored = localStorage.getItem("auth_user");
 //   return stored ? JSON.parse(stored)  : null;
 // })();
 
-
 export default function EWalletPage() {
   const router = useRouter();
 
-
-    const [currentUser, setUser] = useState(null);
+  const [currentUser, setUser] = useState(null);
 
   useEffect(() => {
     const stored = localStorage.getItem("auth_user");
     if (stored) setUser(JSON.parse(stored));
   }, []);
 
-// const currentUser = (() => {
-//   const stored = localStorage.getItem("auth_user");
-//   return stored ? JSON.parse(stored)  : null;
-// })();
+  // const currentUser = (() => {
+  //   const stored = localStorage.getItem("auth_user");
+  //   return stored ? JSON.parse(stored)  : null;
+  // })();
   // const currentUser = getAuthUser();
   const [promotionSheetOpen, setPromotionSheetOpen] = useState(false);
   const [promotions, setPromotions] = useState([]);
@@ -77,33 +94,33 @@ export default function EWalletPage() {
     Nagad:
       "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/nagad.png",
     Upai: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/upay.png",
-    Rocket:"https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/rocket.png?v=1766500192641&quot"
+    Rocket:
+      "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/rocket.png?v=1766500192641&quot",
   };
-      const [infoModal, setInfoModal] = useState(false);
+  const [infoModal, setInfoModal] = useState(false);
   useEffect(() => {
     const load = async () => {
       const promoRes = await fetch("https://api.bajiraj.cloud/promos");
       const promoData = await promoRes.json();
 
       const payRes = await fetch("https://api.bajiraj.cloud/payment-gateways/");
-      const payData = (await payRes.json());
+      const payData = await payRes.json();
 
       setPromotions(promoData);
 
-       let defaultPromo = promoData.find(p => p.promo_type == "default");
+      let defaultPromo = promoData.find((p) => p.promo_type == "default");
 
-      setSelectedPromotion(defaultPromo.id || 9)
+      setSelectedPromotion(defaultPromo.id || 9);
       setPaymentOptions(payData);
 
       if (payData.length) {
-        
         const activePayData = payData.filter((p) => p.is_active);
         setSelectedChannel(activePayData[0]?.deposit_channel);
-        const activePayment = payData.find(item => item.is_active === true);
+        const activePayment = payData.find((item) => item.is_active === true);
 
-if (activePayment) {
-  setSelectedPayment(activePayment.id);
-}
+        if (activePayment) {
+          setSelectedPayment(activePayment.id);
+        }
 
         setReceiverNumber(payData[0].agent_number);
       }
@@ -131,7 +148,7 @@ if (activePayment) {
     if (!number || number.length < 6) return number;
     return `${number.slice(0, 3)}****${number.slice(-3)}`;
   };
-const [depositAlert, setDepositAlert] = useState('')
+  const [depositAlert, setDepositAlert] = useState("");
   const handleDeposit = async () => {
     if (!canStep3) return;
 
@@ -153,128 +170,138 @@ const [depositAlert, setDepositAlert] = useState('')
           promo_code: promo?.code,
         }),
       });
-      
-    
-      setDepositAlert(`Deposit of ${amount} Succes. Please wait 30 second to for auto approve.`);
-     // setStep(1);
+
+      setDepositAlert(
+        `Deposit of ${amount} Succes. Please wait 30 second to for auto approve.`,
+      );
+      // setStep(1);
       setSenderNumber("");
       setTransactionId("");
-    } 
-    catch(error) {
+    } catch (error) {
       console.error("Deposit failed:", error);
 
       setDepositAlert("Deposit failed. Please try again.");
-    }
-    finally {
-         setTimeout(() => {
-            setSuccessModalOpen(true);
-            setIsLoading(false);
-
-        }, 500);
-  
+    } finally {
+      setTimeout(() => {
+        setSuccessModalOpen(true);
+        setIsLoading(false);
+      }, 500);
     }
   };
-
-
-
-
 
   const [phones, setPhones] = useState([]);
 
-useEffect(() => {
-  if (!currentUser) return;
-  const fetchPhones = async () => {
-    try {
-      const res = await fetch(`https://api.bajiraj.cloud/users/phones/${currentUser.id}`);
-      const data= await res.json();
-      setPhones(data.map(p => p.phone));
-      // senderNumber(data?.[0] || '');
-      console.log('num',data?.[0]?.phone)
-      setSenderNumber(data?.[0]?.phone); // default to main phone
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  fetchPhones();
-}, [currentUser]);
-
-const uniquePaymentOptions = Object.values(
-  paymentOptions.reduce((acc, curr) => {
-    if (!acc[curr.name]) {
-      acc[curr.name] = curr; // just keep one for UI
-    }
-    return acc;
-  }, {})
-);
-console.log("Unique Payment Options:", uniquePaymentOptions);
-
-
-const handlePaymentSelect = (paymentName) => {
-  if (!selectedChannel) return;
-
-  const matched = paymentOptions.find(
-    (p) =>
-      p.name == paymentName &&
-      p.deposit_channel.toLowerCase().trim() ==
-        selectedChannel.toLowerCase().trim() &&
-      p.is_active
-  );
-
-  if (!matched) {
-    alert("This payment method is not available for selected channel");
-    return;
-  }
-
-  setSelectedPayment(matched.id);
-  setReceiverNumber(matched.agent_number);
-};
-
-useEffect(() => {
-  if (selectedPayment) {
-    setSelectedPayment(null);
-    setReceiverNumber("");
-  }
-}, [selectedChannel]);
-
-const [delay, setDelay] = useState(10)
-useEffect(() => {
-  if (!successModalOpen) return;
-
-  setIsLoading(true);
-  setDelay(10);
-
-  const interval = setInterval(() => {
-    setDelay((prev) => {
-      if (prev <= 1) {
-        clearInterval(interval);
-        setIsLoading(false);
-        return 0;
+  useEffect(() => {
+    if (!currentUser) return;
+    const fetchPhones = async () => {
+      try {
+        const res = await fetch(
+          `https://api.bajiraj.cloud/users/phones/${currentUser.id}`,
+        );
+        const data = await res.json();
+        setPhones(data.map((p) => p.phone));
+        // senderNumber(data?.[0] || '');
+        console.log("num", data?.[0]?.phone);
+        setSenderNumber(data?.[0]?.phone); // default to main phone
+      } catch (err) {
+        console.error(err);
       }
-      return prev - 1;
-    });
-  }, 1000);
+    };
+    fetchPhones();
+  }, [currentUser]);
 
-  return () => clearInterval(interval);
-}, [successModalOpen]);
+  const uniquePaymentOptions = Object.values(
+    paymentOptions.reduce((acc, curr) => {
+      if (!acc[curr.name]) {
+        acc[curr.name] = curr; // just keep one for UI
+      }
+      return acc;
+    }, {}),
+  );
+  console.log("Unique Payment Options:", uniquePaymentOptions);
 
+  const handlePaymentSelect = (paymentName) => {
+    if (!selectedChannel) return;
+
+    const matched = paymentOptions.find(
+      (p) =>
+        p.name == paymentName &&
+        p.deposit_channel.toLowerCase().trim() ==
+          selectedChannel.toLowerCase().trim() &&
+        p.is_active,
+    );
+
+    if (!matched) {
+      alert("This payment method is not available for selected channel");
+      return;
+    }
+
+    setSelectedPayment(matched.id);
+    setReceiverNumber(matched.agent_number);
+  };
+
+  useEffect(() => {
+    if (selectedPayment) {
+      setSelectedPayment(null);
+      setReceiverNumber("");
+    }
+  }, [selectedChannel]);
+
+  const [delay, setDelay] = useState(10);
+  useEffect(() => {
+    if (!successModalOpen) return;
+
+    setIsLoading(true);
+    setDelay(10);
+
+    const interval = setInterval(() => {
+      setDelay((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          setIsLoading(false);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [successModalOpen]);
+  const [tab, setTab] = useState("deposit");
 
 
   return (
-    <div className="mt-18 bg-slate-900 flex justify-center">
-      <Card className="w-full max-w-screen rounded-2xl border bg-slate-900 border-0 shadow-xl">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl text-white">E-Wallet</CardTitle>
-        </CardHeader>
+    <div className="mt-18 bg-black-800 flex justify-center">
+      <Card className="w-full max-w-screen rounded-2xl border bg-black-800 border-0 shadow-xl">
+        <h3 className="text-2xl text-center text-slate-200 -mb-4 -mt-6">My wallet</h3>
+        <Tabs value={tab} onValueChange={setTab}>
+          {/* Tabs Header */}
+          <TabsList className="grid grid-cols-2  bg-white/10 rounded-sm mb-6 h-12 w-[94%] mx-3">
+            <TabsTrigger
+              value="deposit"
+              className="data-[state=active]:bg-yellow-500 text-slate-200 data-[state=active]:text-slate-800 py-1"
+            >
+              Deposit
+            </TabsTrigger>
+            <TabsTrigger
+              value="withdraw"
+              className="data-[state=active]:bg-yellow-500 text-slate-200 py-1 data-[state=active]:text-slate-800"
+            >
+              Withdraw
+            </TabsTrigger>
+          </TabsList>
 
-        <CardContent className="space-y-3">
+           {tab === "deposit" && (
+
+                    <CardContent className="space-y-3 px-3 -mt-8">
           {/* STEP 1 */}
           {step === 1 && (
             <>
-              <div className="relative">
+              <div className="relative bg-black-700 mt-2">
                 {/* Promotion selection */}
                 <div className="flex left-2 absolute text-slate-200 top-[18px] text-lg items-center gap-2">
-                  <Gift />
-                  <Label className="text-lg ">Promotion</Label>
+              
+                  <Label className="text-lg text-lg border-l-4 border-yellow-400 pl-4 bg-black-700 mb-4">Promotion</Label>
                 </div>
 
                 <Sheet
@@ -284,7 +311,7 @@ useEffect(() => {
                   <SheetTrigger asChild>
                     <Button
                       variant="outline"
-                      className="w-full text-orange-400 bg-slate-800 h-16 text-lg pl-32 text-left"
+                      className="w-full text-orange-400 bg-black-700 border-0 !rounded-lg h-16 text-lg pl-32 text-left"
                     >
                       {selectedPromotion
                         ? (() => {
@@ -301,7 +328,7 @@ useEffect(() => {
 
                   <SheetContent
                     side="top"
-                    className="!top-[80px] p-4 h-screen bg-slate-800  rounded-lg overflow-y-auto border-b-0"
+                    className="!top-[60px] p-4 h-screen bg-black-800  rounded-lg overflow-y-auto border-b-0"
                   >
                     <VisuallyHidden>
                       <DialogTitle>Mobile Menu</DialogTitle>
@@ -321,7 +348,7 @@ useEffect(() => {
               p-3 border rounded-lg cursor-pointer flex justify-between items-center
               ${
                 isSelected
-                  ? "border-orange-500 bg-gray-800"
+                  ? "border-yellow-500 bg-gray-800"
                   : "border-gray-700 hover:border-orange-500"
               }
             `}
@@ -349,7 +376,7 @@ useEffect(() => {
                     </div>
 
                     <Button
-                      className="mt-4 w-full bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 px-8 py-6"
+                      className="mt-4 w-full text-2xl bg-yellow-300 font-bold text-slate-900 px-8 py-8"
                       onClick={() => setPromotionSheetOpen(false)}
                     >
                       Confirm
@@ -357,66 +384,66 @@ useEffect(() => {
                   </SheetContent>
                 </Sheet>
               </div>
-              <Label className="text-slate-200 text-lg">Payment Method</Label>
-          
-              <div className="grid grid-cols-2 gap-3">
-  {uniquePaymentOptions.map((p) => (
-    <button
-      key={p.name}
-      onClick={() => handlePaymentSelect(p.name)}
-        // disabled={p.is_active === false}
-      className={`w-full flex items-center gap-2 py-4 px-4 rounded-lg font-medium transition 
+              <div className="bg-black-700 p-4 rounded-md">
+                <Label className="text-slate-200 text-lg border-l-4 border-yellow-400 pl-4 bg-black-700 mb-4">
+                  Payment Method
+                </Label>
+
+                <div className="grid grid-cols-2 gap-3">
+                  {uniquePaymentOptions.map((p) => (
+                    <button
+                      key={p.name}
+                      onClick={() => handlePaymentSelect(p.name)}
+                      // disabled={p.is_active === false}
+                      className={`w-full flex justify-center items-center gap-2 py-4 px-2 rounded-lg font-medium transition 
         ${
-          selectedPayment && p.name == paymentOptions.find(
-            x => x.id == selectedPayment
-          )?.name
-            ? "bg-slate-800 border-2 text-white border-orange-400"
-            : "bg-slate-900 text-gray-100 border-gray-300"
+          selectedPayment &&
+          p.name == paymentOptions.find((x) => x.id == selectedPayment)?.name
+            ? "bg-yellow-800 border-2 text-white border-yellow-400"
+            : "bbg-slate-500 text-gray-100 border-gray-300"
         } 
         border
-        ${!p.is_active ? "opacity-50 cursor-not-allowed !bg-slate-600" : "hover:border-orange-400"}
+        ${!p.is_active ? "opacity-50 cursor-not-allowed !bg-yellow-200" : "hover:border-yellow-400"}
   
-        `
-      
-      }
-    >
-      {p.name} {p.is_active}
-      <img src={paymentImages[p.name]} className="h-8" />
-    </button>
-  ))}
-
-
-              </div>
-
-              <Label className="text-slate-200 text-lg">Payment Method</Label>
-              <div className="border-orange-400">
-                <div
-                  className={`w-full items-center justify-between flex gap-8 py-4 px-4 rounded-lg font-medium transition 
-    border-2 border-orange-400 text-slate-100 text-lg`}
-                >
-                  <div className="flex gap-2">
-                                   <img src={paymentImages[paymentOptions.find((p) => p.id === selectedPayment)?.name]} className="h-8" />
-                  Selected{" "}
-                  {paymentOptions.find((p) => p.id === selectedPayment)?.name ||
-                    "None"}
-
-                  </div>
- 
-                    
-
-                       <div
-                    className={`h-5 w-5 rounded-full border-2 flex-shrink-0 
-               border-orange-500 bg-orange-500`}
-                  />
+        `}
+                    >
+                      {p.name} {p.is_active}
+                      <img src={paymentImages[p.name]} className="h-8" />
+                    </button>
+                  ))}
                 </div>
 
-                
+                <div className="border-yellow-400">
+                <div className="mt-4 w-full border-t-2 border-dashed border-slate-300 mt-6 mb-6" />
+
+
+                  <div
+                    className={`w-[240px] items-center justify-between flex gap-8 py-3 bg-yellow-700 px-2 rounded-xl font-medium transition 
+    border-2 border-yellow-400 text-slate-100 text-lg`}
+                  >
+                    <div className="text-center">
+                      {/* <img
+                        src={
+                          paymentImages[
+                            paymentOptions.find((p) => p.id === selectedPayment)
+                              ?.name
+                          ]
+                        }
+                        className="h-8"
+                      /> */}
+                     
+                      <span className="text-center !text-xl !font-medium ml-6">  {paymentOptions.find((p) => p.id === selectedPayment)
+                        ?.name || "None"} Payment</span>
+                    
+                    </div>
+
+                 
+                  </div>
+                </div>
               </div>
 
-              <Label className="mt-4 text-slate-200 text-lg">
-                Deposit Channel
-              </Label>
-          {/* <Select
+         
+              {/* <Select
           className="h-14"
   value={selectedChannel || ""}
   onValueChange={(value) => setSelectedChannel(value)}
@@ -433,67 +460,161 @@ useEffect(() => {
     ))}
   </SelectContent>
 </Select> */}
-<Select
-  className="h-14"
-  value={selectedChannel || ""}
-  onValueChange={(value) => setSelectedChannel(value)}
+<div className="bg-black-700 p-5">
+     <Label className="-mt-1 text-lg border-l-4 border-yellow-400 pl-4 text-slate-200 mb-2">
+                Deposit Channel
+              </Label>
+  <ToggleGroup
+  type="single"
+  value={selectedChannel}
+  onValueChange={(value) => {
+    if (value) setSelectedChannel(value)
+  }}
+  className="flex gap-3"
 >
-  <SelectTrigger className="!h-14 !bg-slate-800 w-full text-white rounded-md pl-10">
-    <SelectValue placeholder="Select channel" />
-  </SelectTrigger>
+  {[...new Set(
+    paymentOptions
+      .filter((p) => p.is_active)
+      .map((p) => p.deposit_channel)
+  )].map((c) => (
+    <ToggleGroupItem
+      key={c}
+      value={c}
+      className="
+        h-10 flex-1 w-[180px] !rounded-md border
+        bg-slate-600 text-slate-300 border-slate-700
+        transition-all duration-200
+        data-[state=on]:bg-yellow-700
+        data-[state=on]:text-white
+        data-[state=on]:border-yellow-200
+      "
+    >
+      {c}
+    </ToggleGroupItem>
+  ))}
+</ToggleGroup>
 
-  <SelectContent className="bg-slate-800 text-white rounded-md">
-    {[...new Set(
-      paymentOptions
-        .filter((p) => p.is_active) // ✅ only active payments
-        .map((p) => p.deposit_channel)
-    )].map((c) => (
-      <SelectItem key={c} value={c}>
-        {c}
-      </SelectItem>
-    ))}
-  </SelectContent>
-</Select>
+</div>
+<div className="bg-black-700 p-5 rounded-md">
+          <Label className="mb-1  block text-slate-200 text-lg text-lg border-l-4 border-yellow-400 pl-4 !text-slate-200 mb-2">
+            <div className="flex justify-between">
+    <p> Deposit Amount </p> <p>৳ 200 - ৳ 30,000</p>
+            </div>
+        
+              
+              </Label>
+    
+
+              <div className="grid grid-cols-3 gap-2 mb-3">
+                {[500, 1000, 2000, 5000, 10000, 25000].map((value) => (
+                  <Button
+                    key={value}
+                    variant="outline"
+                    className={"bg-gray-700 !text-slate-200 text-lg !h-12 !rounded-xl !font-bold border-0"}
+                    onClick={() =>
+                      setAmount((prev) =>
+                        (Number(prev || 0) + value).toString(),
+                      )
+                    }
+                  >
+                    {value}
+                  </Button>
+                ))}
+              </div>
+
+              {Number(amount) < 100 && amount !== "" && (
+                <p className="text-lg text-red-500 mb-2">
+                  Minimum amount is 100
+                </p>
+              )}
+              {Number(amount) > 25000 && amount !== "" && (
+                <p className="text-lg text-red-500 mb-2">
+                  Maximum amount is 25000
+                </p>
+              )}
+                        <Input
+                type="number"
+                value={amount}
+                min={100}
+                max={25000}
+                onChange={(e) => setAmount(e.target.value)}
+                className="mb-3 bg-gray-500 border-0 h-14 text-slate-100 text-2xl font-bold"
+              />
+</div>
+
+<Accordion
+  type="single"
+  collapsible
+   defaultValue="deposit-info"
+  className="w-full rounded-md border border-slate-700 bg-black-700"
+>
+  <AccordionItem value="deposit-info" className="border-b border-slate-700">
+    <AccordionTrigger className="px-4 py-3 text-left text-white hover:no-underline">
+      ডিপোজিট সংক্রান্ত গুরুত্বপূর্ণ তথ্য
+    </AccordionTrigger>
+
+    <AccordionContent className="px-4 pb-4 text-sm text-slate-300 leading-relaxed">
+       <div className="mt w-full border-t-2 border-dashed border-slate-300  my-3" />
+      <p className="space-y-2">
+        ১. ক্যাশ আউট বা সেন্ডমানি করার আগে ‘ব্যক্তিগত তথ্য’ অংশে সর্বোচ্চ ৩টি মোবাইল
+        নম্বর যোগ করে ভেরিফাই করুন।
+        <br /><br />
+        ২. আপনার ডিপোজিট প্রক্রিয়াটি আরও দ্রুত সফল করতে সঠিক ক্যাশ আউট নাম্বার,
+        এমাউন্ট এবং ট্রানজেকশন আইডি সহ সাবমিট করুন।
+        <br /><br />
+        ৩. যেকোনো ডিপোজিট করার আগে সবসময় আমাদের ডিপোজিট পেইজে নাম্বার চেক করুন।
+        <br /><br />
+        ৪. ডিপোজিট পেন্ডিং থাকা অবস্থায় আপনি সর্বোচ্চ ২টি ডিপোজিট ট্রাই করতে পারবেন।
+        কোনো সমস্যা হলে অনুগ্রহ করে লাইভচ্যাটের মাধ্যমে সহায়তা নিন।
+        <br /><br />
+        ৫. বাজির ODDs অবশ্যই ১.৩০-এর ওপরে হতে হবে। এর নিচের অডসে রাখা বাজি উইথড্র
+        টার্নওভারের জন্য গণনা করা হবে না।
+      </p>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+
+
 
 
               <Button
                 disabled={!canStep1}
-                className="w-full h-14 text-lg mt-4 mb-[300px] bg-gradient-to-r from-orange-400 via-red-500 to-pink-500"
-             onClick={() => {
-               setInfoModal(true);
-               setStep(2);
- 
-}}
+                className="w-full h-14 text-2xl mt-4 mb-[300px] bg-yellow-300 text-slate-900"
+                onClick={() => {
+                  setInfoModal(true);
+                  setStep(2);
+                }}
               >
-                Continue
+               Next
               </Button>
             </>
           )}
 
           {/* STEP 2 */}
-        {step === 2 && (
-  <>
-<button
-  onClick={() => setStep(1)}
-  className="
-    fixed top-[90px] left-6 z-50
-    h-12 w-12 rounded-full
-    bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white
+          {step === 2 && (
+            <div className="bg-black-700 p-5 rounded-md">
+              <button
+                onClick={() => setStep(1)}
+                className="
+    fixed top-[68px] left-4 z-50
+    h-10 w-10 rounded-full
+    bg-gradient-to-r from-orange-400 via-yellow-500 to-slate-600 text-white
     flex items-center justify-center
     shadow-lg shadow-orange-500/40
     hover:bg-red-600 hover:scale-110
     active:scale-95
     transition-all duration-200
     select-none
+    border-0
   "
-  aria-label="Go Back"
->
-  <ArrowLeft size={22} strokeWidth={2.5} />
-</button>
+                aria-label="Go Back"
+              >
+                <ArrowLeft size={22} strokeWidth={2.5} />
+              </button>
 
-
-    <Label className="text-slate-200 text-lg">Your Number</Label>
-    {/* <select
+              <Label className="text-slate-200 text-lg mb-2">Your Number</Label>
+              {/* <select
       className="w-full p-2 h-14 rounded-md bg-slate-700 text-white text-lg"
       value={senderNumber || currentUser.phone} // default to main phone
       onChange={(e) => setSenderNumber(e.target.value)}
@@ -505,110 +626,87 @@ useEffect(() => {
       ))}
     </select> */}
 
-<Select
-  className="h-14 w-full"
-  value={senderNumber}
-  onValueChange={(value) => setSenderNumber(value)}
->
-  <SelectTrigger className="!h-14 !bg-slate-800 w-full text-white rounded-md pl-3">
-    <SelectValue placeholder="Select channel or phone" />
-  </SelectTrigger>
+              <Select
+                className="h-14 w-full"
+                value={senderNumber}
+                onValueChange={(value) => setSenderNumber(value)}
+              >
+                <SelectTrigger className="!h-14 !bg-slate-700 w-full text-white rounded-md pl-3 border-0">
+                  <SelectValue placeholder="Select channel or phone" />
+                </SelectTrigger>
 
-  <SelectContent className="bg-slate-800 text-white rounded-md">
-    {/* Payment channels */}
-    {/* {[...new Set(paymentOptions.map((p) => p.deposit_channel))].map((c) => (
+                <SelectContent className="bg-slate-700 text-white rounded-md">
+                  {/* Payment channels */}
+                  {/* {[...new Set(paymentOptions.map((p) => p.deposit_channel))].map((c) => (
       <SelectItem key={c} value={c}>
         {c}
       </SelectItem>
     ))} */}
 
-    {/* User phones */}
-    {[ ...(phones || [])].map((num) => (
-      <SelectItem key={num} value={num}>
-        {num}
-      </SelectItem>
-    ))}
-  </SelectContent>
-</Select>
+                  {/* User phones */}
+                  {[...(phones || [])].map((num) => (
+                    <SelectItem key={num} value={num}>
+                      {num}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
 
-    <Label className="mb-1 block text-slate-200 text-lg">Receiver Number</Label>
-    <div className="flex gap-2 items-center">
-      <Input
-        value={receiverNumber}
-        readOnly
-        className="bg-slate-800 h-14 text-white text-lg font-medium tracking-wider cursor-not-allowed"
-      />
-      <Button
-        variant="outline"
-        className="bg-slate-900 h-14"
-        onClick={() => copyText(receiverNumber)}
-        disabled={!receiverNumber}
-      >
-        <span className="text-xl text-slate-100">{copied ? "✔" : "Copy"}</span>
-      </Button>
-    </div>
+              <Label className="mb-1 block text-slate-200 text-lg my-2">
+                Receiver Number
+              </Label>
+              <div className="flex gap-2 items-center">
+                <Input
+                  value={receiverNumber}
+                  readOnly
+                  className="bg-slate-700 border-0 h-14 text-white text-lg font-medium tracking-wider cursor-not-allowed"
+                />
+                <Button
+                  variant="outline"
+                  className="bg-slate-700 h-14"
+                  onClick={() => copyText(receiverNumber)}
+                  disabled={!receiverNumber}
+                >
+                  <span className="text-xl text-slate-100">
+                    {copied ? "✔" : "Copy"}
+                  </span>
+                </Button>
+              </div>
 
-    <Label className="mb-1 block text-slate-200 text-lg">Amount (Min 100)</Label>
-    <Input
-      type="number"
-      value={amount}
-      min={100}
-      max={25000}
-      onChange={(e) => setAmount(e.target.value)}
-      className="mb-3 bg-slate-900 h-14 text-slate-100 text-lg"
-    />
+      
 
-    <div className="grid grid-cols-3 gap-2 mb-3">
-      {[500, 1000, 10000, 25000].map((value) => (
-        <Button
-          key={value}
-          variant="outline"
-          onClick={() =>
-            setAmount((prev) => (Number(prev || 0) + value).toString())
-          }
-        >
-          +{value}
-        </Button>
-      ))}
-    </div>
+              <Button
+                disabled={
+                  !canStep2 || Number(amount) < 100 || Number(amount) > 25000
+                }
+                className="w-full mt-2 h-14 my-4 text-2xl font-bold bg-yellow-300 text-slate-800 "
+                onClick={() => setStep(3)}
+              >
+                Next
+              </Button>
 
-    {Number(amount) < 100 && amount !== "" && (
-      <p className="text-lg text-red-500 mb-2">Minimum amount is 100</p>
-    )}
-    {Number(amount) > 25000 && amount !== "" && (
-  <p className="text-lg text-red-500 mb-2">
-    Maximum amount is 25000
-  </p>
-)}
-
-    <Button
-      disabled={!canStep2 || Number(amount) < 100 || Number(amount)>25000}
-      className="w-full mt-2 h-14 text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 "
-      onClick={() => setStep(3)}
-    >
-      Next
-    </Button>
-
-            <div className="border-3 border-red-500 rounded-xl p-2 bg-slate-300 mb-[150px]">
-            <h2 className="text-2xl font-bold text-green-700">
-       🎉 ডিপোজিট সংক্রান্ত তথ্য
-
-      </h2>
-      <p> আমাদের সাইটে দেখানো নামবারে টাকা পাঠাবেন, এই নামবার কেউ সেভ করে রাখবেননা। আমাদের নামবার পরিবর্তনশীল |</p>
-
-</div>
-  </>
-)}
+              {/* <div className="border-3 border-red-500 rounded-xl p-2 bg-slate-300 mb-[150px]">
+                <h2 className="text-2xl font-bold text-green-700">
+                  🎉 ডিপোজিট সংক্রান্ত তথ্য
+                </h2>
+                <p>
+                  {" "}
+                  আমাদের সাইটে দেখানো নামবারে টাকা পাঠাবেন, এই নামবার কেউ সেভ
+                  করে রাখবেননা। আমাদের নামবার পরিবর্তনশীল |
+                </p>
+              </div> */}
+            </div>
+          )}
 
           {/* STEP 3 */}
           {step === 3 && (
-            <>
-<button
-  onClick={() => setStep(1)}
-  className="
-    fixed top-[90px] left-6 z-50
-    h-12 w-12 rounded-full
-    bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white
+            <div className="bg-black-700 p-5 rounded-md">
+              <button
+                onClick={() => setStep(1)}
+                className="
+    fixed top-[68px] left-6 z-50
+    h-10 w-10 rounded-full
+    bg-gradient-to-r from-orange-400 via-yellow-500 to-slate-600 text-white
     flex items-center justify-center
     shadow-lg shadow-orange-500/40
     hover:bg-red-600 hover:scale-110
@@ -616,90 +714,86 @@ useEffect(() => {
     transition-all duration-200
     select-none
   "
-  aria-label="Go Back"
->
-  <ArrowLeft size={22} strokeWidth={2.5} />
-</button>
+                aria-label="Go Back"
+              >
+                <ArrowLeft size={22} strokeWidth={2.5} />
+              </button>
 
               <Label className="text-slate-200 text-lg">Transaction ID</Label>
               <Input
-              className="text-slate-200 text-lg bg-slate-900 h-14"
+                className="text-slate-200 text-2xl font-bold border-0 text-lg bg-slate-600 mt-2 h-14"
                 value={transactionId}
                 onChange={(e) => setTransactionId(e.target.value)}
               />
 
               <Button
                 disabled={!canStep3 || isLoading}
-                className="w-full mt-4 h-14 bg-gradient-to-r from-orange-400 via-red-500 to-pink-500"
+                className="w-full mt-4 h-16 bg-yellow-300 text-slate-800 text-2xl  to-pink-500"
                 onClick={handleDeposit}
               >
                 {isLoading ? "Processing..." : "Submit Deposit"}
               </Button>
-            </>
+            </div>
           )}
         </CardContent>
+           )}
+
+               {tab === "withdraw" && (
+
+                <Withdraw/>
+               )}
+        </Tabs>
 
 
       </Card>
 
-<Dialog open={successModalOpen} onOpenChange={setSuccessModalOpen}>
-  <DialogContent className="max-w-md rounded-2xl p-8 text-center">
-    
-    {/* Success Icon */}
-    <div className="flex justify-center mb-4">
-      {!isLoading ?(
-      <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center">
-        <CheckCircle2 className="h-10 w-10 text-green-600" />
-      </div>):null}
-    </div>
+      <Dialog open={successModalOpen} onOpenChange={setSuccessModalOpen}>
+        <DialogContent className="max-w-md rounded-2xl p-8 text-center">
+          {/* Success Icon */}
+          <div className="flex justify-center mb-4">
+            {!isLoading ? (
+              <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center">
+                <CheckCircle2 className="h-10 w-10 text-green-600" />
+              </div>
+            ) : null}
+          </div>
 
-    <DialogHeader>
-      {!isLoading ?(
-           <DialogTitle className="text-3xl font-bold text-green-700">
-        Deposit Successful
-      </DialogTitle>
-      ) :
-      (           <DialogTitle className="text-3xl font-bold text-orange-700">
-        Wait! Deposit is Processing ...
-      </DialogTitle>)}
-   
-{!isLoading ?(
-      <DialogDescription className="mt-2 text-gray-600">
-        🎉 {depositAlert}
-      </DialogDescription>)
-      : null}
-    </DialogHeader>
+          <DialogHeader>
+            {!isLoading ? (
+              <DialogTitle className="text-3xl font-bold text-green-700">
+                Deposit Successful
+              </DialogTitle>
+            ) : (
+              <DialogTitle className="text-3xl font-bold text-orange-700">
+                Wait! Deposit is Processing ...
+              </DialogTitle>
+            )}
 
-    {/* Loading / Footer */}
-    <DialogFooter className="mt-6 flex flex-col items-center gap-4">
-      {isLoading ? (
-         <div className="flex flex-col items-center gap-2 text-sm text-gray-500">
-          <Loader2 className="h-8 w-8 text-orange-700 animate-spin" />
-          <span>Processing... {delay}s remaining</span>
-        </div>
-      ) : (
-        <button
-          className="w-full py-3 bg-orange-400 text-xl text-slate-100 rounded-xl"
-          onClick={() => router.push("/")}
-        >
-          
-          Home
-        </button>
-      )}
-    </DialogFooter>
-  </DialogContent>
-</Dialog>
+            {!isLoading ? (
+              <DialogDescription className="mt-2 text-gray-600">
+                🎉 {depositAlert}
+              </DialogDescription>
+            ) : null}
+          </DialogHeader>
 
-
-    
-
-
-
-    
- 
-     
-
-
+          {/* Loading / Footer */}
+          <DialogFooter className="mt-6 flex flex-col items-center gap-4">
+            {isLoading ? (
+              <div className="flex flex-col items-center gap-2 text-sm text-gray-500">
+                <Loader2 className="h-8 w-8 text-orange-700 animate-spin" />
+                <span>Processing... {delay}s remaining</span>
+              </div>
+            ) : (
+              <button
+                className="w-full py-3 bg-orange-400 text-xl text-slate-100 rounded-xl"
+                onClick={() => router.push("/")}
+              >
+                Home
+              </button>
+            )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

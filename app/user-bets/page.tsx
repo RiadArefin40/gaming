@@ -68,13 +68,13 @@ const UserBetsPage = () => {
   }, [bets]);
 
   return (
-    <div className="p-4 max-w-4xl mx-auto mt-20">
+    <div className="p-4 max-w-4xl bg-black-700 mx-2 rounded-md mt-20">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+      <div className="flex flex-row  justify-between sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <h2 className="text-2xl font-bold text-white">My Bets</h2>
 
         <Select onValueChange={setTimeRange} defaultValue="Last 7 days">
-          <SelectTrigger className="w-40">
+          <SelectTrigger className="w-40 border-yellow-400">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -86,15 +86,15 @@ const UserBetsPage = () => {
 
       {/* Summary */}
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className="bg-gray-800 rounded-lg p-4 text-center">
+        <div className="bg-black-600 rounded-lg p-4 text-center">
           <p className="text-gray-100">Total Bets Type</p>
-          <p className="text-2xl font-bold text-blue-400">
+          <p className="text-2xl font-bold text-yellow-400">
             {finalBets.length}
           </p>
         </div>
-        <div className="bg-gray-800 rounded-lg p-4 text-center">
+        <div className="bg-black-600 rounded-lg p-4 text-center">
           <p className="text-gray-100">Total Amount</p>
-          <p className="text-2xl font-bold text-green-400">
+          <p className="text-2xl font-bold text-yellow-400">
             ৳ {totalAmount.toFixed(2)}
           </p>
         </div>
@@ -102,7 +102,7 @@ const UserBetsPage = () => {
 
       {/* Tabs */}
       <Tabs defaultValue="all" onValueChange={setActiveType}>
-        <TabsList className="mb-4 bg-slate-500 mx-auto flex flex-wrap">
+        <TabsList className="mb-4 bg-yellow-500 w-[98%] mx-auto flex flex-wrap">
           {betTypes.map((t) => (
             <TabsTrigger key={t} value={t}>
               {t.toUpperCase()}
@@ -110,8 +110,8 @@ const UserBetsPage = () => {
           ))}
         </TabsList>
 
-        <TabsContent value={activeType}>
-          <BetList data={finalBets} />
+        <TabsContent className="" value={activeType}>
+          <BetList  data={finalBets} />
         </TabsContent>
       </Tabs>
     </div>
@@ -130,27 +130,39 @@ const BetList = ({
   emptyText?: string;
 }) => {
   if (!data.length)
-    return <div className="text-center text-gray-500 mt-10">{emptyText}</div>;
+    return <div className="text-center bg-gray-600 text-gray-500 mt-10">{emptyText}</div>;
 
   return (
     <div className="space-y-2 mb-[100px]">
+        <div className="flex bg-black-800 justify-between items-center px-4 py-2 bg-gray-600 rounded-t-sm -mt-1"> 
+            <p className="border-r pr-32 text-yellow-400 text-lg font-bold">Type </p>
+             <p className=" text-yellow-400 text-lg font-bold">Total turnover </p>
+          </div>
       {data.map((b) => (
         <div
           key={b.id}
-          className="flex justify-between items-center p-4 bg-gray-800 rounded-md"
+          
         >
-          <div>
-            <p className="font-medium capitalize text-white">{b.bet_type}</p>
-            <p className="text-sm text-gray-100">
+              <div className="bg-yellow-300 -mt-2 py-2 flex px-2">
+                <img className="bg-white rounded-full p-1" src="https://img.m156b.com/mb/h5/assets/images/icon-set/icon-calendar-type02.svg?v=1768297086272&quot" alt="" />
+             <p className="text-md font-bold mx-2  text-gray-700">
               {new Date(b.created_at).toLocaleString()}
             </p>
+        </div>
+          <div className="flex justify-between items-center px-4 py-2 bg-black-600">
+    
+          <div>
+            <p className="font-medium capitalize border-r pr-[140px] text-white">{b.bet_type}</p>
+         
           </div>
 
           <div className="text-right">
-            <p className="text-xl font-bold text-green-400">
+            <p className=" font-bold ">
               ৳ {b.amount}
             </p>
           </div>
+          </div>
+
         </div>
       ))}
     </div>

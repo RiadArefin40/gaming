@@ -119,26 +119,29 @@ useEffect(() => {
   setIsVisible(true);
 }, []);
   return (
-    <div   className={`
+    <div     className={`
     min-h-screen
     bg-black-800
     text-white
     relative
     overflow-hidden
-    mt-[20px]
+    mt-[0px]
+    transform-gpu
     transition-all
     duration-900
-    ease-out
+    ease-[cubic-bezier(0.22,1,0.36,1)]
     ${
       isVisible
         ? "opacity-100 translate-y-0"
-        : "opacity-0 translate-y-4"
+        : "opacity-0 -translate-y-full"
     }
   `}>
       {/* Header */}
-      <header className="h-14 px-4 flex items-center justify-end">
+  
+      <header className="h-14 px-4 py-2  relative bg-black-700 ">
+        <h1 className="text-center mx-auto mt-2 font-bold text-xl">Login</h1>
         <button
-                  className=" px-2 py-1 rounded-lg flex items-center justify-center px-3 z-50  "
+                  className=" px-2 py-1 rounded-lg absolute right-2 top-1 px-3 z-50  "
                   onClick={() => backToHome()}
                 >
                   <X className="w-9 h-9 text-gray-100 hover:text-red-600" />
@@ -147,6 +150,10 @@ useEffect(() => {
 
       {/* Background */}
       <div className="absolute bg-slate-900" />
+
+      <div className="text-center py-4">
+        <span className="text-yellow-300 text-5xl  ">Jili</span> <span className="text-5xl">Win</span>
+      </div>
 
       <div className="relative z-10 px-4 pt-6 max-w-md bg-black-600 m-4 rounded-md">
         {/* Tabs */}
@@ -196,6 +203,10 @@ useEffect(() => {
           </>
     
       </div>
+      <div className="text-center text-slate-300 my-2">
+<p><span>Don't have a account?</span> <span onClick={() => router.push("/registration")} className="text-yellow-300" >Sign Up</span></p>
+
+</div>
     </div>
   );
 }

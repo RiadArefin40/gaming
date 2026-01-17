@@ -286,51 +286,25 @@ setLoading(false);
   return (
     <>
     {loading && (
-  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/90">
+  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/60">
     <div className="relative flex flex-col items-center justify-center gap-4">
 
       {/* Rotating gradient rings with text inside */}
-      <div className="relative w-28 m-1 h-28 flex items-center justify-center">
+      <div className="relative w-14 m-1 h-14 flex items-center justify-center">
         <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-200 opacity-40 blur-xl animate-spin-slow" />
         <div className="absolute inset-0 rounded-full border-3 border-white border-t-transparent animate-spin shadow-lg" />
         <div className="absolute inset-0  rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
 
         {/* Center text */}
-        <span className="relative text-white text-xl font-bold drop-shadow-lg">
+        <span className="relative text-yellow-400 text-md font-bold drop-shadow-lg">
           Bajiraj
         </span>
       </div>
 
 
       {/* Sparkling stars around */}
-      <div className="absolute w-full h-full">
-        {[...Array(50)].map((_, i) => (
-          <span
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
-            style={{
-              top: `${-Math.random() * 250}%`,
-              left: `${Math.random() * 400}%`,
-              animationDuration: `${0.4 + Math.random()}s`,
-            }}
-          />
-        ))}
-        
-      </div>
-            <div className="absolute w-full h-full">
-        {[...Array(20)].map((_, i) => (
-          <span
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
-            style={{
-              top: `${Math.random() * 300}%`,
-              left: `${-Math.random() * 100}%`,
-              animationDuration: `${0.4 + Math.random()}s`,
-            }}
-          />
-        ))}
-        
-      </div>
+
+  
 
 
     </div>

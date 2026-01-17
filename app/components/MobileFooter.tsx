@@ -40,6 +40,7 @@ import { useAuthModal } from "@/store/useAuthModal";
 import { DotLoadingButton } from "./DotLoadingButton";
 import { useAutoFetch } from "@/hooks/use-auto-fetch";
 import { ex } from "@/utils/exclusive";
+import RefreshButton from "./RefreshButton";
 
 interface BalanceData {
   balance: number;
@@ -84,6 +85,7 @@ export default function MobileFooter() {
 }
 
   const [user, setUser] = useState<AuthUser | null>(null);
+  
 
   useEffect(() => {
     const stored = localStorage.getItem("auth_user");
@@ -193,30 +195,43 @@ useEffect(() => {
   const isActive = (path: string) => pathname === path || pathname.startsWith(path + "/");
 
   const handleDeposit = () => {
-    if (!user) {
-      openModal();
-    } else {
-      router.push("/deposit");
-    }
+
+      setTimeout(()=>{
+        psetSheetOpen(false)
+        router.push("/deposit");
+      }, 100)
+      
+    
   };
 
   const handleWithdrawl = () => {
     setIsVLoading(true);
     setTimeout(() => {
       setIsVLoading(false);
-      if (!user) {
-        openVerifyModal();
-      } else {
-        psetSheetOpen(false);
-        router.push("/deposit");
-      }
-    }, 1000);
+   
+      psetSheetOpen(false)
+   
+        router.push("/withdraw");
+      
+    }, 100);
   };
   const handleRoutechange = (e: any) => {
     psetSheetOpen(false);
     router.push(`/${e}`);
   };
 
+    const fetchBalance = () => {
+    setIsLoading(true);
+    setTimeout(async () => {
+      setIsLoading(false);
+    }, 1000); // 1.5 seconds delay
+  };
+const features = [
+  { id: 1, name: "Promotions", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-promotion.svg?v=1767782599110" },
+  { id: 2, name: "Downloads", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-download.svg?v=1767782599110" },
+  
+  { id: 4, name: "Ambassador", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-ambassador.svg?v=1767782599110" },
+];
   return (
   
 <>
@@ -430,40 +445,196 @@ useEffect(() => {
 
             <SheetContent
               side="bottom"
-              className="w-full h-[100%] !top-[0px] !bottom-[0px] p-0 bg-slate-800 overflow-y-auto"
+              className="w-full h-[100%] !top-[0px] !bottom-[0px] p-0 bg-black-800 overflow-y-auto"
             >
               <VisuallyHidden>
                 <DialogTitle>Mobile Menu</DialogTitle>
               </VisuallyHidden>
 
               {/* Custom Close Button */}
-              <div className="p-4 flex justify-between">
-                <div></div>
-                <button
-                  className="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 px-4 py-1 rounded-lg flex items-center justify-center z-100"
-                  onClick={() => psetSheetOpen(false)} // This actually closes the sheet
-                >
-                  <X className="w-6 h-6 text-gray-100 hover:text-red-600" />
-                </button>
-              </div>
+      
+                     <div className="p-4 flex justify-between">
+                  <div>
 
-              <div className="min-h-screen -mt-12 bg-slate-800 text-white flex justify-center">
-                <div className="w-full max-w-md px-4 py-6 space-y-6">
-                  {/* Header */}
-                  <div className="flex items-center space-x-4">
-                    <div className="h-12 w-12 rounded-full bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 flex items-center justify-center text-lg font-bold">
-                      I
-                    </div>
-                    <div>
-                      <p className="font-semibold">{user?.name}</p>
-                      <p className="text-lg">
-                        {(user as any).created_at || ""}
-                      </p>
-                    </div>
+
+                    
                   </div>
+          
+                  <button
+                    className=" px-4 py-1 rounded-lg -mr-6 -mt-3  flex items-center justify-center h-10 z-100"
+                    onClick={() => psetSheetOpen(false)} // This actually closes the sheet
+                  >
+                    <X className="w-9 h-9  text-gray-100 hover:text-red-600" />
+                  </button>
+                </div>
 
+              <div className="min-h-screen -mt-16 bg-black-800 text-white flex justify-center">
+                <div className="w-full max-w-md ">
+                         <div className="bg-black-800 rounded-t-md flex items-center">
+                <img className="w-[120px]" src="https://img.m156b.com/mb/h5/assets/images/dark/animation/head-coin.png?v=1767782599110" alt="" />
+              <p className="text-lg font-medium text-yellow-300 mt-4">{user?.name}</p>
+              
+                </div>
+           
+                                    <div className="bg-yellow-300 flex px-4 justify-between py-4  flex items-center">
+                                      <div>
+
+                                                                            <p className="text-slate-900 font-medium">                      Main Wallet</p>
+                                        <RefreshButton
+                balance={balance}
+                loading={isLoadinge}
+                onRefresh={async () => {
+                  fetchBalance();
+                }}
+              />
+
+                                      </div>
+  
+<div className="p-[6px] secondary-bg-1 rounded-full">
+<img src="https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-bonuses.svg?v=1768297086272&quot" alt="" />
+</div>
+                              
+                </div>
+
+<div className="mt-2 card-bg p-2 rounded-md mx-2 my-2">
+ <p>Funds</p>
+                 <div className="grid grid-cols-4 md:grid-cols-4 gap-1 ">
+               
+   
+        <div
+         onClick={()=> handleDeposit()}
+          className=" p-5 rounded-md flex flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-deposit.svg?v=1768297086272&quot"}
+            alt={""}
+          />
+          <span className="text-slate-200 text-slate-200 text-md font-bold">Deposit</span>
+        </div>
+            <div
+         onClick={()=> handleDeposit()}
+          className=" p-5 rounded-md flex flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-withdrawal.svg?v=1768297086272&quot"}
+            alt={""}
+          />
+          <span className="text-slate-200 text-slate-200 text-md font-bold">Withdraw</span>
+        </div>
+           <div
+       onClick={()=> handleDeposit()}
+          className=" p-5 rounded-md flex flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-referral.svg?v=1768297086272&quot"}
+            alt={""}
+          />
+          <span className="text-slate-200 text-md font-bold">Referral Bonus</span>
+        </div>
+    
+    </div>
+
+</div>
+
+
+<div className="mt-2 card-bg p-2 rounded-md mx-2 my-2">
+ <p>History</p>
+                 <div className="grid grid-cols-4 md:grid-cols-4 gap-1 ">
+               
+    
+        <div
+    
+          className=" p-5 rounded-md flex flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-bet-records.svg?v=1768297086272&quot"}
+            alt={""}
+          />
+          <span className="text-slate-200 text-md font-bold">Betting Record</span>
+        </div>
+               <div
+    
+          className=" p-5 rounded-md flex flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-turnover.svg?v=1768297086272&quot"}
+            alt={""}
+          />
+          <span className="text-slate-200 text-md font-bold">Turnover</span>
+        </div>
+               <div
+    
+          className=" p-5 rounded-md flex flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-records.svg?v=1768297086272&quot"}
+            alt={""}
+          />
+          <span className="text-slate-200 text-md font-bold">Transaction Record</span>
+        </div>
+     
+    </div>
+
+</div>
+<div className="mt-2 card-bg p-2 rounded-md mx-2 my-2">
+ <p>My</p>
+                 <div className="grid grid-cols-4 md:grid-cols-4 gap-1 ">
+               
+   
+        <div
+    
+          className=" p-5 rounded-md flex flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-info.svg?v=1768297086272&quot"}
+            alt={""}
+          />
+          <span className="text-slate-200 text-md font-bold">Profile</span>
+        </div>
+
+               <div
+    
+          className=" p-5 rounded-md flex flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-inbox.svg?v=1768297086272&quot"}
+            alt={""}
+          />
+          <span className="text-slate-200 text-md font-bold">Notification</span>
+        </div>
+    
+      {unreadCount}
+    </div>
+
+</div>
+<div className="mt-2 card-bg p-2 rounded-md mx-2 my-2">
+ <p className="mb-2">Contact Us</p>
+                 <div className="grid grid-cols-3 md:grid-cols-4 gap-1 ">
+               
+        <div
+        
+          className=" rounded-md flex -ml-12 flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[1px] rounded-full mb-2 "
+            src="  https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-customer.svg?v=1767782599110&quot"
+            alt="reffer"
+          />
+          <span className="text-slate-200 text-md font-bold font-medium ml-2">Live Chat</span>
+        </div>
+    </div>
+
+</div>
                   {/* Actions */}
-                  <div className="flex gap-3">
+                  {/* <div className="flex bg-yellow-300 py-4 gap-3">
                     <DotLoadingButton
                       onClick={() => handleRoutechange("withdraw")}
                       loading={isVLoading}
@@ -478,90 +649,19 @@ useEffect(() => {
                     >
                       Deposit
                     </DotLoadingButton>
-                  </div>
+                  </div> */}
 
-                  {/* Wallet Card */}
-                  <Card className="bg-gradient-to-r from-slate-500 to-slate-900 text-slate-100 font-medium border-none">
-                    <CardContent className="p-4 space-y-4">
-                      <div className="flex items-center justify-between">
-                        <p className="text-lg ">Main wallet</p>
-                        <div className="flex gap-2">
-                          {/* <EyeOff className="h-4 w-4 " />
-                <RefreshCcw className="h-4 w-4 " /> */}
-                        </div>
-                      </div>
-
-                      <div className="text-xl font-bold flex items-center gap-2">
-                        <Wallet className="h-5 w-5 text-green-500" />
-                        {balance}
-                      </div>
-
-                      <div className="flex items-center justify-between pt-2 border-t border-zinc-700">
-                        <div>
-                          <p className="text-lg ">VIP Points</p>
-                          <p className="flex items-center gap-2 font-medium">
-                            <Crown className="h-4 w-4 text-yellow-400" />0
-                          </p>
-                        </div>
-
-                        <div className="flex items-center gap-2 text-lg bg-zinc-700 px-3 py-1 rounded-full">
-                          Normal
-                          <ChevronRight className="h-4 w-4" />
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Menu */}
-                  <div className="space-y-1">
-                    <MenuItem
-                      onClick={() => handleRoutechange("notifications")}
-                      icon={Bell}
-                      label="Notifications"
-                      badge={
-                        unreadCount !== null && unreadCount !== undefined
-                          ? String(unreadCount)
-                          : undefined
-                      }
-                    />
-                    <MenuItem
-                      onClick={() => handleRoutechange("personal-info")}
-                      icon={User}
-                      label="Personal info"
-                    />
-                    <MenuItem
-                      onClick={() => handleRoutechange("personal-info")}
-                      icon={Lock}
-                      label="Login & Security"
-                    />
-                    <MenuItem icon={ShieldCheck} label="Verification" />
-                    <MenuItem
-                      onClick={() => handleRoutechange("transactions")}
-                      icon={FileText}
-                      label="Transaction records"
-                    />
-                    {/* <MenuItem
-                      onClick={() => handleRoutechange("betting")}
-                      icon={TrendingUp}
-                      label="Betting records"
-                    /> */}
-                    <MenuItem
-                      onClick={() => handleRoutechange("turnover")}
-                      icon={Wallet}
-                      label="Turnover"
-                    />
-                    <MenuItem icon={User} label="Referrals"  onClick={() => handleRoutechange("referrals")} />
-                     <MenuItem icon={Wallet} label="Total bets"  onClick={() => handleRoutechange("user-bets")} />
-                    {/* <MenuItem icon={Crown} label="My VIP" /> */}
-                  </div>
-                  {user && (
+         
+     {user && (
                     <button
                       onClick={handleLogout}
-                      className="px-3 mb-[220px] mt-6 w-full py-[10px] text-lg bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white font-medium rounded hover:bg-blue-600"
+                      className="px-3 mb-[220px] mt-6 w-full py-[10px] text-2xl bg-yellow-300 text-slate-900 font-medium rounded hover:bg-blue-600"
                     >
                       Log Out
                     </button>
                   )}
+        
+             
                 </div>
               </div>
 

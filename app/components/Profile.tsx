@@ -34,13 +34,13 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import { useState, useEffect } from "react";
 import { getAuthUser } from "@/lib/auth";
 import { gameImages } from "@/utils/gameData";
-import { ExclusiveGrid } from "../components/ExclusiveGrid";
-import { CasinoGrid } from "../components/CasinoGrid";
+import { ExclusiveGrid } from "./ExclusiveGrid";
+import { CasinoGrid } from "./CasinoGrid";
 import { useAuthModal } from "@/store/useAuthModal";
-import { DotLoadingButton } from "../components/DotLoadingButton";
+import { DotLoadingButton } from "./DotLoadingButton";
 import { useAutoFetch } from "@/hooks/use-auto-fetch";
 import { ex } from "@/utils/exclusive";
-import RefreshButton from "../components/RefreshButton";
+import RefreshButton from "./RefreshButton";
 
 interface BalanceData {
   balance: number;
@@ -66,8 +66,10 @@ type User = {
   is_block_user: boolean;
   turnover: string;
 };
-
-export default function Profile() {
+interface ProfileProps {
+  onAction: () => void; // your callback
+}
+export default function Profile({ onAction }: ProfileProps) {
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
   const [sheetOpen, setSheetOpen] = useState(false);
   const [psheetOpen, psetSheetOpen] = useState(false);
@@ -194,14 +196,49 @@ useEffect(() => {
   // Helper to highlight active button
   const isActive = (path: string) => pathname === path || pathname.startsWith(path + "/");
 
-  const handleDeposit = () => {
-    if (!user) {
-      openModal();
-    } else {
-      router.push("/deposit");
-    }
-  };
 
+  const handleDeposit = () => {
+
+      setTimeout(()=>{
+        onAction()
+        router.push("/deposit");
+      }, 100)
+      
+    
+  };
+    const handleReferral = () => {
+     setTimeout(()=>{
+        onAction()
+        router.push("/referrals");
+      }, 100)
+  };
+      const handleBetting = () => {
+     setTimeout(()=>{
+        onAction()
+        router.push("/user-bets");
+      }, 100)
+  };
+        const handleturnOver = () => {
+     setTimeout(()=>{
+        onAction()
+        router.push("/turnover");
+      }, 100)
+  };
+        const handleTransaction = () => {
+     setTimeout(()=>{
+        onAction()
+        router.push("/transactions");
+      }, 100)
+  };
+  
+const handleHome = () =>{
+  console.log('okkk');
+
+  setTimeout(()=>{
+router.push('/')
+  }, 100)
+
+}
   const handleWithdrawl = () => {
     setIsVLoading(true);
     setTimeout(() => {
@@ -231,46 +268,19 @@ const features = [
   
   { id: 4, name: "Ambassador", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-ambassador.svg?v=1767782599110" },
 ];
-
-const handleHome = () =>{
-  console.log('okkk');
-
-  setTimeout(()=>{
-router.push('/')
-  }, 100)
-
-}
-
-const [isVisible, setIsVisible] = useState(false);
-useEffect(() => {
-  setIsVisible(true);
-}, []);
   return (
   
 <>
   {user && (
 
-     <div className={`
-    min-h-screen
-    bg-black-800
-    text-white
-    relative
-    overflow-hidden
-    mt-[0px]
-    transform-gpu
-    transition-all
-    duration-900
-    ease-[cubic-bezier(0.22,1,0.36,1)]
-    ${
-      isVisible
-        ? "opacity-100 translate-y-0"
-        : "opacity-0 -translate-y-full"
-    }
-  `}>
+     <SheetContent   side="left" className="fixed min-w-screen bottom-0 left-0 right-0 md:hidden z-100 !bg-black-800">
        <div
-              className="p-0 bg-black-800 overflow-y-auto"
+              className="w-full h-[100%] !top-[0px] !bottom-[0px] p-0 bg-black-800 overflow-y-auto"
             >
-         
+              <VisuallyHidden>
+                <DialogTitle>Mobile Menu</DialogTitle>
+              </VisuallyHidden>
+
               {/* Custom Close Button */}
       
                      <div className="p-4 flex justify-between">
@@ -281,8 +291,8 @@ useEffect(() => {
                   </div>
           
                   <button
-                    className=" px-4 py-1 rounded-lg -mr-6 -mt-3  flex items-center justify-center h-10 z-100"
-                       onClick={() => handleHome()} // This actually closes the sheet
+                    className=" px-4 py-1 rounded-lg -mr-6 -mt-3  flex items-center justify-center h-10 z-200"
+                    onClick={() => onAction()} // This actually closes the sheet
                   >
                     <X className="w-9 h-9  text-gray-100 hover:text-red-600" />
                   </button>
@@ -315,107 +325,140 @@ useEffect(() => {
 </div>
                               
                 </div>
-
 <div className="mt-2 card-bg p-2 rounded-md mx-2 my-2">
  <p>Funds</p>
-                 <div className="grid grid-cols-3 md:grid-cols-4 gap-1 ">
+                 <div className="grid grid-cols-4 md:grid-cols-4 gap-1 z-200">
                
-      {features.map((item) => (
+   
         <div
-          key={item.id}
+        onClick={() => handleDeposit()}
+          className="z-200 p-5 rounded-md flex flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-deposit.svg?v=1768297086272&quot"}
+            alt={""}
+          />
+          <span className="text-slate-200 text-slate-200 text-md font-bold">Deposit</span>
+        </div>
+            <div
+         onClick={()=> handleDeposit()}
           className=" p-5 rounded-md flex flex-col items-center"
         >
           <img
-            className="bg-yellow-300 p-[1px] rounded-full mb-2 "
-            src={item.icon}
-            alt={item.name}
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-withdrawal.svg?v=1768297086272&quot"}
+            alt={""}
           />
-          <span className="text-slate-200 text-sm font-medium">{item.name}</span>
+          <span className="text-slate-200 text-slate-200 text-md font-bold">Withdraw</span>
         </div>
-      ))}
-    </div>
-
-</div>
-
-<div className="mt-2 card-bg p-2 rounded-md mx-2 my-2">
- <p>My Promotion</p>
-                 <div className="grid grid-cols-3 md:grid-cols-4 gap-1 ">
-               
-      {features.map((item) => (
-        <div
-          key={item.id}
+           <div
+    onClick={()=> handleReferral()}
           className=" p-5 rounded-md flex flex-col items-center"
         >
           <img
-            className="bg-yellow-300 p-[1px] rounded-full mb-2 "
-            src={item.icon}
-            alt={item.name}
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-referral.svg?v=1768297086272&quot"}
+            alt={""}
           />
-          <span className="text-slate-200 text-sm font-medium">{item.name}</span>
+          <span className="text-slate-200 text-md font-bold">Referral Bonus</span>
         </div>
-      ))}
+    
     </div>
 
 </div>
 
 <div className="mt-2 card-bg p-2 rounded-md mx-2 my-2">
  <p>History</p>
-                 <div className="grid grid-cols-3 md:grid-cols-4 gap-1 ">
+                 <div className="grid grid-cols-4 md:grid-cols-4 gap-1 ">
                
-      {features.map((item) => (
+    
         <div
-          key={item.id}
+          onClick={()=> handleBetting()}
+    
           className=" p-5 rounded-md flex flex-col items-center"
         >
           <img
-            className="bg-yellow-300 p-[1px] rounded-full mb-2 "
-            src={item.icon}
-            alt={item.name}
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-bet-records.svg?v=1768297086272&quot"}
+            alt={""}
           />
-          <span className="text-slate-200 text-sm font-medium">{item.name}</span>
+          <span className="text-slate-200 text-md font-bold">Betting Record</span>
         </div>
-      ))}
+               <div
+      onClick={()=> handleturnOver()}
+          className=" p-5 rounded-md flex flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-turnover.svg?v=1768297086272&quot"}
+            alt={""}
+          />
+          <span className="text-slate-200 text-md font-bold">Turnover</span>
+        </div>
+               <div
+     onClick={()=> handleTransaction()}
+          className=" p-5 rounded-md flex flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-records.svg?v=1768297086272&quot"}
+            alt={""}
+          />
+          <span className="text-slate-200 text-md font-bold">Transaction Record</span>
+        </div>
+     
     </div>
 
 </div>
 <div className="mt-2 card-bg p-2 rounded-md mx-2 my-2">
  <p>My</p>
-                 <div className="grid grid-cols-3 md:grid-cols-4 gap-1 ">
+                 <div className="grid grid-cols-4 md:grid-cols-4 gap-1 ">
                
-      {features.map((item) => (
+   
         <div
-          key={item.id}
+    
           className=" p-5 rounded-md flex flex-col items-center"
         >
           <img
-            className="bg-yellow-300 p-[1px] rounded-full mb-2 "
-            src={item.icon}
-            alt={item.name}
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-info.svg?v=1768297086272&quot"}
+            alt={""}
           />
-          <span className="text-slate-200 text-sm font-medium">{item.name}</span>
+          <span className="text-slate-200 text-md font-bold">Profile</span>
         </div>
-      ))}
+
+               <div
+    
+          className=" p-5 rounded-md flex flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-inbox.svg?v=1768297086272&quot"}
+            alt={""}
+          />
+          <span className="text-slate-200 text-md font-bold">Notification</span>
+        </div>
+    
       {unreadCount}
     </div>
 
 </div>
 <div className="mt-2 card-bg p-2 rounded-md mx-2 my-2">
- <p>Contact Us</p>
+ <p className="mb-2">Contact Us</p>
                  <div className="grid grid-cols-3 md:grid-cols-4 gap-1 ">
                
-      {features.map((item) => (
         <div
-          key={item.id}
-          className=" p-5 rounded-md flex flex-col items-center"
+        
+          className=" rounded-md flex -ml-12 flex-col items-center"
         >
           <img
             className="bg-yellow-300 p-[1px] rounded-full mb-2 "
-            src={item.icon}
-            alt={item.name}
+            src="  https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-customer.svg?v=1767782599110&quot"
+            alt="reffer"
           />
-          <span className="text-slate-200 text-sm font-medium">{item.name}</span>
+          <span className="text-slate-200 text-md font-bold font-medium ml-2">Live Chat</span>
         </div>
-      ))}
     </div>
 
 </div>
@@ -461,7 +504,7 @@ useEffect(() => {
                 }
               `}</style>
             </div>
-    </div>
+    </SheetContent>
   )}
 </>
    

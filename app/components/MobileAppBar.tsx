@@ -1,7 +1,7 @@
 "use client";
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { LogIn, Plus, RotateCw, UserPlus, X } from "lucide-react";
+import { ArrowRight, LogIn, Plus, RotateCw, UserPlus, X } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useEffect, useState } from "react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
@@ -51,6 +51,7 @@ import { Button } from "@/components/ui/button";
 import { CasinoCol } from "./CasinoCol";
 import { SlotCol } from "./SlotCol";
 import { CrashCol } from "./CrashCol";
+import Profile from "./Profile";
 interface SocialLink {
   platform: "telegram" | "whatsapp" | "messenger";
   group_link: string;
@@ -188,17 +189,8 @@ useEffect(() => {
       [section]: !prev[section],
     }));
   };
-  const handleLogout = () => {
-    // remove user data
-    localStorage.removeItem("auth_user");
 
-    // optional: remove token
-    // localStorage.removeItem("token");
-
-    // redirect after logout
-    // window.location.href = "/login";
-  };
-
+ const [psheetOpen, psetSheetOpen] = useState(false);
 
  const [links, setLinks] = useState<SocialLinksMap>({
     telegram: null,
@@ -230,6 +222,17 @@ useEffect(() => {
 
     fetchSocialLinks();
   }, []);
+
+  
+
+  const handleProfile = () =>{
+  console.log('okkk');
+  setSheetOpenS(false);
+  setTimeout(()=>{
+router.push('/profile')
+  }, 100)
+
+}
 const handleLogin = () =>{
   console.log('okkk');
   setSheetOpenS(false);
@@ -238,6 +241,44 @@ router.push('/login')
   }, 100)
 
 }
+
+const handleHome = () =>{
+  console.log('okkk');
+  setSheetOpenS(false);
+  setTimeout(()=>{
+router.push('/')
+  }, 100)
+
+}
+
+
+const handleSignUp = () =>{
+  console.log('okkk');
+  setSheetOpenS(false);
+  setTimeout(()=>{
+router.push('/registration')
+  }, 100)
+
+}
+
+const handlePSheet = ()=>{
+  psetSheetOpen(true);
+
+  //   setTimeout(()=>{
+  //   setSheetOpenS(false);
+  // }, 100)
+
+}
+  const handleLogout = () => {
+    // remove user data
+    localStorage.removeItem("auth_user");
+
+    // optional: remove token
+    // localStorage.removeItem("token");
+
+    // redirect after logout
+    window.location.href = "/login";
+  };
 const [isSwitching, setIsSwitching] = useState(false);
 const [subMenu, setSubMenu] = useState("")
 const handleSubmenuOpen = (name: any) => {
@@ -267,11 +308,17 @@ const handleSubmenuOpen = (name: any) => {
   : "-translate-x-100";
 
     const isActive = (path: string) => pathname === path || pathname.startsWith(path + "/");
+
+      const handleModal = () => {
+    console.log('kkkkkkkkkk')
+    setSheetOpenS(false)
+psetSheetOpen(false)
+  };
   return (
 
 
     <>
-      {!isActive("/login") && !isActive("/registration")   &&
+      {!isActive("/login") && !isActive("/registration") && !isActive("/profile") &&
       
       (
 
@@ -304,15 +351,16 @@ const handleSubmenuOpen = (name: any) => {
         ${sheetOpenS ? "animate-spin-slow" : ""}`}
                         />
 
-                        {/* Floating Menu icon with tilt + shadow */}
-                        <Menu
-                          className={`absolute  text-yellow-300 bottom-3 left-1/2 -translate-x-1/2 
-        transition-all duration-500 ease-out transform 
-  `}
-  style={{ width: "60px", height: "32px" }} 
-                        />
 
 
+<button
+  className="flex bg-transparent flex-col justify-between w-7 h-[19px] focus:outline-none"
+ // your function
+>
+  <span className="block h-0.5 !bg-yellow-300  rounded"></span>
+  <span className="block h-0.5 bg-yellow-300  rounded"></span>
+  <span className="block h-1 bg-yellow-300 rounded"></span>
+</button>
                       </div>
 
                     </div>
@@ -338,7 +386,11 @@ const handleSubmenuOpen = (name: any) => {
           
                   <button
                     className=" px-4 py-1 rounded-lg -mr-6 -mt-3  flex items-center justify-center h-10 z-100"
-                    onClick={() => setSheetOpenS(false)} // This actually closes the sheet
+                    onClick={() => {
+setIsSubmenuOpen(false)
+    setSubMenu("");                 // reset submenu
+    setSheetOpenS(false);             // close sheet
+  }}// This actually closes the sheet
                   >
                     <X className="w-9 h-9  text-gray-100 hover:text-red-600" />
                   </button>
@@ -348,7 +400,25 @@ const handleSubmenuOpen = (name: any) => {
                 <div className="w-2/3 ml-2 -mt-8">
                 <div className="bg-black-700 rounded-t-md flex items-center">
                 <img className="w-[120px]" src="https://img.m156b.com/mb/h5/assets/images/dark/animation/head-coin.png?v=1767782599110" alt="" />
-                <p className="text-yellow-400 font-medium">Hi! Welcome</p>
+                {!user?  <p className="text-yellow-300 text-lg font-medium">Hi! Welcome</p> :(
+                  <div className="relative flex items-center">
+
+                        <p className="text-yellow-300 text-lg font-medium">{user?.name}</p>
+                   
+                          {user && (
+                              <Sheet open={psheetOpen} onOpenChange={handlePSheet}>
+                                <SheetTrigger>
+             <ArrowRight  className="absolute -right-24" size={26} color="yellow" /> 
+                                </SheetTrigger>
+                    
+                           <Profile onAction={handleModal}/>
+                              </Sheet>
+                            )}
+                  </div>
+              
+                )
+                }
+              
                 </div>
 
                 {!user ? (
@@ -358,31 +428,50 @@ const handleSubmenuOpen = (name: any) => {
                 <LogIn/>
 <span>Login</span>
                </Button>
-                              <Button  className="text-slate-900 bg-transparent z-100"  onClick={() => handleLogin()}>
+                              <Button  className="text-slate-900 bg-transparent z-100"  onClick={() => handleSignUp()}>
                 <UserPlus/>
 <span>Sign Up</span>
                </Button>
                 </div>
                 ):(
 
-                                    <div className="bg-yellow-300 flex gap-10 justify-center py-4 rounded-b-md flex items-center">
-                                      <p className="text-slate-900 font-medium">                      Main Wallet</p>
-                                      {/* <RefreshButton/> */}
+                                    <div className="bg-yellow-300 flex px-4 justify-between py-4 rounded-b-md flex items-center">
+                                      <div>
 
-                              <img src="https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-bonuses.svg?v=1768297086272&quot" alt="" />
+                                                                            <p className="text-slate-900 font-medium">                      Main Wallet</p>
+                                        <RefreshButton
+                balance={balance}
+                loading={isLoading}
+                onRefresh={async () => {
+                  fetchBalance();
+                }}
+              />
+
+                                      </div>
+  
+<div className="p-[6px] secondary-bg-1 rounded-full">
+<img src="https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-bonuses.svg?v=1768297086272&quot" alt="" />
+</div>
+                              
                 </div>
                 )}
 
              <div className="grid grid-cols-3 gap-2 mt-2">
       {category.map((item) => (
-        <div key={item.id} className="bg-black-700 px-5 py-3 rounded-md flex flex-col items-center">
-          <img
-            className="bg-yellow-300 p-[1px] rounded-full mb-2"
-            src={item.icon}
-            alt={item.name}
-          />
-          <span    onClick={() => handleSubmenuOpen(item.name)} className="text-slate-200 text-sm font-medium">{item.name}</span>
-        </div>
+     <div
+  onClick={() => handleSubmenuOpen(item.name)}
+  key={item.id}
+  className={`px-5 py-3 rounded-md flex flex-col items-center
+    ${subMenu === item.name ? 'bg-white/20 backdrop-blur-xs text-black' : 'bg-black-700 text-slate-200'}
+  `}
+>
+  <img
+    className="bg-yellow-300 p-[1px] rounded-full mb-2"
+    src={item.icon}
+    alt={item.name}
+  />
+  <span className="text-sm font-medium">{item.name}</span>
+</div>
       ))}
     </div>
     <div className="grid grid-cols-3 md:grid-cols-4 gap-1 mt-2 bg-black-700 p-2 rounded-md">
@@ -442,7 +531,10 @@ const handleSubmenuOpen = (name: any) => {
             src="https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-login.svg?v=1767782599110&quot"
             alt="reffer"
           />
-         <Button  onClick={() => handleLogin()} className="bg-transparent -mt-2 z-100">    <span className="text-slate-200 text-sm font-medium -ml-1">Login</span></Button>
+          {!user ? ( <Button  onClick={() => handleLogin()} className="bg-transparent -mt-2 z-100">    <span className="text-slate-200 text-lg font-medium -ml-1">Login</span></Button>):(
+             <Button   onClick={handleLogout} className="bg-transparent -mt-2 z-100">    <span className="text-slate-200 ext-lg font-medium -ml-1">Sign Out</span></Button>
+          )}
+        
         </div>
               <div
         
@@ -453,7 +545,7 @@ const handleSubmenuOpen = (name: any) => {
             src="https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-home.svg?v=1767782599110&quot"
             alt="reffer"
           />
-         <Button onClick={() => handleLogin()} className="bg-transparent  -mt-2 z-100">    <span className="text-slate-200 text-sm font-medium -ml-1">Login</span></Button>
+         <Button onClick={() => handleHome()} className="bg-transparent  -mt-2 z-100">    <span className="text-slate-200 text-lg font-medium -ml-1">Home</span></Button>
         </div>
  
     </div>
@@ -485,12 +577,12 @@ const handleSubmenuOpen = (name: any) => {
     rounded-lg p-4
     bg-white/20 backdrop-blur-xs shadow-lg
     overflow-y-auto
-    transition-transform ease-in-out
+    
 ${
       !isSubmenuOpen
-        ? "-translate-x-150 duration-300 "
+        ? "-translate-x-150 transition-transform ease-in-out duration-50 "
         : isSwitching
-        ? "-translate-x-20 duration-100 "
+        ? "-translate-x-20 transition-transform duration-50 ease-linear "
         : "translate-x-0"
     }
         `}
@@ -581,20 +673,15 @@ ${
         <div className="flex items-center gap-1 z-50">
           {user && (
             <div className="flex items-center">
-              <RefreshButton
-                balance={balance}
-                loading={isLoading}
-                onRefresh={async () => {
-                  fetchBalance();
-                }}
-              />
-
-              <button
-                onClick={() => setIsOpen(true)}
-                className="w-9 h-[35px] flex -ml-2 items-center justify-center bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 rounded-r-md"
-              >
-                <Plus size={22} />
-              </button>
+                  <button
+                      className="w-full px-2 py-[1px] rounded-md bg-yellow-300 text-slate-900 font-semibold hover:scale-105 transition-transform"
+                        onClick={() => {
+                        router.push("/deposit");
+                        setIsOpen(false);
+                      }}
+                    >
+                      Deposit
+                    </button>
 
               {/* Sheet */}
               <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -709,7 +796,7 @@ ${
                     key={lang.code}
                     className={`px-4 py-2 w-[120px] font-medium rounded ${
                       selectedLang === lang.code
-                        ? "bg-yellow-400 text-white"
+                        ? "bg-yellow-300 text-white"
                         : "bg-gray-700 text-orange-500"
                     }`}
                     onClick={() => setSelectedLang(lang.code)}

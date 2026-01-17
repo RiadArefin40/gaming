@@ -264,41 +264,15 @@ setLoading(false);
         <div className="absolute inset-0  rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
 
         {/* Center text */}
-        <span className="relative text-white text-xl font-bold drop-shadow-lg">
+       <span className="relative text-yellow-400 text-md font-bold drop-shadow-lg">
           Bajiraj
         </span>
       </div>
 
 
       {/* Sparkling stars around */}
-      <div className="absolute w-full h-full">
-        {[...Array(50)].map((_, i) => (
-          <span
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
-            style={{
-              top: `${-Math.random() * 250}%`,
-              left: `${Math.random() * 400}%`,
-              animationDuration: `${0.4 + Math.random()}s`,
-            }}
-          />
-        ))}
-        
-      </div>
-            <div className="absolute w-full h-full">
-        {[...Array(20)].map((_, i) => (
-          <span
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
-            style={{
-              top: `${Math.random() * 300}%`,
-              left: `${-Math.random() * 100}%`,
-              animationDuration: `${0.4 + Math.random()}s`,
-            }}
-          />
-        ))}
-        
-      </div>
+
+  
 
 
     </div>
