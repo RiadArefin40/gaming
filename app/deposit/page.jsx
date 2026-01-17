@@ -461,7 +461,7 @@ useEffect(() => {
 
 
                   <div
-                    className={`w-[170px] items-center justify-between flex gap-8 py-1 bg-select px-2 rounded-lg font-medium transition 
+                    className={`w-[160px] items-center justify-between flex gap-8 py-1 bg-select px-2 rounded-lg font-medium transition 
     border-1 border-yellow-400 text-slate-100 text-lg mb-4`}
                   >
                     <div className="text-center">
@@ -524,7 +524,7 @@ useEffect(() => {
       key={c}
       value={c}
       className="
-        h-[38px] flex-1 w-[180px] !rounded-lg border
+        h-[38px] flex-1 w-[160px] !rounded-lg border
         bg-white/10 text-slate-300 border-transparent
         transition-all duration-200
         data-[state=on]:bg-yellow-500/30 

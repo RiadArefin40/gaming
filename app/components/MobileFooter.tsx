@@ -287,21 +287,21 @@ const features = [
   className="flex flex-col w-[70px] items-center gap-1 px-2  -ml-[20px] relative"
 >
 
-     <div className={`relative w-14 h-12 flex flex-col items-center justify-center    rounded-full  ${isActive("/") ? "bottom-6 bg-yellow-600": " "}`}>
+     <div className={`relative w-14 h-12 flex flex-col items-center justify-center    rounded-full  ${isActive("/") ? "bottom-4 bg-yellow-600": " "}`}>
     {/* Glowing animated 3D background */}
     <div
       className={`absolute 
-        scale-110 
+        scale-100
         ${isActive("/") ? "animate-spin-slow primary-bg p-[15px] rounded-full z-4" : ""}`}
     />
         <div
       className={`absolute 
-        scale-110 
+        scale-100
         ${isActive("/") ? "animate-spin-slow secondary-bg p-5 rounded-full z-3" : ""}`}
     />
         <div
       className={`absolute 
-        scale-110 
+        scale-100
         ${isActive("/") ? "animate-spin-slow bg-black-700 p-6 rounded-full w-16 h-16" : ""}`}
     />
 
@@ -310,7 +310,7 @@ const features = [
       className={`absolute bottom-3 left-1/2 -translate-x-1/2 z-5
         transition-all duration-500 ease-out transform 
         ${isActive("/") ? "text-slate-900 w-6 h-6 scale-100 " : "text-white w-6 h-6 scale-100"} 
-        drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
+        drop-shadow-2xl hover:scale-130  cursor-pointer`}
     />
 
   
@@ -320,7 +320,7 @@ const features = [
   {/* Label */}
   <span
     className={`-mt-4 text-white text-md font-medium drop-shadow-lg
-      ${isActive("/") ? "!font-bold -mt-[34px] -mb-2 text-slate-100 font-bold" : "text-white font-normal"}`}
+      ${isActive("/") ? "!font-bold -mt-[22px] -mb-2 text-slate-100 font-bold" : "text-white font-normal"}`}
   >
     Home
   </span>
@@ -333,21 +333,21 @@ const features = [
 >
 
 
-      <div className={`relative w-14 h-12 flex flex-col items-center justify-center    rounded-full  ${isActive("/all-casino") ? "bottom-6 bg-yellow-600": " "}`}>
+      <div className={`relative w-14 h-12 flex flex-col items-center justify-center    rounded-full  ${isActive("/all-casino") ? "bottom-4 bg-yellow-600": " "}`}>
     {/* Glowing animated 3D background */}
     <div
       className={`absolute 
-        scale-110 
+        scale-100
         ${isActive("/all-casino") ? "animate-spin-slow primary-bg p-[15px] rounded-full z-4" : ""}`}
     />
         <div
       className={`absolute 
-        scale-110 
+        scale-100
         ${isActive("/all-casino") ? "animate-spin-slow secondary-bg p-5 rounded-full z-3" : ""}`}
     />
         <div
       className={`absolute 
-        scale-110 
+        scale-100
         ${isActive("/all-casino") ? "animate-spin-slow bg-black-700 p-6 rounded-full w-16 h-16" : ""}`}
     />
 
@@ -356,7 +356,7 @@ const features = [
       className={`absolute bottom-3 left-1/2 -translate-x-1/2 z-5
         transition-all duration-500 ease-out transform 
         ${isActive("/all-casino") ? "text-slate-900 w-6 h-6 scale-100 " : "text-white w-6 h-6 scale-100"} 
-        drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
+        drop-shadow-2xl hover:scale-130  cursor-pointer`}
     />
 
   
@@ -371,7 +371,7 @@ const features = [
   {/* Label */}
   <span
     className={`-mt-4 text-white text-md font-medium drop-shadow-lg
-      ${isActive("/all-casino") ? "!font-bold -mt-[34px] text-slate-100" : "text-white font-normal"}`}
+      ${isActive("/all-casino") ? "!font-bold -mt-[22px] text-slate-100" : "text-white font-normal"}`}
   >
     Casino
   </span>
@@ -388,7 +388,7 @@ const features = [
  
     <div
       className={`absolute 
-        blur-3xl opacity-70 scale-110 
+        blur-3xl opacity-70 scale-100
         ${isActive("/all-slot") ? "animate-spin-slow" : ""}`}
     />
 
@@ -397,7 +397,7 @@ const features = [
       className={`absolute bottom-3 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
         ${isActive("/all-slot") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
-        drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
+        drop-shadow-2xl hover:scale-130  cursor-pointer`}
     />
 
  </div>
@@ -420,7 +420,7 @@ const features = [
  
     <div
       className={`absolute 
-        blur-3xl opacity-70 scale-110 
+        blur-3xl opacity-70 scale-100
         ${isActive("/deposit") ? "animate-spin-slow" : ""}`}
     />
 
@@ -429,7 +429,7 @@ const features = [
       className={`absolute bottom-3 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
         ${isActive("/deposit") ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
-        drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
+        drop-shadow-2xl hover:scale-130  cursor-pointer`}
     />
 
   </div>
@@ -448,21 +448,21 @@ const features = [
 >
 
 
-      <div className={`relative w-14 h-12 flex flex-col items-center justify-center    rounded-full  ${isActive("/deposit") ? "bottom-6 bg-yellow-600": " "}`}>
+      <div className={`relative w-14 h-12 flex flex-col items-center justify-center    rounded-full  ${isActive("/deposit") ? "bottom-4 bg-yellow-600": " "}`}>
     {/* Glowing animated 3D background */}
     <div
       className={`absolute 
-        scale-110 
+        scale-100
         ${isActive("/deposit") ? "animate-spin-slow primary-bg p-[15px] rounded-full z-4" : ""}`}
     />
         <div
       className={`absolute 
-        scale-110 
+        scale-100
         ${isActive("/deposit") ? "animate-spin-slow secondary-bg p-5 rounded-full z-3" : ""}`}
     />
         <div
       className={`absolute 
-        scale-110 
+        scale-100 
         ${isActive("/deposit") ? "animate-spin-slow bg-black-700 p-6 rounded-full w-16 h-16" : ""}`}
     />
 
@@ -471,7 +471,7 @@ const features = [
       className={`absolute bottom-3 left-1/2 -translate-x-1/2 z-5
         transition-all duration-500 ease-out transform 
         ${isActive("/deposit") ? "text-slate-900 w-6 h-6 scale-100 " : "text-white w-6 h-6 scale-100"} 
-        drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
+        drop-shadow-2xl hover:scale-130  cursor-pointer`}
     />
 
   
@@ -486,7 +486,7 @@ const features = [
   {/* Label */}
   <span
     className={`-mt-4 text-white text-md font-medium drop-shadow-lg
-      ${isActive("/deposit") ? "!font-bold -mt-[34px] text-slate-100" : "text-white font-normal"}`}
+      ${isActive("/deposit") ? "!font-bold -mt-[22px] text-slate-100" : "text-white font-normal"}`}
   >
   Deposit
   </span>
@@ -508,7 +508,7 @@ const features = [
     {/* Glowing animated 3D background */}
     <div
       className={`absolute 
-        blur-3xl opacity-70 scale-110 
+        blur-3xl opacity-70 scale-100
         ${psheetOpen ? "animate-spin-slow" : ""}`}
     />
 
@@ -517,7 +517,7 @@ const features = [
       className={`absolute bottom-3 left-1/2 -translate-x-1/2 
         transition-all duration-500 ease-out transform 
         ${psheetOpen ? "text-orange-400 w-7 h-7 scale-100" : "text-white w-6 h-6 scale-100"} 
-        drop-shadow-2xl hover:scale-130 hover:rotate-[15deg] cursor-pointer`}
+        drop-shadow-2xl hover:scale-130  cursor-pointer`}
     />
 
 
