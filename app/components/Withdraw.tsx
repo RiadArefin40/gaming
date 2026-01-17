@@ -93,7 +93,7 @@ const [delay, setDelay] = useState(10)
       }
       return prev - 1;
     });
-  }, 1000);
+  }, 3000);
 
   return () => clearInterval(interval);
 }, [successModalOpen]);
@@ -306,7 +306,7 @@ const handleWithdraw = async () => {
 
   
             <div className="grid grid-cols-3 gap-2 mb-3 -mt-4">
-                {[500, 1000, 2000, 5000, 10000, 25000].map((value) => (
+                {[500, 3000, 2000, 5000, 30000, 25000].map((value) => (
                   <Button
                     key={value}
                     variant="outline"

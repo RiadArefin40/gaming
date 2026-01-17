@@ -50,7 +50,7 @@ const handleLogin = async () => {
    setTimeout(() => {
      setIsLoading(false);
 
-}, 1000);
+}, 3000);
   } catch (err) {
     console.error("Login Error:", err);
     let errorMsg = "Unknown error";

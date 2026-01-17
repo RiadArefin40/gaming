@@ -148,7 +148,7 @@ useEffect(() => {
   };
 
   fetchNotifications(); // fetch immediately
-  const interval = setInterval(fetchNotifications, 10000); // fetch every 10s
+  const interval = setInterval(fetchNotifications, 30000); // fetch every 10s
 
   return () => clearInterval(interval); // cleanup on unmount
 }, [user?.id]); // minimal dependency just to get user.id
@@ -212,7 +212,7 @@ useEffect(() => {
       setTimeout(()=>{
         onAction()
         router.push("/deposit");
-      }, 100)
+      }, 300)
       
     
   };
@@ -220,25 +220,25 @@ useEffect(() => {
      setTimeout(()=>{
         onAction()
         router.push("/referrals");
-      }, 100)
+      }, 300)
   };
       const handleBetting = () => {
      setTimeout(()=>{
         onAction()
         router.push("/user-bets");
-      }, 100)
+      }, 300)
   };
         const handleturnOver = () => {
      setTimeout(()=>{
         onAction()
         router.push("/turnover");
-      }, 100)
+      }, 300)
   };
         const handleTransaction = () => {
      setTimeout(()=>{
         onAction()
         router.push("/transactions");
-      }, 100)
+      }, 300)
   };
   
 const handleHome = () =>{
@@ -246,7 +246,7 @@ const handleHome = () =>{
 
   setTimeout(()=>{
 router.push('/')
-  }, 100)
+  }, 300)
 
 }
   const handleWithdrawl = () => {
@@ -259,7 +259,7 @@ router.push('/')
         psetSheetOpen(false);
         router.push("/deposit");
       }
-    }, 1000);
+    }, 3000);
   };
   const handleRoutechange = (e: any) => {
     psetSheetOpen(false);
@@ -270,7 +270,7 @@ router.push('/')
     setIsLoading(true);
     setTimeout(async () => {
       setIsLoading(false);
-    }, 1000); // 1.5 seconds delay
+    }, 3000); // 1.5 seconds delay
   };
 const features = [
   { id: 1, name: "Promotions", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-promotion.svg?v=1767782599110" },

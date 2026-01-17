@@ -166,7 +166,7 @@ export default function MobileAppBar() {
     setIsloading(true);
     setTimeout(async () => {
       setIsloading(false);
-    }, 1000); // 1.5 seconds delay
+    }, 3000); // 1.5 seconds delay
   };
 useEffect(() => {
   if (!user) return; // no user, skip
@@ -237,7 +237,7 @@ useEffect(() => {
   setSheetOpenS(false);
   setTimeout(()=>{
 router.push('/profile')
-  }, 100)
+  }, 300)
 
 }
 const handleLogin = () =>{
@@ -245,7 +245,7 @@ const handleLogin = () =>{
   setSheetOpenS(false);
   setTimeout(()=>{
 router.push('/login')
-  }, 100)
+  }, 300)
 
 }
 
@@ -254,17 +254,17 @@ const handleHome = () =>{
   setSheetOpenS(false);
   setTimeout(()=>{
 router.push('/')
-  }, 100)
+  }, 300)
 
 }
 
 
 const handleSignUp = () =>{
-  console.log('okkk');
+
   setSheetOpenS(false);
   setTimeout(()=>{
-router.push('/registration')
-  }, 100)
+  router.push('/registration')
+  }, 300)
 
 }
 
@@ -273,7 +273,7 @@ const handlePSheet = ()=>{
 
   //   setTimeout(()=>{
   //   setSheetOpenS(false);
-  // }, 100)
+  // }, 300)
 
 }
   const handleLogout = () => {

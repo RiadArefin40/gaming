@@ -267,7 +267,7 @@ const backToHome = () =>{
         }
         return prev - 1;
       });
-    }, 1000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [successModalOpen]);
@@ -549,7 +549,7 @@ useEffect(() => {
     
 
               <div className="grid grid-cols-4 gap-2 mb-3">
-                {[500, 1000, 2000, 5000, 10000, 25000].map((value) => (
+                {[500, 3000, 2000, 5000, 30000, 25000].map((value) => (
                   <Button
                     key={value}
                     variant="outline"

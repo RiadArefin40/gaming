@@ -121,7 +121,7 @@ useEffect(() => {
 //   };
 
 //   fetchNotification();
-//   const interval = setInterval(fetchNotification, 1000);
+//   const interval = setInterval(fetchNotification, 3000);
 
 //   return () => clearInterval(interval);
 // }, [user?.id]);
