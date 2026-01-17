@@ -217,6 +217,34 @@ useEffect(() => {
       
     
   };
+      const handleReferral = () => {
+               psetSheetOpen(false)
+     setTimeout(()=>{
+      
+        router.push("/referrals");
+      }, 300)
+  };
+      const handleBetting = () => {
+               psetSheetOpen(false)
+     setTimeout(()=>{
+    
+        router.push("/user-bets");
+      }, 300)
+  };
+        const handleturnOver = () => {
+                 psetSheetOpen(false)
+     setTimeout(()=>{
+   
+        router.push("/turnover");
+      }, 300)
+  };
+        const handleTransaction = () => {
+                 psetSheetOpen(false)
+     setTimeout(()=>{
+    
+        router.push("/transactions");
+      }, 300)
+  };
 
   const handleWithdrawl = () => {
     setIsVLoading(true);
@@ -587,7 +615,7 @@ const features = [
           <span className="text-slate-200 text-slate-200 text-md font-bold">Withdraw</span>
         </div>
            <div
-       onClick={()=> handleDeposit()}
+       onClick={()=> handleReferral()}
           className=" p-5 rounded-md flex flex-col items-center"
         >
           <img
@@ -609,6 +637,7 @@ const features = [
                
     
         <div
+             onClick={()=> handleBetting()}
     
           className=" p-5 rounded-md flex flex-col items-center"
         >
@@ -620,6 +649,7 @@ const features = [
           <span className="text-slate-200 text-md font-bold">Betting Record</span>
         </div>
                <div
+                onClick={()=> handleturnOver()}
     
           className=" p-5 rounded-md flex flex-col items-center"
         >
@@ -631,7 +661,7 @@ const features = [
           <span className="text-slate-200 text-md font-bold">Turnover</span>
         </div>
                <div
-    
+     onClick={()=> handleTransaction()}
           className=" p-5 rounded-md flex flex-col items-center"
         >
           <img
