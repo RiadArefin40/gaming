@@ -88,9 +88,12 @@ const [verifyPhoneN, setVeriPhoneN]= useState("")
 const [wpotp, setwpotp] = useState("")
 const [verifying, setVerifying] = useState(false);
 const handleVerify = async (phone: string)=>{
+  setLoading(true)
 await sendOtp();
 setOtpModal(true);
-  setVeriPhoneN(phone)
+  setVeriPhoneN(phone);
+    setLoading(false)
+
 }
 const sendOtp = async () => {
   const res = await fetch("/api/send-otp", {
@@ -253,6 +256,7 @@ else{
                     size="sm"
                     variant="outline"
                     className="text-slate-800"
+                    disabled={loading}
                     onClick={() => handleVerify(p.phone)} 
                   >
                     Verify
