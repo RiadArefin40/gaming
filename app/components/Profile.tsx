@@ -253,6 +253,12 @@ useEffect(() => {
         router.push("/notifications");
       }, 300)
   }
+      const handlePassword =()=>{
+         setTimeout(()=>{
+        onAction()
+        router.push("/update-password");
+      }, 300)
+  }
   
 const handleHome = () =>{
   console.log('okkk');
@@ -486,6 +492,19 @@ const features = [
             alt={""}
           />
           <span className="text-slate-200 text-md font-bold">Profile</span>
+        </div>
+                       <div
+                  onClick={()=> handlePassword()}
+    
+          className=" p-5 relative rounded-md flex flex-col items-center"
+        >
+          <img
+            className="bg-yellow-300 p-[2px] rounded-full mb-2 "
+            src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-changepassword.svg?v=1768297086272&quot"}
+            alt={""}
+          />
+          <span className="text-slate-200 text-md font-bold">Update Password</span>
+       
         </div>
 
                <div

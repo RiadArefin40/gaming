@@ -17,6 +17,12 @@ import {
   TabsContent,
 } from "@/components/ui/tabs";
 import { Filter, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+import { Input } from "@/components/ui/input";
+
+import { DialogFooter,DialogContent, DialogHeader ,Dialog , DialogTitle} from "@/components/ui/dialog";
+
 
 const UserBetsPage = () => {
   const [bets, setBets] = useState<any[]>([]);
@@ -51,8 +57,13 @@ const UserBetsPage = () => {
     if (timeRange === "Last 30 days") from.setDate(now.getDate() - 30);
     if (timeRange === "Last 90 days") from.setDate(now.getDate() - 90);
 
-    return bets.filter((b) => new Date(b.created_at) >= from);
+    return bets.filter((b) => new Date(b.updated_at) >= from);
   }, [bets, timeRange]);
+
+    const [filterOpen, setFilterOpen] = useState(false);
+
+const [fromDate, setFromDate] = useState<string>("");
+const [toDate, setToDate] = useState<string>("");
 
   /* 🎯 Type filter */
   const finalBets = useMemo(() => {
@@ -74,6 +85,41 @@ const backToHome = () =>{
   router.push('/')
   console.log('okkk')
 }
+const filterTransactionsByDate = (txList: any[]) => {
+  const now = new Date();
+  let startDate: Date | null = null;
+  let endDate: Date | null = null;
+
+  if (timeRange === "Last 7 days") {
+    startDate = new Date();
+    startDate.setDate(now.getDate() - 7);
+  }
+
+  if (timeRange === "Last 30 days") {
+    startDate = new Date();
+    startDate.setDate(now.getDate() - 30);
+  }
+
+  if (timeRange === "Last 90 days") {
+    startDate = new Date();
+    startDate.setDate(now.getDate() - 90);
+  }
+
+  if (timeRange === "Custom" && fromDate && toDate) {
+    startDate = new Date(fromDate);
+    endDate = new Date(toDate);
+    endDate.setHours(23, 59, 59, 999); // include full day
+  }
+
+  return txList.filter((tx) => {
+    const txDate = new Date(tx.created_at);
+    if (startDate && endDate)
+      return txDate >= startDate && txDate <= endDate;
+    if (startDate)
+      return txDate >= startDate;
+    return true;
+  });
+};
   return (
     <div className=" max-w-screen bg-black-800 mx-0 py-2 -mt-2">
          <header className="h-16 px-4 py-2  relative bg-black-700 ">
@@ -85,6 +131,46 @@ const backToHome = () =>{
                   <X className="w-9 h-9 mt-1 text-white/70 hover:text-red-600" />
                 </button>
       </header>
+            <Dialog open={filterOpen} onOpenChange={setFilterOpen}>
+  <DialogContent className="bg-black-600 rounded-xl">
+    <DialogHeader>
+      <DialogTitle>Filter by Date</DialogTitle>
+    </DialogHeader>
+
+
+    {/* Custom Date Inputs */}
+    <div className="space-y-3 mt-4">
+
+      <div className="flex gap-2">
+        <Input
+          type="date"
+          value={fromDate}
+          onChange={(e) => {
+            setTimeRange("Custom");
+            setFromDate(e.target.value);
+          }}
+        />
+        <Input
+          type="date"
+          value={toDate}
+          onChange={(e) => {
+            setTimeRange("Custom");
+            setToDate(e.target.value);
+          }}
+        />
+      </div>
+    </div>
+
+    <DialogFooter>
+      <Button className="text-slate-800" variant="outline" onClick={() => setFilterOpen(false)}>
+        Cancel
+      </Button>
+      <Button className="text-slate-200" onClick={() => setFilterOpen(false)}>
+        Apply
+      </Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
           <Tabs defaultValue="active" className="px-4  border-t border-b-0 border-gray-700 bg-black-700 w-full pt-8 -pb-12">
        <TabsList className="gap-12 bg-black-700  w-full">
           <TabsTrigger
@@ -142,10 +228,19 @@ const backToHome = () =>{
           </SelectContent>
         </Select>
         <div className="bg-yellow-300/90 rounded-r-sm absolute top-0 z-300 right-0 h-[59px] w-14 text-slate-800">
-         <Filter className="ml-5 mt-4"/>
+            <Button
+  size="icon"
+  variant="ghost"
+  className="ml-2 mt-3"
+  onClick={() => setFilterOpen(true)}
+>
+  <Filter size={28} />
+</Button>
+
         </div>
      
       </div>
+      
 
       {/* Summary */}
       {/* <div className="grid grid-cols-2 gap-4 mb-6">
@@ -193,7 +288,29 @@ const BetList = ({
   emptyText?: string;
 }) => {
   if (!data.length)
-    return <div className="text-center bg-gray-600 text-gray-500 mt-10">{emptyText}</div>;
+    return <div className="text-center mx-2 bg-gray-600 rounded-lg text-gray-500 mt-10">
+      <h1 className="text-center text-slate-100 text-2xl">No Data Found</h1>
+            <video
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="auto"
+      className="ml-10"
+   
+    >
+      <source
+        src="https://img.m156b.com/mb/h5/assets/images/animation/no-data.mov?v=1768297086272"
+        type="video/quicktime"
+      />
+      <source
+        src="https://img.m156b.com/mb/h5/assets/images/animation/no-data.webm?v=1768297086272"
+        type="video/webm"
+      />
+      {/* Fallback text */}
+      Your browser does not support the video tag.
+    </video>
+    </div>;
 
   return (
     <div className="space-y-2 mb-[100px]">

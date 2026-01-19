@@ -238,7 +238,7 @@ const handleWithdraw = async () => {
           {!widthraw && (
             <p className="text-red-400">Widthraw is Disabled till morning 7AM</p>
           )}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-3 gap-2">
             {uniquePaymentOptions.map((p) => (
               <button
                 key={p.id}
@@ -248,7 +248,7 @@ const handleWithdraw = async () => {
                   setReceiverNumber(p.agent_number);
                   setSelectedChannel(p.deposit_channel);
                 }}
-                className={`w-full flex items-center gap-2 py-4 px-4 rounded-lg font-medium transition 
+                className={`w-full flex flex-col justify-center relative gap-2 py-3 px-6 rounded-lg font-medium transition 
                 ${
                   (selectedPayment === p.id && widthraw)
                     ? "bg-select border text-white border-yellow-400"
@@ -262,11 +262,16 @@ const handleWithdraw = async () => {
                 
                 `}
               >
-                {p.name}
+                
                 <img
   src={paymentImages[p.name as keyof typeof paymentImages] || ""}
-  className="h-8"
+ className="h-[29px] w-8  mx-auto rounded-md"
 />
+{p.name}
+                     <div className="absolute top-[10px] -right-[8px] rounded-sm inline-block bg-red-500 text-white font-bold px-[10px] py-[1px] text-sm">
+  +5%
+  <span className="absolute left-0 top-0 w-0 h-0 border-t-[16px] border-t-transparent border-b-[16px] border-b-transparent border-l-[8px] border-l-red-500"></span>
+</div>
               </button>
             ))}
           </div>

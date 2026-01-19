@@ -47,7 +47,7 @@ const ReferralPage = () => {
   const unclaimedBonus = filteredReferrals.reduce((sum, r) => sum + Number(r.unclaimed_bonus || 0), 0);
 
   return (
-    <div className="p-4 max-w-4xl mx-auto mt-20">
+    <div className="p-4 max-w-4xl mx-auto mt-20 mb-[100px]">
       {/* Referral Code + Time Range */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>

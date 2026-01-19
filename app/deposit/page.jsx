@@ -553,7 +553,7 @@ useEffect(() => {
                   <Button
                     key={value}
                     variant="outline"
-                    className={"bg-white/10 !text-slate-200 text-md !h-[44px] !rounded-lg !font-bold border-0"}
+                    className={"bg-white/10 text-slate-200 hover:text-slate-800 text-md !h-[44px] !rounded-lg !font-bold border-0"}
                     onClick={() =>
                       setAmount((prev) =>
                         (Number(prev || 0) + value).toString(),
@@ -610,8 +610,7 @@ useEffect(() => {
         ৪. ডিপোজিট পেন্ডিং থাকা অবস্থায় আপনি সর্বোচ্চ ২টি ডিপোজিট ট্রাই করতে পারবেন।
         কোনো সমস্যা হলে অনুগ্রহ করে লাইভচ্যাটের মাধ্যমে সহায়তা নিন।
         <br /><br />
-        ৫. বাজির ODDs অবশ্যই ১.৩০-এর ওপরে হতে হবে। এর নিচের অডসে রাখা বাজি উইথড্র
-        টার্নওভারের জন্য গণনা করা হবে না।
+    
       </p>
     </AccordionContent>
   </AccordionItem>

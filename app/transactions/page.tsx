@@ -17,6 +17,10 @@ import {
 } from "@/components/ui/select";
 import { Filter, List, X } from "lucide-react";
 import { getAuthUser } from "@/lib/auth";
+import { DialogFooter,DialogContent, DialogHeader } from "@/components/ui/dialog";
+import { Dialog, DialogTitle } from "@radix-ui/react-dialog";
+import { Label } from "@radix-ui/react-select";
+import { Input } from "@/components/ui/input";
 
 const TransactionRecordPage = () => {
   const [timeRange, setTimeRange] = useState("Last 7 days");
@@ -69,18 +73,47 @@ const TransactionRecordPage = () => {
   }, [userId]);
 
   // ✅ Date filter
-  const filterTransactionsByDate = (txList: any[]) => {
-    const now = new Date();
-    let fromDate = new Date();
+const filterTransactionsByDate = (txList: any[]) => {
+  const now = new Date();
+  let startDate: Date | null = null;
+  let endDate: Date | null = null;
 
-    if (timeRange === "Last 7 days") fromDate.setDate(now.getDate() - 7);
-    if (timeRange === "Last 30 days") fromDate.setDate(now.getDate() - 30);
-    if (timeRange === "Last 90 days") fromDate.setDate(now.getDate() - 90);
+  if (timeRange === "Last 7 days") {
+    startDate = new Date();
+    startDate.setDate(now.getDate() - 7);
+  }
 
-    return txList.filter(
-      (tx) => new Date(tx.created_at) >= fromDate
-    );
-  };
+  if (timeRange === "Last 30 days") {
+    startDate = new Date();
+    startDate.setDate(now.getDate() - 30);
+  }
+
+  if (timeRange === "Last 90 days") {
+    startDate = new Date();
+    startDate.setDate(now.getDate() - 90);
+  }
+
+  if (timeRange === "Custom" && fromDate && toDate) {
+    startDate = new Date(fromDate);
+    endDate = new Date(toDate);
+    endDate.setHours(23, 59, 59, 999); // include full day
+  }
+
+  return txList.filter((tx) => {
+    const txDate = new Date(tx.created_at);
+    if (startDate && endDate)
+      return txDate >= startDate && txDate <= endDate;
+    if (startDate)
+      return txDate >= startDate;
+    return true;
+  });
+};
+
+
+  const [filterOpen, setFilterOpen] = useState(false);
+
+const [fromDate, setFromDate] = useState<string>("");
+const [toDate, setToDate] = useState<string>("");
 
   const filteredTransactions = filterTransactionsByDate(transactions);
   const deposits = filteredTransactions.filter(t => t.type === "deposit");
@@ -97,7 +130,7 @@ const router = useRouter();
   return (
     <div className=" max-w-4xl mx-auto">
     <header className="h-16 px-4 py-2  relative bg-black-700 ">
-        <h1 className="text-center mx-auto mt-2 font-bold text-white/70 text-xl">Betting Records</h1>
+        <h1 className="text-center mx-auto mt-2 font-bold text-white/70 text-xl">Transaction Records</h1>
         <button
                   className=" px-2 py-1 rounded-lg absolute right-2 top-1 px-3 z-50  "
                   onClick={() => backToHome()}
@@ -118,7 +151,54 @@ const router = useRouter();
           </SelectContent>
         </Select>
         <div className="bg-yellow-300/90 rounded-r-sm absolute top-0 z-300 right-0 h-[59px] w-14 text-slate-800">
-         <Filter className="ml-5 mt-4"/>
+     <Button
+  size="icon"
+  variant="ghost"
+  className="ml-2 mt-3"
+  onClick={() => setFilterOpen(true)}
+>
+  <Filter size={28} />
+</Button>
+      <Dialog open={filterOpen} onOpenChange={setFilterOpen}>
+  <DialogContent className="bg-black-600 rounded-xl">
+    <DialogHeader>
+      <DialogTitle>Filter by Date</DialogTitle>
+    </DialogHeader>
+
+
+    {/* Custom Date Inputs */}
+    <div className="space-y-3 mt-4">
+
+      <div className="flex gap-2">
+        <Input
+          type="date"
+          value={fromDate}
+          onChange={(e) => {
+            setTimeRange("Custom");
+            setFromDate(e.target.value);
+          }}
+        />
+        <Input
+          type="date"
+          value={toDate}
+          onChange={(e) => {
+            setTimeRange("Custom");
+            setToDate(e.target.value);
+          }}
+        />
+      </div>
+    </div>
+
+    <DialogFooter>
+      <Button className="text-slate-800" variant="outline" onClick={() => setFilterOpen(false)}>
+        Cancel
+      </Button>
+      <Button className="text-slate-100" onClick={() => setFilterOpen(false)}>
+        Apply
+      </Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
         </div>
      
       </div>
@@ -145,6 +225,8 @@ const router = useRouter();
           <TransactionList data={withdrawals} emptyText="No withdrawal records." />
         </TabsContent>
       </Tabs>
+
+
     </div>
   );
 };
@@ -164,7 +246,27 @@ const TransactionList = ({
   if (!data.length) {
     return (
       <div className="text-center text-gray-500 mt-10">
-        {emptyText}
+           <h1 className="text-center text-slate-100 text-2xl">No Data Found</h1>
+            <video
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="auto"
+      className="ml-10"
+   
+    >
+      <source
+        src="https://img.m156b.com/mb/h5/assets/images/animation/no-data.mov?v=1768297086272"
+        type="video/quicktime"
+      />
+      <source
+        src="https://img.m156b.com/mb/h5/assets/images/animation/no-data.webm?v=1768297086272"
+        type="video/webm"
+      />
+      {/* Fallback text */}
+      Your browser does not support the video tag.
+    </video>
       </div>
     );
   }

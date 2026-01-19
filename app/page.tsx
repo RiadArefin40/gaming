@@ -6,7 +6,7 @@ import CategorySlider from "./components/CategorySlide";
 import { getAuthUser } from "@/lib/auth";
 import CategorySelectionSlider from "./components/CategorySelectionSlider"
 import ProviderCategory from "./components/ProviderCategory";
-import { Mic , Volume } from "lucide-react";
+import { Headphones, Mic , Volume } from "lucide-react";
 import MatchSlider from "./components/MatchSlider";
 import EventSlider from "./components/EventSlider";
 import FeaturedSlider from "./components/FeaturedSlider";
@@ -39,7 +39,36 @@ type SocialLinksMap = {
   [key in SocialLink["platform"]]: string | null;
 };
 
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
 
+  const [position, setPosition] = useState({ x: 20, y: 200 });
+  const [dragging, setDragging] = useState(false);
+  const offset = useRef({ x: 0, y: 0 });
+
+  /* ===== START DRAG ===== */
+  const startDrag = (clientX: number, clientY: number) => {
+    if (!buttonRef.current) return;
+
+    const rect = buttonRef.current.getBoundingClientRect();
+    offset.current = {
+      x: clientX - rect.left,
+      y: clientY - rect.top,
+    };
+    setDragging(true);
+  };
+
+  /* ===== MOVE ===== */
+  const onMove = (clientX: number, clientY: number) => {
+    if (!dragging) return;
+
+    setPosition({
+      x: clientX - offset.current.x,
+      y: clientY - offset.current.y,
+    });
+  };
+
+  /* ===== END ===== */
+  const endDrag = () => setDragging(false);
 // const user: AuthUser | null = (() => {
 //   const stored = localStorage.getItem("auth_user");
 //   return stored ? JSON.parse(stored) as AuthUser : null;
@@ -146,7 +175,7 @@ const [loading, setLoading] = useState(true);
   const [gameList, setGameList] = useState<any[]>([]); // store gamelist here
 
   const [open, setOpen] = useState(false);
-
+const [contact, setContact] = useState(true);
 
 
 
@@ -195,10 +224,10 @@ const [loading, setLoading] = useState(true);
 
 
   const isDragging = useRef(false);
-  const offset = useRef({ x: 0, y: 0 });
+
 
   const [mounted, setMounted] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+
 
   // ✅ Set position AFTER mount
   useEffect(() => {
@@ -209,35 +238,15 @@ const [loading, setLoading] = useState(true);
     });
   }, []);
 
-  const startDrag = (clientX: number, clientY: number) => {
-    isDragging.current = true;
-    offset.current = {
-      x: clientX - position.x,
-      y: clientY - position.y,
-    };
-  };
 
-  const onMove = (clientX: number, clientY: number) => {
-    if (!isDragging.current) return;
-
-    const size = 56;
-
-    setPosition({
-      x: Math.min(
-        window.innerWidth - size,
-        Math.max(0, clientX - offset.current.x)
-      ),
-      y: Math.min(
-        window.innerHeight - size,
-        Math.max(0, clientY - offset.current.y)
-      ),
-    });
-  };
 
   const stopDrag = () => {
     isDragging.current = false;
   };
-
+const handleContact = () =>{
+  setContact(false);
+ setOpen(false)
+}
   if (!mounted) return null; // ⛔ prevent SSR crash
 
   return (
@@ -466,19 +475,50 @@ const [loading, setLoading] = useState(true);
 
 <>
       {/* Floating Button */}
-      <button
+      {contact && (
+        <div className="relative">    <button
+              ref={buttonRef}
+        onMouseDown={(e) => startDrag(e.clientX, e.clientY)}
+        onMouseMove={(e) => dragging && onMove(e.clientX, e.clientY)}
+        onMouseUp={endDrag}
+        onMouseLeave={endDrag}
+        onTouchStart={(e) =>
+          startDrag(e.touches[0].clientX, e.touches[0].clientY)
+        }
+        onTouchMove={(e) =>
+          onMove(e.touches[0].clientX, e.touches[0].clientY)
+        }
+        onTouchEnd={endDrag}
         onClick={() => setOpen(!open)}
-        className="fixed bottom-20 right-6 bg-gradient-to-tr from-yellow-200 to-orange-300 text-white p-4 rounded-full shadow-lg flex items-center justify-center z-50 hover:scale-110 transition-transform"
+        className="  fixed z-500 h-14 w-14 bg-black-800 border border-yellow-500 text-white p-4 rounded-full shadow-lg flex items-center justify-center z-50 hover:scale-110 transition-transform"
         aria-label="Contact"
+            style={{
+          left: position.x,
+          top: position.y,
+        }}
       >
-        📞
+        <div className="relative">
+      <p className="text-2xl font-bold pt-3"> <span className="text-yellow-300/90">S</span><span>W</span></p>
+       <Headphones size={20} className="text-slate-100 lighter absolute -top-1 right-[8px]"/>
+        </div>
+      
       </button>
+       <X onClick={() => handleContact()} className="absolute z-500  top-2 right-12 text-white/70 font-bold"/>
+
+       </div>
+
+      )}
+  
 
       {/* Contact List */}
       <div
-        className={`fixed bottom-36 right-6 flex flex gap-1 bg-white p-1 rounded-lg transition-all duration-300 ${
+        className={`fixed  flex flex gap-1 bg-white p-1 rounded-lg transition-all duration-300 ${
           open ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
+               style={{
+          left: position.x - 100,
+          top: position.y + 60,
+        }}
       >
         {Object.keys(icons).map((platform) => {
           const key = platform as SocialLink["platform"];
@@ -489,11 +529,11 @@ const [loading, setLoading] = useState(true);
               href={links[key] || "#"}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center gap-2 rounded-lg shadow-md  ${
+              className={`flex items-center h-10 w-10 gap-2 rounded-lg shadow-md  ${
                 active ? "opacity-100 hover:bg-gray-100" : "opacity-20 pointer-events-none"
               }`}
             >
-              <img src={icons[key]} alt={key} width={44} height={44} />
+              <img src={icons[key]} alt={key} width={64} height={64} />
               {/* <span className="capitalize">{key}</span> */}
             </a>
           );

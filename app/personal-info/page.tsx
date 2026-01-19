@@ -263,7 +263,14 @@ const backToHome = () =>{
 
       {/* ===== ADD PHONE DIALOG ===== */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="bg-black-600">
+        <DialogContent   className="
+        bg-black-600
+    fixed top-20 left-0 right-0
+    translate-x-0 translate-y-0
+    rounded-t-2xl
+   
+    mx-2
+  ">
           <DialogHeader>
             <DialogTitle>Add Phone Number</DialogTitle>
           </DialogHeader>
