@@ -408,7 +408,8 @@ else{
       <p className="text-sm text-gray-400 text-center mb-2">
         Enter 6-digit OTP
       </p>
-      {wpotp}
+      
+
    <div className="flex justify-center gap-2 mt-4">
   {[...Array(4)].map((_, i) => (
     <input
@@ -465,13 +466,19 @@ else{
         Cancel
       </Button>
 
-      <Button
-        className="!text-slate-200"
-        onClick={submitOtp}
-        disabled={otp.length !== 4 || verifying}
+
+           <button
+        disabled={loading || !wpotp}
+          onClick={submitOtp}
+ 
+        className={`px-4 py-2 rounded-md ${
+          loading || !wpotp
+            ? "!text-slate-200 bg-gray-500 cursor-not-allowed"
+            : "!text-slate-800 bg-yellow-300/90"
+        }`}
       >
-        {verifying ? "Verifying..." : "Submit"}
-      </Button>
+        {loading ? "Loading..." : wpotp ? "Submit OTP" : "Waiting..."}
+      </button>
     </DialogFooter>
   </DialogContent>
 </Dialog>
