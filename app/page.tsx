@@ -492,7 +492,7 @@ const handleContact = () =>{
   }}
         onTouchEnd={endDrag}
         onClick={() => setOpen(!open)}
-        className="  fixed z-500 h-14 w-14   touch-none bg-black-800 border border-yellow-500 text-white p-4 rounded-full shadow-lg flex items-center justify-center z-50 hover:scale-110 transition-transform"
+        className="  fixed z-50 h-14 w-14   touch-none bg-black-800 border border-yellow-500 text-white p-4 rounded-full shadow-lg flex items-center justify-center z-50 hover:scale-110 transition-transform"
         aria-label="Contact"
             style={{
           left: position.x,
@@ -505,7 +505,7 @@ const handleContact = () =>{
         </div>
       
       </button>
-       <X onClick={() => handleContact()} className="absolute z-600  top-2 right-12 text-white/70 font-bold"/>
+       <X onClick={() => handleContact()} className="absolute z-50  top-2 right-12 text-white/70 font-bold"/>
 
        </div>
 
