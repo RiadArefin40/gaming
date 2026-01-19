@@ -95,19 +95,19 @@ setOtpModal(true);
   setVeriPhoneN(phone);
       setTimeout(() => {
 
-     sendOtp();
+     sendOtp(phone);
     // close dialog after success
   }, 1000);
 
     // setLoading(false)
 
 }
-const sendOtp = async () => {
+const sendOtp = async (phone:any) => {
   const res = await fetch("/api/send-otp", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      phone: `88${verifyPhoneN}`,
+      phone: `88${phone}`,
       otpBody: "2344",   // the OTP text in the body
       otpButton: "2342", // text in the button
     }),
