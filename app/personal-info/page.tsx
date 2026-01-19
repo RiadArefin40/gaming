@@ -97,7 +97,7 @@ setOtpModal(true);
 
      sendOtp();
     // close dialog after success
-  }, 400);
+  }, 1000);
 
     // setLoading(false)
 
