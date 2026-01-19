@@ -482,15 +482,17 @@ const handleContact = () =>{
         onMouseMove={(e) => dragging && onMove(e.clientX, e.clientY)}
         onMouseUp={endDrag}
         onMouseLeave={endDrag}
-        onTouchStart={(e) =>
-          startDrag(e.touches[0].clientX, e.touches[0].clientY)
-        }
-        onTouchMove={(e) =>
-          onMove(e.touches[0].clientX, e.touches[0].clientY)
-        }
+       onTouchStart={(e) => {
+    e.preventDefault();
+    startDrag(e.touches[0].clientX, e.touches[0].clientY);
+  }}
+  onTouchMove={(e) => {
+    e.preventDefault(); // 🔥 stops scroll
+    onMove(e.touches[0].clientX, e.touches[0].clientY);
+  }}
         onTouchEnd={endDrag}
         onClick={() => setOpen(!open)}
-        className="  fixed z-500 h-14 w-14 bg-black-800 border border-yellow-500 text-white p-4 rounded-full shadow-lg flex items-center justify-center z-50 hover:scale-110 transition-transform"
+        className="  fixed z-500 h-14 w-14   touch-none bg-black-800 border border-yellow-500 text-white p-4 rounded-full shadow-lg flex items-center justify-center z-50 hover:scale-110 transition-transform"
         aria-label="Contact"
             style={{
           left: position.x,
