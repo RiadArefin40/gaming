@@ -325,7 +325,7 @@ psetSheetOpen(false)
 
 
     <>
-      {!isActive("/login") && !isActive("/update-password") && !isActive("/notifications") &&  !isActive("/personal-info") && !isActive("/registration") && !isActive("/profile") && !isActive("/deposit") && !isActive("/user-bets") && !isActive("/turnover") && !isActive("/transactions") && isVisible &&
+      {!isActive("/login") && !isActive("/forget") && !isActive("/update-password") && !isActive("/notifications") &&  !isActive("/personal-info") && !isActive("/registration") && !isActive("/profile") && !isActive("/deposit") && !isActive("/user-bets") && !isActive("/turnover") && !isActive("/transactions") && isVisible &&
       
       (
 

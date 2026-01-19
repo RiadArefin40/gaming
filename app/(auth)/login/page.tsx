@@ -64,7 +64,10 @@ const handleLogin = async () => {
     setIsLoading(false);
   }
 };
+  const goToSlots = () => {
 
+    router.push("/forget");
+  };
 
 const handleSignUp = async () => {
  if (!username || !phone) {
@@ -174,9 +177,16 @@ useEffect(() => {
               </label>
               <input
                 value={username}
-                onChange={(e) => setUsername(e.target.value.toLowerCase())}
+                  onChange={(e) => {
+    const value = e.target.value
+      .toLowerCase()
+      .replace(/\s+/g, ""); // remove all spaces
+
+    setUsername(value);
+  }}
                 className="w-full h-12 bg-white/10 rounded-md px-4 text-lg"
                 placeholder="User Name"
+                
               />
             </div>
 
@@ -198,6 +208,18 @@ useEffect(() => {
       >
         {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
       </button>
+    </div>
+    <div
+     onClick={() => goToSlots()}
+    
+    >
+
+      <div className="w-[150px] -mb-2 relative px-1 rounded-lg border-2 mt-4 border-yellow-300/90">
+  <p className="text-lg text-gray-300 py-[1px] block">
+        Forget Password
+      </p>
+      </div>
+      
     </div>
 
             {error && (
