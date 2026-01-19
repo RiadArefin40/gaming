@@ -82,7 +82,22 @@ const backToHome = () =>{
     fetchPhones(user.id);
     setLoading(false);
   };
+const [otp, setOtp] = useState("")
+const [otpModal, setOtpModal] = useState(false)
+const [verifyPhoneN, setVeriPhoneN]= useState("")
+const [verifying, setVerifying] = useState(false);
+const handleVerify = async (phone: string)=>{
+setOtpModal(true);
+  setVeriPhoneN(phone)
+}
+const submitOtp = () => {
+  setVerifying(true);
 
+  setTimeout(() => {
+    setVerifying(false);
+    setOtpModal(false); // close dialog after success
+  }, 400);
+};
   const verifyPhone = async (phone: string) => {
     if (!user) return;
     await fetch("https://api.bajiraj.cloud/users/phone/verify", {
@@ -203,7 +218,7 @@ const backToHome = () =>{
                     size="sm"
                     variant="outline"
                     className="text-slate-800"
-                    onClick={() => verifyPhone(p.phone)}
+                    onClick={() => handleVerify(p.phone)} 
                   >
                     Verify
                   </Button>
@@ -291,6 +306,122 @@ const backToHome = () =>{
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+            <Dialog open={otpModal} onOpenChange={setOtpModal}>
+        <DialogContent   className="
+        bg-black-600
+    fixed top-20 left-0 right-0
+    translate-x-0 translate-y-0
+    rounded-t-2xl
+   
+    mx-2
+  ">
+          <DialogHeader>
+            <DialogTitle>Send Otp</DialogTitle>
+          </DialogHeader>
+
+          <Input
+            placeholder="Enter phone number"
+            value={verifyPhoneN}
+            disabled
+            // onChange={(e) => setNewPhone(e.target.value)}
+          />
+
+          <DialogFooter>
+            <Button variant="outline" className="!text-slate-800" onClick={() => setOtpModal(false)}>
+             Submit
+            </Button>
+            <Button className="!text-slate-200" onClick={addPhone} disabled={loading}>
+              {loading ? "Adding..." : "Add"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={otpModal} onOpenChange={setOtpModal}>
+  <DialogContent
+    className="
+      bg-black-600
+      fixed top-20 left-0 right-0
+      translate-x-0 translate-y-0
+      rounded-t-2xl
+      mx-2
+    "
+  >
+    <DialogHeader>
+      <DialogTitle>Verify OTP</DialogTitle>
+    </DialogHeader>
+
+    <Input
+      placeholder="Phone number"
+      value={verifyPhoneN}
+      disabled
+    />
+
+    {/* OTP INPUT */}
+    <div className="mt-4">
+      <p className="text-sm text-gray-400 text-center mb-2">
+        Enter 6-digit OTP
+      </p>
+   <div className="flex justify-center gap-2 mt-4">
+  {[...Array(6)].map((_, i) => (
+    <input
+      key={i}
+      type="text"
+      inputMode="numeric"
+      maxLength={1}
+      value={otp[i] || ""}
+      onChange={(e) => {
+        const val = e.target.value.replace(/\D/g, "");
+        if (!val) return;
+
+        const newOtp = otp.split("");
+        newOtp[i] = val;
+        setOtp(newOtp.join(""));
+
+        // auto focus next
+        const next = e.target.nextSibling as HTMLInputElement;
+        if (next) next.focus();
+      }}
+      className="
+        w-10 h-12 text-center text-lg
+        rounded-md border
+        bg-black/40 text-white
+        focus:outline-none focus:ring-2 focus:ring-yellow-500
+      "
+    />
+  ))}
+</div>
+
+    </div>
+
+    {/* WAITING UI */}
+    {verifying && (
+      <p className="text-center text-yellow-400 mt-4 animate-pulse">
+        Verifying OTP, please wait...
+      </p>
+    )}
+
+    <DialogFooter className="mt-4">
+      <Button
+        variant="outline"
+        className="!text-slate-800"
+        onClick={() => setOtpModal(false)}
+        disabled={verifying}
+      >
+        Cancel
+      </Button>
+
+      <Button
+        className="!text-slate-200"
+        onClick={submitOtp}
+        disabled={otp.length !== 6 || verifying}
+      >
+        {verifying ? "Verifying..." : "Submit"}
+      </Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+
     </div>
   );
 }
