@@ -85,18 +85,53 @@ const backToHome = () =>{
 const [otp, setOtp] = useState("")
 const [otpModal, setOtpModal] = useState(false)
 const [verifyPhoneN, setVeriPhoneN]= useState("")
+const [wpotp, setwpotp] = useState("")
 const [verifying, setVerifying] = useState(false);
 const handleVerify = async (phone: string)=>{
+await sendOtp();
 setOtpModal(true);
   setVeriPhoneN(phone)
 }
-const submitOtp = () => {
-  setVerifying(true);
+const sendOtp = async () => {
+  const res = await fetch("/api/send-otp", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      phone: `88${verifyPhoneN}`,
+      otpBody: "2344",   // the OTP text in the body
+      otpButton: "2342", // text in the button
+    }),
+  });
 
-  setTimeout(() => {
+  const result = await res.json();
+  setwpotp(result.bodyOtp)
+  console.log(result);
+};
+
+
+
+
+
+
+
+
+const submitOtp =async () => {
+  
+
+
+if(otp == wpotp){
+  setVerifying(true);
+    setTimeout(() => {
     setVerifying(false);
-    setOtpModal(false); // close dialog after success
+    setOtpModal(false);
+    verifyPhone(verifyPhoneN)
+    // close dialog after success
   }, 400);
+}
+else{
+   alert('NN!matched')
+}
+
 };
   const verifyPhone = async (phone: string) => {
     if (!user) return;
@@ -362,8 +397,9 @@ const submitOtp = () => {
       <p className="text-sm text-gray-400 text-center mb-2">
         Enter 6-digit OTP
       </p>
+      {wpotp}
    <div className="flex justify-center gap-2 mt-4">
-  {[...Array(6)].map((_, i) => (
+  {[...Array(4)].map((_, i) => (
     <input
       key={i}
       type="text"
@@ -371,7 +407,7 @@ const submitOtp = () => {
       maxLength={1}
       value={otp[i] || ""}
       onChange={(e) => {
-        const val = e.target.value.replace(/\D/g, "");
+        const val = e.target.value;
         if (!val) return;
 
         const newOtp = otp.split("");
@@ -405,7 +441,14 @@ const submitOtp = () => {
       <Button
         variant="outline"
         className="!text-slate-800"
-        onClick={() => setOtpModal(false)}
+        onClick={() => {
+          
+          setOtp("")
+          setVerifying(false);
+          setOtpModal(false)
+
+
+        }}
         disabled={verifying}
       >
         Cancel
@@ -414,7 +457,7 @@ const submitOtp = () => {
       <Button
         className="!text-slate-200"
         onClick={submitOtp}
-        disabled={otp.length !== 6 || verifying}
+        disabled={otp.length !== 4 || verifying}
       >
         {verifying ? "Verifying..." : "Submit"}
       </Button>
