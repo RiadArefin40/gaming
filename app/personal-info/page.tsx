@@ -88,12 +88,12 @@ const [verifyPhoneN, setVeriPhoneN]= useState("")
 const [wpotp, setwpotp] = useState("")
 const [verifying, setVerifying] = useState(false);
 const handleVerify = async (phone: string)=>{
-  setLoading(true)
+  // setLoading(true)
 
 setOtpModal(true);
 await sendOtp();
   setVeriPhoneN(phone);
-    setLoading(false)
+    // setLoading(false)
 
 }
 const sendOtp = async () => {
