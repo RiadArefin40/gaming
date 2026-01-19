@@ -91,8 +91,14 @@ const handleVerify = async (phone: string)=>{
   // setLoading(true)
 
 setOtpModal(true);
-await sendOtp();
+
   setVeriPhoneN(phone);
+      setTimeout(() => {
+
+     sendOtp();
+    // close dialog after success
+  }, 400);
+
     // setLoading(false)
 
 }
