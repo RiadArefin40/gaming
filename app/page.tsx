@@ -505,7 +505,7 @@ const handleContact = () =>{
         </div>
       
       </button>
-       <X onClick={() => handleContact()} className="absolute z-500  top-2 right-12 text-white/70 font-bold"/>
+       <X onClick={() => handleContact()} className="absolute z-600  top-2 right-12 text-white/70 font-bold"/>
 
        </div>
 
