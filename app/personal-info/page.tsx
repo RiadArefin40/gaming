@@ -1,326 +1,305 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { format } from "date-fns";
+import { useRouter } from "next/navigation";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { getAuthUser } from "@/lib/auth";
-import { Eye, EyeOff, Plus } from "lucide-react";
-import { format } from "date-fns";
-
-
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "@/components/ui/dialog";
+import { Eye, EyeOff, Plus, BadgeCheck, X } from "lucide-react";
+import { getAuthUser } from "@/lib/auth";
 
 /* ================= TYPES ================= */
 type Phone = {
   id: number;
   phone: string;
   is_verified: boolean;
-  created_at: string;
 };
 
 type User = {
   id: number;
+  name: string;
   email: string | null;
   password: string;
-  name: string;
   created_at: string;
-  referral_code: string;
-  referred_by: string | null;
-  wallet: string;
-  phone: string;
-  role: string;
-  is_block_user: boolean;
-  turnover: string;
 };
 
 /* ================= COMPONENT ================= */
 export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
   const [phones, setPhones] = useState<Phone[]>([]);
-  const [newPhone, setNewPhone] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [newPhone, setNewPhone] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-
-  const handleAddPhone = async () => {
-    if (!newPhone) return;
-    setLoading(true);
-    try {
-       await addPhone(); // pass newPhone to parent function
-      setNewPhone("");
-      setDialogOpen(false);
-    } catch (err) {
-      console.error(err);
-    } finally {
-    //  setLoading(false);
-    }
-  };
-
-useEffect(() => {
-  const u = getAuthUser() as User | null; // cast to your User type
-  setUser(u);
-  if (u) fetchPhones(u.id);
-}, []);
-
-
+  const router = useRouter();
+  /* ================= DATA ================= */
+  useEffect(() => {
+    const u = getAuthUser() as User | null;
+    setUser(u);
+    if (u) fetchPhones(u.id);
+  }, []);
 
   const fetchPhones = async (userId: number) => {
-    try {
-      const res = await fetch(`https://api.bajiraj.cloud/users/phones/${userId}`);
-      const data: Phone[] = await res.json();
-      setPhones(data);
-    } catch (error) {
-      console.error("Failed to fetch phones", error);
-    }
+    const res = await fetch(
+      `https://api.bajiraj.cloud/users/phones/${userId}`
+    );
+    const data = await res.json();
+    setPhones(data);
   };
-
-  const addPhone = async (): Promise<void> => {
-    if (!newPhone.trim() || !user) return;
-
+const backToHome = () =>{
+  router.push('/')
+  console.log('okkk')
+}
+  const addPhone = async () => {
+    if (!newPhone || !user) return;
     setLoading(true);
-    try {
-      const res = await fetch("https://api.bajiraj.cloud/users/phone", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: user.id, phone: newPhone.trim() }),
-      });
 
-      const data: { message?: string; error?: string } = await res.json();
-      if (!res.ok) {
-        alert(data.error);
-        return;
-      }
+    await fetch("https://api.bajiraj.cloud/users/phone", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_id: user.id,
+        phone: newPhone.trim(),
+      }),
+    });
 
-      setNewPhone("");
-      fetchPhones(user.id);
-    } catch (err) {
-      console.error(err);
-    } finally {
-    //  setLoading(false);
-    }
+    setNewPhone("");
+    setDialogOpen(false);
+    fetchPhones(user.id);
+    setLoading(false);
   };
 
   const verifyPhone = async (phone: string) => {
     if (!user) return;
-    try {
-      const res = await fetch("https://api.bajiraj.cloud/users/phone/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: user.id, phone }),
-      });
-      const data: { error?: string } = await res.json();
-      if (!res.ok) {
-        alert(data.error);
-        return;
-      }
-      fetchPhones(user.id);
-    } catch (err) {
-      console.error(err);
-    }
+    await fetch("https://api.bajiraj.cloud/users/phone/verify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user_id: user.id, phone }),
+    });
+    fetchPhones(user.id);
   };
 
-  const deletePhone = async (phone: string) => {
-    if (!user) return;
-    try {
-      const res = await fetch("https://api.bajiraj.cloud/users/phone", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: user.id, phone }),
-      });
-      const data: { error?: string } = await res.json();
-      if (!res.ok) {
-        alert(data.error);
-        return;
-      }
-      fetchPhones(user.id);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  if (!user) return <p className="p-6">Loading profile...</p>;
 
-  if (!user) return <p>Loading user...</p>; // Early return until user is loaded
-
+  /* ================= UI ================= */
   return (
-    <div className="max-w-screen mx-auto p-4">
-      <h1 className="text-2xl font-semibold mb-6">Profile</h1>
+    <div className="max-w-md mx-auto  space-y-4 text-white">
 
-      <Tabs defaultValue="personal" className="space-y-4 p-1">
-        <TabsList className="bg-slate-500 max-w-screen mx-auto mt-4 p-1">
-          <TabsTrigger value="personal">Personal</TabsTrigger>
-          <TabsTrigger value="login">Login & Security</TabsTrigger>
-          {/* <TabsTrigger value="verification">Verification</TabsTrigger> */}
-        </TabsList>
-
-        {/* PERSONAL INFO */}
-        <TabsContent value="personal" className="space-y-4 mt-4 bg-slate-800 p-4 rounded-xl">
-          <div className="flex justify-between items-center bg-slate-900 p-3 rounded-lg">
-            <span className="text-gray-300">Username</span>
-            <span className="font-medium">{user.name}</span>
-          </div>
-            <div className="flex justify-between items-center bg-slate-900 p-3 px-4 rounded-lg">
-            <p className="text-gray-300">Registration Date</p>
-            <p className="font-medium">{  format(new Date( user.created_at), "PPpp")}</p>
-          </div>
-        
-          {/* <div className="flex justify-between items-center">
-            <p>    <span className="text-gray-300">Phone</span> <span className="bg-yellow-300 text-bold rounded-full px-2 py-1">Primary</span></p>
-        
-           <span className="font-medium">{phones?.[0].phone} &gt;</span>
-              <p className={`text-lg ${phones?.[0].is_verified ? "text-green-400" : "text-orange-400"}`}>
-                    {phones?.[0].is_verified ? "Verified" : "Not verified"}
-                  </p>
-
-          </div> */}
-                    <div className="space-y-3 mt-3">
-      <div className="space-y-3 mt-3 bg-slate-900 p-2 rounded-lg">
-      {/* Add Phone Button */}
-      <div className="flex items-center justify-between mx-2">
-
-           <p>Add New Number</p>
-      <Button className="bg-green-500 !w-12 ml-2" onClick={() => setDialogOpen(true)}><Plus size={25} /></Button>
-
+      {/* ===== HEADER ===== */}
+                   <header className="h-14 px-4 py-2  relative bg-black-700 ">
+                  <h1 className="text-center mx-auto mt-2 text-slate-200 font-bold text-xl">My Profile</h1>
+                  <button
+                            className=" px-2 py-1 rounded-lg absolute right-2 top-1 px-2 z-50  "
+                            onClick={() => backToHome()}
+                          >
+                            <X className="w-9 h-9 text-gray-100 hover:text-red-600" />
+                          </button>
+                </header>
+      <div className="bg-black-800 p-5 text-center space-y-2">
+       <div>
+        <img className="w-[50%] mx-auto -mt-2" src="https://img.m156b.com/mb/h5/assets/images/vip/login/ranking1.png?v=1768297086272&source=mcdsrc" alt="" />
+       </div>
+        <p className="text-lg font-semibold">{user.name}</p>
+        <p className="text-xs text-gray-400">
+          Registered: {format(new Date(user.created_at), "yyyy/MM/dd")}
+        </p>
       </div>
-   
-      {/* Phones List */}
-      {phones.map((p, i) => (
-        <div
-          key={p.id}
-          className="flex items-center justify-between bg-slate-800 p-3 rounded-lg"
-        >
-          <div>
-            <p className="font-medium">
-              {i === 0 && (
-                <span className="text-xs bg-green-500 rounded-lg text-white p-1 mr-2">
-                  Primary
-                </span>
-              )}
-              Number: {p.phone}
-            </p>
-            <p className={`text-lg ${p.is_verified ? "text-green-400" : "text-orange-400"}`}>
-              {p.is_verified ? "Verified" : "Not verified"}
-            </p>
-          </div>
-          <div className="flex gap-2">
-            {!p.is_verified && (
-              <Button className="!bg-slate-800" size="sm" onClick={() => verifyPhone(p.phone)}>
-                Verify
-              </Button>
-            )}
-          </div>
-        </div>
-      ))}
 
-      {/* Add Phone Dialog */}
+      {/* ===== VIP POINTS ===== */}
+      <div className="bg-black-600 m-2 rounded-lg p-4 flex justify-between items-center">
+        <div>
+          <p className="text-lg font-bold text-gray-200">VIP Points (VP)</p>
+          <p className="text-2xl font-bold text-yellow-400">917</p>
+        </div>
+        <Button variant="ghost" className="text-yellow-400">
+          My VIP →
+        </Button>
+      </div>
+
+      {/* ===== TABS ===== */}
+      <Tabs defaultValue="personal">
+        {/* <TabsList className="w-full bg-black-600">
+          <TabsTrigger value="personal" className="flex-1">
+            Personal Info
+          </TabsTrigger>
+          <TabsTrigger value="security" className="flex-1">
+            Login & Security
+          </TabsTrigger>
+        </TabsList> */}
+
+        {/* ===== PERSONAL INFO ===== */}
+        <TabsContent value="personal" className="space-y-3  m-2 mb-32 rounded-md">
+ 
+        <div className=" bg-black-600 rounded-md">
+          <div className="py-5 px-4 -mt-2  ">
+            <div className="flex gap-4 items-center">
+              <img className="bg-yellow-300/90 p-[1px] rounded-full" src="https://1betjili.com/assets/images/icon-set/theme-icon/icon-info.svg" alt="" />
+              <div>
+                         <p className=" font-bold text-lg text-gray-200">Full Name</p>
+          <p className="font-bold  font-bold text-gray-400">{user.name}</p>
+              </div>
+            </div>
+
+          </div>
+    <div className="py-5 px-4 -mt-2  border-t border-slate-500">
+               <div className="flex gap-4 items-center">
+              <img className="bg-yellow-300/90 p-[1px] rounded-full" src="https://1betjili.com/assets/images/icon-set/theme-icon/icon-birthday.svg" alt="" />
+              <div>
+                         <p className=" font-bold text-lg text-gray-200">Registration Date</p>
+          <p className="font-bold  font-bold text-gray-400">{user.created_at}</p>
+              </div>
+            </div>
+
+            
+
+          </div>
+              <div className="py-5 px-4 -mt-2  border-t border-slate-500">
+               <div className="flex gap-4 items-center justify-between">
+              <img className="bg-yellow-300/90 p-[1px] rounded-full" src="https://1betjili.com/assets/images/icon-set/theme-icon/icon-phone.svg" alt="" />
+              <div className="w-full">
+                         <p className=" font-bold text-lg text-gray-200 mb-2">Phone Numbers</p>
+                         <div className="w-full">
+                               {phones.map((p, i) => (
+              <div
+                key={p.id}
+                className="flex mb-2 w-full justify-between items-center bg-neutral-800 rounded-lg p-3"
+              >
+                <div className="w-full">
+                  <p className="font-medium">
+                    {i === 0 && (
+                      <span className="text-xs bg-yellow-500 text-black px-2 py-0.5 rounded mr-2">
+                        Primary
+                      </span>
+                    )}
+                    {p.phone}
+                  </p>
+                  <p
+                    className={`text-sm ${
+                      p.is_verified
+                        ? "text-green-400"
+                        : "text-orange-400"
+                    }`}
+                  >
+                    {p.is_verified ? "Verified" : "Not verified"}
+                  </p>
+                </div>
+
+                {!p.is_verified && (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="text-slate-800"
+                    onClick={() => verifyPhone(p.phone)}
+                  >
+                    Verify
+                  </Button>
+                )}
+              </div>
+            ))}
+
+                         </div>
+      
+              </div>
+            </div>
+                   <div onClick={() => setDialogOpen(true)} className="flex mx-4 ml-12 mt-2 border  border-yellow-300/90 rounded-xl  text-slate-200 py-1 px-6  justify-between items-center">
+              <p className="font-medium">Add Phone Numbers</p>
+              <Button className="bg-transparent text-slate-100" size="icon" >
+                <Plus size={26} />
+              </Button>
+            </div>
+
+            
+
+          </div>
+ 
+        </div>
+
+   
+
+
+                    {/* <div>
+            <Label>Username</Label>
+            <Input readOnly value={user.name} />
+          </div> */}
+
+          {/* <div className="relative">
+            <Label>Password</Label>
+            <Input
+              type={showPassword ? "text" : "password"}
+              readOnly
+              value={user.password}
+              className="pr-10"
+            />
+            <button
+              className="absolute right-3 top-9 text-gray-400"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <EyeOff /> : <Eye />}
+            </button>
+          </div> */}
+{/* 
+          <Button className="w-full">Update Login Info</Button> */}
+        </TabsContent>
+
+        {/* ===== SECURITY ===== */}
+        <TabsContent value="security" className="space-y-4 mt-4">
+
+        </TabsContent>
+      </Tabs>
+
+      {/* ===== ADD PHONE DIALOG ===== */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="sm:max-w-md bg-slate-700">
+        <DialogContent className="bg-black-600">
           <DialogHeader>
-            <DialogTitle>Add New Phone</DialogTitle>
+            <DialogTitle>Add Phone Number</DialogTitle>
           </DialogHeader>
 
-          <div className="space-y-4 mt-2">
-            <Input
-              value={newPhone}
-              onChange={(e) => setNewPhone(e.target.value)}
-              className="bg-slate-800 !h-12"
-              placeholder="Enter phone number"
-            />
-          </div>
+          <Input
+            placeholder="Enter phone number"
+            value={newPhone}
+            onChange={(e) => setNewPhone(e.target.value)}
+          />
 
           <DialogFooter>
-            <Button className="!bg-orange-500" variant="outline" onClick={() => setDialogOpen(false)}>
+            <Button variant="outline" className="!text-slate-800" onClick={() => setDialogOpen(false)}>
               Cancel
             </Button>
-            <Button onClick={handleAddPhone} disabled={loading}>
+            <Button className="!text-slate-200" onClick={addPhone} disabled={loading}>
               {loading ? "Adding..." : "Add"}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
-                    
-        
+  );
+}
 
-          </div>
-
-          {/* <div className="flex justify-between items-center">
-            <span className="text-gray-300">Mobile</span>
-            <span className="font-medium">{user.phone}</span>
-          </div> */}
-        </TabsContent>
-
-        {/* LOGIN & SECURITY */}
-        <TabsContent value="login" className="space-y-4 mt-4 bg-slate-800 p-4 rounded-xl">
-          <div className="space-y-3">
-            <div>
-              <Label className="text-lg mb-2" htmlFor="email">User Name</Label>
-              <Input className="h-14 text-lg" id="email" type="email" value={user.name || ""} readOnly />
-            </div>
-            <div>
-    <div className="relative">
-      <Label className="text-lg mb-2" htmlFor="password">
-        Password
-      </Label>
-      <Input
-        id="password"
-        type={showPassword ? "text" : "password"}
-        value={user.password}
-        readOnly
-        className="h-14 text-lg pr-12" // add padding for the eye icon
-      />
-      <button
-        type="button"
-        className="absolute right-3 top-[54px] text-gray-400 hover:text-gray-200"
-        onClick={() => setShowPassword(!showPassword)}
-      >
-        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-      </button>
-    </div>
-            </div>
-            <Button className="mt-2">Update Login Info</Button>
-          </div>
-        </TabsContent>
-
-
-        <TabsContent value="verification" className="space-y-4 mt-4 bg-slate-800 p-4 rounded-xl">
-          <div className="flex gap-2">
-            <Input
-              value={newPhone}
-              onChange={(e) => setNewPhone(e.target.value)}
-              placeholder="Enter phone number"
-            />
-            <Button onClick={addPhone} disabled={loading}>Add</Button>
-          </div>
-
-          <div className="space-y-3 mt-3">
-            {phones.map((p) => (
-              <div key={p.id} className="flex items-center justify-between bg-slate-900 p-3 rounded-lg">
-                <div>
-                  <p className="font-medium">{p.phone}</p>
-                  <p className={`text-lg ${p.is_verified ? "text-green-400" : "text-orange-400"}`}>
-                    {p.is_verified ? "Verified" : "Not verified"}
-                  </p>
-                </div>
-                <div className="flex gap-2">
-                  {!p.is_verified && (
-                    <>
-                      <Button size="sm" onClick={() => verifyPhone(p.phone)}>Verify</Button>
-                      {/* <Button size="sm" variant="destructive" onClick={() => deletePhone(p.phone)}>Delete</Button> */}
-                    </>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </TabsContent>
-      </Tabs>
+/* ================= SMALL COMPONENT ================= */
+function InfoRow({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="bg-black-600 rounded-lg p-3 flex justify-between">
+      <span className="text-gray-400">{label}</span>
+      <span className="font-medium">{value}</span>
     </div>
   );
 }

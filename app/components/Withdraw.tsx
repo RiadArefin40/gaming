@@ -310,7 +310,7 @@ const handleWithdraw = async () => {
                   <Button
                     key={value}
                     variant="outline"
-                    className={"bg-white/10 !text-slate-200 text-lg !h-12 !rounded-xl !font-bold border-0"}
+                    className={"bg-white/10 text-slate-200 hover:text-slate-800 text-lg !h-12 !rounded-xl !font-bold border-0"}
                     onClick={() =>
                       setAmount((prev) =>
                         (Number(prev || 0) + value).toString(),

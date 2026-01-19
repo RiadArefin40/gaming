@@ -240,6 +240,19 @@ useEffect(() => {
         router.push("/transactions");
       }, 300)
   };
+
+  const handleProfile =()=>{
+         setTimeout(()=>{
+        onAction()
+        router.push("/personal-info");
+      }, 300)
+  }
+    const handleNotification =()=>{
+         setTimeout(()=>{
+        onAction()
+        router.push("/notifications");
+      }, 300)
+  }
   
 const handleHome = () =>{
   console.log('okkk');
@@ -464,7 +477,7 @@ const features = [
                
    
         <div
-    
+        onClick={()=> handleProfile()}
           className=" p-5 rounded-md flex flex-col items-center"
         >
           <img
@@ -476,6 +489,7 @@ const features = [
         </div>
 
                <div
+                  onClick={()=> handleNotification()}
     
           className=" p-5 relative rounded-md flex flex-col items-center"
         >

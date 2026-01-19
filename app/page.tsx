@@ -11,7 +11,7 @@ import MatchSlider from "./components/MatchSlider";
 import EventSlider from "./components/EventSlider";
 import FeaturedSlider from "./components/FeaturedSlider";
 import { Menu, Gamepad2, Dice6, Wallet, User, Crown, Activity, Rocket, X,MessageCircle  } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 
 interface MenuItem {
@@ -194,7 +194,51 @@ const [loading, setLoading] = useState(true);
   };
 
 
+  const isDragging = useRef(false);
+  const offset = useRef({ x: 0, y: 0 });
 
+  const [mounted, setMounted] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  // ✅ Set position AFTER mount
+  useEffect(() => {
+    setMounted(true);
+    setPosition({
+      x: window.innerWidth - 80,
+      y: window.innerHeight - 160,
+    });
+  }, []);
+
+  const startDrag = (clientX: number, clientY: number) => {
+    isDragging.current = true;
+    offset.current = {
+      x: clientX - position.x,
+      y: clientY - position.y,
+    };
+  };
+
+  const onMove = (clientX: number, clientY: number) => {
+    if (!isDragging.current) return;
+
+    const size = 56;
+
+    setPosition({
+      x: Math.min(
+        window.innerWidth - size,
+        Math.max(0, clientX - offset.current.x)
+      ),
+      y: Math.min(
+        window.innerHeight - size,
+        Math.max(0, clientY - offset.current.y)
+      ),
+    });
+  };
+
+  const stopDrag = () => {
+    isDragging.current = false;
+  };
+
+  if (!mounted) return null; // ⛔ prevent SSR crash
 
   return (
     <div className="">

@@ -325,7 +325,7 @@ psetSheetOpen(false)
 
 
     <>
-      {!isActive("/login") && !isActive("/registration") && !isActive("/profile") && !isActive("/deposit") && !isActive("/user-bets") && !isActive("/turnover") && !isActive("/transactions") && isVisible &&
+      {!isActive("/login") && !isActive("/notifications") &&  !isActive("/personal-info") && !isActive("/registration") && !isActive("/profile") && !isActive("/deposit") && !isActive("/user-bets") && !isActive("/turnover") && !isActive("/transactions") && isVisible &&
       
       (
 
@@ -677,7 +677,7 @@ ${
 </p> */}
 
         {isVisible&&(
-<img src="/oie_119753jyAZNTiD.png" className="w-[110px] -ml-8 " alt="" />
+<img src="/oie_transparent.png" className="w-[110px] mt-1 -ml-8 " alt="" />
         )}
 
           </div>
