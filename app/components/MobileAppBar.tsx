@@ -677,7 +677,8 @@ ${
 </p> */}
 
         {isVisible&&(
-<img src="/oie_transparent.png" className="w-[110px] mt-1 -ml-8 " alt="" />
+
+<h1 className="text-2xl font-bold -ml-5 -mt-2"><span className="text-yellow-300/90">Crown</span><span>Baji</span></h1>
         )}
 
           </div>

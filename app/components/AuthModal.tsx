@@ -45,7 +45,7 @@ export default function AuthModal() {
             </VisuallyHidden>
         {/* Logo */}
         <div className="flex justify-center -mb-8">
-            {/* <img src="/oie_transparent.png" className="w-[160px] -ml-8" alt="" /> */}
+            {/* <img src="" className="w-[160px] -ml-8" alt="" /> */}
         </div>
  <span className="text-4xl"><span className="text-orange-400">Baji</span>raj</span>
         {/* Title */}
