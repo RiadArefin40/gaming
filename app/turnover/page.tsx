@@ -45,7 +45,7 @@ const router = useRouter();
   }, []);
 
   const { data, error } = useAutoFetch<BalanceData | undefined>(
-    user ? `https://api.bajiraj.cloud/users/${user.id}/balance` : "",
+    user ? `https://api-v2.bajiraj.cloud/users/${user.id}/balance` : "",
     10000
   );
 

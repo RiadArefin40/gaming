@@ -244,7 +244,7 @@ console.log("Using cached game URL");
 
     // 2️⃣ Fetch new game URL
     try {
-      const res = await fetch("https://api.bajiraj.cloud/launch_game", {
+      const res = await fetch("https://api-v2.bajiraj.cloud/launch_game", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "*/*" },
         body: JSON.stringify({
