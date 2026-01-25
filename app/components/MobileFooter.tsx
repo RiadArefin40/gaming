@@ -210,10 +210,16 @@ useEffect(() => {
 
   const handleDeposit = () => {
 
+    if(user){
       setTimeout(()=>{setLink("/deposit")
         psetSheetOpen(false)
         router.push("/deposit");
       }, 300)
+    }
+
+else{
+  router.push("/login");
+}
       
     
   };
@@ -262,6 +268,15 @@ useEffect(() => {
     router.push(`/${e}`);
   };
 
+  const handlePsetSheetOpen =() =>{
+    if(user){
+ psetSheetOpen(true)
+    }
+   else{
+    router.push(`/login`);
+   }
+  }
+
     const fetchBalance = () => {
     setIsLoading(true);
     setTimeout(async () => {
@@ -283,7 +298,7 @@ const features = [
   return (
   
 <>
-  {user && (
+ 
 
      <div className="fixed min-w-screen bottom-0 left-0 right-0 md:hidden z-50 !bg-black-800">
       <div className="flex items-center justify-between px-6  gap-2   border-t border-slate-800 text-gray-400 w-full  bg-black-700">
@@ -499,8 +514,8 @@ const features = [
 </button>
 
 
-        {user && (
-          <Sheet open={psheetOpen} onOpenChange={psetSheetOpen}>
+    
+          <Sheet open={psheetOpen} onOpenChange={handlePsetSheetOpen}>
             <SheetTrigger>
 <div className="relative flex flex-col items-center gap-1">
   {/* Notification badge */}
@@ -563,10 +578,10 @@ const features = [
               `}</style>
             </SheetContent>
           </Sheet>
-        )}
+       
       </div>
     </div>
-  )}
+  
 </>
    
   );

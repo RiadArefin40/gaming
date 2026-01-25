@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.bajiraj.com/oie_transparent.png",
+        url: "https://www.bajiraj.com/spcwin.png",
         width: 1200,
         height: 630,
         alt: "Bajiraj Logo",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     title: "Bajiraj – Online Gaming & Entertainment",
     description:
       "Bajiraj is a secure online gaming and entertainment platform offering slots, live casino, jackpots, and responsible gaming.",
-    images: ["https://www.bajiraj.com/oie_transparent.png"],
+    images: ["https://www.bajiraj.com/spcwin.png"],
   },
 
   // iOS Safari / Apple status bar

@@ -326,7 +326,7 @@ setLoading(false);
     className="w-[40px] h-[45px] rounded-sm "
   />
  <div>
- <p className="text- font-medium">{item?.title}</p>
+ <p className="text-sm font-medium">{item?.title}</p>
  </div>
   
 </div>

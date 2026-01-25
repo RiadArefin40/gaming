@@ -157,7 +157,7 @@ useEffect(() => {
 
       <div className="text-center py-4">
         {isVisible&&(
-<img src="/oie_transparent.png" className="bg-transparent border-0  mx-auto  " alt="" />
+<img src="/spcwin.png" className="bg-transparent border-0  mx-auto -mb-12 -mt-6 " alt="" />
         )}
 
       </div>

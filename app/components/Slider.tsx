@@ -95,7 +95,7 @@ export default function Slider({
   if (!total) {
     return (
       <div className="mt-4">
-        <div className="h-[200px] sm:h-[220px] md:h-[240px] w-full rounded-lg bg-gray-100 animate-pulse" />
+        <div className="h-[240px]  w-full rounded-lg bg-gray-100 animate-pulse" />
       </div>
     );
   }
@@ -103,7 +103,7 @@ export default function Slider({
   return (
     <div
       dir="ltr"
-      className="mt-1  relative h-[190px] sm:h-[220px] md:h-[240px] w-full overflow-hidden rounded-lg"
+      className="mt-1  relative h-[240px] w-full overflow-hidden rounded-lg"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       onTouchStart={handleTouchStart}

@@ -72,7 +72,7 @@ export const gameImages: any  = {
 
    {
     id: 1,
-    title: 'All Game',
+    title: 'Evolution',
     provider:"Evolution",
      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-evo.png",
     image: 'https://www.neonvegas.com/uploads/games/21M/evolution_EVOLD_ROULETTE_LOBBY/evolution_EVOLD_ROULETTE_LOBBY.webp',
@@ -81,7 +81,7 @@ export const gameImages: any  = {
   },
   {
     id: 2,
-    title: 'All Game',
+    title: 'Pragmatic',
     provider:"Pragmatic",
       src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png",
     image: 'https://rainbet-images.nyc3.cdn.digitaloceanspaces.com/slots/pragmatic-play-lobby-roulette.jpg',
@@ -90,7 +90,7 @@ export const gameImages: any  = {
   },
     {
     id: 3,
-    title: 'All Game',
+    title: 'Ezugi',
     provider:" Ezugi",
     src: "https://games.evolution.com/wp-content/uploads/2022/11/ezugi_logo_evolution.svg",
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBVZt_5NBlqO9KmhLCVDxW-7GdjfeB_oxO_GrOs2i4lw&s=10',

@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import img from "next/image";
 import Slider from "./components/Slider";
 import CategorySlider from "./components/CategorySlide";
@@ -22,6 +22,7 @@ interface MenuItem {
 }
 
 export default function Home() {
+  const router = useRouter();
  interface AuthUser {
   username: string;
   password?: string;
@@ -301,7 +302,7 @@ const handleContact = () =>{
                <ProviderCategory/>
                {/* <MatchSlider  /> */}
             
-               <EventSlider siteInfo={eventSlides}/>
+               <EventSlider siteInfo={heroSlides || siteInfo}/>
                  {/* <ProviderCategory/> */}
                  <FeaturedSlider siteInfo={siteInfo1}  autoPlay={true} interval={4000} />
 
@@ -441,9 +442,9 @@ const handleContact = () =>{
 <div className="border-t border-gray-800 card-bg text-white rounded-md p-3 pt-4">
 
 <div className="flex gap-2 flex-wrap">
- <p className="text-yellow-400 font-medium underline border-r border-slate-300 pr-6">About Us</p>
- <p className="text-yellow-400 font-medium underline border-r border-slate-300 pr-6">Privacy Policy</p>
-  <p className="text-yellow-400 font-medium underline">Terms and Conditions</p>
+ <p  onClick={()=>{router.push('/about-us')}} className="text-yellow-400 font-medium underline border-r border-slate-300 pr-6">About Us</p>
+ <p onClick={()=>{router.push('/privacy-policy')}} className="text-yellow-400 font-medium underline border-r border-slate-300 pr-6">Privacy Policy</p>
+  <p onClick={()=>{router.push('/terms')}} className="text-yellow-400 font-medium underline">Terms and Conditions</p>
 </div>
 </div>
 

@@ -530,8 +530,8 @@ const features = [
                  <div className=" ">
                
 
-        <div className="grid grid-cols-6 mt-4 md:grid-cols-4 gap-1 ">
-            <div
+        <div className="flex gap-3 ml-2 pb-4">
+            {/* <div
         
           className=" rounded-md flex mr-4 flex-col items-center"
         >
@@ -541,7 +541,7 @@ const features = [
             alt="reffer"
           />
 <span>Live Chat</span>
-        </div>
+        </div> */}
                    {Object.keys(icons).map((platform) => {
         const key = platform as SocialLink["platform"];
         return (
@@ -551,7 +551,7 @@ const features = [
             href={links[key] || "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className={links[key] ? "-mr-6" : "opacity-30 -mr-3 pointer-events-none"}
+            className={links[key] ? "" : "opacity-0  pointer-events-none"}
           >
             <img src={icons[key]} alt={key} width={38} height={38} />
           </a>
@@ -563,14 +563,14 @@ const features = [
   
 
         </div>
-     
+{/*      
         <div className="border-t border-gray-800 card-bg text-white rounded-md p-3 pt-4">
 
 
 
 
 
-</div>
+</div> */}
     </div>
 
 </div>

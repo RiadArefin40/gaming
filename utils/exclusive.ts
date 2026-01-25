@@ -28,7 +28,7 @@ export const ex = [
 
       {
     id: 4,
-    title: 'Crazy Time',
+    title: 'Money Time',
     provider:"Pragmatic Play",
     image: 'https://img.j189eb.com/upload/game/AWCV2_PP/BDT/PP-LIVE-188.png?v=1761618162271&quot',
     game_uid: '042f275d795c467244dd0014618ccc76',
@@ -38,7 +38,7 @@ export const ex = [
   },
       {
     id: 5,
-    title: 'All Game',
+    title: 'Sweet Bonanza',
     provider:"Pragmatic Play",
     image: 'https://img.j189eb.com/upload/game/AWCV2_PP/BDT/PP-LIVE-044.png?v=1758692823614&quot',
     game_uid: '89a12f80c6dc0aa7651400364e8f5e80',
@@ -48,7 +48,7 @@ export const ex = [
   },
         {
     id: 6,
-    title: 'All Game',
+    title: 'Mega Roullete',
     provider:"Pragmatic Play",
     image: 'https://img.j189eb.com/upload/game/AWCV2_PP/BDT/PP-LIVE-039.png?v=1758681677786&quot',
     game_uid: 'b60df57bbcd472a887a9c9cff2a0e19c',
@@ -59,7 +59,7 @@ export const ex = [
 
         {
     id: 7,
-    title: 'All Game',
+    title: 'Crazy Time',
     provider:"Evaluation",
     image: 'https://img.j189eb.com/upload/game/EVO/BDT/crazytime@CrazyTime0000001.png?v=1765253343287&quot',
     game_uid: '917c0c51d248c33eb058e3210a2e7371',
@@ -70,7 +70,7 @@ export const ex = [
 
         {
     id: 8,
-    title: 'All Game',
+    title: 'Funky Time',
     provider:"Evaluation",
     image: 'https://img.j189eb.com/upload/game/EVO/BDT/funkytime@FunkyTime0000001.png?v=1765270319453&quot',
     game_uid: '8405541014f364b7dc59657aa6892446',
@@ -91,7 +91,7 @@ export const ex = [
   // },
           {
     id: 10,
-    title: 'Evaluation',
+    title: 'Dragon Tiger',
     provider:"Ezugi",
     image: 'https://img.j189eb.com/upload/game/EVO/BDT/dragontiger@DragonTiger00001.png?v=1765254367360&quot',
     game_uid: '1fd20a344c9f147cdef85bbaa7447dcd',

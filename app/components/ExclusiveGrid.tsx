@@ -332,9 +332,9 @@ setLoading(false);
 
       {!showGame && (
         <>
-    <div className="grid grid-cols-4 gap-1 my-4 mt-4 px-2">
+    <div className="grid grid-cols-4 gap-[6px] my-4 mt-4 px-2">
       {items.map((game:any,i:any) => (
-        <div key={i}className="bg-gradient-to-r from-pink-500 via-yellow-300 to-blue-500 animate-gradient-glow rounded-md ">
+        <div key={i}className="bg-gradient-to-r from-pink-500 via-yellow-300 to-blue-500 animate-gradient-glow rounded-sm ">
   <div
           key={i}
           onClick = {() => handleGameClick(game)}
@@ -344,10 +344,10 @@ setLoading(false);
   <img
     src={game.image}
     alt="exclusive-game"
-    className="w-[55px] h-[45px] rounded-sm "
+    className="w-[62px] h-[52px] rounded-xs"
   />
  <div>
- <p className="text- font-medium">{game?.title}</p>
+ <p className="text-sm mt-[1px] font-medium">{game?.title}</p>
  </div>
   
 </div>

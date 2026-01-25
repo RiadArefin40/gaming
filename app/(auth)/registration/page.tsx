@@ -151,7 +151,7 @@ useEffect(() => {
       <div className="absolute " />
       <div className="text-center py-4">
         {isVisible&&(
-<img src="/oie_transparent.png" className=" mx-auto " alt="" />
+<img src="/spcwin.png" className=" mx-auto -mb-12 -mt-6" alt="" />
         )}
       </div>
       <div className="relative z-10 px-4 pt-6 max-w-md mx-auto">
