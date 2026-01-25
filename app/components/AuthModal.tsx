@@ -50,7 +50,7 @@ export default function AuthModal() {
  <span className="text-4xl"><span className="text-orange-400">Baji</span>raj</span>
         {/* Title */}
         <h2 className="text-xl font-semibold text-white mb-2">
-          Become a Bajiraj Member
+          Become a SW Member
         </h2>
 
         {/* Subtitle */}

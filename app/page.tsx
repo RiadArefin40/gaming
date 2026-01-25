@@ -261,7 +261,7 @@ const handleContact = () =>{
                 <Volume  className="w-8 h-8 text-yellow-300 bg-black rounded-r-md z-10 pl-2" />
                 <div className="flex-1 absolute overflow-hidden">
                   <span className="animate-marquee text-white text-sm inline-block whitespace-nowrap">
-    🎉 <span className="text-white font-bold">Bajiraj</span> {headline}  🎰
+    🎉 <span className="text-white font-bold">SW</span> {headline}  🎰
 
                   </span>
                 </div>

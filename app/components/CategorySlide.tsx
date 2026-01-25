@@ -90,7 +90,7 @@ bg-yellow-300 rounded-sm bg-gradient-to-t from-black/20 to-transparent
                   onClick={() => handleSelect(idx)}
                   className={`
                 snap-center
-                flex-shrink-0 w-28 pt-[6px]
+                flex-shrink-0 w-12 pt-[6px]
                 w-[85px]
                 flex flex-col items-center justify-center
                 cursor-pointer select-none py-1

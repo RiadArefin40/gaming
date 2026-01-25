@@ -297,7 +297,7 @@ setLoading(false);
 
         {/* Center text */}
         <span className="relative text-yellow-400 text-md font-bold drop-shadow-lg">
-          Bajiraj
+          SW
         </span>
       </div>
 

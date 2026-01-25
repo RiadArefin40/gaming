@@ -19,9 +19,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bajiraj – Online Gaming & Entertainment",
+  title: "SpcWin – Online Gaming & Entertainment",
   description:
-    "Bajiraj is a secure online gaming and entertainment platform offering slots, live casino, jackpots, and responsible gaming.",
+    "SpcWin is a secure online gaming and entertainment platform offering slots, live casino, jackpots, and responsible gaming.",
 
   // Canonical URL
   alternates: {
@@ -30,18 +30,18 @@ export const metadata: Metadata = {
 
   // Open Graph (social preview)
   openGraph: {
-    title: "Bajiraj – Online Gaming & Entertainment",
+    title: "SpcWin – Online Gaming & Entertainment",
     description:
-      "Bajiraj is a secure online gaming and entertainment platform offering slots, live casino, jackpots, and responsible gaming.",
+      "SpcWin is a secure online gaming and entertainment platform offering slots, live casino, jackpots, and responsible gaming.",
     url: "https://bajiraj.com",
-    siteName: "Bajiraj",
+    siteName: "SpcWin",
     type: "website",
     images: [
       {
         url: "https://www.bajiraj.com/spcwin.png",
         width: 1200,
         height: 630,
-        alt: "Bajiraj Logo",
+        alt: "SpcWin Logo",
       },
     ],
   },
@@ -49,9 +49,9 @@ export const metadata: Metadata = {
   // Twitter Card
   twitter: {
     card: "summary_large_image",
-    title: "Bajiraj – Online Gaming & Entertainment",
+    title: "SpcWin – Online Gaming & Entertainment",
     description:
-      "Bajiraj is a secure online gaming and entertainment platform offering slots, live casino, jackpots, and responsible gaming.",
+      "SpcWin is a secure online gaming and entertainment platform offering slots, live casino, jackpots, and responsible gaming.",
     images: ["https://www.bajiraj.com/spcwin.png"],
   },
 

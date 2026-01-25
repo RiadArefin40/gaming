@@ -290,14 +290,14 @@ setLoading(false);
     <div className="relative flex flex-col items-center justify-center gap-4">
 
       {/* Rotating gradient rings with text inside */}
-      <div className="relative w-28 m-1 h-28 flex items-center justify-center">
+      <div className="relative w-12 m-1 h-12 flex items-center justify-center">
         <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-200 opacity-40 blur-xl animate-spin-slow" />
         <div className="absolute inset-0 rounded-full border-3 border-white border-t-transparent animate-spin shadow-lg" />
         <div className="absolute inset-0  rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
 
         {/* Center text */}
        <span className="relative text-yellow-400 text-md font-bold drop-shadow-lg">
-          Bajiraj
+          SW
         </span>
       </div>
 

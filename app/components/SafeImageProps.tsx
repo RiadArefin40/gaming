@@ -58,7 +58,7 @@ export default function SafeImage({
       }}
     /> */}
 
-    {/* Bajiraj label */}
+    {/* SW label */}
     {!loading && (
     <div className="absolute top-0 right-0 backdrop-blur-md  bg-gradient-to-r from-cyan-500 via-pink-500 to-orange-400 text-white font-semibold text-sm rounded-lg shadow-lg drop-shadow-lg">
      <p
