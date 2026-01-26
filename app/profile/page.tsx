@@ -101,7 +101,7 @@ export default function Profile() {
   };
 
   const { data, error } = useAutoFetch<BalanceData | undefined>(
-    user ? `https://api.bajiraj.cloud/users/${user.id}/balance` : "",
+    user ? `https://api.spcwin.info/users/${user.id}/balance` : "",
     10000
   );
   const balance = data?.balance ?? 0;
@@ -126,7 +126,7 @@ useEffect(() => {
 
   const fetchNotifications = async () => {
     try {
-      const res = await fetch(`https://api.bajiraj.cloud/notifications/user/${user.id}`);
+      const res = await fetch(`https://api.spcwin.info/notifications/user/${user.id}`);
       const data = await res.json();
       setUnread(data.unread_count);
       // setNotifications(data.notifications);

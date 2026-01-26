@@ -95,8 +95,8 @@ const [loading, setLoading] = useState(true);
     const fetchSliders = async () => {
       try {
         const [heroRes, eventRes] = await Promise.all([
-          fetch("https://api.bajiraj.cloud/users/hero-slider"),
-          fetch("https://api.bajiraj.cloud/users/event-slider"),
+          fetch("https://api.spcwin.info/users/hero-slider"),
+          fetch("https://api.spcwin.info/users/event-slider"),
         ]);
 
         const heroData = await heroRes.json();
@@ -117,7 +117,7 @@ const [loading, setLoading] = useState(true);
   useEffect(() => {
 
         const load = async () => {
-      const promoRes = await fetch("https://api.bajiraj.cloud/users/headline");
+      const promoRes = await fetch("https://api.spcwin.info/users/headline");
       const promoData = await promoRes.json();
       console.log("Promos data:", promoData.title);
       setHeadLine(promoData.title)
@@ -203,7 +203,7 @@ const [contact, setContact] = useState(true);
   useEffect(() => {
     const fetchSocialLinks = async () => {
       try {
-        const res = await fetch("https://api.bajiraj.cloud/users/social-link");
+        const res = await fetch("https://api.spcwin.info/users/social-link");
         const data: { data: SocialLink[] } = await res.json();
 
         const formatted: SocialLinksMap = {

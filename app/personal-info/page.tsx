@@ -55,7 +55,7 @@ export default function ProfilePage() {
 
   const fetchPhones = async (userId: number) => {
     const res = await fetch(
-      `https://api.bajiraj.cloud/users/phones/${userId}`
+      `https://api.spcwin.info/users/phones/${userId}`
     );
     const data = await res.json();
     setPhones(data);
@@ -68,7 +68,7 @@ const backToHome = () =>{
     if (!newPhone || !user) return;
     setLoading(true);
 
-    await fetch("https://api.bajiraj.cloud/users/phone", {
+    await fetch("https://api.spcwin.info/users/phone", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -145,7 +145,7 @@ else{
 };
   const verifyPhone = async (phone: string) => {
     if (!user) return;
-    await fetch("https://api.bajiraj.cloud/users/phone/verify", {
+    await fetch("https://api.spcwin.info/users/phone/verify", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ user_id: user.id, phone }),

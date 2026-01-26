@@ -109,7 +109,7 @@ const [delay, setDelay] = useState(10)
     const loadPhones = async () => {
       if (!u) return;
       try {
-        const res = await fetch(`https://api.bajiraj.cloud/users/phones/${u.id}`);
+        const res = await fetch(`https://api.spcwin.info/users/phones/${u.id}`);
         const data: Phone[] = await res.json();
         setPhones(data);
        setSelectedPhone(data?.[0]?.phone) 
@@ -120,7 +120,7 @@ const [delay, setDelay] = useState(10)
 
     const loadPaymentOptions = async () => {
       try {
-        const res = await fetch("https://api.bajiraj.cloud/payment-gateways/");
+        const res = await fetch("https://api.spcwin.info/payment-gateways/");
         const data: PaymentOption[] = (await res.json());
         setPaymentOptions(data);
 
@@ -138,7 +138,7 @@ const [delay, setDelay] = useState(10)
         const loadWidthraw = async () => {
       if (!u) return;
       try {
-        const res = await fetch(`https://api.bajiraj.cloud/payment-gateways/widthraw`);
+        const res = await fetch(`https://api.spcwin.info/payment-gateways/widthraw`);
         const data = await res.json();
          console.log("Widthraw status:", data);
         setWidthraw(data.widthraw);
@@ -161,7 +161,7 @@ const handleWithdraw = async () => {
   try {
     const gateway = paymentOptions.find((p) => p.id === selectedPayment);
 
-    const res = await fetch("https://api.bajiraj.cloud/withdrawals", {
+    const res = await fetch("https://api.spcwin.info/withdrawals", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

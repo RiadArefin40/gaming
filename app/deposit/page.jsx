@@ -101,10 +101,10 @@ export default function EWalletPage() {
   const [infoModal, setInfoModal] = useState(false);
   useEffect(() => {
     const load = async () => {
-      const promoRes = await fetch("https://api.bajiraj.cloud/promos");
+      const promoRes = await fetch("https://api.spcwin.info/promos");
       const promoData = await promoRes.json();
 
-      const payRes = await fetch("https://api.bajiraj.cloud/payment-gateways/");
+      const payRes = await fetch("https://api.spcwin.info/payment-gateways/");
       const payData = await payRes.json();
 
       setPromotions(promoData);
@@ -158,7 +158,7 @@ export default function EWalletPage() {
       const gateway = paymentOptions.find((p) => p.id === selectedPayment);
       const promo = promotions.find((p) => p.id === selectedPromotion);
 
-      await fetch("https://api.bajiraj.cloud/deposit", {
+      await fetch("https://api.spcwin.info/deposit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -200,7 +200,7 @@ const backToHome = () =>{
     const fetchPhones = async () => {
       try {
         const res = await fetch(
-          `https://api.bajiraj.cloud/users/phones/${currentUser.id}`,
+          `https://api.spcwin.info/users/phones/${currentUser.id}`,
         );
         const data = await res.json();
         setPhones(data.map((p) => p.phone));

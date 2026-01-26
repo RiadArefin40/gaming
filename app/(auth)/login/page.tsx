@@ -25,7 +25,7 @@ const handleLogin = async () => {
   setError("");
 
   try {
-    const res = await fetch("https://api.bajiraj.cloud/auth/login", {
+    const res = await fetch("https://api.spcwin.info/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const handleSignUp = async () => {
     setIsLoading(true);
 
     try {
-const res = await fetch("https://api.bajiraj.cloud/users", {
+const res = await fetch("https://api.spcwin.info/users", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",

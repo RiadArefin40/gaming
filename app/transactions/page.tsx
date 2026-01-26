@@ -46,8 +46,8 @@ const TransactionRecordPage = () => {
     const fetchTransactions = async () => {
       try {
         const [depositRes, withdrawRes] = await Promise.all([
-          fetch(`https://api.bajiraj.cloud/deposit/${userId}`),
-          fetch(`https://api.bajiraj.cloud/withdrawals/${userId}`),
+          fetch(`https://api.spcwin.info/deposit/${userId}`),
+          fetch(`https://api.spcwin.info/withdrawals/${userId}`),
         ]);
 
         const depositData = await depositRes.json();

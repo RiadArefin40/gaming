@@ -42,7 +42,7 @@ const UserBetsPage = () => {
   useEffect(() => {
     if (!userId) return;
 
-    fetch(`https://api.bajiraj.cloud/users/userbet/${userId}`)
+    fetch(`https://api.spcwin.info/users/userbet/${userId}`)
       .then((res) => res.json())
       .then(setBets)
       .catch(console.error);

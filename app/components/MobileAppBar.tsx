@@ -152,7 +152,7 @@ export default function MobileAppBar() {
   ];
  const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
   const { data, error } = useAutoFetch<BalanceData | undefined>(
-    user ? `https://api.bajiraj.cloud/users/${user.id}/balance` : "",
+    user ? `https://api.spcwin.info/users/${user.id}/balance` : "",
     10000
   );
 
@@ -208,7 +208,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchSocialLinks = async () => {
       try {
-        const res = await fetch("https://api.bajiraj.cloud/users/social-link");
+        const res = await fetch("https://api.spcwin.info/users/social-link");
         const data: { data: SocialLink[] } = await res.json();
 
         const formatted: SocialLinksMap = {
