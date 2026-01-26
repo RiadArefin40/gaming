@@ -51,7 +51,7 @@ const ReferralPage = () => {
       {/* Referral Code + Time Range */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
-          <img _ngcontent-serverapp-c2798261857="" className="ng-tns-c2798261857-25" alt="referral-invite-banner-en" src="https://img.m156b.com/mb/h5/assets/images/player/referral/referral-invite-banner-en.png?v=1768297086272&amp;source=mcdsrc" loading="lazy"></img>
+          <img _ngcontent-serverapp-c2798261857="" className="ng-tns-c2798261857-25" alt="referral-invite-banner-en" src="/ref.png" loading="lazy"></img>
         </div>
         <div className="bg-black-700 p-4 rounded-md">
           <p className="text-gray-100 text-xl mb-2 border-l-4 border-yellow-400 pl-4 bg-black-700 mb-4">Invitation Code</p>
