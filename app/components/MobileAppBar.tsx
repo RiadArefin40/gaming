@@ -520,12 +520,31 @@ setIsSubmenuOpen(false)
         
           className=" rounded-md flex -ml-12 flex-col items-center"
         >
-          <img
-            className="bg-yellow-300 p-[1px] rounded-full mb-2 "
-            src="  https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-customer.svg?v=1767782599110&quot"
-            alt="reffer"
-          />
-          <span className="text-slate-200 text-sm font-medium ml-2">Live Chat</span>
+        
+     
+          <div className="flex pl-18 gap-2 mt-2">
+                      {Object.keys(icons).map((platform) => {
+        const key = platform as SocialLink["platform"];
+        return (
+          <>
+               <a
+            key={key}
+            href={links[key] || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={links[key] ? "" : "opacity-0  pointer-events-none"}
+          >
+            <img src={icons[key]} alt={key} width={38} height={38} />
+          </a>
+          {/* <p>{key}</p> */}
+          </>
+     
+        );
+      })}
+
+          </div>
+     <span className="text-slate-200 text-sm font-medium -ml-6 mt-2">Live Chat</span>
+  
         </div>
  
     </div>

@@ -448,7 +448,16 @@ useEffect(() => {
                        <img src={paymentImages[p.name]} className="h-[29px]  rounded-md" />
                       {p.name} {p.is_active}
                      <div class="absolute top-[10px] -right-[8px] rounded-sm inline-block bg-red-500 text-white font-bold px-[10px] py-[1px] text-sm">
-  +5%
+  +                           {selectedPromotion
+                        ? (() => {
+                            const code =
+                              promotions.find((p) => p.id === selectedPromotion)
+                                ?.deposit_bonus;
+                            return code.length > 20
+                              ? code.slice(0, 20) + "…"
+                              : code;
+                          })()
+                        : ""}%
   <span class="absolute left-0 top-0 w-0 h-0 border-t-[16px] border-t-transparent border-b-[16px] border-b-transparent border-l-[8px] border-l-red-500"></span>
 </div>
 
@@ -589,10 +598,10 @@ useEffect(() => {
   type="single"
   collapsible
    defaultValue="deposit-info"
-  className="w-full rounded-md border border-0 bg-black-600"
+  className="w-full rounded-md border-2 border-orange-700 bg-black-600"
 >
   <AccordionItem value="deposit-info" className="border-b border-slate-700">
-    <AccordionTrigger className="px-4 py-3 text-left text-white hover:no-underline">
+    <AccordionTrigger className="px-4  py-3 text-left text-orange-400 hover:no-underline">
       ডিপোজিট সংক্রান্ত গুরুত্বপূর্ণ তথ্য
     </AccordionTrigger>
 

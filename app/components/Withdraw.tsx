@@ -268,10 +268,10 @@ const handleWithdraw = async () => {
  className="h-[29px] w-8  mx-auto rounded-md"
 />
 {p.name}
-                     <div className="absolute top-[10px] -right-[8px] rounded-sm inline-block bg-red-500 text-white font-bold px-[10px] py-[1px] text-sm">
+                     {/* <div className="absolute top-[10px] -right-[8px] rounded-sm inline-block bg-red-500 text-white font-bold px-[10px] py-[1px] text-sm">
   +5%
   <span className="absolute left-0 top-0 w-0 h-0 border-t-[16px] border-t-transparent border-b-[16px] border-b-transparent border-l-[8px] border-l-red-500"></span>
-</div>
+</div> */}
               </button>
             ))}
           </div>

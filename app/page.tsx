@@ -59,14 +59,23 @@ type SocialLinksMap = {
   };
 
   /* ===== MOVE ===== */
-  const onMove = (clientX: number, clientY: number) => {
-    if (!dragging) return;
+const onMove = (clientX: number, clientY: number) => {
+  if (!dragging || !buttonRef.current) return;
 
-    setPosition({
-      x: clientX - offset.current.x,
-      y: clientY - offset.current.y,
-    });
-  };
+  const marginX = 10;
+  const btnWidth = buttonRef.current.offsetWidth;
+
+  const newX = clientX - offset.current.x;
+  const newY = clientY - offset.current.y;
+
+  const minX = marginX;
+  const maxX = window.innerWidth - btnWidth - marginX;
+
+  setPosition({
+    x: Math.min(Math.max(newX, minX), maxX),
+    y: newY,
+  });
+};
 
   /* ===== END ===== */
   const endDrag = () => setDragging(false);
@@ -476,7 +485,8 @@ const handleContact = () =>{
 
 <>
       {/* Floating Button */}
-      {contact && (
+      <div className="relative">
+              {contact && (
         <div className="relative">    <button
               ref={buttonRef}
         onMouseDown={(e) => startDrag(e.clientX, e.clientY)}
@@ -506,7 +516,7 @@ const handleContact = () =>{
         </div>
       
       </button>
-       <X onClick={() => handleContact()} className="absolute z-50  top-2 right-12 text-white/70 font-bold"/>
+       {/* <X onClick={() => handleContact()} className="absolute z-50  top-2 right-12 text-white/70 font-bold"/> */}
 
        </div>
 
@@ -515,11 +525,11 @@ const handleContact = () =>{
 
       {/* Contact List */}
       <div
-        className={`fixed  flex flex gap-1 bg-white p-1 rounded-lg transition-all duration-300 ${
+        className={`fixed  flex flex-col gap-2  p-1 rounded-lg transition-all duration-300 ${
           open ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
                style={{
-          left: position.x - 100,
+          left: position.x - 0,
           top: position.y + 60,
         }}
       >
@@ -533,7 +543,7 @@ const handleContact = () =>{
               target="_blank"
               rel="noopener noreferrer"
               className={`flex items-center h-10 w-10 gap-2 rounded-lg shadow-md  ${
-                active ? "opacity-100 hover:bg-gray-100" : "opacity-20 pointer-events-none"
+                active ? "opacity-100 hover:bg-gray-100" : "opacity-0 pointer-events-none"
               }`}
             >
               <img src={icons[key]} alt={key} width={64} height={64} />
@@ -542,6 +552,9 @@ const handleContact = () =>{
           );
         })}
       </div>
+
+      </div>
+
     </>
 <div className="text-center">
   <h1 className="text-center text-2xl text-yellow-400 font-medium">Contact Us</h1>
