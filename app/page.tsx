@@ -60,23 +60,35 @@ type SocialLinksMap = {
 
   /* ===== MOVE ===== */
 const onMove = (clientX: number, clientY: number) => {
-  if (!dragging || !buttonRef.current) return;
+if (!dragging || !buttonRef.current) return;
 
-  const marginX = 10;
-  const btnWidth = buttonRef.current.offsetWidth;
 
-  const newX = clientX - offset.current.x;
-  const newY = clientY - offset.current.y;
+const marginX = 10;
+const marginTop = 10;
+const marginBottom = 70;
 
-  const minX = marginX;
-  const maxX = window.innerWidth - btnWidth - marginX;
 
-  setPosition({
-    x: Math.min(Math.max(newX, minX), maxX),
-    y: newY,
-  });
+const btnWidth = buttonRef.current.offsetWidth;
+const btnHeight = buttonRef.current.offsetHeight;
+
+
+const newX = clientX - offset.current.x;
+const newY = clientY - offset.current.y;
+
+
+const minX = marginX;
+const maxX = window.innerWidth - btnWidth - marginX;
+
+
+const minY = marginTop;
+const maxY = window.innerHeight - btnHeight - marginBottom;
+
+
+setPosition({
+x: Math.min(Math.max(newX, minX), maxX),
+y: Math.min(Math.max(newY, minY), maxY),
+});
 };
-
   /* ===== END ===== */
   const endDrag = () => setDragging(false);
 // const user: AuthUser | null = (() => {
