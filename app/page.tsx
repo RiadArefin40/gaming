@@ -541,8 +541,8 @@ const handleContact = () =>{
           open ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
                style={{
-          left: position.x - 0,
-          top: position.y + 60,
+          left: position.x + 5,
+          top: position.y - 90,
         }}
       >
         {Object.keys(icons).map((platform) => {
