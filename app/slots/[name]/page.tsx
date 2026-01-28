@@ -887,7 +887,7 @@ useEffect(() => {
             </div>
           </div>
           {/* Games Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 mt-2 gap-2 mb-[100px]">
+          <div className="grid grid-cols-2 max-w-screen sm:grid-cols-2 mt-2 gap-2 mb-[100px]">
             {loading
               ? Array.from({ length: 8 }).map((_, i) => (
                   <div
@@ -901,7 +901,7 @@ useEffect(() => {
                     onClick={() => handleGameClick(game)}
                     className="relative rounded-lg  bg-black-600 max-w-screen cursor-pointer hover:scale-105 transform transition duration-200"
                   >
-                    <SafeImage src={game.image} className="rounded-[10px]" />
+                    <SafeImage src={game.image} className="" />
 
                     <div className=" pt-3 rounded-b-sm bg-black-600 text-slate-200 text-white text-center py-1 text-lg sm:text-base">
                       <span className="">

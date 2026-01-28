@@ -24,7 +24,7 @@ export default function SafeImage({
   const [loading, setLoading] = useState(true);
 
   return (
-<div className={`relative  ${className}`} style={{ width, height }}>
+<div className={`relative  ${className}`} >
   {/* Simple Loader */}
 
 
@@ -34,7 +34,7 @@ export default function SafeImage({
     <img
       src={imgSrc}
       alt={alt}
-      className={`object-cover h-[150px]  transition-opacity duration-500 rounded-md ${
+      className={`object-contain  transition-opacity duration-500 rounded-md ${
         loading ? "opacity-0" : "opacity-100"
       }`}
       onLoad={() => setLoading(false)}
