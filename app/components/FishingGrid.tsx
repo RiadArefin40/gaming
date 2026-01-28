@@ -21,7 +21,7 @@ function slugify(text: string) {
     .replace(/^-+|-+$/g, "");    // remove leading/trailing hyphens
 }
 
-export function CrashGrid({ items }: GameGridProps) {
+export function FishingGrid({ items }: GameGridProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 

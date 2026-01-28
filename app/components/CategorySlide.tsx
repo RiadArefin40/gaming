@@ -18,6 +18,9 @@ import { ExclusiveGrid } from "./ExclusiveGrid";
 import { SportsGrid } from "./SportsGrid";
 import { SlotGrid } from "./SlotGrid";
 import { CrashGrid } from "./CrashGrid";
+import { FishingGrid } from "./FishingGrid";
+import { ArcadeGrid } from "./ArcadeGrid";
+import { LotteryGrid } from "./LotteryGrid";
 
 
 const categories = [
@@ -193,6 +196,27 @@ bg-yellow-300 rounded-sm bg-gradient-to-t from-black/20 to-transparent
       )}
             {selectedCategory === "crash" && (
         <CrashGrid
+          items={
+            activeGamesMap[selectedCategory as keyof typeof activeGamesMap]
+          }
+        />
+      )}
+                  {selectedCategory === "fishing" && (
+        <FishingGrid
+          items={
+            activeGamesMap[selectedCategory as keyof typeof activeGamesMap]
+          }
+        />
+      )}
+                        {selectedCategory === "arcade" && (
+        <ArcadeGrid
+          items={
+            activeGamesMap[selectedCategory as keyof typeof activeGamesMap]
+          }
+        />
+      )}
+                              {selectedCategory === "lottery" && (
+        <LotteryGrid
           items={
             activeGamesMap[selectedCategory as keyof typeof activeGamesMap]
           }

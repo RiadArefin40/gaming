@@ -1,13 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { allGames } from "@/utils/allGames";
 import { jilliSlotArray } from "@/utils/jilliSlots";
 import { JdbSlotArray } from "@/utils/JdbSlots";
 import { PgSlotArray } from "@/utils/pgSlots";
-import { spribeCrash } from "@/utils/spribeCrash";
-import { jiliCrash } from "@/utils/jilliCrash";
 import SafeImage from "@/app/components/SafeImageProps";
 import { getAuthUser } from "@/lib/auth";
 import { evoLive } from "@/utils/evoLive";
@@ -19,7 +17,15 @@ import { playtech } from "@/utils/slots/playtech";
 import { fa } from "@/utils/slots/fa";
 import { cq9 } from "@/utils/slots/cq9";
 import { redTiger } from "@/utils/slots/redTiger";
-import { jdbCrash } from "@/utils/jdbCrash";
+
+interface GameItem {
+  id: any;
+  title: any;
+  image: any;
+  game_uid: any;
+  src: any;
+  type: any;
+}
 
 interface AuthUser {
   username: string;
@@ -28,14 +34,7 @@ interface AuthUser {
   id: number;
   wallet: number;
 }
-interface GameItem {
-  id: any;
-  title: any;
-  image:any;
-  game_uid:any;
-  src: any;
-  type: any;
-}
+
 // const user: AuthUser | null = (() => {
 //   const stored = localStorage.getItem("auth_user");
 //   return stored ? JSON.parse(stored) as AuthUser : null;
@@ -47,7 +46,12 @@ interface Category {
   label: string;
 }
 
-
+// interface GameItem {
+//   serial: number;
+//   title: string;
+//   image: string;
+//   game_uid: string;
+// }
 
 // Slugify helper
 function slugify(text: string) {
@@ -83,44 +87,176 @@ export default function Casino() {
   ];
 
   const providers = [
-    { name: "all", label: "All", icon: <span>🌐</span> },
-    { name: "jilli", label: "Jili", icon: <span>♠️</span> },
-    { name: "spribe", label: "Spribe", icon: <span>🎰</span> },
-      { name: "jdb", label: "Jdb", icon: <span>🃏</span>  },
+    { name: "all", label: "All", icon: <p>All</p> },
+
+    {
+      name: "jili",
+      label: "JILI",
+      icon: (
+        <img
+          className="h-14"
+          src="https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_jili.png?v=1769513938282&source=mcdsrc"
+          alt="JILI"
+        />
+      ),
+    },
+    {
+      name: "jdb",
+      label: "JDB",
+      icon: (
+        <img
+          className="h-14"
+          src="https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_jdb.png?v=1769513938282&source=mcdsrc"
+          alt="JDB"
+        />
+      ),
+    },
+    {
+      name: "fc",
+      label: "FC",
+      icon: (
+        <img
+          className="h-14"
+          src="https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_fc.png?v=1769513938282&source=mcdsrc"
+          alt="FC"
+        />
+      ),
+    },
+
+    {
+      name: "rich88",
+      label: "RICH88",
+      icon: (
+        <img
+          className="h-14"
+          src="https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-rich88.png?v=1769513938282&source=mcdsrc"
+          alt="RICH88"
+        />
+      ),
+    },
+ 
+
+ 
+    {
+      name: "mg",
+      label: "MG",
+      icon: (
+        <img
+          className="h-14"
+          src="https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-mg.png?v=1769513938282&source=mcdsrc"
+          alt="MG"
+        />
+      ),
+    },
+
+    {
+      name: "pp",
+      label: "PP",
+      icon: (
+        <img
+          className="h-14"
+          src="https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_pp.png?v=1769513938282&source=mcdsrc"
+          alt="PP"
+        />
+      ),
+    },
+ 
+    {
+      name: "kingmaker",
+      label: "KINGMAKER",
+      icon: (
+        <img
+          className="h-14"
+          src="https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_kingmaker.png?v=1769513938282&source=mcdsrc"
+          alt="KINGMAKER"
+        />
+      ),
+    },
+
+
+    {
+      name: "cq9",
+      label: "CQ9",
+      icon: (
+        <img
+          className="h-14"
+          src="https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-cq9.png?v=1769513938282&source=mcdsrc"
+          alt="CQ9"
+        />
+      ),
+    },
+
+    {
+      name: "ka",
+      label: "KA",
+      icon: (
+        <img
+          className="h-14"
+          src="https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-ka.png?v=1769513938282&source=mcdsrc"
+          alt="KA"
+        />
+      ),
+    },
+
+
+    {
+      name: "relax",
+      label: "RELAX",
+      icon: (
+        <img
+          className="h-14"
+          src="https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_relax.png?v=1769513938282&source=mcdsrc"
+          alt="RELAX"
+        />
+      ),
+    },
 
   ];
 
   const all = [
-    ...(Array.isArray(jiliCrash) ? jiliCrash : []),
-    ...(Array.isArray(spribeCrash) ? spribeCrash : []),
-    ...(Array.isArray(jdbCrash) ? jdbCrash : []),
-
+    ...(Array.isArray(jilli) ? jilli : []),
+    ...(Array.isArray(pg) ? pg : []),
+    ...(Array.isArray(jdb) ? jdb : []),
+    ...(Array.isArray(netent) ? netent : []),
+    ...(Array.isArray(playtech) ? playtech : []),
+    ...(Array.isArray(fa) ? fa : []),
+    ...(Array.isArray(cq9) ? cq9 : []),
+    ...(Array.isArray(redTiger) ? redTiger : []),
   ];
   const gamesWithImages: GameItem[] = (
-    lastSegment === "jilli"
-      ? jiliCrash
-      : lastSegment === "spribe"
-      ? spribeCrash
-    : lastSegment === "jdb"
-      ? jdbCrash
-
-      : all
+    lastSegment === "jili"
+      ? jilli
+      : lastSegment === "pg"
+        ? pg
+        : lastSegment === "jdb"
+          ? jdb
+          : lastSegment === "netent"
+            ? netent
+            : lastSegment === "playtech"
+              ? playtech
+              : lastSegment === "fc"
+                ? fa
+                : lastSegment === "cq"
+                  ? cq9
+                  : lastSegment === "redtiger"
+                    ? redTiger
+                    : jdb
   ).map(
     (item: any): GameItem => ({
       ...item,
-    })
+    }),
   );
 
   const [selectedCategory, setSelectedCategory] = useState(() => {
     const matchedCategory = categories.find(
-      (cat) => cat.name.toLowerCase() === firstSegment.toLowerCase()
+      (cat) => cat.name.toLowerCase() === firstSegment.toLowerCase(),
     );
     return matchedCategory ? matchedCategory.label : categories[0].name;
   });
 
   const [selectedProvider, setSelectedProvider] = useState(() => {
     const matchedProvider = providers.find(
-      (p) => p.name.toLowerCase() === lastSegment.toLowerCase()
+      (p) => p.name.toLowerCase() == lastSegment.toLowerCase(),
     );
     return matchedProvider ? matchedProvider.label : providers[0].name;
   });
@@ -128,7 +264,8 @@ export default function Casino() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [providerDropdownOpen, setProviderDropdownOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredGames, setFilteredGames] = useState<GameItem[]>(gamesWithImages);
+  const [filteredGames, setFilteredGames] =
+    useState<GameItem[]>(gamesWithImages);
   const [loading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("Launching game...");
   const [sortAsc, setSortAsc] = useState(true);
@@ -139,12 +276,12 @@ export default function Casino() {
     setLoading(true);
     const timeout = setTimeout(() => {
       let filtered = gamesWithImages.filter((game: GameItem) =>
-        game.title.toLowerCase().includes(searchTerm.toLowerCase())
+        game.title.toLowerCase().includes(searchTerm.toLowerCase()),
       );
       filtered.sort((a, b) =>
         sortAsc
           ? a.title.localeCompare(b.title)
-          : b.title.localeCompare(a.title)
+          : b.title.localeCompare(a.title),
       );
       setFilteredGames(filtered);
       setLoading(false);
@@ -167,23 +304,21 @@ export default function Casino() {
   };
   const [data, setData] = useState(null);
 
-
-
   // Cache helpers
-const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
-  try {
-    const authUser = JSON.parse(localStorage.getItem("auth_user") || "{}");
-    const wallet = authUser.wallet ?? user.wallet ?? 0;
+  const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
+    try {
+      const authUser = JSON.parse(localStorage.getItem("auth_user") || "{}");
+      const wallet = authUser.wallet ?? user.wallet ?? 0;
 
-    const cache = JSON.parse(localStorage.getItem("game_url_cache") || "{}");
-    const key = `${user.id}_${gameUid}_${wallet}`;
+      const cache = JSON.parse(localStorage.getItem("game_url_cache") || "{}");
+      const key = `${user.id}_${gameUid}_${wallet}`;
 
-    return cache[key] || null;
-  } catch (err) {
-    console.error("Cache read failed", err);
-    return null;
-  }
-};
+      return cache[key] || null;
+    } catch (err) {
+      console.error("Cache read failed", err);
+      return null;
+    }
+  };
 
   const setCachedGameUrl = (user: AuthUser, gameUid: string, url: string) => {
     try {
@@ -217,15 +352,15 @@ const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
     setLoading(true);
     // 1️⃣ Check cache first
     const cachedUrl = getCachedGameUrl(user, item.game_uid);
-if (cachedUrl) {
-console.log("Using cached game URL");
-  setShowGame(false);
-    setGameUrl(cachedUrl);
-    setShowGame(true);
-    setLoading(true);
-    window.history.pushState({ gameOpen: true }, "");
-    return;
-}
+    if (cachedUrl) {
+      console.log("Using cached game URL");
+      setShowGame(false);
+      setGameUrl(cachedUrl);
+      setShowGame(true);
+      setLoading(true);
+      window.history.pushState({ gameOpen: true }, "");
+      return;
+    }
 
     // 2️⃣ Fetch new game URL
     try {
@@ -236,7 +371,7 @@ console.log("Using cached game URL");
           userName: user.name,
           game_uid: item.game_uid,
           credit_amount: user.wallet,
-          game_type: 'slot',
+          game_type: "slot",
         }),
       });
 
@@ -248,172 +383,146 @@ console.log("Using cached game URL");
         setShowGame(true);
         window.history.pushState({ gameOpen: true }, "");
       } else {
-             alert(data.error || "Failed to launch game");
+        alert(data.error || "Failed to launch game");
         setShowGame(false);
-setLoading(false);
+        setLoading(false);
       }
     } catch (err) {
       console.error(err);
       alert("Something went wrong");
       setShowGame(false);
     } finally {
-    //  setLoading(false);
+      //  setLoading(false);
     }
   };
-  console.log(evoLive);
 
+  console.log(evoLive);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRefs = useRef<{ [key: string]: HTMLButtonElement | null }>({});
+useEffect(() => {
+const selectedButton = buttonRefs.current[selectedProvider.toLowerCase()];
+if (selectedButton && containerRef.current) {
+const container = containerRef.current;
+const containerRect = container.getBoundingClientRect();
+const buttonRect = selectedButton.getBoundingClientRect();
+
+
+// Calculate the scroll so the selected button is ~2-3 items from the left
+const offset = buttonRect.left - containerRect.left - 80; // 80px = approximate padding to left
+container.scrollBy({
+left: offset,
+behavior: "smooth",
+});
+}
+}, [selectedProvider]);
+
+const START = 398678;
+const END = 868786;
+
+
+const [grand, setGrand] = useState(START);
+const [major, setMajor] = useState(16378);
+const [minor, setMinor] = useState(2688);
+
+
+const intervalRef = useRef<number | null>(null);
+
+
+useEffect(() => {
+  const increment = () => {
+    setGrand((prev) => (prev >= END ? START : prev + 1));
+    setMajor((prev) => (prev >= END ? START : prev + 1));
+    setMinor((prev) => (prev >= END ? START : prev + 1));
+  };
+
+  // assign browser interval ID (number)
+  intervalRef.current = window.setInterval(increment, .2);
+
+  return () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current); // ✅ no TS error now
+    }
+  };
+}, []);
   return (
     <>
-{loading && (
-  <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/70 backdrop-blur-md">
-    <div className="relative flex flex-col items-center justify-center gap-4">
+      {loading && (
+        <div className="fixed inset-0 z-250 flex items-center justify-center bg-black/60">
+          <div className="relative flex flex-col items-center justify-center gap-4">
+            {/* Rotating gradient rings with text inside */}
+            <div className="relative w-14 m-1 h-14 flex items-center justify-center">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-200 opacity-40 blur-xl animate-spin-slow" />
+              <div className="absolute inset-0 rounded-full border-3 border-white border-t-transparent animate-spin shadow-lg" />
+              <div className="absolute inset-0  rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
 
-      {/* Rotating gradient rings with text inside */}
-      <div className="relative w-12 h-12 flex items-center justify-center">
-        <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-orange-400 via-pink-500 to-purple-500 opacity-40 blur-xl animate-spin-slow" />
-        <div className="absolute inset-0 rounded-full border-4 border-white border-t-transparent animate-spin shadow-lg" />
-        <div className="absolute inset-0 rounded-full border-2 border-pink-400 border-b-transparent animate-spin-slower" />
+              {/* Center text */}
+              <p className="relative text-yellow-400 text-xl font-bold drop-shadow-lg">
+                <span>S</span>
+                <span className="text-slate-100">W</span>
+              </p>
+            </div>
 
-        {/* Center text */}
-   <p className="relative text-yellow-400 text-xl font-bold drop-shadow-lg">
-        <span>S</span>
-        <span className="text-slate-100">W</span>  
-        </p>
-      </div>
-
-      {/* Floating dots around spinner */}
-      <div className="absolute w-40 h-40 flex items-center justify-center">
-        {[...Array(12)].map((_, i) => (
-          <span
-            key={i}
-            className="absolute w-2 h-2 bg-gradient-to-tr from-purple-400 via-pink-500 to-orange-400 rounded-full animate-bounce"
-            style={{
-              transform: `rotate(${i * 30}deg) translateX(5rem)`,
-              animationDelay: `${i * 0.05}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Sparkling stars around */}
-      <div className="absolute w-full h-full">
-        {[...Array(20)].map((_, i) => (
-          <span
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDuration: `${0.5 + Math.random()}s`,
-            }}
-          />
-        ))}
-      </div>
-
-
-    </div>
-  </div>
-)}
-
+            {/* Sparkling stars around */}
+          </div>
+        </div>
+      )}
 
       {showGame && gameUrl && (
-             <>
-  {/* Top Bar */}
+        <>
+          {/* Top Bar */}
 
-
-  {/* GameItem Frame */}
-  <iframe
-    src={gameUrl}
-    className="fixed inset-0 top-0 w-full h-full border-0 z-[998]"
-    allow="fullscreen"
-  />
-</>
+          {/* GameItem Frame */}
+          <iframe
+            src={gameUrl}
+            className="fixed inset-0 top-0 w-full h-full border-0 z-[998]"
+            allow="fullscreen"
+          />
+        </>
       )}
 
       {!showGame && (
-         <div className="p-2 pt-[67px] ">
-          <div className="sticky bg-slate-900 h-[60px] top-2 z-50">
+        <div className="p-2 pt-[67px] ">
+          <div className="sticky bg-black-700 h-[50px] top-2 z-50">
             <div className="flex items-center gap-2 justify-between">
               {/* Provider Dropdown */}
-              <div className="relative mt-[8px]">
-            <button
-  onClick={() => setProviderDropdownOpen(!providerDropdownOpen)}
-  className="flex w-full -ml-1 min-w-[180px]  h-10 items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
->
-  <div className="flex items-center space-x-2">
-    {/* Provider icon */}
-    {providers.find((p) => p.label == selectedProvider)?.icon}
 
-    {/* Provider label */}
+              <div className="w-full">
+                <div className="relative px-3 mt-1 flex items-center">
+                  {searchOpen && (
+                    <>
+                      {/* Magnifying glass icon */}
+                      <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M12.9 14.32a8 8 0 111.414-1.414l4.387 4.387a1 1 0 01-1.414 1.414l-4.387-4.387zM14 8a6 6 0 11-12 0 6 6 0 0112 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </span>
 
-    <span>
-  {(() => {
-    const label =
-      providers.find((p) => p.name === selectedProvider)?.label ||
-      selectedProvider;
-    return label.length > 9 ? label.slice(0, 9) + " .." : label;
-  })()}
-</span>
-
-  </div>
-
-  {/* Dropdown arrow */}
-  <span className="pl-2">{providerDropdownOpen ? "▲" : "▼"}</span>
-</button>
-
-                {providerDropdownOpen && (
-                  <div className="absolute w-full bg-gray-700 rounded-md shadow-lg z-10">
-                    {providers.map((p, i) => (
-                      <div
-                        key={i}
-                        onClick={() => handleProviderSelect(p.name)}
-                        className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
-                          selectedProvider === p.label ? "bg-slate-400" : ""
-                        }`}
-                      >
-                        {p.icon} <span>{p.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                      {/* Input field */}
+                      <input
+                        type="text"
+                        placeholder="Search games..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pl-8  h-10 px-3 w-full  py-1 flex-1 rounded-md bg-black-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
+                      />
+                    </>
+                  )}
+                </div>
               </div>
-                                       <div className="flex  h-10 flex-col sm:flex-row items-start sm:items-center justify-between text-white py-2 rounded-md -mt-[8px]">
-  <div className="relative flex items-center">
-    {searchOpen && (
-      <>
-        {/* Magnifying glass icon */}
-        <span className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M12.9 14.32a8 8 0 111.414-1.414l4.387 4.387a1 1 0 01-1.414 1.414l-4.387-4.387zM14 8a6 6 0 11-12 0 6 6 0 0112 0z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </span>
 
-        {/* Input field */}
-        <input
-          type="text"
-          placeholder="Search games..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-8  h-10 px-3 w-full py-1 flex-1 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
-        />
-      </>
-    )}
-  </div>
-</div>
-        
               {/* <div className="relative mt-2">
                  <button
   onClick={() => setDropdownOpen(!dropdownOpen)}
-  className="flex min-w-[150px] h-10 -mt-4 items-center space-x-1 font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
+  className="flex min-w-[150px] h-10 -mt-4 items-center space-x-1 font-semibold px-3 py-1 rounded-md bg-black-700 hover:bg-black-600"
 >
 
   {categories.find((c) => c.label == selectedCategory)?.icon}
@@ -427,12 +536,12 @@ setLoading(false);
   <span className="pl-8">{dropdownOpen ? "▲" : "▼"}</span>
 </button>
                 {dropdownOpen && (
-                  <div className="absolute w-full bg-gray-700 rounded-md shadow-lg z-10">
+                  <div className="absolute w-full bg-black-700 rounded-md shadow-lg z-10">
                     {categories.map((cat, i) => (
                       <div
                         key={i}
                         onClick={() => handleCategorySelect(cat.label)}
-                        className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
+                        className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-black-600 ${
                           selectedCategory === cat.name ? "bg-slate-400" : ""
                         }`}
                       >
@@ -445,38 +554,67 @@ setLoading(false);
             </div>
 
             {/* Search */}
-
-
           </div>
 
+          <div className="my-4 relative max-w-screen">
+            <img
+              src="https://img.m167cw.com/upload/backgroundImgH5/image_260077.jpg"
+              alt=""
+            />
+            <p className="absolute bottom-[25px] font-bold text-slate-300 left-[44px]">{minor}</p>
+               <p className="text-xl absolute font-bold text-orange-400 bottom-[32px] left-1/2 -translate-x-1/2">{grand}</p>
+                <p className="absolute bottom-[25px] font-bold text-slate-300 right-[52px]">{major}</p>
+          </div>
+
+          <div>
+            <div className="relative my-2">
+          <div
+  ref={containerRef}
+  className="flex space-x-2 my-4 overflow-x-auto bg-black-600 py-2 px-1 max-w-screen -mx-2 px-2"
+>
+  {providers.map((p) => (
+    <button
+      key={p.name}
+      ref={(el) => {
+        buttonRefs.current[p.name.toLowerCase()] = el; // ✅ TS happy
+      }}
+      onClick={() => handleProviderSelect(p.name)}
+      className={`flex flex-col items-center justify-center min-w-[80px] h-10 px-3 rounded-xs font-semibold cursor-pointer transition-all ${
+        selectedProvider.toLowerCase() === p.name
+          ? "bg-slate-700 text-white"
+          : "bg-black-700 text-white"
+      }`}
+    >
+      <div className="text-lg">{p.icon}</div>
+    </button>
+  ))}
+</div>
+            </div>
+          </div>
           {/* Games Grid */}
-          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 max-w-screen sm:grid-cols-2 mt-2 gap-2 mb-[100px]">
             {loading
               ? Array.from({ length: 8 }).map((_, i) => (
                   <div
                     key={i}
-                    className="animate-pulse bg-gray-700 rounded-lg h-32 sm:h-40 md:h-48"
+                    className="animate-pulse bg-black-600 rounded-lg h-32 sm:h-40 md:h-48"
                   />
                 ))
               : filteredGames.map((game, i) => (
                   <div
                     key={i}
                     onClick={() => handleGameClick(game)}
-                    className="relative rounded-lg  cursor-pointer hover:scale-105 transform transition duration-200"
+                    className="relative rounded-lg  bg-black-600 max-w-screen cursor-pointer hover:scale-105 transform transition duration-200"
                   >
-                    <SafeImage
-                      src={game.image}
-                      width={130}
-                      height={170}
-                      className="rounded-[10px]"
-                    />
-                    {/* <div className="-mt-6 bg-slate-800 h-8 text-slate-200 text-white text-center py-1 text-lg sm:text-base">
-                    <span className="pb-1">
-                      {game.title.length > 10
-                        ? `${game.title.slice(0, 10)}..`
-                        : game.title}
-                    </span>
-                  </div> */}
+                    <SafeImage src={game.image} className="" />
+
+                    <div className=" rounded-b-sm bg-black-600 text-slate-200 text-white text-center py-1 text-lg sm:text-base">
+                      <span className="">
+                        {game.title.length > 15
+                          ? `${game.title.slice(0, 15)}..`
+                          : game.title}
+                      </span>
+                    </div>
                   </div>
                 ))}
           </div>

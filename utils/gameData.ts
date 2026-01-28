@@ -262,105 +262,204 @@ type: 'live-casino'
   //   title: "SMARTSOFT",
   //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-smartsoft.png",
   // },
-  {
-    id: 4,
-    title: "JILI",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmjili.png",
-  },
   // {
-  //   id: 5,
-  //   title: "Pragmatic Play",
-  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png",
+  //   id: 4,
+  //   title: "JILI",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmjili.png",
   // },
-  // {
-  //   id: 6,
-  //   title: "JDB",
-  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-jdb.png",
-  // },
-  // {
-  //   id: 7,
-  //   title: "Fa Chai",
-  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmfc.png",
-  // },
-  // {
-  //   id: 8,
-  //   title: "KingMidas",
-  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmkm.png",
-  // },
-  // {
-  //   id: 9,
-  //   title: "Rich88",
-  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-rich88.png",
-  // },
-  // {
-  //   id: 10,
-  //   title: "CQ9",
-  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-cq9.png",
-  // },
-  // {
-  //   id: 11,
-  //   title: "Hacksaw",
-  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-hacksaw.png",
-  // },
-  // {
-  //   id: 12,
-  //   title: "You Lian",
-  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmyl.png",
-  // },
-  // {
-  //   id: 13,
-  //   title: "Creative Gaming",
-  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-cg.png",
-  // },
+ {
+      name: "jili",
+      title: "JILI",
+id: 3,
+      src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_jili.png?v=1769513938282&source=mcdsrc"
+    
+   
+    },
+    {
+      name: "jdb",
+      title: "JDB",
+   id: 4,
+    
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_jdb.png?v=1769513938282&source=mcdsrc"
+   
+  
+    },
+    {
+      name: "fc",
+      title: "FC",
+id: 5,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_fc.png?v=1769513938282&source=mcdsrc"
+
+    },
+
+    {
+      name: "rich88",
+      title: "RICH88",
+id: 6,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-rich88.png?v=1769513938282&source=mcdsrc"
+    },
+ 
+
+ 
+    {
+      name: "mg",
+      title: "MG",
+id: 7,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-mg.png?v=1769513938282&source=mcdsrc"
+
+    },
+
+    {
+      name: "pp",
+      title: "PP",
+id: 8,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_pp.png?v=1769513938282&source=mcdsrc"
+
+    },
+ 
+    {
+      name: "kingmaker",
+      title: "KINGMAKER",
+id: 9,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_kingmaker.png?v=1769513938282&source=mcdsrc"
+ 
+    },
+
+
+    {
+      name: "cq9",
+      title: "CQ9",
+id: 10,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-cq9.png?v=1769513938282&source=mcdsrc"
+ 
+    },
+
+    {
+      name: "ka",
+      title: "KA",
+id: 11,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-ka.png?v=1769513938282&source=mcdsrc"
+
+    },
+
+
+    {
+      name: "relax",
+      title: "RELAX",
+id: 12,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_relax.png?v=1769513938282&source=mcdsrc"
+
+    }
   ],
   fishing: [
+     {
+      name: "jili",
+      title: "JILI",
+id: 3,
+      src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_jili.png?v=1769513938282&source=mcdsrc"
+    
+   
+    },
     {
-    id: 1,
-    title: "All",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-fish.png",
-  },
+      name: "jdb",
+      title: "JDB",
+   id: 4,
+    
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_jdb.png?v=1769513938282&source=mcdsrc"
+   
+  
+    },
+    {
+      name: "fc",
+      title: "FC",
+id: 5,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_fc.png?v=1769513938282&source=mcdsrc"
+
+    },
+
+    {
+      name: "rich88",
+      title: "RICH88",
+id: 6,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-rich88.png?v=1769513938282&source=mcdsrc"
+    },
+ 
+
+ 
+    {
+      name: "mg",
+      title: "MG",
+id: 7,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-mg.png?v=1769513938282&source=mcdsrc"
+
+    },
+
+    {
+      name: "pp",
+      title: "PP",
+id: 8,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_pp.png?v=1769513938282&source=mcdsrc"
+
+    },
+ 
+    {
+      name: "kingmaker",
+      title: "KINGMAKER",
+id: 9,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_kingmaker.png?v=1769513938282&source=mcdsrc"
+ 
+    },
+
+
+    {
+      name: "cq9",
+      title: "CQ9",
+id: 10,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-cq9.png?v=1769513938282&source=mcdsrc"
+ 
+    },
+
+    {
+      name: "ka",
+      title: "KA",
+id: 11,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-ka.png?v=1769513938282&source=mcdsrc"
+
+    },
+
+
+    {
+      name: "relax",
+      title: "RELAX",
+id: 12,
+          src:"https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_relax.png?v=1769513938282&source=mcdsrc"
+
+    },
+  
   {
-    id: 2,
-    title: "JILI",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmjili.png",
-  },
-  {
-    id: 3,
+    id: 14,
     title: "Play8",
     src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmp8.png",
   },
-  {
-    id: 4,
-    title: "JDB",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-jdb.png",
-  },
+
   {
     id: 5,
     title: "Yellow Bat",
     src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmyesbingo.png",
   },
+  
   {
-    id: 6,
-    title: "Fa Chai",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmfc.png",
-  },
-  {
-    id: 7,
-    title: "CQ9",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-cq9.png",
-  },
-  {
-    id: 8,
+    id: 16,
     title: "Big Gaming",
     src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-bg.png",
   },
   {
-    id: 9,
+    id: 19,
     title: "FastSpin",
     src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmfastspin.png",
   },
   {
-    id: 10,
+    id: 15,
     title: "You Lian",
     src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmyl.png",
   },
@@ -376,11 +475,11 @@ type: 'live-casino'
   },
   ],
   arcade: [
-     {
-    id: 1,
-    title: "All",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-arcade.png",
-  },
+  //    {
+  //   id: 1,
+  //   title: "All",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-arcade.png",
+  // },
   {
     id: 2,
     title: "Fa Chai",
@@ -448,11 +547,11 @@ type: 'live-casino'
   },
   ],
   lottery: [
-     {
-    id: 1,
-    title: "All",
-    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-lottery.png",
-  },
+  //    {
+  //   id: 1,
+  //   title: "All",
+  //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/menu-type/active/icon-lottery.png",
+  // },
   {
     id: 2,
     title: "JILI",
