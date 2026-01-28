@@ -857,7 +857,7 @@ useEffect(() => {
               alt=""
             />
             <p className="absolute bottom-[25px] font-bold text-slate-300 left-[44px]">{minor}</p>
-               <p className="text-xl absolute font-bold text-orange-400 bottom-[32px] left-[174px]">{grand}</p>
+               <p className="text-xl absolute font-bold text-orange-400 bottom-[32px] left-1/2 -translate-x-1/2">{grand}</p>
                 <p className="absolute bottom-[25px] font-bold text-slate-300 right-[52px]">{major}</p>
           </div>
 
