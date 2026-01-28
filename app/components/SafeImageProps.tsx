@@ -34,7 +34,7 @@ export default function SafeImage({
     <img
       src={imgSrc}
       alt={alt}
-      className={`object-contain h-[155px] transition-opacity duration-500 rounded-md ${
+      className={`object-cover w-full h-[155px] transition-opacity duration-500 rounded-md ${
         loading ? "opacity-0" : "opacity-100"
       }`}
       onLoad={() => setLoading(false)}
