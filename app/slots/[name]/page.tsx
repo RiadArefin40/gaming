@@ -903,7 +903,7 @@ useEffect(() => {
                   >
                     <SafeImage src={game.image} className="" />
 
-                    <div className=" pt-3 rounded-b-sm bg-black-600 text-slate-200 text-white text-center py-1 text-lg sm:text-base">
+                    <div className=" rounded-b-sm bg-black-600 text-slate-200 text-white text-center py-1 text-lg sm:text-base">
                       <span className="">
                         {game.title.length > 15
                           ? `${game.title.slice(0, 15)}..`
