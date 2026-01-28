@@ -341,14 +341,16 @@ setLoading(false);
           onClick = {() => handleGameClick(game)}
           className="flex items-center justify-center rounded-sm"
         >
-      <div className="relative p-[1px] pt-2 flex-col rounded-sm spribe-card bg-yellow-300">
+      <div className="relative p-[1px]  flex-col rounded-sm spribe-card bg-yellow-300">
   <img
     src={game.image}
     alt="exclusive-game"
-    className="w-[62px] h-[52px] rounded-xs"
+    className="w-[55px] h-[58px] rounded-xs"
   />
  <div>
- <p className="text-sm mt-[1px] font-medium">{game?.title}</p>
+<p className="text-xs mt-[1px] font-medium">
+{game?.title.length > 10 ? `${game.title.slice(0, 10)}...` : game.title}
+</p>
  </div>
   
 </div>

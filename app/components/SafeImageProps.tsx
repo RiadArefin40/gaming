@@ -34,7 +34,7 @@ export default function SafeImage({
     <img
       src={imgSrc}
       alt={alt}
-      className={`object-cover  transition-opacity duration-500 rounded-md ${
+      className={`object-cover h-[150px] w-full transition-opacity duration-500 rounded-md ${
         loading ? "opacity-0" : "opacity-100"
       }`}
       onLoad={() => setLoading(false)}
@@ -59,22 +59,7 @@ export default function SafeImage({
     /> */}
 
     {/* SW label */}
-    {!loading && (
-    <div className="absolute top-0 right-0 backdrop-blur-md  bg-gradient-to-r from-cyan-500 via-pink-500 to-orange-400 text-white font-semibold text-sm rounded-lg shadow-lg drop-shadow-lg">
-     <p
-  className="tracking-wider italic -mt-2 text-lg  font-extrabold text-orange-500 select-none touch-none"
-  style={{
-    textShadow: `
-      1px 1px 0 #0e0d0cff,
-      2px 2px 0 #fafafaff,
-      3px 1px 0 #f0e7e2ff,
-      4px 4px 6px rgba(112, 76, 76, 0.35)
-    `
-  }}
->
-  BajiRaj
-</p>
-    </div>)}
+
   </div>
 </div>
 

@@ -70,35 +70,126 @@ export const gameImages: any  = {
   //   src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png",
   // },
 
-   {
-    id: 1,
-    title: 'Evolution',
-    provider:"Evolution",
-     src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-evo.png",
-    image: 'https://www.neonvegas.com/uploads/games/21M/evolution_EVOLD_ROULETTE_LOBBY/evolution_EVOLD_ROULETTE_LOBBY.webp',
-    game_uid: '8ef39602e589bf9f32fc351b1cbb338b',
-    type: "live-casino"
-  },
   {
-    id: 2,
-    title: 'Pragmatic',
-    provider:"Pragmatic",
-      src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png",
-    image: 'https://rainbet-images.nyc3.cdn.digitaloceanspaces.com/slots/pragmatic-play-lobby-roulette.jpg',
-    game_uid: '1d93109e3e25654e679f911c60b4414b',
-    type: "live-casino"
-  },
-    {
-    id: 3,
-    title: 'Ezugi',
-    provider:" Ezugi",
-    src: "https://games.evolution.com/wp-content/uploads/2022/11/ezugi_logo_evolution.svg",
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBVZt_5NBlqO9KmhLCVDxW-7GdjfeB_oxO_GrOs2i4lw&s=10',
-    game_uid: 'd0e052b031dfcdb08d1803f4bcc618ef',
-    type: "live-casino"
+id: 1,
+title: 'EVO',
+provider: 'AWCV2_EVOLUTION',
+src: 'https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_evolution.png?v=1769513938282&source=mcdsrc',
+image: 'https://www.neonvegas.com/uploads/games/21M/evolution_EVOLD_ROULETTE_LOBBY/evolution_EVOLD_ROULETTE_LOBBY.webp',
+game_uid: '8ef39602e589bf9f32fc351b1cbb338b',
+type: 'live-casino'
+},
+{
+id: 2,
+title: 'Sexy',
+provider: 'AWCV2_SEXYBCRT',
+src: 'https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcmsexy.png?v=1769513938282&source=mcdsrc',
+image: 'https://rainbet-images.nyc3.cdn.digitaloceanspaces.com/slots/sexy-lobby.jpg',
+game_uid: '1d93109e3e25654e679f911c60b4414b',
+type: 'live-casino'
+},
+{
+id: 3,
+title: 'PP',
+provider: 'AWCV2_PP',
+src: 'https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcmpp.png?v=1769513938282&source=mcdsrc',
+image: 'https://rainbet-images.nyc3.cdn.digitaloceanspaces.com/slots/pragmatic-play-lobby-roulette.jpg',
+game_uid: '2a93109e3e25654e679f911c60b4414c',
+type: 'live-casino'
+},
+{
+id: 4,
+title: 'HotRoad',
+provider: 'AWCV2_HOTROAD',
+src: 'https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcmhotroad.png?v=1769513938282&source=mcdsrc',
+image: 'https://rainbet-images.nyc3.cdn.digitaloceanspaces.com/slots/hotroad-lobby.jpg',
+game_uid: '3b93109e3e25654e679f911c60b4414d',
+type: 'live-casino'
+},
+{
+id: 5,
+title: 'PT',
+provider: 'AWCV2_PT',
+src: 'https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcmpt.png?v=1769513938282&source=mcdsrc',
+image: 'https://rainbet-images.nyc3.cdn.digitaloceanspaces.com/slots/pt-lobby.jpg',
+game_uid: '4c93109e3e25654e679f911c60b4414e',
+type: 'live-casino'
+},
+{
+id: 6,
+title: 'DG',
+provider: 'AWCV2_DREAMGAMING',
+src: 'https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcmdg.png?v=1769513938282&source=mcdsrc',
+image: 'https://rainbet-images.nyc3.cdn.digitaloceanspaces.com/slots/dreamgaming-lobby.jpg',
+game_uid: '5d93109e3e25654e679f911c60b4414f',
+type: 'live-casino'
+},
+{
+id: 7,
+title: 'MG',
+provider: 'MG',
+src: 'https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-mg.png?v=1769513938282&source=mcdsrc',
+image: 'https://rainbet-images.nyc3.cdn.digitaloceanspaces.com/slots/mg-lobby.jpg',
+game_uid: '6e93109e3e25654e679f911c60b44150',
+type: 'live-casino'
+},
+{
+id: 8,
+title: 'VIA',
+provider: 'AWCV2_VIACASINO',
+src: 'https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcmvia.png?v=1769513938282&source=mcdsrc',
+image: 'https://rainbet-images.nyc3.cdn.digitaloceanspaces.com/slots/viacasino-lobby.jpg',
+game_uid: '7f93109e3e25654e679f911c60b44151',
+type: 'live-casino'
+},
+{
+id: 9,
+title: 'Creedroomz',
+provider: 'AWCV2_CREEDROOMZ',
+src: 'https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_creedroomz.png?v=1769513938282&source=mcdsrc',
+image: 'https://rainbet-images.nyc3.cdn.digitaloceanspaces.com/slots/creedroomz-lobby.jpg',
+game_uid: '8g93109e3e25654e679f911c60b44152',
+type: 'live-casino'
+},
+{
+id: 10,
+title: 'Winfinity',
+provider: 'AWCV2_WINFINITY',
+src: 'https://img.m167cw.com/mcw/h5/assets/images/brand/white/provider-awcv2_winfinity.png?v=1769513938282&source=mcdsrc',
+image: 'https://rainbet-images.nyc3.cdn.digitaloceanspaces.com/slots/winfinity-lobby.jpg',
+game_uid: '9h93109e3e25654e679f911c60b44153',
+type: 'live-casino'
+}
+
+  //  {
+  //   id: 1,
+  //   title: 'Evolution',
+  //   provider:"Evolution",
+  //    src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-evo.png",
+  //   image: 'https://www.neonvegas.com/uploads/games/21M/evolution_EVOLD_ROULETTE_LOBBY/evolution_EVOLD_ROULETTE_LOBBY.webp',
+  //   game_uid: '8ef39602e589bf9f32fc351b1cbb338b',
+  //   type: "live-casino"
+  // },
+  // {
+  //   id: 2,
+  //   title: 'Pragmatic',
+  //   provider:"Pragmatic",
+  //     src: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/vendor-type/for-dark/vendor-awcmpp.png",
+  //   image: 'https://rainbet-images.nyc3.cdn.digitaloceanspaces.com/slots/pragmatic-play-lobby-roulette.jpg',
+  //   game_uid: '1d93109e3e25654e679f911c60b4414b',
+  //   type: "live-casino"
+  // },
+  //   {
+  //   id: 3,
+  //   title: 'Ezugi',
+  //   provider:" Ezugi",
+  //   src: "https://games.evolution.com/wp-content/uploads/2022/11/ezugi_logo_evolution.svg",
+  //   image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBVZt_5NBlqO9KmhLCVDxW-7GdjfeB_oxO_GrOs2i4lw&s=10',
+  //   game_uid: 'd0e052b031dfcdb08d1803f4bcc618ef',
+  //   type: "live-casino"
 
     
-  },
+  // },
   // {
   //   id: 4,
   //   title: "Sexy",
