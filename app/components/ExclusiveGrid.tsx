@@ -9,6 +9,7 @@ interface GameItem {
 }
 interface ExclusiveGridProps {
   items: any;
+    cat: any;   
 }
 
 
@@ -62,7 +63,7 @@ function slugify(text: string) {
 
 
 
-export function ExclusiveGrid({ items }: ExclusiveGridProps) {
+export function ExclusiveGrid({ items, cat }: ExclusiveGridProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [user, setUser] = useState<AuthUser | null>(null);
@@ -224,7 +225,8 @@ const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
 
   // Launch or load cached game
   const handleGameClick = async (item: GameItem) => {
-    if (loading) return;
+    if(cat ! == "Exclusive" || cat === "Sport" || cat === "Casino"){
+          if (loading) return;
     if (!user) {
       alert("User not authenticated");
       return;
@@ -274,6 +276,12 @@ setLoading(false);
     } finally {
     //  setLoading(false);
     }
+
+    }
+    else{
+     router.push(`${cat.toLowerCase()}/${item.title.toLowerCase()}`);
+    }
+
   };
 
 
@@ -334,7 +342,10 @@ setLoading(false);
       {!showGame && (
         <>
     <div className="grid grid-cols-4 gap-[6px] my-4 mt-4 px-2">
-      {items.map((game:any,i:any) => (
+      
+  {items
+  .filter((game: any) => cat === "Exclusive" || cat === "Sport" || cat === "Casino" || game.is_provider !== false)
+  .map((game: any, i: number) => (
         <div key={i}className="bg-gradient-to-r from-pink-500 via-yellow-300 to-blue-500 animate-gradient-glow rounded-sm ">
   <div
           key={i}
@@ -343,13 +354,18 @@ setLoading(false);
         >
       <div className="relative p-[1px]  flex-col rounded-sm spribe-card bg-yellow-300">
   <img
-    src={game.image}
+    src={
+                  game.image_url
+                    ? `https://api.spcwin.info${game.image_url}`
+                    : ""
+                }
     alt="exclusive-game"
     className="w-[55px] h-[58px] rounded-xs"
   />
  <div>
 <p className="text-xs mt-[1px] font-medium">
 {game?.title.length > 10 ? `${game.title.slice(0, 10)}...` : game.title}
+
 </p>
  </div>
   

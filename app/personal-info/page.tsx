@@ -35,6 +35,8 @@ type User = {
   email: string | null;
   password: string;
   created_at: string;
+  full_name: any;
+  dob:any
 };
 
 /* ================= COMPONENT ================= */
@@ -46,6 +48,9 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const router = useRouter();
+  const [fullName, setFullName] = useState("");
+const [dob, setDob] = useState("");
+
   /* ================= DATA ================= */
   useEffect(() => {
     const u = getAuthUser() as User | null;
@@ -60,6 +65,8 @@ export default function ProfilePage() {
     const data = await res.json();
     setPhones(data);
   };
+
+  
 const backToHome = () =>{
   router.push('/')
   console.log('okkk')
@@ -120,6 +127,44 @@ const sendOtp = async (phone:any) => {
 
 
 
+const handleSaveProfile = async () => {
+  if (!user) {
+    console.error("User is not loaded");
+    return;
+  }
+
+  try {
+    // Determine which field to update
+    const payload =
+      fullName && !user.full_name
+        ? { full_name: fullName }
+        : dob && !user.dob
+        ? { dob }
+        : null;
+
+    if (!payload) {
+      console.warn("Nothing to update");
+      return;
+    }
+
+    const res = await fetch(`https://api.spcwin.info/users/${user.id}/set-once`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("Profile updated!");
+      // optionally refresh user state
+    } else {
+      alert(data.message);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 
 
@@ -208,21 +253,58 @@ else{
           <div className="py-5 px-4 -mt-2  ">
             <div className="flex gap-4 items-center">
               <img className="bg-yellow-300/90 p-[1px] rounded-full" src="https://1betjili.com/assets/images/icon-set/theme-icon/icon-info.svg" alt="" />
-              <div>
-                         <p className=" font-bold text-lg text-gray-200">Full Name</p>
-          <p className="font-bold  font-bold text-gray-400">{user.name}</p>
-              </div>
+          {/* Full Name */}
+    <p className="font-bold text-lg text-gray-200">Full Name</p>
+    {user.full_name ? (
+      <p className="font-bold text-gray-400">{user.full_name}</p>
+    ) : (
+      <input
+        type="text"
+        placeholder="Enter full name"
+        value={fullName}
+        onChange={(e) => setFullName(e.target.value)}
+        className="bg-gray-700 text-white rounded-md px-2 py-1 mt-1"
+      />
+    )}
             </div>
 
           </div>
     <div className="py-5 px-4 -mt-2  border-t border-slate-500">
                <div className="flex gap-4 items-center">
               <img className="bg-yellow-300/90 p-[1px] rounded-full" src="https://1betjili.com/assets/images/icon-set/theme-icon/icon-birthday.svg" alt="" />
-              <div>
-                         <p className=" font-bold text-lg text-gray-200">Registration Date</p>
-          <p className="font-bold  font-bold text-gray-400">{user.created_at}</p>
-              </div>
+     <div>
+
+
+    {/* DOB */}
+    <p className="font-bold text-lg text-gray-200 mt-2">Date of Birth</p>
+    {user.dob ? (
+      <p className="font-bold text-gray-400">{user.dob}</p>
+    ) : (
+      <input
+        type="date"
+        value={dob}
+        onChange={(e) => setDob(e.target.value)}
+        className="bg-gray-700 text-white rounded-md px-2 py-1 mt-1"
+      />
+    )}
+
+    {/* Optional: Save Button if either is unset */}
+    {!user.full_name || !user.dob ? (
+      <button
+        onClick={handleSaveProfile}
+        className="mt-2 ml-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-md font-bold"
+      >
+        Save
+      </button>
+    ) : null}
+  </div>
             </div>
+            <div className="flex gap-4 items-center">
+
+
+
+</div>
+
 
             
 

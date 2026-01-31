@@ -88,7 +88,9 @@ const [loadingText, setLoadingText] = useState("Launching game...");
     className="w-[55px] h-[45px] rounded-sm "
   />
  <div>
- <p className="text- font-medium">{item?.title}</p>
+<p className="text-xs mt-[1px] font-medium">
+{item?.title.length > 10 ? `${item.title.slice(0, 10)}...` : item.title}
+</p>
  </div>
   
 </div>

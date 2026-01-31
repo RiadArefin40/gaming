@@ -76,6 +76,27 @@ export default function FeaturedSlider({
   // Touch swipe
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
+const [category, setCategory] = useState([])
+
+const [provider, setProvider] = useState<any[]>([]);
+
+useEffect(() => {
+  // Wrap async function inside useEffect
+  const fetchGames = async () => {
+    try {
+      const res = await fetch(`https://api.spcwin.info/users/game-categories/${2}/games`);
+      if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
+      const json = await res.json();
+      console.log("json", json);
+      setProvider(json.games);
+         setCategory(json.category_title)
+    } catch (err: any) {
+      console.error("Fetch error:", err);
+    }
+  };
+
+  fetchGames();
+}, [2]); // dependency array
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -170,7 +191,7 @@ export default function FeaturedSlider({
           ))}
         </div> */}
 
-        <ExclusiveGrid items={ex}/>
+        { provider.length > 0  && <ExclusiveGrid items={provider} cat = {category} />}
 
         {/* arrows */}
         <button
