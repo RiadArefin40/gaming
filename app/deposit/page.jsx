@@ -745,7 +745,7 @@ useEffect(() => {
                 />
                 <Button
                   variant="outline"
-                  className="bg-white/10 h-14"
+                  className="bg-white/80 h-14"
                   onClick={() => copyText(receiverNumber)}
                   disabled={!receiverNumber}
                 >
