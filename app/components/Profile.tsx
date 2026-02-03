@@ -530,7 +530,7 @@ const features = [
                  <div className=" ">
                
 
-        <div className="flex gap-3 ml-2 pb-4">
+        <div className="flex gap-3 ml-6 pb-4">
             {/* <div
         
           className=" rounded-md flex mr-4 flex-col items-center"
