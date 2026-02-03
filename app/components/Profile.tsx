@@ -216,6 +216,15 @@ useEffect(() => {
       
     
   };
+    const handleWithdraw = () => {
+
+      setTimeout(()=>{
+        onAction()
+        router.push("/withdraw");
+      }, 300)
+      
+    
+  };
     const handleReferral = () => {
      setTimeout(()=>{
         onAction()
@@ -408,7 +417,7 @@ const features = [
           <span className="text-slate-200 text-slate-200 text-md font-bold">Deposit</span>
         </div>
             <div
-         onClick={()=> handleDeposit()}
+         onClick={()=> handleWithdraw()}
           className=" p-5 rounded-md flex flex-col items-center"
         >
           <img
