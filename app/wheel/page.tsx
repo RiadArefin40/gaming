@@ -1,8 +1,7 @@
 "use client";
 import { useState } from "react";
 
-const segments = [
-
+const segments: string[] = [
   "৳188",
   "৳38",
   "৳15",
@@ -11,8 +10,9 @@ const segments = [
 ];
 
 export default function SpinWheel() {
-  const [rotation, setRotation] = useState(0);
-  const [spinning, setSpinning] = useState(false);
+  const [rotation, setRotation] = useState<number>(0);
+  const [spinning, setSpinning] = useState<boolean>(false);
+  const [winner, setWinner] = useState<string | null>(null);
 
   const size = 320;
   const center = size / 2;
@@ -23,25 +23,25 @@ export default function SpinWheel() {
     if (spinning) return;
 
     setSpinning(true);
+    setWinner(null);
 
     const index = Math.floor(Math.random() * segments.length);
     const extra = 360 * 6;
-
     const targetRotation = extra + (360 - index * angle - angle / 2);
 
     setRotation((prev) => prev + targetRotation);
 
     setTimeout(() => {
+      const reward = segments[index];
+      setWinner(reward);
       setSpinning(false);
-      alert("You won " + segments[index]);
     }, 4500);
   };
 
-  // SVG arc slice generator
-  const createSlice = (startAngle:any, endAngle:any) => {
+  // ---------- SVG helpers ----------
+  const createSlice = (startAngle: number, endAngle: number) => {
     const start = polarToCartesian(center, center, radius, endAngle);
     const end = polarToCartesian(center, center, radius, startAngle);
-
     const largeArc = endAngle - startAngle <= 180 ? 0 : 1;
 
     return `
@@ -52,7 +52,12 @@ export default function SpinWheel() {
     `;
   };
 
-  function polarToCartesian(cx:any, cy:any, r:any, angleDeg:any) {
+  function polarToCartesian(
+    cx: number,
+    cy: number,
+    r: number,
+    angleDeg: number
+  ) {
     const angleRad = ((angleDeg - 90) * Math.PI) / 180;
     return {
       x: cx + r * Math.cos(angleRad),
@@ -61,10 +66,10 @@ export default function SpinWheel() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-black-800 text-white px-4">
 
       {/* TITLE */}
-      <h1 className="text-4xl font-bold text-yellow-400 mb-6">
+      <h1 className="text-4xl font-bold text-yellow-400 mb-6 tracking-wider">
         SPIN & WIN
       </h1>
 
@@ -73,13 +78,11 @@ export default function SpinWheel() {
         <div className="w-0 h-0 border-l-[18px] border-r-[18px] border-b-[28px] border-l-transparent border-r-transparent border-b-yellow-400" />
       </div>
 
-      {/* WHEEL CONTAINER */}
+      {/* ================= WHEEL ================= */}
       <div className="relative">
 
-        {/* OUTER GOLD RING */}
         <div className="p-4 rounded-full bg-gradient-to-r from-yellow-500 via-yellow-300 to-yellow-500 shadow-[0_0_35px_gold]">
 
-          {/* SVG WHEEL */}
           <svg
             width={size}
             height={size}
@@ -100,19 +103,13 @@ export default function SpinWheel() {
 
               return (
                 <g key={i}>
-                  {/* Slice */}
                   <path
                     d={createSlice(startAngle, endAngle)}
-                    fill={
-                      i % 2 === 0
-                        ? "url(#yellowGrad)"
-                        : "url(#tealGrad)"
-                    }
+                    fill={i % 2 === 0 ? "url(#yellowGrad)" : "url(#tealGrad)"}
                     stroke="#111"
                     strokeWidth="2"
                   />
 
-                  {/* Text */}
                   <text
                     x={textPos.x}
                     y={textPos.y}
@@ -149,8 +146,42 @@ export default function SpinWheel() {
             disabled={spinning}
             className="absolute inset-0 m-auto w-24 h-24 rounded-full bg-gradient-to-b from-gray-200 to-gray-400 text-black font-bold shadow-xl border-4 border-white active:scale-95 transition"
           >
-            {spinning ? <span className="text-slate-400">WAIT</span>  : "SPIN"}
+            {spinning ? "WAIT" : "SPIN"}
           </button>
+        </div>
+      </div>
+
+      {/* WINNER MESSAGE */}
+      {winner && (
+        <div className="mt-6 text-xl font-bold text-yellow-300 animate-pulse">
+          🎉 You won {winner}
+        </div>
+      )}
+
+      {/* ================= PRIZE LIST ================= */}
+      <div className="mt-10 w-full max-w-md">
+        <h2 className="text-center text-lg font-semibold text-yellow-400 mb-4">
+          Available Rewards
+        </h2>
+
+        <div className="grid grid-cols-2 gap-2">
+          {segments.map((item, i) => {
+            const isWinner = item === winner;
+
+            return (
+              <div
+                key={i}
+                className={`p-2 rounded-xl border text-center font-semibold transition-all
+                ${
+                  isWinner
+                    ? "bg-yellow-400 text-black border-yellow-300 shadow-[0_0_15px_gold] scale-105"
+                    : "bg-[#111] border-yellow-500/40 hover:border-yellow-400 hover:shadow-[0_0_10px_gold]"
+                }`}
+              >
+                {item}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
