@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 
 const segments: string[] = [
   "৳188",
@@ -10,6 +12,8 @@ const segments: string[] = [
 ];
 
 export default function SpinWheel() {
+  const router = useRouter();
+
   const [rotation, setRotation] = useState<number>(0);
   const [spinning, setSpinning] = useState<boolean>(false);
   const [winner, setWinner] = useState<string | null>(null);
@@ -32,13 +36,11 @@ export default function SpinWheel() {
     setRotation((prev) => prev + targetRotation);
 
     setTimeout(() => {
-      const reward = segments[index];
-      setWinner(reward);
+      setWinner(segments[index]);
       setSpinning(false);
     }, 4500);
   };
 
-  // ---------- SVG helpers ----------
   const createSlice = (startAngle: number, endAngle: number) => {
     const start = polarToCartesian(center, center, radius, endAngle);
     const end = polarToCartesian(center, center, radius, startAngle);
@@ -66,7 +68,18 @@ export default function SpinWheel() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black-800 text-white px-4">
+    <div className="relative flex flex-col items-center justify-center min-h-screen bg-black-800 text-white px-4">
+
+      {/* 🔙 BACK BUTTON */}
+      <button
+        onClick={() => router.back()}
+        className="absolute top-6 left-6 flex items-center gap-2 px-4 py-2 rounded-xl
+        bg-black/40 backdrop-blur border border-yellow-400/40
+        hover:border-yellow-400 hover:bg-black/60 transition"
+      >
+        <ArrowLeft size={18} />
+        Back
+      </button>
 
       {/* TITLE */}
       <h1 className="text-4xl font-bold text-yellow-400 mb-6 tracking-wider">
@@ -78,9 +91,8 @@ export default function SpinWheel() {
         <div className="w-0 h-0 border-l-[18px] border-r-[18px] border-b-[28px] border-l-transparent border-r-transparent border-b-yellow-400" />
       </div>
 
-      {/* ================= WHEEL ================= */}
+      {/* WHEEL */}
       <div className="relative">
-
         <div className="p-4 rounded-full bg-gradient-to-r from-yellow-500 via-yellow-300 to-yellow-500 shadow-[0_0_35px_gold]">
 
           <svg
@@ -126,7 +138,6 @@ export default function SpinWheel() {
               );
             })}
 
-            {/* Gradients */}
             <defs>
               <linearGradient id="yellowGrad">
                 <stop offset="0%" stopColor="#fde047" />
@@ -151,27 +162,27 @@ export default function SpinWheel() {
         </div>
       </div>
 
-      {/* WINNER MESSAGE */}
+      {/* WIN MESSAGE */}
       {winner && (
         <div className="mt-6 text-xl font-bold text-yellow-300 animate-pulse">
           🎉 You won {winner}
         </div>
       )}
 
-      {/* ================= PRIZE LIST ================= */}
+      {/* PRIZE LIST */}
       <div className="mt-10 w-full max-w-md">
         <h2 className="text-center text-lg font-semibold text-yellow-400 mb-4">
           Available Rewards
         </h2>
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-3">
           {segments.map((item, i) => {
             const isWinner = item === winner;
 
             return (
               <div
                 key={i}
-                className={`p-2 rounded-xl border text-center font-semibold transition-all
+                className={`p-3 rounded-xl border text-center font-semibold transition-all
                 ${
                   isWinner
                     ? "bg-yellow-400 text-black border-yellow-300 shadow-[0_0_15px_gold] scale-105"

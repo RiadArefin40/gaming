@@ -325,7 +325,7 @@ psetSheetOpen(false)
 
 
     <>
-      {!isActive("/login") && !isActive("/privacy-policy") && !isActive("/terms") &&  !isActive("/about-us") && !isActive("/forget") && !isActive("/update-password") && !isActive("/notifications") &&  !isActive("/personal-info") && !isActive("/registration") && !isActive("/profile") && !isActive("/deposit") && !isActive("/user-bets") && !isActive("/turnover") && !isActive("/transactions") && isVisible &&
+      {!isActive("/login") && !isActive("/wheel") && !isActive("/privacy-policy") && !isActive("/terms") &&  !isActive("/about-us") && !isActive("/forget") && !isActive("/update-password") && !isActive("/notifications") &&  !isActive("/personal-info") && !isActive("/registration") && !isActive("/profile") && !isActive("/deposit") && !isActive("/user-bets") && !isActive("/turnover") && !isActive("/transactions") && isVisible &&
       
       (
 
