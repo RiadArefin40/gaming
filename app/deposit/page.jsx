@@ -843,7 +843,7 @@ useEffect(() => {
           <DialogHeader>
             {!isLoading ? (
               <DialogTitle className="text-3xl font-bold text-green-700">
-                Deposit Successful
+                Deposit Submission Successful
               </DialogTitle>
             ) : (
               <DialogTitle className="text-3xl font-bold text-orange-700">
