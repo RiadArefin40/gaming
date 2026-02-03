@@ -128,7 +128,7 @@ const router = useRouter();
   console.log('okkk')
 }
   return (
-    <div className=" max-w-4xl mx-auto">
+    <div className=" max-w-4xl mx-auto mb-[100px]">
     <header className="h-16 px-4 py-2  relative bg-black-700 ">
         <h1 className="text-center mx-auto mt-2 font-bold text-white/70 text-xl">Transaction Records</h1>
         <button
