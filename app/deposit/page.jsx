@@ -810,7 +810,7 @@ useEffect(() => {
 
               <Button
                 disabled={!canStep3 || isLoading}
-                className="w-full mt-4 h-16 bg-yellow-300 text-slate-800 text-2xl  to-pink-500"
+                className="w-full mt-4 h-16 bg-yellow-300 text-slate-800 text-2xl hover:text-slate-200 to-pink-500"
                 onClick={handleDeposit}
               >
                 {isLoading ? "Processing..." : "Submit Deposit"}

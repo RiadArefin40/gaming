@@ -198,13 +198,13 @@ useEffect(() => {
         type={showPassword ? "text" : "password"}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="w-full h-12 bg-white/10 rounded-md px-4 pr-12 text-lg placeholder-gray-400"
+        className="w-full h-12 bg-white/10 rounded-md px-4 pr-12 text-lg placeholder-gray-200"
         placeholder="******"
       />
       <button
         type="button"
         onClick={() => setShowPassword(!showPassword)}
-        className="absolute right-3 bottom-1 transform -translate-y-1/2 text-gray-800 "
+        className="absolute right-3 bottom-1 transform -translate-y-1/2 text-gray-200 "
       >
         {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
       </button>
