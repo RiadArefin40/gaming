@@ -487,9 +487,7 @@ const handleContact = () =>{
 
 </div> */}
 <p className="text-center mb-[100px]"> © 2026 jili Copyrights. All Rights Reserved </p>
-<div onClick={()=>{router.push('/wheel')}}>
-  <img src="https://jwrcdn.monopolygaming.com/spinwin.gif" alt="spinWin_Btn" className="absolute bottom-20 w-18" data-managed="1"></img>
-</div>
+
 {/* <div  >
   <img src="https://jwrcdn.monopolygaming.com/btn_dailyreword3.gif" alt="dailyrewordBtn" className="absolute bottom-[170px] w-16 left-4" data-managed="1"></img>
 </div> */}
@@ -629,7 +627,9 @@ const handleContact = () =>{
 )}
       
 
-              
+        <div onClick={()=>{router.push('/wheel')}}>
+  <img src="https://jwrcdn.monopolygaming.com/spinwin.gif" alt="spinWin_Btn" className="fixed bottom-20 w-18" data-managed="1"></img>
+</div>      
            <div className="h-[250x]"></div>
       </main>
     </div>
