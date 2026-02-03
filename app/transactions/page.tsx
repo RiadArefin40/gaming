@@ -337,10 +337,10 @@ console.log("data", data)
 <span className="bg-yellow-300/80 p-[2px] !w-[150px] text-slate-800 rounded-sm">{tx.status}</span>
             ) : null}
                         {tx.status == 'pending' ? (
-<span className="bg-green-200/50 p-[2px] !w-[150px] px-3 text-slate-800 rounded-sm">{tx.status}</span>
+<span className="bg-orange-400/50 p-[2px] !w-[150px] px-3 text-slate-100 rounded-sm">{tx.status}</span>
             ) : null}
-                                    {tx.status == 'success' ? (
-<span className="bg-green-600/50 p-[2px] w-[120px] text-slate-800 rounded-sm">{tx.status}</span>
+                                    {tx.status == 'approved' ? (
+<span className="bg-green-600/50 p-[2px] w-[120px] text-slate-100 rounded-sm">{tx.status}</span>
             ) : null}
             </p>
    
