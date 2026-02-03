@@ -19,19 +19,19 @@ export default function TurnoverCard({
   status = "active",
 }: TurnoverCardProps) {
   return (
-    <div className="rounded-md bg-black-600 p-2">
+    <div className="rounded-md bg-black-600 p-2 ">
       {/* Status */}
  
       {/* Title */}
       <div className="flex justify-between">
-              <div className="w-2/3">
+        <div className="w-full">
          <div className="text-sm text-slate-100 font-bold border-l-4 border-yellow-400 pl-4 ">{title}</div>
 
       {/* Amount */}
       <div className="mt-1 text-yellow-300/90 text-2xl font-bold">{amount}</div>
 
       {/* Progress */}
-      <div className="mt-3 space-y-1">
+      <div className="mt-3 ml- space-y-1">
         <Progress value={progress}  className={`h-[5px] !rounded-full ${status === "completed" ? "!bg-yellow-500 !text-yellow-300" : "bg-yellow-100"}`} />
         <div className="flex justify-between text-xs text-slate-300">
           <span>{progressText}</span>

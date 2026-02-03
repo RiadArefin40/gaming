@@ -158,7 +158,7 @@ useEffect(() => {
     {
       name: "Exclusive",
       icon: <Crown className="w-5 h-5 mr-1" />,
-      children: <ExclusiveGrid items={ex} />,
+      children: <ExclusiveGrid items={ex} cat={"Exclusive"} />,
     },
 
     {

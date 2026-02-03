@@ -82,7 +82,7 @@ function slugify(text: string) {
 //       onClick={() => scrollByCard("left")}
 //       className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700
 //                  flex items-center justify-center text-slate-300
-//                  hover:bg-slate-700 transition"
+//                   transition"
 //     >
 //       <ChevronLeft size={18} />
 //     </button>
@@ -91,7 +91,7 @@ function slugify(text: string) {
 //       onClick={() => scrollByCard("right")}
 //       className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700
 //                  flex items-center justify-center text-slate-300
-//                  hover:bg-slate-700 transition"
+//                   transition"
 //     >
 //       <ChevronRight size={18} />
 //     </button>

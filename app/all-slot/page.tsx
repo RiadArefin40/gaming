@@ -370,7 +370,7 @@ setLoading(false);
               {/* <div className="relative mt-2">
                  <button
   onClick={() => setDropdownOpen(!dropdownOpen)}
-  className="flex min-w-[150px] h-10 -mt-4 items-center space-x-1 font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
+  className="flex min-w-[150px] h-10 -mt-4 items-center space-x-1 font-semibold px-3 py-1 rounded-md bg-gray-700 "
 >
 
   {categories.find((c) => c.label == selectedCategory)?.icon}
@@ -389,7 +389,7 @@ setLoading(false);
                       <div
                         key={i}
                         onClick={() => handleCategorySelect(cat.label)}
-                        className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
+                        className={`flex items-center space-x-2 p-2 cursor-pointer  ${
                           selectedCategory === cat.name ? "bg-slate-400" : ""
                         }`}
                       >

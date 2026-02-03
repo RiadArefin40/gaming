@@ -175,7 +175,7 @@ useEffect(() => {
       <button
         type="button"
         onClick={() => setShowPassword(!showPassword)}
-        className="absolute right-3 bottom-1 transform -translate-y-1/2 text-gray-800 hover:text-gray-200"
+        className="absolute right-3 bottom-1 transform -translate-y-1/2 text-gray-800 "
       >
         {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
       </button>
@@ -197,7 +197,7 @@ useEffect(() => {
       <button
         type="button"
         onClick={() => setShowPassword(!showPassword)}
-        className="absolute right-3 bottom-1 transform -translate-y-1/2 text-gray-800 hover:text-gray-200"
+        className="absolute right-3 bottom-1 transform -translate-y-1/2 text-gray-800 "
       >
         {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
       </button>

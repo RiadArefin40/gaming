@@ -16,7 +16,7 @@ const ReferralPage = () => {
   }, []);
 
   const myreferral = user?.referral_code;
-
+   const [commissionSummary, setCommissionSummary] = useState<any>(null);
   // Fetch referrals
   useEffect(() => {
     const fetchReferrals = async () => {
@@ -30,6 +30,23 @@ const ReferralPage = () => {
     };
     if (myreferral) fetchReferrals();
   }, [myreferral]);
+
+useEffect(() => {
+  const fetchCommissionSummary = async () => {
+    if (!user?.id) return;
+    try {
+      const res = await fetch(`https://api.spcwin.info/users/${user.id}/commission-summary`);
+      const data = await res.json();
+      setCommissionSummary(data || { total_commission: 0, claimed: 0, unclaimed: 0 });
+    } catch (err) {
+      console.error("Failed to fetch commission summary", err);
+    }
+  };
+
+  fetchCommissionSummary();
+}, [user]);
+
+
 
   // Filter by date
   const filteredReferrals = referralData.filter(r => {
@@ -81,7 +98,19 @@ const ReferralPage = () => {
             <SelectItem value="Last 90 days">Last 90 days</SelectItem>
           </SelectContent>
         </Select> */}
+
       </div>
+      <div className="bg-gray-800 rounded-lg p-4 text-center mt-6">
+  <p className="text-gray-100">Total Commission</p>
+  <p className="text-2xl font-bold text-yellow-300">
+    ৳{commissionSummary?.total_commission || 0}
+  </p>
+  <p className="text-sm text-gray-400">
+    Claimed: ৳{commissionSummary?.claimed || 0} 
+  </p>
+</div>
+
+      
 
       {/* Summary Cards */}
       <div className="bg-black-700 p-4 rounded-md">
@@ -186,7 +215,7 @@ const ReferralList = ({
                 <button
                   key={b.id}
                   onClick={() => handleClaim(b.id, r.id)}
-                  className="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded-md text-sm transition"
+                  className="bg-green-500 text-white px-2 py-1 rounded-md text-sm transition"
                 >
                   Claim {b.amount}
                 </button>

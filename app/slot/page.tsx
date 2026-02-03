@@ -86,7 +86,7 @@ export default function Casino() {
       <div className="relative mb-2 -mt-2">
         <button
           onClick={() => setDropdownOpen(!dropdownOpen)}
-          className="flex items-center space-x-1 font-semibold px-3 py-1 bg-gray-700 rounded hover:bg-gray-600"
+          className="flex items-center space-x-1 font-semibold px-3 py-1 bg-gray-700 rounded "
         >
           {categories.find((c) => c.name === selectedCategory)?.icon}
           <span>{selectedCategory}</span>
@@ -98,7 +98,7 @@ export default function Casino() {
               <div
                 key={cat.name}
                 onClick={() => handleCategorySelect(cat.name)}
-                className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
+                className={`flex items-center space-x-2 p-2 cursor-pointer  ${
                   selectedCategory === cat.name ? "bg-slate-400" : ""
                 }`}
               >
@@ -114,7 +114,7 @@ export default function Casino() {
         <div className="flex items-center space-x-2 w-full sm:w-auto">
           <button
             onClick={() => setSearchOpen((prev) => !prev)}
-            className="px-3 py-1 bg-indigo-600 rounded hover:bg-indigo-500"
+            className="px-3 py-1 bg-indigo-600 rounded "
           >
             🔍
           </button>
@@ -131,7 +131,7 @@ export default function Casino() {
 
           <button
             onClick={() => setSortAsc((prev) => !prev)}
-            className="px-3 py-1 bg-gray-600 rounded hover:bg-gray-500"
+            className="px-3 py-1 bg-gray-600 rounded "
             title={`Sort ${sortAsc ? "Z-A" : "A-Z"}`}
           >
             ⚙️ {sortAsc ? "A-Z" : "Z-A"}

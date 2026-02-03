@@ -266,7 +266,7 @@ setLoading(false);
               <div className="relative mt-[8px]">
                 <button
                   onClick={() => setProviderDropdownOpen(!providerDropdownOpen)}
-                  className="flex  -ml-1 h-10 w-full min-w-[180px] items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
+                  className="flex  -ml-1 h-10 w-full min-w-[180px] items-center justify-between font-semibold px-3 py-1 rounded-md bg-gray-700 "
                 >
                   <div className="flex items-center space-x-2">
                     {/* Provider icon */}
@@ -296,7 +296,7 @@ setLoading(false);
                       <div
                         key={i}
                         onClick={() => handleProviderSelect(p.name)}
-                        className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
+                        className={`flex items-center space-x-2 p-2 cursor-pointer  ${
                           selectedProvider === p.label ? "bg-slate-400" : ""
                         }`}
                       >
@@ -343,7 +343,7 @@ setLoading(false);
               {/* <div className="relative mt-2">
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex  h-10 min-w-[150px] -mt-4 items-center space-x-1 font-semibold px-3 py-1 rounded-md bg-gray-700 hover:bg-gray-600"
+                  className="flex  h-10 min-w-[150px] -mt-4 items-center space-x-1 font-semibold px-3 py-1 rounded-md bg-gray-700 "
                 >
                   {categories.find((c) => c.label == selectedCategory)?.icon}
 
@@ -361,7 +361,7 @@ setLoading(false);
                       <div
                         key={i}
                         onClick={() => handleCategorySelect(cat.name)}
-                        className={`flex items-center space-x-2 p-2 cursor-pointer hover:bg-gray-600 ${
+                        className={`flex items-center space-x-2 p-2 cursor-pointer  ${
                           selectedCategory === cat.name ? "bg-slate-400" : ""
                         }`}
                       >

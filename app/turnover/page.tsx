@@ -110,7 +110,7 @@ const backToHome = () =>{
 
         {/* Active */}
         <div className="bg-black-800">
-              <TabsContent value="active" className="mt-4 mx-2 bg-black-800 space-y-3 text-neutral-400">
+              <TabsContent value="active" className="mt-4  bg-black-800 space-y-3 text-neutral-400">
           {activeTurnover.length > 0 ? (
             activeTurnover.map(t => {
               const total = parseFloat(t.amount || "0");

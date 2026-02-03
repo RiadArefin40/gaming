@@ -146,7 +146,7 @@ useEffect(() => {
     {
       name: "Exclusive",
       icon: <Crown className="w-5 h-5 mr-1" />,
-      children: <ExclusiveGrid items={ex} />,
+      children: <ExclusiveGrid items={ex} cat={"Exclusive"} />,
     },
 
     {
@@ -482,7 +482,7 @@ function MenuItem({
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center justify-between px-3 py-3 rounded-lg hover:bg-zinc-800 transition"
+      className="w-full flex items-center justify-between px-3 py-3 rounded-lg  transition"
     >
       <div className="flex items-center gap-3">
         <Icon className="h-5 w-5 " />

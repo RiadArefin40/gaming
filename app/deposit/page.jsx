@@ -136,7 +136,8 @@ export default function EWalletPage() {
     setTimeout(() => setCopied(false), 1200);
   };
 
-  const canStep1 = selectedPayment && selectedChannel;
+  const canStep1 = Boolean(selectedPayment && selectedChannel);
+
   const canStep2 =
     selectedPayment &&
     receiverNumber &&
@@ -244,12 +245,12 @@ const backToHome = () =>{
     setReceiverNumber(matched.agent_number);
   };
 
-  useEffect(() => {
-    if (selectedPayment) {
-      setSelectedPayment(null);
-      setReceiverNumber("");
-    }
-  }, [selectedChannel]);
+  // useEffect(() => {
+  //   if (selectedPayment) {
+  //     setSelectedPayment(null);
+  //     setReceiverNumber("");
+  //   }
+  // }, [selectedChannel]);
 
   const [delay, setDelay] = useState(10);
   useEffect(() => {
@@ -267,7 +268,7 @@ const backToHome = () =>{
         }
         return prev - 1;
       });
-    }, 3000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [successModalOpen]);
@@ -277,6 +278,26 @@ const [isVisible, setIsVisible] = useState(false);
 useEffect(() => {
   setIsVisible(true);
 }, []);
+
+const availableChannels = selectedPayment
+  ? [
+      ...new Set(
+        paymentOptions
+          .filter(
+            (p) =>
+              p.name ===
+                paymentOptions.find((x) => x.id === selectedPayment)?.name &&
+              p.is_active
+          )
+          .map((p) => p.deposit_channel)
+      ),
+    ]
+  : [];
+useEffect(() => {
+  setSelectedChannel(null);
+  setReceiverNumber("");
+}, [selectedPayment]);
+
 
   return (
     <div className={`
@@ -431,7 +452,7 @@ useEffect(() => {
                   {uniquePaymentOptions.map((p) => (
                     <button
                       key={p.name}
-                      onClick={() => handlePaymentSelect(p.name)}
+                      onClick={() => setSelectedPayment(p.id)}
                       // disabled={p.is_active === false}
                       className={`w-full flex flex-col justify-center relative items-center gap-2 py-[10px] px-2 rounded-lg font-medium transition 
         ${
@@ -447,7 +468,7 @@ useEffect(() => {
                     >
                        <img src={paymentImages[p.name]} className="h-[29px]  rounded-md" />
                       {p.name} {p.is_active}
-                     <div class="absolute top-[10px] -right-[8px] rounded-sm inline-block bg-red-500 text-white font-bold px-[10px] py-[1px] text-sm">
+                     <div className="absolute top-[10px] -right-[8px] rounded-sm inline-block bg-red-500 text-white font-bold px-[10px] py-[1px] text-sm">
   +                           {selectedPromotion
                         ? (() => {
                             const code =
@@ -458,7 +479,7 @@ useEffect(() => {
                               : code;
                           })()
                         : ""}%
-  <span class="absolute left-0 top-0 w-0 h-0 border-t-[16px] border-t-transparent border-b-[16px] border-b-transparent border-l-[8px] border-l-red-500"></span>
+  <span className="absolute left-0 top-0 w-0 h-0 border-t-[16px] border-t-transparent border-b-[16px] border-b-transparent border-l-[8px] border-l-red-500"></span>
 </div>
 
                     </button>
@@ -516,35 +537,45 @@ useEffect(() => {
      <Label className="-mt-1 text-lg border-l-4 border-yellow-400 pl-4 text-slate-200 mb-1">
                 Deposit Channel
               </Label>
-  <ToggleGroup
+<ToggleGroup
   type="single"
   value={selectedChannel}
   onValueChange={(value) => {
-    if (value) setSelectedChannel(value)
+    if (!value) return;
+
+    setSelectedChannel(value);
+
+    const matched = paymentOptions.find(
+      (p) =>
+        p.id === selectedPayment &&
+        p.deposit_channel === value &&
+        p.is_active
+    );
+
+    if (matched) {
+      setReceiverNumber(matched.agent_number);
+    }
   }}
   className="flex gap-3 py-2"
 >
-  {[...new Set(
-    paymentOptions
-      .filter((p) => p.is_active)
-      .map((p) => p.deposit_channel)
-  )].map((c) => (
+  {availableChannels.map((channel) => (
     <ToggleGroupItem
-      key={c}
-      value={c}
+      key={channel}
+      value={channel}
       className="
-        h-[38px] flex-1 w-[160px] !rounded-lg border
+        h-[38px] flex-1 !rounded-lg border
         bg-white/10 text-slate-300 border-transparent
-        transition-all duration-200
-        data-[state=on]:bg-yellow-500/30 
+        transition-all
+        data-[state=on]:bg-yellow-500/30
         data-[state=on]:text-white
         data-[state=on]:border-yellow-400
       "
     >
-      {c}
+      {channel}
     </ToggleGroupItem>
   ))}
 </ToggleGroup>
+
 
 </div>
 <div className="bg-black-600 p-5 rounded-sm  -mt-1">
