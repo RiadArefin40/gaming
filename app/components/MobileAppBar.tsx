@@ -532,7 +532,7 @@ setIsSubmenuOpen(false)
             href={links[key] || "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className={links[key] ? "" : "opacity-0  pointer-events-none"}
+            className={links[key] ? "" : "hidden  pointer-events-none"}
           >
             <img src={icons[key]} alt={key} width={38} height={38} />
           </a>

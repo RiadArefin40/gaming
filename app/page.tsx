@@ -440,7 +440,7 @@ const handleContact = () =>{
             href={links[key] || "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className={links[key] ? "" : "opacity-0 pointer-events-none"}
+            className={links[key] ? "" : "hidden pointer-events-none"}
           >
             <img src={icons[key]} alt={key} width={38} height={38} />
           </a>
@@ -555,7 +555,7 @@ const handleContact = () =>{
               target="_blank"
               rel="noopener noreferrer"
               className={`flex items-center h-10 w-10 gap-2 rounded-lg shadow-md  ${
-                active ? "opacity-100 " : "opacity-0 pointer-events-none"
+                active ? "opacity-100 " : "hidden pointer-events-none"
               }`}
             >
               <img src={icons[key]} alt={key} width={64} height={64} />
