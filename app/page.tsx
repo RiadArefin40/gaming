@@ -12,6 +12,7 @@ import EventSlider from "./components/EventSlider";
 import FeaturedSlider from "./components/FeaturedSlider";
 import { Menu, Gamepad2, Dice6, Wallet, User, Crown, Activity, Rocket, X,MessageCircle  } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import LiveChat from "./components/LiveChat";
 
 
 interface MenuItem {
@@ -250,6 +251,7 @@ const [contact, setContact] = useState(true);
 
   const isDragging = useRef(false);
 
+const [isChatOpen, setIsChatOpen] = useState(false);
 
   const [mounted, setMounted] = useState(false);
 
@@ -546,11 +548,11 @@ const handleContact = () =>{
       {/* Contact List */}
       <div
         className={`fixed  flex flex-col gap-2  p-1 rounded-lg transition-all duration-300 ${
-          open ? "opacity-100 visible" : "opacity-0 invisible"
+          open ? "opacity-100 visible" : "hidden invisible"
         }`}
                style={{
           left: position.x + 5,
-          top: position.y - 90,
+          top: position.y - 93,
         }}
       >
         {Object.keys(icons).map((platform) => {
@@ -571,19 +573,36 @@ const handleContact = () =>{
             </a>
           );
         })}
+        <div className="fixed"
+        
+                   style={{
+          left: position.x + 9,
+          top: position.y - 135,
+        }}
+        
+        >
 
-      <div className="">    <button
+            <button
+    type="button"
+    onClick={() => setIsChatOpen(true)}
+    className="flex  p-3 items-center justify-center h-10 w-10 rounded-2xl shadow-md bg-slate-800 hover:bg-slate-700 transition"
+  >
+    <div className="relative">
+      <p className="text-xs font-bold pt-3">
+        <span className="text-yellow-300/90">LIVE</span>
+   
+      </p>
 
-      >
-        <div className="relative">
-      <p className="text-2xl font-bold pt-3"> <span className="text-yellow-300/90">S</span><span>W</span></p>
-       <Headphones size={20} className="text-slate-100 lighter absolute -top-1 right-[8px]"/>
+      <Headphones
+        size={20}
+        className="text-slate-100 absolute -top-1 right-[2px]"
+      />
+    </div>
+  </button>
+
         </div>
-      
-      </button>
-       {/* <X onClick={() => handleContact()} className="absolute z-50  top-2 right-12 text-white/70 font-bold"/> */}
 
-       </div>
+
       
       </div>
 
@@ -602,7 +621,13 @@ const handleContact = () =>{
                  </div>
               {/* <CategorySelectionSlider siteInfo={siteInfo}  autoPlay={false} interval={4000}/> */}
 
-          
+    {isChatOpen && (
+  <LiveChat
+  open={isChatOpen}
+  onClose={() => setIsChatOpen(false)}
+/>
+)}
+      
 
               
            <div className="h-[250x]"></div>
