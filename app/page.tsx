@@ -628,7 +628,7 @@ const handleContact = () =>{
       
 
         <div onClick={()=>{router.push('/wheel')}}>
-  <img src="https://jwrcdn.monopolygaming.com/spinwin.gif" alt="spinWin_Btn" className="fixed bottom-20 w-18" data-managed="1"></img>
+  <img src="https://jwrcdn.monopolygaming.com/spinwin.gif" alt="spinWin_Btn" className="fixed left-2 bottom-[100px] w-18" data-managed="1"></img>
 </div>      
            <div className="h-[250x]"></div>
       </main>
