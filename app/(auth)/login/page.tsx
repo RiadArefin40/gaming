@@ -198,7 +198,7 @@ useEffect(() => {
         type={showPassword ? "text" : "password"}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="w-full h-12 bg-white/10 rounded-md px-4 pr-12 text-lg placeholder-gray-200"
+        className="w-full h-12 bg-white/10 rounded-md px-4 pr-12 text-lg placeholder-gray-300"
         placeholder="******"
       />
       <button
