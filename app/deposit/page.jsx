@@ -749,7 +749,7 @@ useEffect(() => {
                   onClick={() => copyText(receiverNumber)}
                   disabled={!receiverNumber}
                 >
-                  <span className="text-xl text-slate-100">
+                  <span className="text-xl text-slate-600">
                     {copied ? "✔" : "Copy"}
                   </span>
                 </Button>
