@@ -449,7 +449,7 @@ const features = [
             src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-bet-records.svg?v=1768297086272&quot"}
             alt={""}
           />
-          <span className="text-slate-200 text-md font-bold">Betting Record</span>
+          <span className="text-slate-200 text-md font-bold text-center">Betting Record</span>
         </div>
                <div
       onClick={()=> handleturnOver()}
@@ -471,7 +471,7 @@ const features = [
             src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-records.svg?v=1768297086272&quot"}
             alt={""}
           />
-          <span className="text-slate-200 text-md font-bold">Transaction Record</span>
+          <span className="text-slate-200 text-md font-bold text-center">Transaction Record</span>
         </div>
      
     </div>
@@ -503,7 +503,7 @@ const features = [
             src={"https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-changepassword.svg?v=1768297086272&quot"}
             alt={""}
           />
-          <span className="text-slate-200 text-md font-bold">Update Password</span>
+          <span className="text-slate-200 text-md font-bold text-center">Update Password</span>
        
         </div>
 
@@ -551,7 +551,7 @@ const features = [
             href={links[key] || "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className={links[key] ? "" : "opacity-0  pointer-events-none"}
+            className={links[key] ? "" : "hidden  pointer-events-none"}
           >
             <img src={icons[key]} alt={key} width={38} height={38} />
           </a>
