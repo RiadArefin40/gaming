@@ -82,7 +82,7 @@ export default function SpinWheel() {
       </button>
 
       {/* TITLE */}
-      <h1 className="text-4xl font-bold text-yellow-400 mb-6 tracking-wider">
+      <h1 className="text-4xl -mt-12 font-bold text-yellow-400 mb-6 tracking-wider">
         SPIN & WIN
       </h1>
 
