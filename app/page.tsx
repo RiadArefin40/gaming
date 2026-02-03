@@ -31,7 +31,7 @@ export default function Home() {
   wallet: number;
 }
 interface SocialLink {
-  platform: "telegram" | "whatsapp" | "messenger";
+  platform: "telegram" | "whatsapp" | "messenger" | "livechat";
   group_link: string;
   is_active: boolean;
 }
@@ -210,6 +210,7 @@ const [contact, setContact] = useState(true);
     telegram: null,
     whatsapp: null,
     messenger: null,
+    livechat: null,
   });
 
   useEffect(() => {
@@ -222,6 +223,7 @@ const [contact, setContact] = useState(true);
           telegram: null,
           whatsapp: null,
           messenger: null,
+          livechat: null,
         };
 
         data.data.forEach((item) => {
@@ -242,6 +244,7 @@ const [contact, setContact] = useState(true);
     telegram: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-telegram-channel.svg",
     whatsapp: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-whatsapp.svg",
     messenger: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-facebook.svg",
+    livechat: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-facebook.svg",
   };
 
 
@@ -482,7 +485,12 @@ const handleContact = () =>{
 
 </div> */}
 <p className="text-center mb-[100px]"> © 2026 jili Copyrights. All Rights Reserved </p>
-
+<div onClick={()=>{router.push('/wheel')}}>
+  <img src="https://jwrcdn.monopolygaming.com/spinwin.gif" alt="spinWin_Btn" className="absolute bottom-20 w-18" data-managed="1"></img>
+</div>
+{/* <div  >
+  <img src="https://jwrcdn.monopolygaming.com/btn_dailyreword3.gif" alt="dailyrewordBtn" className="absolute bottom-[170px] w-16 left-4" data-managed="1"></img>
+</div> */}
 
 {/* Social Icons */}
 {/* <div className="border-t border-gray-800 pt-4 flex justify-center gap-4">
@@ -563,6 +571,20 @@ const handleContact = () =>{
             </a>
           );
         })}
+
+      <div className="">    <button
+
+      >
+        <div className="relative">
+      <p className="text-2xl font-bold pt-3"> <span className="text-yellow-300/90">S</span><span>W</span></p>
+       <Headphones size={20} className="text-slate-100 lighter absolute -top-1 right-[8px]"/>
+        </div>
+      
+      </button>
+       {/* <X onClick={() => handleContact()} className="absolute z-50  top-2 right-12 text-white/70 font-bold"/> */}
+
+       </div>
+      
       </div>
 
       </div>
