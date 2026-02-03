@@ -88,7 +88,7 @@ export default function SpinWheel() {
 
       {/* POINTER */}
       <div className="relative z-20 mb-[-25px]">
-        <div className="w-0 h-0 border-l-[18px] border-r-[18px] border-b-[28px] border-l-transparent border-r-transparent border-b-yellow-400" />
+        <div className="w-0 h-0 border-l-[18px] border-r-[18px] border-b-[28px] border-l-transparent border-r-transparent border-b-cyan-600" />
       </div>
 
       {/* WHEEL */}
@@ -98,8 +98,11 @@ export default function SpinWheel() {
           <svg
             width={size}
             height={size}
-            className="transition-transform duration-[4500ms] ease-out rounded-full border-[10px] border-yellow-400"
-            style={{ transform: `rotate(${rotation}deg)` }}
+            className="transition-transform duration-[4500ms] ease-out rounded-full border-[10px] border-yellow-700"
+  style={{
+  transform: `rotate(${rotation}deg)`,
+  boxSizing: "unset",
+}}
           >
             {segments.map((text, i) => {
               const startAngle = i * angle;
@@ -175,7 +178,7 @@ export default function SpinWheel() {
           Available Rewards
         </h2>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2">
           {segments.map((item, i) => {
             const isWinner = item === winner;
 
