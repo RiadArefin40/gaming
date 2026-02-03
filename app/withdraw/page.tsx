@@ -1,44 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Gift } from "lucide-react";
-import { getAuthUser } from "@/lib/auth";
-import { useRouter } from "next/navigation";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"; // if you use radix or ui kit
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Withdraw from "../components/Withdraw"
-
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
-
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from "@/components/ui/toggle-group"
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { getAuthUser } from "@/lib/auth";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -47,821 +15,380 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { ArrowLeft, CheckCircle2, Loader2 } from "lucide-react";
-import { X } from "lucide-react";
+import { CheckCircle2, Loader2 } from "lucide-react";
 
-// const user = (() => {
-//   const stored = localStorage.getItem("auth_user");
-//   return stored ? JSON.parse(stored)  : null;
-// })();
+import { useRouter } from "next/navigation";
 
-export default function EWalletPage() {
-  const router = useRouter();
+type User = {
+  id: number;
+  email: string | null;
+  password: string;
+  name: string;
+  created_at: string;
+  referral_code: string;
+  referred_by: string | null;
+  wallet: string;
+  phone: string;
+  role: string;
+  is_block_user: boolean;
+  turnover: string;
+};
 
-  const [currentUser, setUser] = useState(null);
+type Phone = {
+  id: number;
+  phone: string;
+  is_verified: boolean;
+  created_at: string;
+};
+
+type PaymentOption = {
+  id: number;
+  name: string;
+  deposit_channel: string;
+  agent_number: string;
+  is_active: boolean;
+};
+
+type  paymentImages = {
+    Bkash: string;
+    Nagad: string;
+    Upai: string;
+}
+
+export default function WithdrawPage() {
+  const [user, setUser] = useState<User | null>(null);
+  const [phones, setPhones] = useState<Phone[]>([]);
+  const [selectedPhone, setSelectedPhone] = useState<string>("");
+  const [amount, setAmount] = useState<string>();
+  const [paymentOptions, setPaymentOptions] = useState<PaymentOption[]>([]);
+  const [selectedPayment, setSelectedPayment] = useState<number | null>(null);
+  const [selectedChannel, setSelectedChannel] = useState<string | null>(null);
+  const [receiverNumber, setReceiverNumber] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [widthraw, setWidthraw] = useState<boolean>(false);
+  const [depositAlert, setDepositAlert] = useState('')
+  const [successModalOpen, setSuccessModalOpen] = useState(false);
+  const [error, setError] = useState(false)
+   const router = useRouter();
+const [delay, setDelay] = useState(10)
+
+
 
   useEffect(() => {
-    const stored = localStorage.getItem("auth_user");
-    if (stored) setUser(JSON.parse(stored));
-  }, []);
+  if (!successModalOpen) return;
 
-  // const currentUser = (() => {
-  //   const stored = localStorage.getItem("auth_user");
-  //   return stored ? JSON.parse(stored)  : null;
-  // })();
-  // const currentUser = getAuthUser();
-  const [promotionSheetOpen, setPromotionSheetOpen] = useState(false);
-  const [promotions, setPromotions] = useState([]);
-  const [paymentOptions, setPaymentOptions] = useState([]);
+  setIsLoading(true);
+  setDelay(10);
 
-  const [selectedPromotion, setSelectedPromotion] = useState(null);
-  const [selectedChannel, setSelectedChannel] = useState(null);
-  const [selectedPayment, setSelectedPayment] = useState(null);
+  const interval = setInterval(() => {
+    setDelay((prev) => {
+      if (prev <= 1) {
+        clearInterval(interval);
+        setIsLoading(false);
+        return 0;
+      }
+      return prev - 1;
+    });
+  }, 3000);
 
-  const [senderNumber, setSenderNumber] = useState("");
-  const [receiverNumber, setReceiverNumber] = useState("");
-  const [amount, setAmount] = useState("");
-  const [transactionId, setTransactionId] = useState("");
-
-  const [step, setStep] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [successModalOpen, setSuccessModalOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [promoSheetOpen, setPromoSheetOpen] = useState(false);
-
-  const paymentImages = {
+  return () => clearInterval(interval);
+}, [successModalOpen]);
+    const paymentImages = {
     Bkash:
       "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/bkash.png",
     Nagad:
       "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/nagad.png",
     Upai: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/upay.png",
-    Rocket:
-      "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/rocket.png?v=1766500192641&quot",
+    Rocket:"https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/payment-type/for-dark/rocket.png?v=1766500192641&quot"
   };
-  const [infoModal, setInfoModal] = useState(false);
+ 
   useEffect(() => {
-    const load = async () => {
-      const promoRes = await fetch("https://api.spcwin.info/promos");
-      const promoData = await promoRes.json();
+    const u = getAuthUser() as User | null;
+    setUser(u);
 
-      const payRes = await fetch("https://api.spcwin.info/payment-gateways/");
-      const payData = await payRes.json();
-
-      setPromotions(promoData);
-
-      let defaultPromo = promoData.find((p) => p.promo_type == "default");
-
-      setSelectedPromotion(defaultPromo.id || 9);
-      setPaymentOptions(payData);
-
-      if (payData.length) {
-        const activePayData = payData.filter((p) => p.is_active);
-        setSelectedChannel(activePayData[0]?.deposit_channel);
-        const activePayment = payData.find((item) => item.is_active === true);
-
-        if (activePayment) {
-          setSelectedPayment(activePayment.id);
-        }
-
-        setReceiverNumber(payData[0].agent_number);
-      }
-    };
-
-    load();
-  }, []);
-
-  const copyText = async (text) => {
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1200);
-  };
-
-  const canStep1 = Boolean(selectedPayment && selectedChannel);
-
-  const canStep2 =
-    selectedPayment &&
-    receiverNumber &&
-    senderNumber.trim().length >= 6 &&
-    amount &&
-    Number(amount) >= 100;
-  const canStep3 = transactionId;
-
-  const maskNumber = (number) => {
-    if (!number || number.length < 6) return number;
-    return `${number.slice(0, 3)}****${number.slice(-3)}`;
-  };
-  const [depositAlert, setDepositAlert] = useState("");
-  const handleDeposit = async () => {
-    if (!canStep3) return;
-
-    setIsLoading(true);
-    try {
-      const gateway = paymentOptions.find((p) => p.id === selectedPayment);
-      const promo = promotions.find((p) => p.id === selectedPromotion);
-
-      await fetch("https://api.spcwin.info/deposit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          user_id: currentUser.id,
-          amount,
-          sender_number: senderNumber,
-          receiver_number: receiverNumber,
-          payment_gateway: gateway?.name,
-          transaction_id: transactionId,
-          promo_code: promo?.code,
-        }),
-      });
-
-      setDepositAlert(
-        `Deposit of ${amount} Succes. Please wait 30 second to for auto approve.`,
-      );
-      // setStep(1);
-      setSenderNumber("");
-      setTransactionId("");
-    } catch (error) {
-      console.error("Deposit failed:", error);
-
-      setDepositAlert("Deposit failed. Please try again.");
-    } finally {
-      setTimeout(() => {
-        setSuccessModalOpen(true);
-        setIsLoading(false);
-      }, 500);
-    }
-  };
-const backToHome = () =>{
-  router.push('/')
-  console.log('okkk')
-}
-  const [phones, setPhones] = useState([]);
-
-  useEffect(() => {
-    if (!currentUser) return;
-    const fetchPhones = async () => {
+    const loadPhones = async () => {
+      if (!u) return;
       try {
-        const res = await fetch(
-          `https://api.spcwin.info/users/phones/${currentUser.id}`,
-        );
-        const data = await res.json();
-        setPhones(data.map((p) => p.phone));
-        // senderNumber(data?.[0] || '');
-        console.log("num", data?.[0]?.phone);
-        setSenderNumber(data?.[0]?.phone); // default to main phone
+        const res = await fetch(`https://api.spcwin.info/users/phones/${u.id}`);
+        const data: Phone[] = await res.json();
+        setPhones(data);
+       setSelectedPhone(data?.[0]?.phone) 
       } catch (err) {
         console.error(err);
       }
     };
-    fetchPhones();
-  }, [currentUser]);
 
-  const uniquePaymentOptions = Object.values(
-    paymentOptions.reduce((acc, curr) => {
-      if (!acc[curr.name]) {
-        acc[curr.name] = curr; // just keep one for UI
+    const loadPaymentOptions = async () => {
+      try {
+        const res = await fetch("https://api.spcwin.info/payment-gateways/");
+        const data: PaymentOption[] = (await res.json());
+        setPaymentOptions(data);
+
+        if (data.length) {
+          setSelectedChannel(data[0].deposit_channel);
+          setSelectedPayment(data[0].id);
+          setReceiverNumber(data[0].agent_number);
+        }
+      } catch (err) {
+        console.error(err);
       }
-      return acc;
-    }, {}),
-  );
-  console.log("Unique Payment Options:", uniquePaymentOptions);
+    };
 
-  const handlePaymentSelect = (paymentName) => {
-    if (!selectedChannel) return;
 
-    const matched = paymentOptions.find(
-      (p) =>
-        p.name == paymentName &&
-        p.deposit_channel.toLowerCase().trim() ==
-          selectedChannel.toLowerCase().trim() &&
-        p.is_active,
-    );
+        const loadWidthraw = async () => {
+      if (!u) return;
+      try {
+        const res = await fetch(`https://api.spcwin.info/payment-gateways/widthraw`);
+        const data = await res.json();
+         console.log("Widthraw status:", data);
+        setWidthraw(data.widthraw);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+loadWidthraw()
+    loadPhones();
+    loadPaymentOptions();
+  }, []);
 
-    if (!matched) {
-      alert("This payment method is not available for selected channel");
+  if (!user) return <p className="text-white text-center mt-20">Loading user...</p>;
+
+const handleWithdraw = async () => {
+  if (!user || !selectedPhone || !amount || !selectedPayment || !selectedChannel) return;
+
+  setIsLoading(true);
+
+  try {
+    const gateway = paymentOptions.find((p) => p.id === selectedPayment);
+
+    const res = await fetch("https://api.spcwin.info/withdrawals", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_id: user.id,
+        amount,
+        sender_number: selectedPhone,
+        receiver_number: receiverNumber,
+        payment_gateway: gateway?.name || "",
+      }),
+    });
+
+    const data = await res.json(); // 🔥 IMPORTANT
+    setDepositAlert(`Widthrawal of ${amount} Succes. Please wait 30 second to for auto approve.`);
+    if (!res.ok) {
+      setSuccessModalOpen(true);
+      // show backend error message
+      setDepositAlert(data.error || "Something went wrong");
+      setError(true);
+   //   alert(data.error || "Something went wrong");
       return;
     }
 
-    setSelectedPayment(matched.id);
-    setReceiverNumber(matched.agent_number);
-  };
+    // Success
+   // alert(data.message || "Withdrawal request submitted successfully");
 
-  // useEffect(() => {
-  //   if (selectedPayment) {
-  //     setSelectedPayment(null);
-  //     setReceiverNumber("");
-  //   }
-  // }, [selectedChannel]);
+    // setAmount("");
+    // setSelectedPhone("");
+  } catch (err) {
+    console.error(err);
+    setIsLoading(false)
+    setDepositAlert("Widthraw failed. Please try again.");
+    // alert("Network error. Please try again.");
+  } finally {
+          setTimeout(() => {
+            setSuccessModalOpen(true);
+            setIsLoading(false);
 
-  const [delay, setDelay] = useState(10);
-  useEffect(() => {
-    if (!successModalOpen) return;
+        }, 500);
+  }
+};
 
-    setIsLoading(true);
-    setDelay(10);
 
-    const interval = setInterval(() => {
-      setDelay((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          setIsLoading(false);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
 
-    return () => clearInterval(interval);
-  }, [successModalOpen]);
-  const [tab, setTab] = useState("withdraw");
-const [isVisible, setIsVisible] = useState(false);
-
-useEffect(() => {
-  setIsVisible(true);
-}, []);
-
-const availableChannels = selectedPayment
-  ? [
-      ...new Set(
-        paymentOptions
-          .filter(
-            (p) =>
-              p.name ===
-                paymentOptions.find((x) => x.id === selectedPayment)?.name &&
-              p.is_active
-          )
-          .map((p) => p.deposit_channel)
-      ),
-    ]
-  : [];
-useEffect(() => {
-  setSelectedChannel(null);
-  setReceiverNumber("");
-}, [selectedPayment]);
+  const uniquePaymentOptions = paymentOptions.filter(
+    (option, index, self) =>
+      index === self.findIndex((o) => o.name === option.name)
+  );
 
 
   return (
-    <div className={`
-    min-h-screen
-    bg-black-800
-    text-white
-    relative
-    overflow-hidden
-    mt-[0px]
-    transform-gpu
-    transition-all
-    duration-900
-    ease-[cubic-bezier(0.22,1,0.36,1)]
-    ${
-      isVisible
-        ? "opacity-100 translate-y-0"
-        : "opacity-0 -translate-y-full"
-    }
-  `}>
-    
-      <Card className="w-full max-w-screen rounded-2xl border bg-black-800 border-0 shadow-xl py-0">
-              <header className="h-14 px-4 py-2  relative bg-black-700 ">
-            <h1 className="text-center mx-auto mt-2 text-slate-200 font-bold text-xl">My wallet</h1>
-            <button
-                      className=" px-2 py-1 rounded-lg absolute right-2 top-1 px-2 z-50  "
-                      onClick={() => backToHome()}
-                    >
-                      <X className="w-9 h-9 text-gray-100 hover:text-red-600" />
-                    </button>
-          </header>
-        <Tabs value={tab} onValueChange={setTab} className={" bg-black-700 -mt-6  "}>
-          {/* Tabs Header */}
-          <div className="pt-6 pb-4">
+    <div className="max-w-screen mx-auto mt-2 mb-[200px]">
+      <Card className="bg-black-800 border-0 shadow-xl rounded-2xl">
+        <CardHeader className="text-center">
+          <CardTitle className="text-2xl text-white">Withdraw</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
 
-                      <TabsList className="grid grid-cols-2 mb-8  bg-white/20 rounded-sm mb-6 h-11 w-[94%] mx-3 -mt-5">
-            <TabsTrigger
-              value="deposit"
-              className="data-[state=active]:bg-yellow-300 text-slate-200 data-[state=active]:text-slate-800 h-9 !data-[state=active]:rounded-sm"
-            >
-              Deposit
-            </TabsTrigger>
-            <TabsTrigger
-              value="withdraw"
- className="data-[state=active]:bg-yellow-300 text-slate-200 data-[state=active]:text-slate-800 h-9"
-            >
-              Withdraw
-            </TabsTrigger>
-          </TabsList>
-
+          {/* Payment Method */}
+          <Label className="text-slate-200 text-2xl">Payment Method</Label>
+          {!widthraw && (
+            <p className="text-red-400">Widthraw is Disabled till morning 7AM</p>
+          )}
+          <div className="grid grid-cols-2 gap-3">
+            {uniquePaymentOptions.map((p) => (
+              <button
+                key={p.id}
+                disabled={!widthraw}
+                onClick={() => {
+                  setSelectedPayment(p.id);
+                  setReceiverNumber(p.agent_number);
+                  setSelectedChannel(p.deposit_channel);
+                }}
+                className={`w-full flex items-center gap-2 py-4 px-4 rounded-lg font-medium transition 
+                ${
+                  (selectedPayment === p.id && widthraw)
+                    ? "bg-slate-800 border-2 text-white border-orange-500"
+                    : "bg-slate-900 text-gray-100 border-gray-400"
+                } border
+                  ${
+                  widthraw
+                    ? "bg-slate-800 border-2 text-white "
+                    : "bg-slate-900 text-gray-100 !border-red-400"
+                } border
+                
+                `}
+              >
+                {p.name}
+                <img
+  src={paymentImages[p.name as keyof typeof paymentImages] || ""}
+  className="h-8"
+/>
+              </button>
+            ))}
           </div>
 
 
-           {tab === "deposit" && (
 
-                    <CardContent className="space-y-3 px-2 bg-black-800 -mt-8">
-          {/* STEP 1 */}
-          {step === 1 && (
-            <>
-              <div className="relative bg-black-600 mt-1">
-                {/* Promotion selection */}
-                <div className="flex left-2  absolute text-slate-200 top-[18px] text-lg items-center !rounded-md gap-2">
-              
-                  <Label className="text-lg text-lg border-l-4 border-yellow-400 pl-4 bg-black-600 mb-4 ">Promotion</Label>
-                </div>
+          {/* Phone Selection */}
+          <Label className="mt-4 text-slate-200 text-lg">Your Number</Label>
+          {/* <select
+            className="w-full p-2 h-14 rounded-md bg-slate-700 text-white"
+            value={selectedPhone}
+            onChange={(e) => setSelectedPhone(e.target.value)}
+          >
+            <option value="">Select number</option>
+            {[user.phone, ...phones.map(p => p.phone)].map((n) => (
+              <option key={n} value={n}>{n}</option>
+            ))}
+          </select> */}
 
-                <Sheet
-                  open={promotionSheetOpen}
-                  onOpenChange={setPromotionSheetOpen}
-                >
-                  <SheetTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className="w-full text-slate-200 bg-black-600 border-0 !rounded-md h-16 text-md pl-34 text-left rounded-md"
-                    >
-                      {selectedPromotion
-                        ? (() => {
-                            const code =
-                              promotions.find((p) => p.id === selectedPromotion)
-                                ?.code || "";
-                            return code.length > 20
-                              ? code.slice(0, 20) + "…"
-                              : code;
-                          })()
-                        : "Select promotion"}
-                    </Button>
-                  </SheetTrigger>
+                    <Select
+            value={selectedPhone || ""}
+            onValueChange={(value) => setSelectedPhone(value)}
+          >
+            <SelectTrigger className="!h-14 bg-slate-900 w-full  text-white rounded-md pl-4">
+            
+              <SelectValue placeholder="Select channel" />
+            </SelectTrigger>
+            <SelectContent className="bg-slate-700 text-white rounded-md">
+              {[...new Set(phones.map((p) => p.phone))].map((c) => (
+                <SelectItem key={c} value={c}>
+                  {c}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
-                  <SheetContent
-                    side="top"
-                    className="!top-[60px] p-4 h-screen bg-black-700  rounded-lg overflow-y-auto border-b-0"
-                  >
-                    <VisuallyHidden>
-                      <DialogTitle>Mobile Menu</DialogTitle>
-                    </VisuallyHidden>
-                    <h3 className="text-xl text-white mb-4">
-                      Select Promotion
-                    </h3>
+          {/* Amount */}
+          {/* <Label className="mt-4 text-slate-200 text-lg">Amount</Label>
+          <Input
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="mb-3 bg-slate-700 h-14 text-slate-100 text-lg"
+            placeholder="Enter amount"
+          /> */}
+<Input
+  type="number"
+  value={amount}
+  min={100}
+  max={25000}
+  onChange={(e) => setAmount(e.target.value)}
+  className="mb-3 bg-slate-900 h-14 text-slate-100 text-lg"
+  placeholder="Enter amount"
+/>
 
-                    <div className="flex flex-col gap-3">
-                      {promotions.map((promo) => {
-                        const isSelected = selectedPromotion === promo.id;
-                        return (
-                          <div
-                            key={promo.id}
-                            onClick={() => setSelectedPromotion(promo.id)}
-                            className={`
-              p-3 border rounded-lg cursor-pointer flex justify-between items-center
-              ${
-                isSelected
-                  ? "border-yellow-500 bg-gray-800"
-                  : "border-gray-700 hover:border-orange-500"
-              }
-            `}
-                          >
-                            <div>
-                              <p className="text-white font-semibold">
-                                {promo.name || promo.code}
-                              </p>
-                              <p className="text-gray-400 text-lg">
-                                {promo.description}
-                              </p>
-                            </div>
-                            {/* Optional: keep the radio visual */}
-                            <div
-                              className={`h-5 w-5 rounded-full border-2 flex-shrink-0 
-                ${
-                  isSelected
-                    ? "border-orange-500 bg-orange-500"
-                    : "border-gray-400"
-                } `}
-                            />
-                          </div>
-                        );
-                      })}
-                    </div>
-
-                    <Button
-                      className="mt-4 w-full text-2xl bg-yellow-300 font-bold text-slate-900 px-8 py-8"
-                      onClick={() => setPromotionSheetOpen(false)}
-                    >
-                      Confirm
-                    </Button>
-                  </SheetContent>
-                </Sheet>
-              </div>
-              <div className="bg-black-600 p-2  -mt-1 rounded-md pt-3">
-                <Label className="text-slate-200 text-lg border-l-4 border-yellow-400 pl-4 bg-black-600 mb-1">
-                  Payment Method
-                </Label>
-
-                <div className="grid grid-cols-3 gap-3 pt-1">
-                  {uniquePaymentOptions.map((p) => (
-                    <button
-                      key={p.name}
-                      onClick={() => setSelectedPayment(p.id)}
-                      // disabled={p.is_active === false}
-                      className={`w-full flex flex-col justify-center relative items-center gap-2 py-[10px] px-2 rounded-lg font-medium transition 
-        ${
-          selectedPayment &&
-          p.name == paymentOptions.find((x) => x.id == selectedPayment)?.name
-            ? "bg-select  border-1 text-white border-yellow-400"
-            : "bg-unselect border-0 text-gray-100 border-gray-300"
-        } 
-        border
-        ${!p.is_active ? "opacity-50 cursor-not-allowed !bg-yellow-200" : "hover:border-yellow-400"}
-  
-        `}
-                    >
-                       <img src={paymentImages[p.name]} className="h-[29px]  rounded-md" />
-                      {p.name} {p.is_active}
-                     <div className="absolute top-[10px] -right-[8px] rounded-sm inline-block bg-red-500 text-white font-bold px-[10px] py-[1px] text-sm">
-  +                           {selectedPromotion
-                        ? (() => {
-                            const code =
-                              promotions.find((p) => p.id === selectedPromotion)
-                                ?.deposit_bonus;
-                            return code.length > 20
-                              ? code.slice(0, 20) + "…"
-                              : code;
-                          })()
-                        : ""}%
-  <span className="absolute left-0 top-0 w-0 h-0 border-t-[16px] border-t-transparent border-b-[16px] border-b-transparent border-l-[8px] border-l-red-500"></span>
-</div>
-
-                    </button>
-                  ))}
-                </div>
-
-                <div className="border-yellow-400">
-                <div className="mt-4 w-full border-t-1 border-dashed border-slate-300 mt-6 mb-6" />
-
-
-                  <div
-                    className={`w-[160px] items-center justify-between flex gap-8 py-1 bg-select px-2 rounded-lg font-medium transition 
-    border-1 border-yellow-400 text-slate-100 text-lg mb-4`}
-                  >
-                    <div className="text-center">
-                      {/* <img
-                        src={
-                          paymentImages[
-                            paymentOptions.find((p) => p.id === selectedPayment)
-                              ?.name
-                          ]
-                        }
-                        className="h-8"
-                      /> */}
-                     
-                      <span className="text-center !text-sm !font-medium ml-6">  {paymentOptions.find((p) => p.id === selectedPayment)
-                        ?.name || "None"} Payment</span>
-                    
-                    </div>
-
-                 
-                  </div>
-                </div>
-              </div>
-
-         
-              {/* <Select
-          className="h-14"
-  value={selectedChannel || ""}
-  onValueChange={(value) => setSelectedChannel(value)}
->
-  <SelectTrigger className="!h-14 !bg-slate-800 w-full  text-white rounded-md pl-10">
-  
-    <SelectValue placeholder="Select channel" />
-  </SelectTrigger>
-  <SelectContent className="bg-slate-800 text-white rounded-md">
-    {[...new Set(paymentOptions.map((p) => p.deposit_channel))].map((c) => (
-      <SelectItem key={c} value={c}>
-        {c}
-      </SelectItem>
-    ))}
-  </SelectContent>
-</Select> */}
-<div className="bg-black-600 rounded-sm p-2 pb-4 -mt-1">
-     <Label className="-mt-1 text-lg border-l-4 border-yellow-400 pl-4 text-slate-200 mb-1">
-                Deposit Channel
-              </Label>
-<ToggleGroup
-  type="single"
-  value={selectedChannel}
-  onValueChange={(value) => {
-    if (!value) return;
-
-    setSelectedChannel(value);
-
-    const matched = paymentOptions.find(
-      (p) =>
-        p.id === selectedPayment &&
-        p.deposit_channel === value &&
-        p.is_active
-    );
-
-    if (matched) {
-      setReceiverNumber(matched.agent_number);
-    }
-  }}
-  className="flex gap-3 py-2"
->
-  {availableChannels.map((channel) => (
-    <ToggleGroupItem
-      key={channel}
-      value={channel}
-      className="
-        h-[38px] flex-1 !rounded-lg border
-        bg-white/10 text-slate-300 border-transparent
-        transition-all
-        data-[state=on]:bg-yellow-500/30
-        data-[state=on]:text-white
-        data-[state=on]:border-yellow-400
-      "
+<div className="grid grid-cols-3 gap-2 mb-3 mt-3">
+  {[ 500, 3000, 30000, 25000].map((value) => (
+    <Button
+      key={value}
+      variant="outline"
+      onClick={() => setAmount((prev) => {
+        const current = Number(prev) || 0;
+        return (current + value).toString();
+      })}
     >
-      {channel}
-    </ToggleGroupItem>
+      +{value}
+    </Button>
   ))}
-</ToggleGroup>
-
-
-</div>
-<div className="bg-black-600 p-5 rounded-sm  -mt-1">
-          <Label className="mb-1  block text-slate-200 text-lg text-lg border-l-4 border-yellow-400 pl-4 !text-slate-200 mb-2">
-            <div className="flex justify-between">
-    <p> Deposit Amount </p> <p>৳ 200 - ৳ 30,000</p>
-            </div>
-        
-              
-              </Label>
-    
-
-              <div className="grid grid-cols-4 gap-2 mb-3">
-                {[500, 3000, 2000, 5000, 30000, 25000].map((value) => (
-                  <Button
-                    key={value}
-                    variant="outline"
-                    className={"bg-white/10 text-slate-200 hover:text-slate-800 text-md !h-[44px] !rounded-lg !font-bold border-0"}
-                    onClick={() =>
-                      setAmount((prev) =>
-                        (Number(prev || 0) + value).toString(),
-                      )
-                    }
-                  >
-                    {value}
-                  </Button>
-                ))}
-              </div>
-
-              {Number(amount) < 100 && amount !== "" && (
-                <p className="text-lg text-red-500 mb-2">
-                  Minimum amount is 100
-                </p>
-              )}
-              {Number(amount) > 25000 && amount !== "" && (
-                <p className="text-lg text-red-500 mb-2">
-                  Maximum amount is 25000
-                </p>
-              )}
-                        <Input
-                type="number"
-                value={amount}
-                min={100}
-                max={25000}
-                onChange={(e) => setAmount(e.target.value)}
-                className="mb-3 bg-white/10 border-0 h-14 text-slate-100 text-2xl font-bold"
-              />
 </div>
 
-<Accordion
-  type="single"
-  collapsible
-   defaultValue="deposit-info"
-  className="w-full rounded-md border-2 border-orange-700 bg-black-600"
->
-  <AccordionItem value="deposit-info" className="border-b border-slate-700">
-    <AccordionTrigger className="px-4  py-3 text-left text-orange-400 hover:no-underline">
-      ডিপোজিট সংক্রান্ত গুরুত্বপূর্ণ তথ্য
-    </AccordionTrigger>
-
-    <AccordionContent className="px-4 pb-4 text-sm text-slate-300 leading-relaxed">
-       <div className="mt w-full border-t-1 border-dashed border-slate-300  my-3" />
-      <p className="space-y-2">
-        ১. ক্যাশ আউট বা সেন্ডমানি করার আগে ‘ব্যক্তিগত তথ্য’ অংশে সর্বোচ্চ ৩টি মোবাইল
-        নম্বর যোগ করে ভেরিফাই করুন।
-        <br /><br />
-        ২. আপনার ডিপোজিট প্রক্রিয়াটি আরও দ্রুত সফল করতে সঠিক ক্যাশ আউট নাম্বার,
-        এমাউন্ট এবং ট্রানজেকশন আইডি সহ সাবমিট করুন।
-        <br /><br />
-        ৩. যেকোনো ডিপোজিট করার আগে সবসময় আমাদের ডিপোজিট পেইজে নাম্বার চেক করুন।
-        <br /><br />
-        ৪. ডিপোজিট পেন্ডিং থাকা অবস্থায় আপনি সর্বোচ্চ ২টি ডিপোজিট ট্রাই করতে পারবেন।
-        কোনো সমস্যা হলে অনুগ্রহ করে লাইভচ্যাটের মাধ্যমে সহায়তা নিন।
-        <br /><br />
-    
-      </p>
-    </AccordionContent>
-  </AccordionItem>
-</Accordion>
+{Number(amount) < 100 && amount !== "" && (
+  <p className="text-lg text-red-500 mb-2">
+    Minimum amount is 100
+  </p>
+)}
+{Number(amount) > 25000 && amount !== "" && (
+  <p className="text-lg text-red-500 mb-2">
+    Maximum amount is 25000
+  </p>
+)}
 
 
-
-
-
-              <Button
-                disabled={!canStep1}
-                className="w-full h-14 text-2xl mt-4 mb-[300px] bg-yellow-300 text-slate-900"
-                onClick={() => {
-                  setInfoModal(true);
-                  setStep(2);
-                }}
-              >
-               Next
-              </Button>
-            </>
-          )}
-
-          {/* STEP 2 */}
-          {step === 2 && (
-            <div className="bg-black-600 p-5 mt-14 rounded-md">
-              <button
-                onClick={() => setStep(1)}
-                className="
-    fixed top-[128px] left-2 z-50
-    h-10 w-10 rounded-full
-    bg-yellow-400 text-white
-    flex items-center justify-center
-    
-    hover:bg-red-600 hover:scale-110
-    active:scale-95
-    transition-all duration-200
-    select-none
-    border-0
-  "
-                aria-label="Go Back"
-              >
-                <ArrowLeft size={22} strokeWidth={2.5} />
-              </button>
-
-              <Label className="text-slate-200 text-lg mb-2">Your Number</Label>
-              {/* <select
-      className="w-full p-2 h-14 rounded-md bg-white/10 text-white text-lg"
-      value={senderNumber || currentUser.phone} // default to main phone
-      onChange={(e) => setSenderNumber(e.target.value)}
-    >
-      {[currentUser.phone, ...(phones || [])].map((num) => (
-        <option key={num} value={num}>
-          {num}
-        </option>
-      ))}
-    </select> */}
-
-              <Select
-                className="h-14 w-full"
-                value={senderNumber}
-                onValueChange={(value) => setSenderNumber(value)}
-              >
-                <SelectTrigger className="!h-14 !bg-white/10 w-full text-white rounded-md pl-3 border-0">
-                  <SelectValue placeholder="Select channel or phone" />
-                </SelectTrigger>
-
-                <SelectContent className="bg-white/10 text-white rounded-md">
-                  {/* Payment channels */}
-                  {/* {[...new Set(paymentOptions.map((p) => p.deposit_channel))].map((c) => (
-      <SelectItem key={c} value={c}>
-        {c}
-      </SelectItem>
-    ))} */}
-
-                  {/* User phones */}
-                  {[...(phones || [])].map((num) => (
-                    <SelectItem key={num} value={num}>
-                      {num}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Label className="mb-1 block text-slate-200 text-lg my-2">
-                Receiver Number
-              </Label>
-              <div className="flex gap-2 items-center">
-                <Input
-                  value={receiverNumber}
-                  readOnly
-                  className="bg-white/10 border-0 h-14 text-white text-lg font-medium tracking-wider cursor-not-allowed"
-                />
-                <Button
-                  variant="outline"
-                  className="bg-white/70 h-14"
-                  onClick={() => copyText(receiverNumber)}
-                  disabled={!receiverNumber}
-                >
-                  <span className="text-xl text-slate-800">
-                    {copied ? "✔" : "Copy"}
-                  </span>
-                </Button>
-              </div>
-
-      
-
-              <Button
-                disabled={
-                  !canStep2 || Number(amount) < 100 || Number(amount) > 25000
-                }
-                className="w-full mt-2 h-14 my-4 text-2xl font-bold bg-yellow-300 text-slate-800 "
-                onClick={() => setStep(3)}
-              >
-                Next
-              </Button>
-
-              {/* <div className="border-3 border-red-500 rounded-xl p-2 bg-slate-300 mb-[150px]">
-                <h2 className="text-2xl font-bold text-green-700">
-                  🎉 ডিপোজিট সংক্রান্ত তথ্য
-                </h2>
-                <p>
-                  {" "}
-                  আমাদের সাইটে দেখানো নামবারে টাকা পাঠাবেন, এই নামবার কেউ সেভ
-                  করে রাখবেননা। আমাদের নামবার পরিবর্তনশীল |
-                </p>
-              </div> */}
-            </div>
-          )}
-
-          {/* STEP 3 */}
-          {step === 3 && (
-            <div className="bg-black-600 p-5  mt-14 rounded-md">
-              <button
-                onClick={() => setStep(1)}
-                className="
-    fixed top-[128px] left-2 z-50
-    h-10 w-10 rounded-full
-    bg-yellow-400 text-white
-    flex items-center justify-center
-
-    hover:bg-red-600 hover:scale-110
-    active:scale-95
-    transition-all duration-200
-    select-none
-  "
-                aria-label="Go Back"
-              >
-                <ArrowLeft size={22} strokeWidth={2.5} />
-              </button>
-
-              <Label className="text-slate-200 text-lg">Transaction ID</Label>
-              <Input
-                className="text-slate-200 text-2xl font-bold border-0 text-lg bg-white/10 mt-2 h-14"
-                value={transactionId}
-                onChange={(e) => setTransactionId(e.target.value)}
-              />
-
-              <Button
-                disabled={!canStep3 || isLoading}
-                className="w-full mt-4 h-16 bg-yellow-300 text-slate-800 text-2xl hover:text-slate-200 to-pink-500"
-                onClick={handleDeposit}
-              >
-                {isLoading ? "Processing..." : "Submit Deposit"}
-              </Button>
-            </div>
-          )}
+          <Button
+            className="w-full h-14 mt-4 bg-orange-400 text-lg"
+            onClick={handleWithdraw}
+            disabled={isLoading || !selectedPhone ||  Number(amount)  < 100 ||
+ Number(amount) > 2500  || !selectedPayment || !selectedChannel}
+          >
+            {isLoading ? "Processing..." : "Submit Withdraw"}
+          </Button>
         </CardContent>
-           )}
-
-               {tab === "withdraw" && (
-
-                <Withdraw/>
-               )}
-        </Tabs>
-
-
       </Card>
-
       <Dialog open={successModalOpen} onOpenChange={setSuccessModalOpen}>
         <DialogContent className="max-w-md rounded-2xl p-8 text-center">
+          
           {/* Success Icon */}
           <div className="flex justify-center mb-4">
-            {!isLoading ? (
-              <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center">
-                <CheckCircle2 className="h-10 w-10 text-green-600" />
-              </div>
-            ) : null}
+            {!isLoading  ?(
+            <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center">
+              {!error ? (
+  <CheckCircle2 className="h-10 w-10 text-green-600" />
+
+              ):
+              (  <CheckCircle2 className="h-10 w-10 text-red-600" />)
+              }
+            
+            </div>):null}
           </div>
-
+      
           <DialogHeader>
-            {!isLoading ? (
-              <DialogTitle className="text-3xl font-bold text-green-700">
-                Deposit Submission Successful
-              </DialogTitle>
-            ) : (
-              <DialogTitle className="text-3xl font-bold text-orange-700">
-                Wait! Deposit is Processing ...
-              </DialogTitle>
-            )}
-
-            {!isLoading ? (
-              <DialogDescription className="mt-2 text-gray-600">
-                🎉 {depositAlert}
-              </DialogDescription>
-            ) : null}
+            {!isLoading ?(
+              
+                 <DialogTitle className="text-3xl font-bold ">
+                  {!error?(
+                    <span className="text-green-700">  Widthraw Successful</span>
+                  ) :(
+                    <span className="text-red-600">  Widthraw Failed</span>
+                  ) }
+            
+            </DialogTitle>
+            ) :
+            (           <DialogTitle className="text-3xl font-bold text-orange-700">
+              Wait! Widthraw is Processing ...
+            </DialogTitle>)}
+         
+      {!isLoading ?(
+            <DialogDescription className="mt-2 text-gray-600">
+              🎉 {depositAlert}
+            </DialogDescription>)
+            : null}
           </DialogHeader>
-
+      
           {/* Loading / Footer */}
           <DialogFooter className="mt-6 flex flex-col items-center gap-4">
             {isLoading ? (
-              <div className="flex flex-col items-center gap-2 text-sm text-gray-500">
+               <div className="flex flex-col items-center gap-2 text-sm text-gray-500">
                 <Loader2 className="h-8 w-8 text-orange-700 animate-spin" />
                 <span>Processing... {delay}s remaining</span>
               </div>
@@ -870,6 +397,7 @@ useEffect(() => {
                 className="w-full py-3 bg-orange-400 text-xl text-slate-100 rounded-xl"
                 onClick={() => router.push("/")}
               >
+                
                 Home
               </button>
             )}
