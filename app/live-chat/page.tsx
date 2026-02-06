@@ -1,70 +1,126 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
 
+import React, { useEffect, useRef, useState } from "react";
+import { io, Socket } from "socket.io-client";
+import axios from "axios";
+
+// ----------------- TYPES -----------------
 type Sender = "user" | "support";
 
 interface Message {
-  id: number;
+  id: string;
   sender: Sender;
-  text: string;
-  time: string;
+  message: string;
+  created_at: string;
 }
 
-const LiveChat: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 1,
-      sender: "support",
-      text: "👋 Welcome to SPCWIN Live Support! How can we help you today?",
-      time: "10:30 AM",
-    },
-  ]);
+interface Chat {
+  id: string;
+}
 
-  const [input, setInput] = useState<string>("");
+// ----------------- CONFIG -----------------
+const API_BASE = "https://api.spcwin.info/users";
 
-  const chatEndRef = useRef<HTMLDivElement | null>(null);
+// ----------------- COMPONENT -----------------
+export default function LiveChat() {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
+  const [chatId, setChatId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const chatEndRef = useRef<HTMLDivElement>(null);
 
-  // Auto scroll
+  const socketRef = useRef<Socket | null>(null);
+
+  // ----------------- INIT CHAT -----------------
+  const initChat = async () => {
+    try {
+      // Replace with your auth/user_id logic
+      const userId = "282";
+
+      const { data: chat }: { data: Chat } = await axios.post(
+        `${API_BASE}/chat/init`,
+        { user_id: userId }
+      );
+
+      setChatId(chat.id);
+      setLoading(false);
+
+      // Fetch previous messages
+      const { data: prevMessages }: { data: Message[] } = await axios.get(
+        `${API_BASE}/chat/${282}/${chat.id}/messages`
+      );
+
+      setMessages(prevMessages);
+    } catch (err: any) {
+      console.error("Failed to init chat:", err);
+      setError("Unable to start chat. Please try again later.");
+      setLoading(false);
+    }
+  };
+
+  // ----------------- SOCKET -----------------
+  useEffect(() => {
+    initChat();
+
+    socketRef.current = io(API_BASE.replace("/users", ""), {
+      transports: ["websocket"],
+      path: "/socket.io",
+    });
+
+    const socket = socketRef.current;
+
+    socket.on("connect", () => console.log("✅ Socket connected:", socket.id));
+    socket.on("connect_error", (err) => console.error("❌ Socket error:", err));
+    socket.on("disconnect", (reason) => console.log("❌ Socket disconnected:", reason));
+
+    socket.on("receive_message", (msg: Message) => {
+      setMessages((prev) => [...prev, msg]);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  // ----------------- SCROLL -----------------
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const getCurrentTime = (): string => {
-    return new Date().toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
+  // ----------------- SEND MESSAGE -----------------
+  const sendMessage = async () => {
+    if (!input.trim() || !chatId) return;
 
-  const sendMessage = () => {
-    if (!input.trim()) return;
-
-    const userMsg: Message = {
-      id: Date.now(),
+    const msg: Message = {
+      id: Date.now().toString(),
       sender: "user",
-      text: input,
-      time: getCurrentTime(),
+      message: input.trim(),
+      created_at: new Date().toISOString(),
     };
 
-    setMessages((prev) => [...prev, userMsg]);
+    // Optimistic UI
+    setMessages((prev) => [...prev, msg]);
     setInput("");
 
-    // Fake support reply
-    setTimeout(() => {
-      const supportMsg: Message = {
-        id: Date.now() + 1,
-        sender: "support",
-        text: "Thanks for your message! Our team will assist you shortly 😊",
-        time: getCurrentTime(),
-      };
+    try {
+      // Emit via socket
+      socketRef.current?.emit("send_message", { chatId, message: msg });
 
-      setMessages((prev) => [...prev, supportMsg]);
-    }, 1200);
+      // Fallback REST API
+      await axios.post(`${API_BASE}/chat/${282}/${chatId}/message`, {
+        message: msg.message,
+      });
+    } catch (err) {
+      console.error("Failed to send message:", err);
+      setError("Failed to send message.");
+    }
   };
+
+  if (loading) return null;
 
   return (
     <div className="fixed bottom-40 right-5 w-[360px] h-[520px] bg-[#0b0b0b] border border-yellow-500 rounded-2xl shadow-[0_0_25px_rgba(234,179,8,0.3)] flex flex-col overflow-hidden">
-
       {/* Header */}
       <div className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-black px-4 py-3 font-bold flex items-center justify-between">
         <span>💬 Live Support</span>
@@ -78,9 +134,7 @@ const LiveChat: React.FC = () => {
         {messages.map((msg) => (
           <div
             key={msg.id}
-            className={`flex ${
-              msg.sender === "user" ? "justify-end" : "justify-start"
-            }`}
+            className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
               className={`max-w-[75%] px-3 py-2 rounded-xl ${
@@ -89,15 +143,13 @@ const LiveChat: React.FC = () => {
                   : "bg-[#1f1f1f] text-white rounded-bl-none"
               }`}
             >
-              <p className="leading-relaxed">{msg.text}</p>
-
+              <p>{msg.message}</p>
               <p className="text-[10px] opacity-60 mt-1 text-right">
-                {msg.time}
+                {new Date(msg.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
               </p>
             </div>
           </div>
         ))}
-
         <div ref={chatEndRef} />
       </div>
 
@@ -105,16 +157,11 @@ const LiveChat: React.FC = () => {
       <div className="border-t border-yellow-500 p-3 flex gap-2 bg-black">
         <input
           value={input}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setInput(e.target.value)
-          }
-          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
-            e.key === "Enter" && sendMessage()
-          }
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           placeholder="Type your message..."
           className="flex-1 bg-[#1a1a1a] text-white px-3 py-2 rounded-lg outline-none focus:ring-1 focus:ring-yellow-400 text-sm"
         />
-
         <button
           onClick={sendMessage}
           className="bg-yellow-400 text-black px-4 rounded-lg font-semibold hover:bg-yellow-300 active:scale-95 transition"
@@ -122,8 +169,8 @@ const LiveChat: React.FC = () => {
           Send
         </button>
       </div>
+
+      {error && <div className="text-red-500 text-xs px-4 py-1">{error}</div>}
     </div>
   );
-};
-
-export default LiveChat;
+}

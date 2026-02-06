@@ -291,8 +291,7 @@ const handleContact = () =>{
 
                   </span>
                 </div>
-       
-          
+    
               </div>
 
               <style jsx>{`
