@@ -581,7 +581,7 @@ const handleContact = () =>{
 
             <button
     type="button"
-    onClick={() => setIsChatOpen(true)}
+    onClick={() => router.push('/live-chat')}
     className="flex  p-3 items-center justify-center h-10 w-10 rounded-2xl shadow-md bg-slate-800 hover:bg-slate-700 transition"
   >
     <div className="relative">
@@ -618,12 +618,12 @@ const handleContact = () =>{
                  </div>
               {/* <CategorySelectionSlider siteInfo={siteInfo}  autoPlay={false} interval={4000}/> */}
 
-    {isChatOpen && (
+    {/* {isChatOpen && (
   <LiveChat
   open={isChatOpen}
   onClose={() => setIsChatOpen(false)}
 />
-)}
+)} */}
       
 
         <div onClick={()=>{router.push('/wheel')}}>
