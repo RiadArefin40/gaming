@@ -174,7 +174,7 @@ export default function LiveChat() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-[360px] h-[520px] bg-[#0b0b0b] border border-yellow-500 rounded-2xl shadow-2xl flex flex-col overflow-hidden z-[9999]">
+        <div className="fixed bottom-4 right-6 w-[360px] h-[520px] bg-[#0b0b0b] border border-yellow-500 rounded-2xl shadow-2xl flex flex-col overflow-hidden z-[9999]">
           {/* Header */}
           <div className="bg-yellow-400 text-black px-4 py-3 font-bold flex justify-between items-center">
             <span>Live Support</span>
