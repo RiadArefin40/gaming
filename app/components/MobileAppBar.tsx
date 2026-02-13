@@ -116,7 +116,7 @@ const submenuCache = useRef<Record<string, any[]>>({}); // cache
   const pathname = usePathname();
   const languages = [
     { code: "EN", name: "English", flag: "🇺🇸" },
-    { code: "BN", name: "বাংলা", flag: "🇧🇩" },
+    // { code: "BN", name: "বাংলা", flag: "🇧🇩" },
   ];
 
   const menuItems: MenuItem[] = [
