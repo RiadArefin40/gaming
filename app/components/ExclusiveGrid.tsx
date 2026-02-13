@@ -3,7 +3,7 @@ interface GameItem {
   id: any;
   title: any;
   image:any;
-  game_uid:any;
+  uid:any;
   src: any;
   type: any;
 }
@@ -233,7 +233,7 @@ const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
     }
     setLoading(true);
     // 1️⃣ Check cache first
-    const cachedUrl = getCachedGameUrl(user, item.game_uid);
+    const cachedUrl = getCachedGameUrl(user, item.uid);
 if (cachedUrl) {
 console.log("Using cached game URL");
   setShowGame(false);
@@ -251,7 +251,7 @@ console.log("Using cached game URL");
         headers: { "Content-Type": "application/json", Accept: "*/*" },
         body: JSON.stringify({
           userName: user.name,
-          game_uid: item.game_uid,
+          game_uid: item.uid,
           credit_amount: user.wallet,
           game_type: item.type,
         }),
@@ -261,7 +261,7 @@ console.log("Using cached game URL");
       console.log("Launch game response:", data);
       if (res.ok && data.success && data.gameUrl) {
         setGameUrl(data.gameUrl);
-        setCachedGameUrl(user, item.game_uid, data.gameUrl); // cache it
+        setCachedGameUrl(user, item.uid, data.gameUrl); // cache it
         setShowGame(true);
         window.history.pushState({ gameOpen: true }, "");
       } else {
@@ -344,7 +344,10 @@ setLoading(false);
     <div className="grid grid-cols-4 gap-[6px] my-4 mt-4 px-2">
       
   {items
-  .filter((game: any) => cat === "Exclusive" || cat === "Sport" || cat === "Casino" || game.is_provider !== false)
+  .filter((game: any) => 
+  (cat === "Exclusive" || cat === "Slot" || cat === "Crash" || cat === "Fishing" || cat === "Sport" || cat === "Casino") 
+  && game?.is_provider === true
+)
   .map((game: any, i: number) => (
         <div key={i}className="bg-gradient-to-r from-pink-500 via-yellow-300 to-blue-500 animate-gradient-glow rounded-sm ">
   <div

@@ -521,7 +521,7 @@ const handleContact = () =>{
     onMove(e.touches[0].clientX, e.touches[0].clientY);
   }}
         onTouchEnd={endDrag}
-        onClick={() => setOpen(!open)}
+       onClick={() => router.push('/live-chat')}
         className="  fixed z-50 h-14 w-14   touch-none bg-black-800 border border-yellow-500 text-white p-4 rounded-full shadow-lg flex items-center justify-center z-50 hover:scale-110 transition-transform"
         aria-label="Contact"
             style={{
@@ -552,24 +552,7 @@ const handleContact = () =>{
           top: position.y - 93,
         }}
       >
-        {Object.keys(icons).map((platform) => {
-          const key = platform as SocialLink["platform"];
-          const active = Boolean(links[key]);
-          return (
-            <a
-              key={key}
-              href={links[key] || "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex items-center h-10 w-10 gap-2 rounded-lg shadow-md  ${
-                active ? "opacity-100 " : "hidden pointer-events-none"
-              }`}
-            >
-              <img src={icons[key]} alt={key} width={64} height={64} />
-              {/* <span className="capitalize">{key}</span> */}
-            </a>
-          );
-        })}
+
         <div className="fixed"
         
                    style={{
@@ -579,23 +562,7 @@ const handleContact = () =>{
         
         >
 
-            <button
-    type="button"
-    onClick={() => router.push('/live-chat')}
-    className="flex  p-3 items-center justify-center h-10 w-10 rounded-2xl shadow-md bg-slate-800 hover:bg-slate-700 transition"
-  >
-    <div className="relative">
-      <p className="text-xs font-bold pt-3">
-        <span className="text-yellow-300/90">LIVE</span>
-   
-      </p>
 
-      <Headphones
-        size={20}
-        className="text-slate-100 absolute -top-1 right-[2px]"
-      />
-    </div>
-  </button>
 
         </div>
 

@@ -60,7 +60,7 @@ export default function Casino() {
     const fetchProviders = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`https://api.spcwin.info/users/game-categories/4/games`);
+        const res = await fetch(`https://api.spcwin.info/users/game-categories/6/games`);
         if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
         const json = await res.json();
 
@@ -209,7 +209,7 @@ export default function Casino() {
           {/* Search */}
           <div className="relative px-0 mt-1 flex items-center">
             <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M12.9 14.32a8 8 0 111.414-1.414l4.387 4.387a1 1 0 01-1.414 1.414l-4.387-4.387zM14 8a6 6 0 11-12 0 6 6 0 0112 0z" clipRule="evenodd" />
               </svg>
             </span>

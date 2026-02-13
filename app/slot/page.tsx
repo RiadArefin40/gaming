@@ -122,7 +122,7 @@ export default function Casino() {
           {searchOpen && (
             <input
               type="text"
-              placeholder="Search games..."
+              
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="px-3 py-1 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 flex-1 transition-all duration-300"

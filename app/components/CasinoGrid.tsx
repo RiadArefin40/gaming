@@ -308,7 +308,9 @@ setLoading(false);
 
 
       <div className="grid grid-cols-4 gap-2 p-2">
-        {items.map((item:any) => (
+       {items
+  .filter((item: any) => item.is_provider !== false)
+  .map((item: any) => (
           <div         onClick={() => handleGameClick(item)}  key={item.id} className="relative rounded-lg p-[1px] bg-gradient-to-r from-pink-500 via-yellow-300 to-blue-500 animate-gradient-glow">
          <div className="relative p-[1px] pt-2 flex-col rounded-sm spribe-card !w-auto bg-yellow-300">
   <img

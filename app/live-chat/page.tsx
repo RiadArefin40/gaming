@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import axios from "axios";
-
+import { useRouter } from "next/navigation";
 type Sender = "user" | "support";
 
 interface Message {
@@ -36,7 +36,7 @@ export default function LiveChat() {
   const socketRef = useRef<Socket | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const chatIdRef = useRef<string | null>(null);
-
+ const router = useRouter();
   // ---------------- LOAD USER ----------------
   useEffect(() => {
     const stored = localStorage.getItem("auth_user");
@@ -158,23 +158,29 @@ export default function LiveChat() {
   const scrollToEnd = () => chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <>
+    <div className="relative">
       {/* Floating Button */}
       <button
         onClick={toggleChat}
-        className="fixed top-20 right-0 bg-yellow-400 text-black px-4 py-3 rounded-full shadow-lg font-bold z-[9999] relative"
+        className="fixed top-20 left-2 bg-yellow-400 text-black px-4 py-3 rounded-lg shadow-lg font-bold z-[9999] relative"
       >
-        💬 My SMS
+        💬 Click To Chat
         {unreadCount > 0 && (
-          <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-2 py-0.5 rounded-full">
+          <span className="absolute -top-2  -right-2 bg-red-600 text-white text-xs px-2 py-0.5 rounded-full">
             {unreadCount}
           </span>
         )}
       </button>
+         <button
+       onClick={() => router.push('/')}
+        className="fixed top-20 -right-12 bg-red-400 text-white px-4 py-3 rounded-lg shadow-lg font-bold z-[9999] relative"
+      >
+    Back
+      </button>
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-4 right-6 w-[360px] h-[520px] bg-[#0b0b0b] border border-yellow-500 rounded-2xl shadow-2xl flex flex-col overflow-hidden z-[9999]">
+        <div className="fixed top-40 right-6 w-[360px] h-[520px] bg-[#0b0b0b] border border-yellow-500 rounded-2xl shadow-2xl flex flex-col overflow-hidden z-[9999]">
           {/* Header */}
           <div className="bg-yellow-400 text-black px-4 py-3 font-bold flex justify-between items-center">
             <span>Live Support</span>
@@ -229,6 +235,6 @@ export default function LiveChat() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
