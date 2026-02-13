@@ -66,7 +66,21 @@ const [dob, setDob] = useState("");
     setPhones(data);
   };
 
-  
+
+const [bets, setBets] = useState<any[]>([]);
+  /* 📡 Fetch user bets */
+useEffect(() => {
+  if (!user) return;
+
+  fetch(`https://api.spcwin.info/users/user-total-vip/${user.id}`)
+    .then((res) => res.json())
+    .then((data) => {
+      setBets(data.total_vip_points || 0);
+      console.log("user", data); // ✅ correct
+    })
+    .catch(console.error);
+}, [user]);
+ 
 const backToHome = () =>{
   router.push('/')
   console.log('okkk')
@@ -228,7 +242,7 @@ else{
       <div className="bg-black-600 m-2 rounded-lg p-4 flex justify-between items-center">
         <div>
           <p className="text-lg font-bold text-gray-200">VIP Points (VP)</p>
-          <p className="text-2xl font-bold text-yellow-400">917</p>
+          <p className="text-2xl font-bold text-yellow-400">{bets}</p>
         </div>
         <Button variant="ghost" className="text-yellow-400">
           My VIP →
