@@ -3,7 +3,7 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { ArrowRight, LogIn, Plus, RotateCw, UserPlus, X } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { getAuthUser } from "@/lib/auth";
@@ -94,6 +94,10 @@ export default function MobileAppBar() {
   const [selectedLang, setSelectedLang] = useState("EN");
   const [sheetOpen, setSheetOpen] = useState(false);
   const [sheetOpenS, setSheetOpenS] = useState(false);
+       // which submenu is active
+const [submenuItems, setSubmenuItems] = useState<any[]>([]);  // dynamic items
+
+const submenuCache = useRef<Record<string, any[]>>({}); // cache
   interface AuthUser {
   username: string;
   password?: string;
@@ -150,6 +154,28 @@ export default function MobileAppBar() {
       children: <CasinoGrid items={gameImages.fishing} />,
     },
   ];
+
+
+  const fetchSubmenuItems = async (name: string) => {
+  if (submenuCache.current[name]) return submenuCache.current[name];
+
+  let items: any[] = [];
+  try {
+    switch (name) {
+      case "Exclusive": items = ex; break; // using your ex data
+      case "Sports": items = gameImages.sports; break;
+      case "Casino": items = gameImages.casino; break;
+      case "Slot": items = gameImages.slot; break;
+      case "Crash": items = gameImages.crash; break;
+      default: items = [];
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
+  submenuCache.current[name] = items;
+  return items;
+};
  const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
   const { data, error } = useAutoFetch<BalanceData | undefined>(
     user ? `https://api.spcwin.info/users/${user.id}/balance` : "",
@@ -288,17 +314,19 @@ const handlePSheet = ()=>{
   };
 const [isSwitching, setIsSwitching] = useState(false);
 const [subMenu, setSubMenu] = useState("")
-const handleSubmenuOpen = (name: any) => {
+const handleSubmenuOpen = async (name: string) => {
   if (subMenu === name) return;
 
-  // trigger slide-out
   setIsSwitching(true);
-   setSubMenu(name);   
+  setSubMenu(name);
+
+  const items = await fetchSubmenuItems(name);
+  setSubmenuItems(items);
+
   setTimeout(() => {
-         // change submenu
     setIsSubmenuOpen(true);
-    setIsSwitching(false);      // slide back in
-  }, 200); // must match transition duration
+    setIsSwitching(false);
+  }, 200);
 };
 
  
@@ -600,69 +628,35 @@ setIsSubmenuOpen(false)
 
                   </div> */}
 
-                    <div
-        className={`
-      fixed top-12 left-[70%] h-[86%] w-[120px] 
+  <div
+  className={`
+    fixed top-12 left-[70%] h-[86%] w-[120px] 
     rounded-lg p-4
     bg-white/20 backdrop-blur-xs shadow-lg
     overflow-y-auto
-    
-${
+    ${
       !isSubmenuOpen
         ? "-translate-x-150 transition-transform ease-in-out duration-50 "
         : isSwitching
         ? "-translate-x-26 opacity-20 transition-transform duration-50 ease-linear "
         : "translate-x-0 transition-transform ease-in-out duration-600"
     }
-        `}
-      >
-        {/* <button
-          className="text-black mb-4"
-          onClick={() => setIsSubmenuOpen(false)}
-        >
-       
-        </button> */}
-
-        <div className="mb-2  ">
-          {subMenu == 'Exclusive'&& ex.map((item) => (
-            <div
-              key={item.id}
-              className="flex flex-col mb-2 items-center py-3 rounded-md hover:scale-105 transition-transform"
-            >
-              <img
-                className="bg-yellow-300 p-[1px]  mb-2 w-16 h-14"
-                src={item.image}
-                alt={item.title}
-              />
-              <span className="text-slate-200 text-sm font-medium">{item.title}</span>
-            </div>
-          ))}
-                {subMenu == 'Sports'&& gameImages.sports.map((item:any) => (
-            <div
-              key={item.id}
-              className="flex flex-col  items-center py-3 rounded-md hover:scale-105 transition-transform"
-            >
-              <img
-                className=" rounded-full mb-2 w-18 p-2"
-                src={item.src}
-                alt={item.title}
-              />
-              <span className="text-slate-200 text-sm -mt-2 font-medium">{item.title}</span>
-            </div>
-          ))}
-                     {subMenu == 'Casino'&& (
-                      <CasinoCol items={gameImages.casino}/>
-                     )}
-                        {subMenu == 'Slot'&& (
-                      <SlotCol items={gameImages.slot}/>
-                     )}
-                            {subMenu == 'Crash'&& (
-                      <CrashCol items={gameImages.crash}/>
-                     )}
-
-
-        </div>
-      </div>
+  `}
+>
+  {submenuItems.map((item: any) => (
+    <div
+      key={item.id}
+      className="flex flex-col mb-2 items-center py-3 rounded-md hover:scale-105 transition-transform"
+    >
+      <img
+        className="bg-yellow-300 p-[1px] mb-2 w-16 h-14"
+        src={item.image || item.src}
+        alt={item.title}
+      />
+      <span className="text-slate-200 text-sm font-medium">{item.title}</span>
+    </div>
+  ))}
+</div>
               
 
 </div>
