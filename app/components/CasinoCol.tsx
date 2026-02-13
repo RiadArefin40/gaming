@@ -224,7 +224,7 @@ console.log("Using cached game URL");
           userName: user.name,
           game_uid: item.game_uid,
           credit_amount: user.wallet,
-          game_type: item.type,
+           game_type: item.type ? item.type : "live-casino",
         }),
       });
 

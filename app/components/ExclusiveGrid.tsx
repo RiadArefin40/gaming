@@ -253,7 +253,7 @@ console.log("Using cached game URL");
           userName: user.name,
           game_uid: item.uid,
           credit_amount: user.wallet,
-          game_type: item.type ? item.type : "Slot",
+          game_type: item.type ? item.type : "slot",
         }),
       });
 
