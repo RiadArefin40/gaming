@@ -253,7 +253,7 @@ console.log("Using cached game URL");
           userName: user.name,
           game_uid: item.uid,
           credit_amount: user.wallet,
-          game_type: item.type,
+          game_type: item.type ? item.type : "Slot",
         }),
       });
 
@@ -345,7 +345,7 @@ setLoading(false);
       
   {items
   .filter((game: any) => 
-  (cat === "Exclusive" || cat === "Slot" || cat === "Crash" || cat === "Fishing" || cat === "Sport" || cat === "Casino") 
+  (cat === "Exclusive" || cat === "Slot" || cat === "Lottery" ||  cat === "Arcade" || cat === "Crash" || cat === "Fishing" || cat === "Sport" || cat === "Casino") 
   && game?.is_provider === true
 )
   .map((game: any, i: number) => (
