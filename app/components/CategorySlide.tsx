@@ -172,7 +172,7 @@ bg-yellow-300 rounded-sm bg-gradient-to-t from-black/20 to-transparent
             >
               <img
                 className={`
-                  ${isActive ? "bg-yellow-300 rounded-full p-[1px]" : ""}
+                  ${isActive ? "bg-yellow-300 w-[40px] h-[40px] rounded-full p-[1px]" : "w-[40px] h-[40px]"}
                 `}
                 src={
                   item.image_url

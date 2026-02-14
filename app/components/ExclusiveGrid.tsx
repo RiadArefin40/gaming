@@ -345,7 +345,7 @@ setLoading(false);
       
   {items
   .filter((game: any) => 
-  (cat === "Exclusive" || cat === "Slot" || cat === "Lottery" ||  cat === "Arcade" || cat === "Crash" || cat === "Fishing" || cat === "Sport" || cat === "Casino") 
+  (cat === "Exclusive" || cat === "Slot" || cat === "Lottery" ||  cat === "Arcade" || cat === "Crash" || cat === "Fishing" || cat === "Sports" || cat === "Casino") 
   && game?.is_provider === true
 )
   .map((game: any, i: number) => (
