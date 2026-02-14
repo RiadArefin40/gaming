@@ -13,6 +13,7 @@ import FeaturedSlider from "./components/FeaturedSlider";
 import { Menu, Gamepad2, Dice6, Wallet, User, Crown, Activity, Rocket, X,MessageCircle  } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import LiveChat from "./components/LiveChat";
+import WelcomePopup from "./components/WelcomePopup";
 
 
 interface MenuItem {
@@ -293,7 +294,7 @@ const handleContact = () =>{
                 </div>
     
               </div>
-
+<WelcomePopup />
               <style jsx>{`
                 @keyframes marquee {
                   0% {

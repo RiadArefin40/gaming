@@ -74,7 +74,7 @@ export default function Withdraw() {
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [error, setError] = useState(false)
    const router = useRouter();
-const [delay, setDelay] = useState(10)
+const [delay, setDelay] = useState(5)
 
 
 
@@ -82,7 +82,7 @@ const [delay, setDelay] = useState(10)
   if (!successModalOpen) return;
 
   setIsLoading(true);
-  setDelay(10);
+  setDelay(5);
 
   const interval = setInterval(() => {
     setDelay((prev) => {
@@ -93,7 +93,7 @@ const [delay, setDelay] = useState(10)
       }
       return prev - 1;
     });
-  }, 3000);
+  }, 1000);
 
   return () => clearInterval(interval);
 }, [successModalOpen]);

@@ -72,6 +72,46 @@ const TransactionRecordPage = () => {
     if (userId) fetchTransactions();
   }, [userId]);
 
+  const handleCancelWithdraw = async (withdrawId: number) => {
+  try {
+    const res = await fetch(
+      `https://api.spcwin.info/withdrawals/cancel/${withdrawId}`,
+      {
+        method: "POST",
+  
+      }
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "Failed to cancel withdrawal");
+      return;
+    }
+
+    alert("Withdrawal cancelled successfully");
+
+    // 🔄 Refresh list
+    const withdrawRes = await fetch(
+      `https://api.spcwin.info/withdrawals/${userId}`
+    );
+    const withdrawData = await withdrawRes.json();
+
+    const updatedWithdrawals = (withdrawData || []).map((w: any) => ({
+      ...w,
+      type: "withdraw",
+    }));
+
+    setTransactions((prev) => {
+      const deposits = prev.filter((t) => t.type === "deposit");
+      return [...deposits, ...updatedWithdrawals];
+    });
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong");
+  }
+};
+
   // ✅ Date filter
 const filterTransactionsByDate = (txList: any[]) => {
   const now = new Date();
@@ -212,12 +252,19 @@ const router = useRouter();
 
         {/* ALL */}
         <TabsContent value="all">
-          <TransactionList data={filteredTransactions} />
+         <TransactionList 
+  data={filteredTransactions} 
+  onCancel={handleCancelWithdraw}
+/>
         </TabsContent>
 
         {/* DEPOSIT */}
         <TabsContent value="income">
-          <TransactionList data={deposits} emptyText="No deposit records." />
+         <TransactionList 
+  data={withdrawals} 
+  emptyText="No withdrawal records."
+  onCancel={handleCancelWithdraw}
+/>
         </TabsContent>
 
         {/* WITHDRAW */}
@@ -239,9 +286,11 @@ export default TransactionRecordPage;
 const TransactionList = ({
   data,
   emptyText = "No transactions",
+  onCancel,
 }: {
   data: any[];
   emptyText?: string;
+  onCancel?: (id: number) => void;
 }) => {
   if (!data.length) {
     return (
@@ -330,21 +379,53 @@ console.log("data", data)
             <p className="font-medium capitalize border-r border-dashed pl-6 text-white/70">{tx.amount}</p>
          
           </div >
-               <div className="flex-1">
-            <p className="font-medium capitalize border-r border-dashed pl-4 text-white/70">
-            
-            {tx.status == 'processing' ? (
-<span className="bg-yellow-300/80 p-[2px] !w-[150px] text-slate-800 rounded-sm">{tx.status}</span>
-            ) : null}
-                        {tx.status == 'pending' ? (
-<span className="bg-orange-400/50 p-[2px] !w-[150px] px-3 text-slate-100 rounded-sm">{tx.status}</span>
-            ) : null}
-                                    {tx.status == 'approved' ? (
-<span className="bg-green-600/50 p-[2px] w-[120px] text-slate-100 rounded-sm">{tx.status}</span>
-            ) : null}
-            </p>
-   
-          </div>
+     <div className="flex-1 border-r border-dashed pl-4 text-white/70">
+  {tx.status === "processing" && (
+    <span className="bg-yellow-300/80 p-[2px] text-slate-800 rounded-sm">
+      {tx.status}
+    </span>
+  )}
+
+  {tx.status === "pending" && (
+    <div className="flex items-center gap-2">
+      <span className="bg-orange-400/50 p-[2px] px-3 text-slate-100 rounded-sm">
+        {tx.status}
+      </span>
+
+      {/* ✅ Cancel Button */}
+      {tx.type === "withdraw" && onCancel && (
+        <Button
+          size="sm"
+          variant="destructive"
+          onClick={() => {
+            if (confirm("Are you sure you want to cancel this withdrawal?")) {
+              onCancel(tx.id);
+            }
+          }}
+        >
+          Cancel
+        </Button>
+      )}
+    </div>
+  )}
+
+  {tx.status === "approved" && (
+    <span className="bg-green-600/50 p-[2px] text-slate-100 rounded-sm">
+      {tx.status}
+    </span>
+  )}
+    {tx.status === "cancelled" && (
+    <span className="bg-red-600/50 p-[2px] text-slate-100 rounded-sm">
+      {tx.status}
+    </span>
+  )}
+      {tx.status === "rejected" && (
+    <span className="bg-red-600/50 p-[2px] text-slate-100 rounded-sm">
+      {tx.status}
+    </span>
+  )}
+  
+</div>
 
           <div className=" flex-1 pr-4">
             <p className="text-white/70 pl-8 font-bold ">
