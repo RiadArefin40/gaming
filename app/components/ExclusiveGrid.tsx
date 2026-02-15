@@ -343,11 +343,35 @@ setLoading(false);
         <>
     <div className="grid grid-cols-4 gap-[6px] my-4 mt-4 px-2">
       
-  {items
-  .filter((game: any) => 
-  (cat === "Exclusive" || cat === "Slot" || cat === "Lottery" ||  cat === "Arcade" || cat === "Crash" || cat === "Fishing" || cat === "Sports" || cat === "Casino") 
-  && game?.is_provider === true
-)
+{items
+  .filter((game: any) =>
+    (cat === "Exclusive" ||
+      cat === "Slot" ||
+      cat === "Lottery" ||
+      cat === "Arcade" ||
+      cat === "Crash" ||
+      cat === "Fishing" ||
+      cat === "Sports" ||
+      cat === "Casino") &&
+    game?.is_provider === true &&
+    game?.is_active
+  )
+  .sort((a: any, b: any) => {
+    const posA = a.position ?? 0;
+    const posB = b.position ?? 0;
+
+    // If both are 0 → keep original order
+    if (posA === 0 && posB === 0) return 0;
+
+    // If A is 0 → send to bottom
+    if (posA === 0) return 1;
+
+    // If B is 0 → send to bottom
+    if (posB === 0) return -1;
+
+    // Normal ascending sort
+    return posA - posB;
+  })
   .map((game: any, i: number) => (
         <div key={i}className="bg-gradient-to-r from-pink-500 via-yellow-300 to-blue-500 animate-gradient-glow rounded-sm ">
   <div
