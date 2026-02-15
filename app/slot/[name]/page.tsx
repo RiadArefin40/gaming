@@ -248,7 +248,7 @@ export default function Casino() {
 
           {/* Games Grid */}
           <div className="grid mt-4 grid-cols-2 max-w-screen sm:grid-cols-2 mt-2 gap-2 mb-[100px]">
-            {filteredGames.map((game, i) => (
+            {filteredGames.filter((game: any) => game?.is_active).map((game, i) => (
               <div key={i} onClick={() => handleGameClick(game)} className="relative rounded-lg bg-black-600 max-w-screen cursor-pointer hover:scale-105 transform transition duration-200">
                 <SafeImage src={`https://api.spcwin.info${game.image_url}`} className="" />
                 <div className="rounded-b-sm bg-black-600 text-slate-200 text-white text-center py-1 text-lg sm:text-base">
