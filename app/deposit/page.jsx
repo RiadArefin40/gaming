@@ -159,7 +159,8 @@ export default function EWalletPage() {
       const gateway = paymentOptions.find((p) => p.id === selectedPayment);
       const promo = promotions.find((p) => p.id === selectedPromotion);
 
-      await fetch("https://api.spcwin.info/deposit", {
+      setTimeout(() => {
+             fetch("https://api.spcwin.info/deposit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -172,13 +173,17 @@ export default function EWalletPage() {
           promo_code: promo?.code,
         }),
       });
+      setSenderNumber("");
+      setTransactionId("");
+      }, 7000);
+
+ 
 
       setDepositAlert(
         `Deposit of ${amount} Succes. Please wait 30 second to for auto approve.`,
       );
       // setStep(1);
-      setSenderNumber("");
-      setTransactionId("");
+   
     } catch (error) {
       console.error("Deposit failed:", error);
 
