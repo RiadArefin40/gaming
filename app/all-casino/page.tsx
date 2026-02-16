@@ -218,7 +218,7 @@ export default function Casino() {
               
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
-              className="pl-8 h-10 px-3 w-full py-1 flex-1 rounded-md bg-black-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
+              className="pl-8 ml-2 h-10 px-3 w-full py-1 flex-1 rounded-md bg-black-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
             />
           </div>
 
