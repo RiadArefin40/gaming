@@ -399,6 +399,57 @@ const features = [
 </button>
 
 
+<button
+  onClick={goToSlots}
+  className="flex flex-col w-[70px] items-center gap-1 px-2 py-1  relative"
+>
+
+
+      <div className={`relative w-14 h-12 flex flex-col items-center justify-center    rounded-full  ${isActive("/all-slot") ? "bottom-4 bg-yellow-600": " "}`}>
+    {/* Glowing animated 3D background */}
+    <div
+      className={`absolute 
+        scale-100
+        ${isActive("/all-slots") ? "animate-spin-slow primary-bg p-[15px] rounded-full z-4" : ""}`}
+    />
+        <div
+      className={`absolute 
+        scale-100
+        ${isActive("/all-slots") ? "animate-spin-slow secondary-bg p-5 rounded-full z-3" : ""}`}
+    />
+        <div
+      className={`absolute 
+        scale-100
+        ${isActive("/all-slots") ? "animate-spin-slow bg-black-700 p-6 rounded-full w-16 h-16" : ""}`}
+    />
+
+    {/* Floating Star icon with tilt + shadow */}
+    <Dice6
+      className={`absolute bottom-3 left-1/2 -translate-x-1/2 z-5
+        transition-all duration-500 ease-out transform 
+        ${isActive("/all-slots") ? "text-slate-900 w-6 h-6 scale-100 " : "text-white w-6 h-6 scale-100"} 
+        drop-shadow-2xl   cursor-pointer`}
+    />
+
+  
+  </div>
+
+
+
+
+
+
+
+  {/* Label */}
+  <span
+    className={`-mt-4 text-white text-md font-medium drop-shadow-lg
+      ${isActive("/all-casino") ? "!font-bold -mt-[22px] text-slate-100" : "text-white font-normal"}`}
+  >
+    Slots
+  </span>
+</button>
+
+
 
         {/* Slots */}
     {/* <button
