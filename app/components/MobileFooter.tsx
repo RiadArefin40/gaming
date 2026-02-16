@@ -184,10 +184,10 @@ useEffect(() => {
     router.push("/all-casino");
   };
   const goToSlots = () => {
-       setLink("/all-slot")
+       setLink("/all-slots")
     setSheetOpen(false)
  
-    router.push("/all-slot");
+    router.push("/all-slots");
   };
  const goToHome  = () => {
     setLink("/")
@@ -405,7 +405,7 @@ const features = [
 >
 
 
-      <div className={`relative w-14 h-12 flex flex-col items-center justify-center    rounded-full  ${isActive("/all-slot") ? "bottom-4 bg-yellow-600": " "}`}>
+      <div className={`relative w-14 h-12 flex flex-col items-center justify-center    rounded-full  ${isActive("/all-slots") ? "bottom-4 bg-yellow-600": " "}`}>
     {/* Glowing animated 3D background */}
     <div
       className={`absolute 
@@ -443,7 +443,7 @@ const features = [
   {/* Label */}
   <span
     className={`-mt-4 text-white text-md font-medium drop-shadow-lg
-      ${isActive("/all-casino") ? "!font-bold -mt-[22px] text-slate-100" : "text-white font-normal"}`}
+      ${isActive("/all-slots") ? "!font-bold -mt-[22px] text-slate-100" : "text-white font-normal"}`}
   >
     Slots
   </span>
