@@ -225,7 +225,7 @@ const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
 
   // Launch or load cached game
   const handleGameClick = async (item: GameItem) => {
-    if(cat ! == "Exclusive" || cat === "Sport" || cat === "Casino"){
+    if(cat ! == "Exclusive" || cat === "Sports" || cat === "Casino"){
           if (loading) return;
     if (!user) {
       alert("User not authenticated");
@@ -379,6 +379,7 @@ setLoading(false);
           onClick = {() => handleGameClick(game)}
           className="flex items-center justify-center rounded-sm"
         >
+   
       <div className="relative p-[1px]  flex-col rounded-sm spribe-card bg-yellow-300">
   <img
     src={
