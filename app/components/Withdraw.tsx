@@ -19,6 +19,7 @@ import { CheckCircle2, Loader2 } from "lucide-react";
 
 import { useRouter } from "next/navigation";
 import { useAutoFetch } from "@/hooks/use-auto-fetch";
+import { set } from "date-fns";
 interface BalanceData {
   balance: number;
   turnover: number;
@@ -75,7 +76,7 @@ export default function Withdraw() {
   const [error, setError] = useState(false)
    const router = useRouter();
 const [delay, setDelay] = useState(5)
-
+const [verifyOpen, setVerifyOpen] = useState(false);
 
 
   useEffect(() => {
@@ -111,7 +112,9 @@ const [delay, setDelay] = useState(5)
    );
  
    const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+   const[phoneVerified, setPhoneVerified] = useState(false)
    const balance = data?.balance ?? 0;
+
   useEffect(() => {
     const u = getAuthUser() as User | null;
     setUser(u);
@@ -122,7 +125,10 @@ const [delay, setDelay] = useState(5)
         const res = await fetch(`https://api.spcwin.info/users/phones/${u.id}`);
         const data: Phone[] = await res.json();
         setPhones(data);
+       console.log('Phones:', data?.[0].is_verified);
        setSelectedPhone(data?.[0]?.phone) 
+       setPhoneVerified(data?.[0].is_verified)
+       console.log('phone verified:',phoneVerified )
       } catch (err) {
         console.error(err);
       }
@@ -165,7 +171,11 @@ loadWidthraw()
 
 const handleWithdraw = async () => {
   if (!user || !selectedPhone || !amount || !selectedPayment || !selectedChannel) return;
+  if(phoneVerified === false){
 
+    setVerifyOpen(true);
+    return
+  }
   setIsLoading(true);
 
   try {
@@ -347,7 +357,10 @@ const handleWithdraw = async () => {
 
                     <Select
             value={selectedPhone || ""}
-            onValueChange={(value) => setSelectedPhone(value)}
+            onValueChange={(value) =>{ setSelectedPhone(value)
+
+                 setPhoneVerified(phones.find(p => p.phone === value)?.is_verified || false)
+            }}
           >
             <SelectTrigger className="!h-14 bg-white/10  w-full border-yellow-500  text-white rounded-md pl-4">
             
@@ -370,6 +383,21 @@ const handleWithdraw = async () => {
           >
             {isLoading ? "Processing..." : "Submit Withdraw"}
           </Button>
+        <Dialog open={verifyOpen} onOpenChange={setVerifyOpen}>
+           <DialogContent className="max-w-md rounded-2xl p-8 text-center">
+        
+          <h2 className="text-2xl text-slate-700 font-bold mb-4">Phone Verification Required</h2>
+          <p className="mb-6 text-slate-700 ">Please verify your phone number before making a withdrawal.</p>
+          <Button onClick={() => {
+            setVerifyOpen(false);
+            router.push("/personal-info");
+          }} className="bg-orange-400 text-white w-full">
+            Verify Now
+          </Button>
+
+           </DialogContent>
+
+      </Dialog>
       <Dialog open={successModalOpen} onOpenChange={setSuccessModalOpen}>
         <DialogContent className="max-w-md rounded-2xl p-8 text-center">
           

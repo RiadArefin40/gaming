@@ -68,17 +68,18 @@ export default function WithdrawPage() {
   const [widthraw, setWidthraw] = useState<boolean>(false);
   const [depositAlert, setDepositAlert] = useState('')
   const [successModalOpen, setSuccessModalOpen] = useState(false);
+    const [verifyOpen, setVerifyOpen] = useState(false);
   const [error, setError] = useState(false)
    const router = useRouter();
-const [delay, setDelay] = useState(10)
-
+const [delay, setDelay] = useState(5)
+ const[phoneVerified, setPhoneVerified] = useState(false)
 
 
   useEffect(() => {
   if (!successModalOpen) return;
 
   setIsLoading(true);
-  setDelay(10);
+  setDelay(5);
 
   const interval = setInterval(() => {
     setDelay((prev) => {
@@ -89,7 +90,7 @@ const [delay, setDelay] = useState(10)
       }
       return prev - 1;
     });
-  }, 3000);
+  }, 1000);
 
   return () => clearInterval(interval);
 }, [successModalOpen]);
@@ -112,6 +113,7 @@ const [delay, setDelay] = useState(10)
         const res = await fetch(`https://api.spcwin.info/users/phones/${u.id}`);
         const data: Phone[] = await res.json();
         setPhones(data);
+        console.log("Phones:", data);
        setSelectedPhone(data?.[0]?.phone) 
       } catch (err) {
         console.error(err);
@@ -155,6 +157,11 @@ loadWidthraw()
 
 const handleWithdraw = async () => {
   if (!user || !selectedPhone || !amount || !selectedPayment || !selectedChannel) return;
+  if(phoneVerified === false){
+
+    setVerifyOpen(true);
+    return
+  }
 
   setIsLoading(true);
 
@@ -261,20 +268,14 @@ const handleWithdraw = async () => {
 
           {/* Phone Selection */}
           <Label className="mt-4 text-slate-200 text-lg">Your Number</Label>
-          {/* <select
-            className="w-full p-2 h-14 rounded-md bg-slate-700 text-white"
-            value={selectedPhone}
-            onChange={(e) => setSelectedPhone(e.target.value)}
-          >
-            <option value="">Select number</option>
-            {[user.phone, ...phones.map(p => p.phone)].map((n) => (
-              <option key={n} value={n}>{n}</option>
-            ))}
-          </select> */}
+
 
                     <Select
-            value={selectedPhone || ""}
-            onValueChange={(value) => setSelectedPhone(value)}
+          value={selectedPhone || ""}
+            onValueChange={(value) =>{ setSelectedPhone(value)
+
+                 setPhoneVerified(phones.find(p => p.phone === value)?.is_verified || false)
+            }}
           >
             <SelectTrigger className="!h-14 bg-slate-900 w-full  text-white rounded-md pl-4">
             
@@ -289,15 +290,7 @@ const handleWithdraw = async () => {
             </SelectContent>
           </Select>
 
-          {/* Amount */}
-          {/* <Label className="mt-4 text-slate-200 text-lg">Amount</Label>
-          <Input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className="mb-3 bg-slate-700 h-14 text-slate-100 text-lg"
-            placeholder="Enter amount"
-          /> */}
+     
 <Input
   type="number"
   value={amount}
@@ -345,6 +338,21 @@ const handleWithdraw = async () => {
           </Button>
         </CardContent>
       </Card>
+        <Dialog open={verifyOpen} onOpenChange={setVerifyOpen}>
+           <DialogContent className="max-w-md rounded-2xl p-8 text-center">
+        
+          <h2 className="text-2xl text-slate-700 font-bold mb-4">Phone Verification Required</h2>
+          <p className="mb-6 text-slate-700 ">Please verify your phone number before making a withdrawal.</p>
+          <Button onClick={() => {
+            setVerifyOpen(false);
+            router.push("/personal-info");
+          }} className="bg-orange-400 text-white w-full">
+            Verify Now
+          </Button>
+
+           </DialogContent>
+
+      </Dialog>
       <Dialog open={successModalOpen} onOpenChange={setSuccessModalOpen}>
         <DialogContent className="max-w-md rounded-2xl p-8 text-center">
           

@@ -542,6 +542,7 @@ setLoading(false);
         !isActive("/terms") &&
         !isActive("/about-us") &&
         !isActive("/forget") &&
+          !isActive("/withdraw") &&
         !isActive("/update-password") &&
         !isActive("/notifications") &&
         !isActive("/personal-info") &&
