@@ -222,34 +222,34 @@ const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
   //   return () => window.removeEventListener("popstate", handleBack);
   // }, [showGame]);
 useEffect(() => {
-  // Web back handling
+  // --- Web browser back handling ---
   const handleWebBack = () => {
     if (showGame) {
       setShowGame(false);
       setLoading(false);
-      window.history.pushState(null, "");
+      window.history.pushState(null, ""); // remove extra history entry
     }
   };
   window.addEventListener("popstate", handleWebBack);
 
-  // Android hardware back button
-  let androidBackHandle: any; // we don’t have a proper type, just store the resolved handle
-
-  App.addListener("backButton", (event: BackButtonListenerEvent) => {
+  // --- Android hardware back button ---
+  // Attach a global listener once
+  const backListener = App.addListener("backButton", () => {
     if (showGame) {
       setShowGame(false);
       setLoading(false);
+    } else {
+      // Nothing to close? Exit app
+      App.exitApp();
     }
-  }).then((handle) => {
-    androidBackHandle = handle; // handle.remove() works here
   });
 
-  // Cleanup
+  // --- Cleanup on unmount ---
   return () => {
     window.removeEventListener("popstate", handleWebBack);
-    androidBackHandle?.remove(); // remove the listener safely
+    backListener.then((handle) => handle.remove());
   };
-}, [showGame]);
+}, [showGame, loading]);
 
 
 
