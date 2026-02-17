@@ -14,6 +14,9 @@ import { Menu, Gamepad2, Dice6, Wallet, User, Crown, Activity, Rocket, X,Message
 import { useState, useEffect, useRef } from "react";
 import LiveChat from "./components/LiveChat";
 import WelcomePopup from "./components/WelcomePopup";
+import { StatusBar, Style } from '@capacitor/status-bar';
+
+
 
 
 interface MenuItem {
@@ -84,7 +87,10 @@ const maxX = window.innerWidth - btnWidth - marginX;
 
 const minY = marginTop;
 const maxY = window.innerHeight - btnHeight - marginBottom;
-
+useEffect(() => {
+  StatusBar.setOverlaysWebView({ overlay: false });
+  StatusBar.setStyle({ style: Style.Dark });
+}, []);
 
 setPosition({
 x: Math.min(Math.max(newX, minX), maxX),
@@ -278,12 +284,12 @@ const handleContact = () =>{
   if (!mounted) return null; // ⛔ prevent SSR crash
 
   return (
-    <div className="">
-      <main className="mt-[35px] min-h-screen  bg-black-800  mb-[800px">
+    <div className="mt-10">
+      <main className="mt-[35px] min-h-screen  bg-black-800">
 
          <Slider siteInfo={heroSlides || siteInfo}  autoPlay={true} interval={4000}  />
                 {/* Marquee Section */}
-              <div className="flex items-center gap-2  py-2   bg-black-800 relative overflow-hidden">
+              {/* <div className="flex items-center gap-2  py-2   bg-black-800 relative overflow-hidden">
          
                 <Volume  className="w-8 h-8 text-yellow-300 bg-black rounded-r-md z-10 pl-2" />
                 <div className="flex-1 absolute overflow-hidden">
@@ -293,7 +299,7 @@ const handleContact = () =>{
                   </span>
                 </div>
     
-              </div>
+              </div> */}
 <WelcomePopup />
               <style jsx>{`
                 @keyframes marquee {

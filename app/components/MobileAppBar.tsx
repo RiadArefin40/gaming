@@ -558,7 +558,7 @@ setLoading(false);
               <div className="fixed max-w-screen inset-0 bg-black/30  z-40 transition-opacity" />
             )}
 
-            <div className="flex fixed top-0 w-full items-center justify-between px-4 py-3 !h-[60px] shadow-md z-50 bg-black-700">
+            <div className="flex fixed  w-full items-center justify-between px-4 py-3 !h-[60px] shadow-md z-50 bg-black-700">
               <div className="flex items-center gap-3">
                 <SidebarTrigger className="hidden md:block" />
                 <div
