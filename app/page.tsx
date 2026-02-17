@@ -289,7 +289,7 @@ const handleContact = () =>{
 
          <Slider siteInfo={heroSlides || siteInfo}  autoPlay={true} interval={4000}  />
                 {/* Marquee Section */}
-              {/* <div className="flex items-center gap-2  py-2   bg-black-800 relative overflow-hidden">
+              <div className="flex items-center gap-2  py-2   bg-black-800 relative overflow-hidden">
          
                 <Volume  className="w-8 h-8 text-yellow-300 bg-black rounded-r-md z-10 pl-2" />
                 <div className="flex-1 absolute overflow-hidden">
@@ -299,7 +299,7 @@ const handleContact = () =>{
                   </span>
                 </div>
     
-              </div> */}
+              </div>
 <WelcomePopup />
               <style jsx>{`
                 @keyframes marquee {
