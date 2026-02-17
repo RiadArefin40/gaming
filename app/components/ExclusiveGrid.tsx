@@ -11,7 +11,8 @@ interface ExclusiveGridProps {
   items: any;
     cat: any;   
 }
-import { App } from "@capacitor/app";
+import { App, BackButtonListenerEvent } from "@capacitor/app";
+
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { allGames } from "@/utils/allGames";
@@ -221,20 +222,35 @@ const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
   //   return () => window.removeEventListener("popstate", handleBack);
   // }, [showGame]);
 useEffect(() => {
-  const handler = (event: any) => {
+  // Web back handling
+  const handleWebBack = () => {
     if (showGame) {
-      event.preventDefault(); // prevent default back behavior
+      setShowGame(false);
+      setLoading(false);
+      window.history.pushState(null, "");
+    }
+  };
+  window.addEventListener("popstate", handleWebBack);
+
+  // Android hardware back button
+  let androidBackHandle: any; // we don’t have a proper type, just store the resolved handle
+
+  App.addListener("backButton", (event: BackButtonListenerEvent) => {
+    if (showGame) {
       setShowGame(false);
       setLoading(false);
     }
-  };
+  }).then((handle) => {
+    androidBackHandle = handle; // handle.remove() works here
+  });
 
-  const listener = App.addListener("backButton", handler);
-
+  // Cleanup
   return () => {
-    listener.then(l => l.remove());
+    window.removeEventListener("popstate", handleWebBack);
+    androidBackHandle?.remove(); // remove the listener safely
   };
 }, [showGame]);
+
 
 
   // Launch or load cached game
