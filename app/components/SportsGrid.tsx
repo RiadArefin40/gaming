@@ -27,6 +27,7 @@ import { ppAsia } from "@/utils/liveCasinoGames/ppAsia";
 import { evo } from "@/utils/liveCasinoGames/evo";
 import { pt } from "@/utils/liveCasinoGames/pt";
 import { evolive } from "@/utils/liveCasinoGames/evolive";
+import { App, BackButtonListenerEvent } from "@capacitor/app";
 interface AuthUser {
   username: string;
   password?: string;
@@ -204,17 +205,35 @@ const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
   };
 
   // Handle mobile back button
-  useEffect(() => {
-    const handleBack = () => {
-      if (showGame) {
-        setShowGame(false);
-        setLoading(false);
-        window.history.pushState(null, ""); // remove extra history entry
-      }
-    };
-    window.addEventListener("popstate", handleBack);
-    return () => window.removeEventListener("popstate", handleBack);
-  }, [showGame]);
+useEffect(() => {
+  // Web back handling
+  const handleWebBack = () => {
+    if (showGame) {
+      setShowGame(false);
+      setLoading(false);
+      window.history.pushState(null, "");
+    }
+  };
+  window.addEventListener("popstate", handleWebBack);
+
+  // Android hardware back button
+  let androidBackHandle: any; // we don’t have a proper type, just store the resolved handle
+
+  App.addListener("backButton", (event: BackButtonListenerEvent) => {
+    if (showGame) {
+      setShowGame(false);
+      setLoading(false);
+    }
+  }).then((handle) => {
+    androidBackHandle = handle; // handle.remove() works here
+  });
+
+  // Cleanup
+  return () => {
+    window.removeEventListener("popstate", handleWebBack);
+    androidBackHandle?.remove(); // remove the listener safely
+  };
+}, [showGame]);
 
   // Launch or load cached game
   const handleGameClick = async (item: GameItem) => {

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import SafeImage from "@/app/components/SafeImageProps";
-
+import { App, BackButtonListenerEvent } from "@capacitor/app";
 interface GameItem {
   id: any;
   title: string;
@@ -137,6 +137,35 @@ export default function Casino() {
       localStorage.setItem("game_url_cache", JSON.stringify(cache));
     } catch {}
   };
+  useEffect(() => {
+    // Web back handling
+    const handleWebBack = () => {
+      if (showGame) {
+        setShowGame(false);
+        setLoading(false);
+        window.history.pushState(null, "");
+      }
+    };
+    window.addEventListener("popstate", handleWebBack);
+  
+    // Android hardware back button
+    let androidBackHandle: any; // we don’t have a proper type, just store the resolved handle
+  
+    App.addListener("backButton", (event: BackButtonListenerEvent) => {
+      if (showGame) {
+        setShowGame(false);
+        setLoading(false);
+      }
+    }).then((handle) => {
+      androidBackHandle = handle; // handle.remove() works here
+    });
+  
+    // Cleanup
+    return () => {
+      window.removeEventListener("popstate", handleWebBack);
+      androidBackHandle?.remove(); // remove the listener safely
+    };
+  }, [showGame]);
 
   // Launch game
   const handleGameClick = async (item: GameItem) => {

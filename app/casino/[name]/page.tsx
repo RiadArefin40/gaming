@@ -12,7 +12,7 @@ import { ppAsia } from "@/utils/liveCasinoGames/ppAsia";
 import { evo } from "@/utils/liveCasinoGames/evo";
 import { pt } from "@/utils/liveCasinoGames/pt";
 import { evolive } from "@/utils/liveCasinoGames/evolive";
-
+import { App, BackButtonListenerEvent } from "@capacitor/app";
 interface AuthUser {
   username: string;
   password?: string;
@@ -161,6 +161,35 @@ export default function Casino() {
     router.push(`/${firstSegment}/${provider}`);
   };
   const [data, setData] = useState(null);
+  useEffect(() => {
+    // Web back handling
+    const handleWebBack = () => {
+      if (showGame) {
+        setShowGame(false);
+        setLoading(false);
+        window.history.pushState(null, "");
+      }
+    };
+    window.addEventListener("popstate", handleWebBack);
+  
+    // Android hardware back button
+    let androidBackHandle: any; // we don’t have a proper type, just store the resolved handle
+  
+    App.addListener("backButton", (event: BackButtonListenerEvent) => {
+      if (showGame) {
+        setShowGame(false);
+        setLoading(false);
+      }
+    }).then((handle) => {
+      androidBackHandle = handle; // handle.remove() works here
+    });
+  
+    // Cleanup
+    return () => {
+      window.removeEventListener("popstate", handleWebBack);
+      androidBackHandle?.remove(); // remove the listener safely
+    };
+  }, [showGame]);
   const handleGameClick = async (item: any) => {
     if (loading) return;
 

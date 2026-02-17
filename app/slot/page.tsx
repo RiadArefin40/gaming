@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { allGames } from "@/utils/allGames";
-
+import { App, BackButtonListenerEvent } from "@capacitor/app";
 interface Category {
   name: string;
   icon: React.ReactNode;
