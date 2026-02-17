@@ -274,8 +274,3 @@
 .bg-unselect{
   background-color: rgb(72, 72, 72);
 }
-html, body {
-  margin: 0;
-  padding-top: 40px !important;
-  padding-bottom: 20px !important;
-}
