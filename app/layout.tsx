@@ -71,7 +71,7 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="!my-[20px]">
+    <html lang="en" className="">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black-800 `}>
         <SidebarProvider>
           <div className="flex h-full w-full">
