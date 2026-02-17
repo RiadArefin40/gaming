@@ -11,9 +11,7 @@ interface ExclusiveGridProps {
   items: any;
     cat: any;   
 }
-
-
-
+import { App } from "@capacitor/app";
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { allGames } from "@/utils/allGames";
@@ -211,17 +209,33 @@ const getCachedGameUrl = (user: AuthUser, gameUid: string) => {
   };
 
   // Handle mobile back button
-  useEffect(() => {
-    const handleBack = () => {
-      if (showGame) {
-        setShowGame(false);
-        setLoading(false);
-        window.history.pushState(null, ""); // remove extra history entry
-      }
-    };
-    window.addEventListener("popstate", handleBack);
-    return () => window.removeEventListener("popstate", handleBack);
-  }, [showGame]);
+  // useEffect(() => {
+  //   const handleBack = () => {
+  //     if (showGame) {
+  //       setShowGame(false);
+  //       setLoading(false);
+  //       window.history.pushState(null, ""); // remove extra history entry
+  //     }
+  //   };
+  //   window.addEventListener("popstate", handleBack);
+  //   return () => window.removeEventListener("popstate", handleBack);
+  // }, [showGame]);
+useEffect(() => {
+  const handler = (event: any) => {
+    if (showGame) {
+      event.preventDefault(); // prevent default back behavior
+      setShowGame(false);
+      setLoading(false);
+    }
+  };
+
+  const listener = App.addListener("backButton", handler);
+
+  return () => {
+    listener.then(l => l.remove());
+  };
+}, [showGame]);
+
 
   // Launch or load cached game
   const handleGameClick = async (item: GameItem) => {
@@ -325,7 +339,7 @@ setLoading(false);
   <iframe
   key={gameUrl}               // 🔥 force remount
   src={gameUrl || ""}
-  className="fixed inset-0 w-full h-full border-0 z-[300]"
+  className="fixed inset-0 top-0 w-full h-full border-0 z-[300]"
   allow="fullscreen"
   style={{ display: showGame ? "block" : "none" }}
   loading="eager"
