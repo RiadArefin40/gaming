@@ -334,16 +334,16 @@ const handleContact = () =>{
                <ProviderCategory/>
                {/* <MatchSlider  /> */}
             
-               <EventSlider siteInfo={heroSlides || siteInfo}/>
+               {/* <EventSlider siteInfo={heroSlides || siteInfo}/> */}
                  {/* <ProviderCategory/> */}
-                 <FeaturedSlider siteInfo={siteInfo1}  autoPlay={true} interval={4000} />
+                 {/* <FeaturedSlider siteInfo={siteInfo1}  autoPlay={true} interval={4000} /> */}
 
                  <div className="bg-grey-900">
                           <ul className="p-2 space-y-2 text-lg text-gray-800 ">
                       {/* <div className="flex justify-center">
         <img src="/banner/Screenshot 2025-12-12 161900.png" alt="Logo" className="text-center" />
                       </div> */}
-       
+        
          
 
 
