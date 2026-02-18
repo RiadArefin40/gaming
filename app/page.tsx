@@ -45,60 +45,7 @@ type SocialLinksMap = {
   [key in SocialLink["platform"]]: string | null;
 };
 
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
 
-  const [position, setPosition] = useState({ x: 20, y: 200 });
-  const [dragging, setDragging] = useState(false);
-  const offset = useRef({ x: 0, y: 0 });
-
-  /* ===== START DRAG ===== */
-  const startDrag = (clientX: number, clientY: number) => {
-    if (!buttonRef.current) return;
-
-    const rect = buttonRef.current.getBoundingClientRect();
-    offset.current = {
-      x: clientX - rect.left,
-      y: clientY - rect.top,
-    };
-    setDragging(true);
-  };
-
-  /* ===== MOVE ===== */
-const onMove = (clientX: number, clientY: number) => {
-if (!dragging || !buttonRef.current) return;
-
-
-const marginX = 10;
-const marginTop = 10;
-const marginBottom = 70;
-
-
-const btnWidth = buttonRef.current.offsetWidth;
-const btnHeight = buttonRef.current.offsetHeight;
-
-
-const newX = clientX - offset.current.x;
-const newY = clientY - offset.current.y;
-
-
-const minX = marginX;
-const maxX = window.innerWidth - btnWidth - marginX;
-
-
-const minY = marginTop;
-const maxY = window.innerHeight - btnHeight - marginBottom;
-useEffect(() => {
-  StatusBar.setOverlaysWebView({ overlay: false });
-  StatusBar.setStyle({ style: Style.Dark });
-}, []);
-
-setPosition({
-x: Math.min(Math.max(newX, minX), maxX),
-y: Math.min(Math.max(newY, minY), maxY),
-});
-};
-  /* ===== END ===== */
-  const endDrag = () => setDragging(false);
 // const user: AuthUser | null = (() => {
 //   const stored = localStorage.getItem("auth_user");
 //   return stored ? JSON.parse(stored) as AuthUser : null;
@@ -255,6 +202,57 @@ const [contact, setContact] = useState(true);
     livechat: "https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-facebook.svg",
   };
 
+const buttonRef = useRef<HTMLButtonElement | null>(null);
+const [position, setPosition] = useState({ x: 20, y: 200 });
+const [dragging, setDragging] = useState(false);
+const offset = useRef({ x: 0, y: 0 });
+
+/* ===== STATUS BAR EFFECT ===== */
+useEffect(() => {
+  StatusBar.setOverlaysWebView({ overlay: false });
+  StatusBar.setStyle({ style: Style.Dark });
+}, []);
+
+/* ===== START DRAG ===== */
+const startDrag = (clientX: number, clientY: number) => {
+  if (!buttonRef.current) return;
+
+  const rect = buttonRef.current.getBoundingClientRect();
+  offset.current = {
+    x: clientX - rect.left,
+    y: clientY - rect.top,
+  };
+  setDragging(true);
+};
+
+/* ===== MOVE ===== */
+const onMove = (clientX: number, clientY: number) => {
+  if (!dragging || !buttonRef.current) return;
+
+  const marginX = 10;
+  const marginTop = 10;
+  const marginBottom = 70;
+
+  const btnWidth = buttonRef.current.offsetWidth;
+  const btnHeight = buttonRef.current.offsetHeight;
+
+  const newX = clientX - offset.current.x;
+  const newY = clientY - offset.current.y;
+
+  const minX = marginX;
+  const maxX = window.innerWidth - btnWidth - marginX;
+
+  const minY = marginTop;
+  const maxY = window.innerHeight - btnHeight - marginBottom;
+
+  setPosition({
+    x: Math.min(Math.max(newX, minX), maxX),
+    y: Math.min(Math.max(newY, minY), maxY),
+  });
+};
+
+/* ===== END ===== */
+const endDrag = () => setDragging(false);
 
   const isDragging = useRef(false);
 
