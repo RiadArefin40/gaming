@@ -15,6 +15,7 @@ import { useState, useEffect, useRef } from "react";
 import LiveChat from "./components/LiveChat";
 import WelcomePopup from "./components/WelcomePopup";
 import { StatusBar, Style } from '@capacitor/status-bar';
+import AppDownloadNotification from "./components/AppDownloadNotification";
 
 
 
@@ -299,6 +300,7 @@ const handleContact = () =>{
     
               </div>
 <WelcomePopup />
+<AppDownloadNotification/>
               <style jsx>{`
                 @keyframes marquee {
                   0% {
