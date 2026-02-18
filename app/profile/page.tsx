@@ -227,9 +227,8 @@ useEffect(() => {
   };
 const features = [
   { id: 1, name: "Promotions", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-promotion.svg?v=1767782599110" },
-  { id: 2, name: "Downloads", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-download.svg?v=1767782599110" },
+  { id: 2, name: "Downloads", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-download.svg?v=1767782599110" , link: "https://drive.google.com/uc?export=download&id=12M-ciTMnXLMjk0hyvzMnVLi_bKrEUf5Q"},
   
-  { id: 4, name: "Ambassador", icon: "https://img.m156b.com/mb/h5/assets/images/icon-set/theme-icon/icon-ambassador.svg?v=1767782599110" },
 ];
 
 const handleHome = () =>{

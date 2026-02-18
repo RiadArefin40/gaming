@@ -300,7 +300,7 @@ const handleContact = () =>{
     
               </div>
 <WelcomePopup />
-<AppDownloadNotification/>
+{/* <AppDownloadNotification/> */}
               <style jsx>{`
                 @keyframes marquee {
                   0% {
