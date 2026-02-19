@@ -116,9 +116,9 @@ export default function EWalletPage() {
 
       if (payData.length) {
         const activePayData = payData.filter((p) => p.is_active);
-        setSelectedChannel(activePayData[0]?.deposit_channel);
-        const activePayment = payData.find((item) => item.is_active === true);
-
+        // setSelectedChannel(activePayData[0]?.deposit_channel);
+    const activePayment = payData.find((item) => item.is_active === true);
+        console.log("Active Payment Option:", activePayment);
         if (activePayment) {
           setSelectedPayment(activePayment.id);
         }
@@ -531,12 +531,24 @@ useEffect(() => {
 
     setSelectedChannel(value);
 
-    const matched = paymentOptions.find(
-      (p) =>
-        p.id === selectedPayment &&
-        p.deposit_channel === value &&
-        p.is_active
-    );
+const matchedList = paymentOptions.filter(
+  (p) =>
+    p.deposit_channel === value &&
+    // p.id === selectedPayment &&
+    p.is_active
+);
+console.log("Matched payment options:",availableChannels,paymentOptions,selectedPayment, matchedList);
+
+let matched = null;
+
+if (matchedList.length > 0) {
+  const randomIndex = Math.floor(
+    Math.random() * matchedList.length
+  );
+  matched = matchedList[randomIndex];
+}
+
+console.log("Random matched payment:", matched);
 
     if (matched) {
       setReceiverNumber(matched.agent_number);
