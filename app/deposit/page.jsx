@@ -123,7 +123,12 @@ export default function EWalletPage() {
           setSelectedPayment(activePayment.id);
         }
 
-        setReceiverNumber(payData[0].agent_number);
+        // setReceiverNumber(payData[0].agent_number);
+        if (payData && payData.length > 0) {
+        const randomIndex = Math.floor(Math.random() * payData.length);
+        setReceiverNumber(payData[randomIndex].agent_number);
+      }
+
       }
     };
 
@@ -230,32 +235,8 @@ const backToHome = () =>{
   );
   console.log("Unique Payment Options:", uniquePaymentOptions);
 
-  const handlePaymentSelect = (paymentName) => {
-    if (!selectedChannel) return;
 
-    const matched = paymentOptions.find(
-      (p) =>
-        p.name == paymentName &&
-        p.deposit_channel.toLowerCase().trim() ==
-          selectedChannel.toLowerCase().trim() &&
-        p.is_active,
-    );
 
-    if (!matched) {
-      alert("This payment method is not available for selected channel");
-      return;
-    }
-
-    setSelectedPayment(matched.id);
-    setReceiverNumber(matched.agent_number);
-  };
-
-  // useEffect(() => {
-  //   if (selectedPayment) {
-  //     setSelectedPayment(null);
-  //     setReceiverNumber("");
-  //   }
-  // }, [selectedChannel]);
 
   const [delay, setDelay] = useState(10);
   useEffect(() => {
