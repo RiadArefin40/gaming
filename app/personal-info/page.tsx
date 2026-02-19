@@ -50,6 +50,10 @@ export default function ProfilePage() {
   const router = useRouter();
   const [fullName, setFullName] = useState("");
 const [dob, setDob] = useState("");
+const [claiming, setClaiming] = useState(false);
+const [vipPoints, setVipPoints] = useState(0);
+
+
 
   /* ================= DATA ================= */
   useEffect(() => {
@@ -76,10 +80,48 @@ useEffect(() => {
     .then((res) => res.json())
     .then((data) => {
       setBets(data.total_vip_points || 0);
+      setVipPoints(data.total_vip_points || 0);
       console.log("user", data); // ✅ correct
     })
     .catch(console.error);
 }, [user]);
+
+const handleClaimVip = async () => {
+  if (!user) return;
+
+  if (vipPoints < 1000) {
+    alert("Minimum 1000 VIP points required");
+    return;
+  }
+
+  try {
+    setClaiming(true);
+
+    const res = await fetch("https://api.spcwin.info/users/claim-vip", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ mobile: user.name }),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert(`Successfully claimed ${data.claimed} balance`);
+      
+      // refresh VIP
+      setVipPoints(data.remainingPoints || 0);
+    } else {
+      alert(data.message || "Claim failed");
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("Server error");
+  } finally {
+    setClaiming(false);
+  }
+};
+
  
 const backToHome = () =>{
   router.push('/')
@@ -239,15 +281,37 @@ else{
       </div>
 
       {/* ===== VIP POINTS ===== */}
-      <div className="bg-black-600 m-2 rounded-lg p-4 flex justify-between items-center">
-        <div>
-          <p className="text-lg font-bold text-gray-200">VIP Points (VP)</p>
-          <p className="text-2xl font-bold text-yellow-400">{bets}</p>
-        </div>
-        <Button variant="ghost" className="text-yellow-400">
-          My VIP →
-        </Button>
-      </div>
+<div className="bg-black-600 m-2 rounded-lg p-4 space-y-3">
+  <div className="flex justify-between items-center">
+    <div>
+      <p className="text-lg font-bold text-gray-200">VIP Points (VP)</p>
+      <p className="text-2xl font-bold text-yellow-400">
+        {vipPoints}
+      </p>
+    </div>
+
+    <Button
+      onClick={handleClaimVip}
+      disabled={claiming || vipPoints < 1000}
+      className={`${
+        vipPoints >= 1000
+          ? "bg-yellow-400 text-black"
+          : "bg-gray-600 text-gray-400 cursor-not-allowed"
+      }`}
+    >
+      {claiming
+        ? "Claiming..."
+        : vipPoints >= 1000
+        ? `Claim ${Math.floor(vipPoints / 1000)}`
+        : "Need 1000+"}
+    </Button>
+  </div>
+
+  <p className="text-xs text-gray-400">
+    1000 VIP Points = 1 Balance
+  </p>
+</div>
+
 
       {/* ===== TABS ===== */}
       <Tabs defaultValue="personal">
