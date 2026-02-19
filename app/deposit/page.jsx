@@ -587,7 +587,7 @@ console.log("Random matched payment:", matched);
     
 
               <div className="grid grid-cols-4 gap-2 mb-3">
-                {[500, 3000, 2000, 5000, 30000, 25000].map((value) => (
+                {[200, 500, 3000, 2000, 5000, 30000, 25000].map((value) => (
                   <Button
                     key={value}
                     variant="outline"

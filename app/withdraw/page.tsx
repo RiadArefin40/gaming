@@ -302,7 +302,7 @@ const handleWithdraw = async () => {
 />
 
 <div className="grid grid-cols-3 gap-2 mb-3 mt-3">
-  {[ 500, 3000, 30000, 25000].map((value) => (
+  {[200, 500, 3000, 30000, 25000].map((value) => (
     <Button
       key={value}
       variant="outline"
