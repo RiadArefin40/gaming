@@ -30,7 +30,7 @@ export default function Slider({
     if (!siteInfo.length) return [];
     const res: any[][] = [];
     const len = siteInfo.length;
-    for (let i = 0; i < len; i += 2) {
+    for (let i = 0; i < len; i += 1) {
       const first = siteInfo[i];
       const second = siteInfo[i + 1] ?? siteInfo[(i + 1) % len];
       res.push([first, second]);
