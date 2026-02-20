@@ -418,7 +418,7 @@ setLoading(false);
                     : ""
                 }
     alt="exclusive-game"
-    className="w-[55px] h-[58px] rounded-xs"
+    className="w-[55px] h-[58px] rounded-lg p-[1px]"
   />
  <div>
 <p className="text-xs mt-[1px] font-medium">
