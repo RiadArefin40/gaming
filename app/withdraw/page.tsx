@@ -157,11 +157,11 @@ loadWidthraw()
 
 const handleWithdraw = async () => {
   if (!user || !selectedPhone || !amount || !selectedPayment || !selectedChannel) return;
-  if(phoneVerified === false){
+  // if(phoneVerified === false){
 
-    setVerifyOpen(true);
-    return
-  }
+  //   setVerifyOpen(true);
+  //   return
+  // }
 
   setIsLoading(true);
 
