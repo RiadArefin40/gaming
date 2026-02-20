@@ -12,6 +12,7 @@ export default function AuthPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+   const [cpassword, setcPassword] = useState("");
   const [error, setError] = useState("");
     const [phone, setPhone] = useState("");
   const [referral, setReferral] = useState("");
@@ -66,7 +67,7 @@ const handleLogin = async () => {
 
   const [showPassword, setShowPassword] = useState(false);
 const handleSignUp = async () => {
- if (!username || !phone) {
+ if (!password || !cpassword) {
       alert("Current Password and new Password required!");
       return;
     }
@@ -169,8 +170,8 @@ useEffect(() => {
         type={showPassword ? "text" : "password"}
         className="w-full h-12 bg-white/10 rounded-md px-4 pr-12 text-lg placeholder-gray-400"
         placeholder="Write Password Here"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={cpassword}
+        onChange={(e) => setcPassword(e.target.value)}
       />
       <button
         type="button"
