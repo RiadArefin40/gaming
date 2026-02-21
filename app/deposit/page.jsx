@@ -146,7 +146,7 @@ export default function EWalletPage() {
   const canStep2 =
     selectedPayment &&
     receiverNumber &&
-    senderNumber.trim().length >= 6 &&
+    senderNumber?.trim().length >= 6 &&
     amount &&
     Number(amount) >= 100;
   const canStep3 = transactionId;

@@ -209,10 +209,10 @@ const [dragging, setDragging] = useState(false);
 const offset = useRef({ x: 0, y: 0 });
 
 /* ===== STATUS BAR EFFECT ===== */
-useEffect(() => {
-  StatusBar.setOverlaysWebView({ overlay: false });
-  StatusBar.setStyle({ style: Style.Dark });
-}, []);
+// useEffect(() => {
+//   StatusBar.setOverlaysWebView({ overlay: false });
+//   StatusBar.setStyle({ style: Style.Dark });
+// }, []);
 
 /* ===== START DRAG ===== */
 const startDrag = (clientX: number, clientY: number) => {
