@@ -57,7 +57,7 @@ export const metadata: Metadata = {
 
   // iOS Safari / Apple status bar
   appleWebApp: {
-    statusBarStyle: "black-translucent",
+  //  statusBarStyle: "black-translucent",
   },
 };
 

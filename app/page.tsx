@@ -14,7 +14,7 @@ import { Menu, Gamepad2, Dice6, Wallet, User, Crown, Activity, Rocket, X,Message
 import { useState, useEffect, useRef } from "react";
 import LiveChat from "./components/LiveChat";
 import WelcomePopup from "./components/WelcomePopup";
-import { StatusBar, Style } from '@capacitor/status-bar';
+// import { StatusBar, Style } from '@capacitor/status-bar';
 import AppDownloadNotification from "./components/AppDownloadNotification";
 
 
