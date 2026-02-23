@@ -127,7 +127,7 @@ export default function Slider({
               >
                 <img
                   src={`https://api.spcwin.info${item.image_url}`}
-                  alt={item?.alt || "Qatarat banner"}
+                  alt={item?.alt}
                   className="object-contain  mt-4"
                   // sizes="(max-width: 768px) 100vw, 50vw"
                 />
