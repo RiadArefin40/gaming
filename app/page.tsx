@@ -529,7 +529,7 @@ const handleContact = () =>{
   }}
         onTouchEnd={endDrag}
       //  onClick={() => router.push('/live-chat')}
-        className="  fixed z-50 h-14 w-14   touch-none bg-black-800 border border-yellow-500 text-white p-4 rounded-full shadow-lg flex items-center justify-center z-50 hover:scale-110 transition-transform"
+        className="  fixed z-50   touch-none bg-black-800 border border-yellow-500 text-white  rounded-full shadow-lg flex items-center justify-center z-50 hover:scale-110 transition-transform"
         aria-label="Contact"
             style={{
           left: position.x,
@@ -537,12 +537,11 @@ const handleContact = () =>{
         }}
       >
         <div className="relative">
-        <a href="https://t.me/+8801407675055">
-          <p className="text-2xl font-bold pt-3"> <span className="text-yellow-300/90">S</span><span>W</span></p>
-          <Headphones size={20} className="text-slate-100 lighter absolute -top-1 right-[8px]"/>
+        <a   href={links["telegram"] || "#"}>
+        <img className="w-12 h-12" src="https://img.j189eb.com/jb/h5/assets/v3/images/icon-set/media-type/icon-telegram-channel.svg" alt="" />
         </a>
-   
         </div>
+        
       
       </button>
        {/* <X onClick={() => handleContact()} className="absolute z-50  top-2 right-12 text-white/70 font-bold"/> */}
