@@ -528,7 +528,7 @@ const handleContact = () =>{
     onMove(e.touches[0].clientX, e.touches[0].clientY);
   }}
         onTouchEnd={endDrag}
-       onClick={() => router.push('/live-chat')}
+      //  onClick={() => router.push('/live-chat')}
         className="  fixed z-50 h-14 w-14   touch-none bg-black-800 border border-yellow-500 text-white p-4 rounded-full shadow-lg flex items-center justify-center z-50 hover:scale-110 transition-transform"
         aria-label="Contact"
             style={{
@@ -537,8 +537,11 @@ const handleContact = () =>{
         }}
       >
         <div className="relative">
-      <p className="text-2xl font-bold pt-3"> <span className="text-yellow-300/90">S</span><span>W</span></p>
-       <Headphones size={20} className="text-slate-100 lighter absolute -top-1 right-[8px]"/>
+        <a href="https://t.me/+8801407675055">
+          <p className="text-2xl font-bold pt-3"> <span className="text-yellow-300/90">S</span><span>W</span></p>
+          <Headphones size={20} className="text-slate-100 lighter absolute -top-1 right-[8px]"/>
+        </a>
+   
         </div>
       
       </button>
