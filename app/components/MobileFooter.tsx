@@ -116,7 +116,7 @@ export default function MobileFooter() {
     // redirect after logout
     window.location.href = "/login";
   };
-  const [unreadCount, setUnread] = useState(null);
+  const [unreadCount, setUnread] = useState(0);
   const [notifications, setNotifications] = useState(null);
 
 
@@ -569,9 +569,12 @@ const features = [
             <SheetTrigger>
 <div className="relative flex flex-col items-center gap-1">
   {/* Notification badge */}
+  {unreadCount > 0 && (
   <span className="absolute -top-1.5 -right-[6px] bg-red-600 text-white text-xs z-50 font-bold px-2 py-[1px] rounded-full">
     {unreadCount}
   </span>
+  )}
+
 
   <div
     className={`relative w-14 h-12 flex flex-col items-center justify-center`}

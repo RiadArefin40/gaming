@@ -128,7 +128,7 @@ export default function Profile({ onAction }: ProfileProps) {
     // redirect after logout
     window.location.href = "/login";
   };
-  const [unreadCount, setUnread] = useState(null);
+  const [unreadCount, setUnread] = useState(0);
   const [notifications, setNotifications] = useState(null);
 
 
@@ -527,7 +527,10 @@ const features = [
             alt={""}
           />
           <span className="text-slate-200 text-md font-bold">Notification</span>
-            <span className="absolute right-6 bg-red-600 px-[4px] rounded-full top-3 text-sm">{unreadCount}</span> 
+          {unreadCount > 0 && (
+ <span className="absolute right-6 bg-red-600 px-[4px] rounded-full top-3 text-sm">{unreadCount}</span> 
+          )}
+           
         </div>
     
    
