@@ -166,7 +166,7 @@ setOtpModal(true);
 
 }
 const sendOtp = async (phone:any) => {
-  const res = await fetch("/api/send-otp", {
+  const res = await fetch("/apis/send-otp", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
