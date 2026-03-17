@@ -25,7 +25,7 @@ useEffect(()=>{
         const fetchData = async () => {
       try {  
         // const res = await fetch("https://api.spcwin.info/users/game-categories");
-        const res = await fetch("https://ex-api-demo-yy.568win.com/web-root/restricted/information/get-game-list.aspxs", {
+        const res = await fetch("https://ex-api-demo-yy.568win.com/web-root/restricted/information/get-game-list.aspx", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
