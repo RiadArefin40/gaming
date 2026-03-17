@@ -25,7 +25,7 @@ useEffect(()=>{
         const fetchData = async () => {
       try {  
         // const res = await fetch("https://api.spcwin.info/users/game-categories");
-const res = await fetch("/api/games", {
+const res = await fetch("/apis/games", {
   method: "POST",
 });
 
