@@ -25,22 +25,13 @@ useEffect(()=>{
         const fetchData = async () => {
       try {  
         // const res = await fetch("https://api.spcwin.info/users/game-categories");
-        const res = await fetch("https://ex-api-demo-yy.568win.com/web-root/restricted/information/get-game-list.aspx", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-      },
-      body: JSON.stringify({
-  "CompanyKey": "F38A19A3FFDD4DF89A243A8ED8ACC6C6",
-  "ServerId": "spcwin1234",
-  "GpId": 1,
-  "IsGetAll": true
-})})
-        if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
-        const json = await res.json();
-        console.log('json-new', json)
-        setCategories(json);
+const res = await fetch("/api/games", {
+  method: "POST",
+});
+
+const data = await res.json();
+console.log(data);
+        // setCategories(json);
        
       } catch (err: any) {
         console.error(err);
