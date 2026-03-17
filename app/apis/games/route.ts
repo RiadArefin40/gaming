@@ -10,7 +10,7 @@ export async function POST() {
         body: JSON.stringify({
           CompanyKey:"F38A19A3FFDD4DF89A243A8ED8ACC6C6" ,
           ServerId: "spcwin1234",
-          GpId: 1,
+          GpId: 2,
           IsGetAll: true,
         }),
         cache: "no-store", // optional (avoids caching issues)
