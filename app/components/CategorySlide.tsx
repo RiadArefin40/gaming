@@ -21,26 +21,26 @@ export default function CategorySlider() {
 
 
 
-useEffect(()=>{
-        const fetchData = async () => {
-      try {  
-        // const res = await fetch("https://api.spcwin.info/users/game-categories");
-const res = await fetch("/apis/games", {
-  method: "POST",
-});
+// useEffect(()=>{
+//         const fetchData = async () => {
+//       try {  
+//         // const res = await fetch("https://api.spcwin.info/users/game-categories");
+// const res = await fetch("/apis/games", {
+//   method: "POST",
+// });
 
-const data = await res.json();
-console.log(data);
-        // setCategories(json);
+// const data = await res.json();
+// console.log(data);
+//         // setCategories(json);
        
-      } catch (err: any) {
-        console.error(err);
+//       } catch (err: any) {
+//         console.error(err);
     
-      }
-    };
-    fetchData()
+//       }
+//     };
+//     fetchData()
 
-},[])
+// },[])
 
 const normalizeCategories = (data: Category[]) => {
   const used = new Set<number>();
