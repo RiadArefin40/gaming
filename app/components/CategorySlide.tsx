@@ -23,12 +23,15 @@ export default function CategorySlider() {
 
 useEffect(()=>{
         const fetchData = async () => {
-      try {
-        const res = await fetch("https://api.spcwin.info/users/game-categories");
-        if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
-        const json = await res.json();
-        console.log('json', json)
-        setCategories(json);
+      try {  
+        // const res = await fetch("https://api.spcwin.info/users/game-categories");
+const res = await fetch("/apis/games", {
+  method: "POST",
+});
+
+const data = await res.json();
+console.log(data);
+        // setCategories(json);
        
       } catch (err: any) {
         console.error(err);
