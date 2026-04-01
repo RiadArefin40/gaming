@@ -280,6 +280,19 @@ const handleContact = () =>{
   setContact(false);
  setOpen(false)
 }
+
+const handlePlay = async () => {
+  const res = await fetch("/apis/play", {
+    method: "POST",
+    body: JSON.stringify({
+      userId: "user123"
+    })
+  });
+
+  const data = await res.json();
+  window.location.href = data.loginUrl;
+};
+
   if (!mounted) return null; // ⛔ prevent SSR crash
 
   return (
@@ -298,6 +311,11 @@ const handleContact = () =>{
                   </span>
                 </div>
     
+              </div>
+              <div>
+                <button onClick={handlePlay}>
+    Play Sports
+  </button>
               </div>
 <WelcomePopup />
 {/* <AppDownloadNotification/> */}
